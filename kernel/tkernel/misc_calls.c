@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -26,10 +26,16 @@
  */
 SYSCALL ER tk_ref_sys( T_RSYS *pk_rsys )
 {
+	BOOL	b_qtsk;
+
+	BEGIN_DISABLE_INTERRUPT;
+	b_qtsk = in_qtsk();	
+	END_DISABLE_INTERRUPT;
+
 	if ( in_indp() ) {
 		pk_rsys->sysstat = TSS_INDP;
 	} else {
-		if ( in_qtsk() ) {
+		if ( b_qtsk ) {
 			pk_rsys->sysstat = TSS_QTSK;
 		} else {
 			pk_rsys->sysstat = TSS_TSK;
@@ -81,10 +87,16 @@ SYSCALL ER tk_ref_ver( T_RVER *pk_rver )
  */
 SYSCALL ER td_ref_sys( TD_RSYS *pk_rsys )
 {
+	BOOL	b_qtsk;
+
+	BEGIN_DISABLE_INTERRUPT;
+	b_qtsk = in_qtsk();	
+	END_DISABLE_INTERRUPT;
+
 	if ( in_indp() ) {
 		pk_rsys->sysstat = TSS_INDP;
 	} else {
-		if ( in_qtsk() ) {
+		if ( b_qtsk ) {
 			pk_rsys->sysstat = TSS_QTSK;
 		} else {
 			pk_rsys->sysstat = TSS_TSK;

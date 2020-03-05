@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -19,7 +19,12 @@
 #ifndef __TK_CONFIG__
 #define __TK_CONFIG__
 
-#define _IOTE_M367_
+/*---------------------------------------------------------------------- */
+/*  Target Name
+	Define the system target name. Alternatively, define the target name 
+	in the development environment.
+ */
+//#define _IOTE_M367_
 
 /*---------------------------------------------------------------------- */
 /* SYSCONF : micro T-Kernel system configuration

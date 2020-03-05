@@ -253,9 +253,6 @@ SYSCALL void tk_ext_tsk( void )
 #ifdef DORMANT_STACK_SIZE
 	/* for WARNING */
 	_dummy[0] = 0;
-#ifdef  __RENESAS__
-	_dummy[_dummy[0]] = 0;		// Adapted to The CubeSuite+ CCRX complier.
-#endif
 #endif
 }
 #endif /* USE_FUNC_TK_EXT_TSK */

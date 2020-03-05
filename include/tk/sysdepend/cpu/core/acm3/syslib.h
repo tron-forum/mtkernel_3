@@ -44,9 +44,6 @@ IMPORT UW disint(void);			/* Disable interrupt */
 #define INTLEVEL_DI		(0)
 #define INTLEVEL_EI		(255)
 
-#define SetCpuIntLevel(level)	(set_basepri((level+1) << (8-INTPRI_BITWIDTH)))
-#define GetCpuIntLevel()	((INT)((get_basepri() >> (8-INTPRI_BITWIDTH))-1))
-
 /*
  * Interrupt priority grouping
  *

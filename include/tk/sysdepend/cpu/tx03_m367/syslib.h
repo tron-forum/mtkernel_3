@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -26,7 +26,6 @@
 /*
  * Interrupt number
  */
-
 #define	M367_INT0		0
 #define	M367_INT1		1
 #define	M367_INT2		2
@@ -44,6 +43,16 @@
 #define	M367_INTUSBWKUP		34
 #define M367_INTRMCRX		74
 #define	M367_INTRTC		99
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Interrupt mode ( SetIntMode )
+ */
+#define IM_LEVEL	0x0002		/* Level trigger */
+#define IM_EDGE		0x0000		/* Edge trigger */
+#define IM_HI		0x0000		/* H level/Interrupt at rising edge */
+#define IM_LOW		0x0001		/* L level/Interrupt at falling edge */
+
 
 /* ------------------------------------------------------------------------ */
 /*

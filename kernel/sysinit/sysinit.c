@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -90,7 +90,7 @@ EXPORT INT main( void )
 #if USE_SHUTDOWN
 	knl_timer_shutdown();	/* Stop System timer */
 err_ret1:
-	knl_shutdown_device();	/* Hardware-dependent Finalization */
+	knl_shutdown_hw();	/* Hardware-dependent Finalization */
 	/**** No return ****/
 #else
 err_ret1:
@@ -108,7 +108,7 @@ err_ret:
 EXPORT void knl_tkernel_exit( void )
 {
 	knl_timer_shutdown();	/* Stop System timer */
-	knl_shutdown_device();	/* Hardware-dependent Finalization */
+	knl_shutdown_hw();	/* Hardware-dependent Finalization */
 	/**** No return ****/
 
 	while(1);
