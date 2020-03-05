@@ -57,6 +57,10 @@ IMPORT BOOL CheckInt( UINT intno );	/* Check active state for the associated int
 IMPORT void SetIntMode(UINT intno, UINT mode);	/* Set interrupt mode */
 #endif /* TK_SUPPORT_INTMODE */
 
+#if TK_SUPPORT_CPUINTLEVEL
+IMPORT void SetCpuIntLevel( INT level );
+IMPORT INT GetCpuIntLevel( void );
+#endif /* TK_SUPPORT_CPUINTLEVEL */
 
 #if TK_SUPPORT_CTRLINTLEVEL
 IMPORT void SetCtlIntLevel(INT level);	/* Set interrupt mask level in interrupt controller */
