@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -53,21 +53,14 @@ IMPORT BOOL CheckInt( UINT intno );	/* Check active state for the associated int
 
 #endif /* TK_SUPPORT_INTCTRL */
 
-
 #if TK_SUPPORT_INTMODE
-
-#define IM_LEVEL	0x0002		/* Level trigger */
-#define IM_EDGE		0x0000		/* Edge trigger */
-#define IM_HI		0x0000		/* H level/Interrupt at rising edge */
-#define IM_LOW		0x0001		/* L level/Interrupt at falling edge */
-
 IMPORT void SetIntMode(UINT intno, UINT mode);	/* Set interrupt mode */
 #endif /* TK_SUPPORT_INTMODE */
 
 
 #if TK_SUPPORT_CTRLINTLEVEL
 IMPORT void SetCtlIntLevel(INT level);	/* Set interrupt mask level in interrupt controller */
-IMPORT INT  GetCtlIntLevwl(void);	/* Get interrupt mask level in interrupt controller */
+IMPORT INT  GetCtlIntLevel(void);	/* Get interrupt mask level in interrupt controller */
 #endif /* TK_SUPPORT_CTRLINTLEVEL */
 
 

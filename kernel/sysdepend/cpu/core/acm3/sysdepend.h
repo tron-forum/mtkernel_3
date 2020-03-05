@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -18,12 +18,6 @@
 
 #ifndef _SYSDEPEND_CPU_CORE_SYSDEPEND_
 #define _SYSDEPEND_CPU_CORE_SYSDEPEND_
-
-/*
- *    System data (sys_dat.c)
- */
-IMPORT	W	knl_taskindp;		/* Task independent status */
-IMPORT	UB	exchdr_tbl[];		/* Exception handler table (RAM) */
 
 /*
  *    Reset Handler (vector_tbl.c/reset_hdl.c)
@@ -53,6 +47,8 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
 /*
  * Interrupt Control (interrupt.c)
  */
+IMPORT	UB	exchdr_tbl[];			/* Exception handler table (RAM) */
+
 IMPORT void knl_systim_inthdr(void);		/* System-timer Interrupt handler */
 
 

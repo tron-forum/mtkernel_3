@@ -56,11 +56,7 @@ Inline void knl_setup_context( TCB *tcb )
 	pc = (UW)tcb->task;
 
 	/* CPU context initialization */
-#if USE_PROCESS_SP
-	ssp->exp_ret = 0xFFFFFFFD;
-#else
 	ssp->exp_ret = 0xFFFFFFF9;
-#endif
 	ssp->lr = 0;
 	ssp->xpsr = xpsr;		/* Initial SR */
 	ssp->pc = (void *)(pc & ~0x00000001UL);	/* Task startup address */

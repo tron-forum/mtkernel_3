@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -46,14 +46,14 @@ EXPORT void Reset_Handler(void)
 	INT	i;
 
 	/* Startup Hardware */
-	knl_startup_device();
+	knl_startup_hw();
 
 #if !USE_STATIC_IVT
 	/* Load Vector Table from ROM to RAM */
 	src = (UW*)vector_tbl;;
 	top = (UW*)exchdr_tbl;
 
-	for(i=0; i < (SYS_VECTOR_SIZE + INT_VECTOR_SIZE); i++) {
+	for(i=0; i < ( (SYS_VECTOR_SIZE+INT_VECTOR_SIZE)/sizeof(UW) ); i++) {
 		*top++ = *src++;
 	}
 	

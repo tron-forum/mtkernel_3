@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -142,7 +142,7 @@ SYSCALL ER td_set_reg( ID tskid, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_C
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_set_reg(tcb, regs, eit, cregs);
+		knl_set_reg(&(tcb->tskctxb), regs, eit, cregs);
 	}
 	END_DISABLE_INTERRUPT;
 
@@ -171,7 +171,7 @@ SYSCALL ER td_get_reg( ID tskid, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_get_reg(tcb, regs, eit, cregs);
+		knl_get_reg(&(tcb->tskctxb), regs, eit, cregs);
 	}
 	END_DISABLE_INTERRUPT;
 

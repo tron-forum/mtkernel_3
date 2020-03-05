@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -20,6 +20,13 @@
 #include "../../../sysdepend.h"
 
 #include "cpu_task.h"
+
+
+/* Temporal stack used when 'dispatch_to_schedtsk' is called */
+Noinit(EXPORT UB knl_tmp_stack[TMP_STACK_SIZE]);
+
+/* Task independent status */
+EXPORT	W	knl_taskindp = 0;
 
 /* ------------------------------------------------------------------------ */
 /*
