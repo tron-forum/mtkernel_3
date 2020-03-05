@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -59,6 +59,22 @@ EXPORT UW disint(void)
 	Asm("msr basepri, %0":: "r"(maxint));
 
 	return intsts;
+}
+
+/*
+ * Set Interrupt Mask Level in CPU
+ */
+EXPORT void SetCpuIntLevel( INT level )
+{
+	set_basepri((level+1) << (8-INTPRI_BITWIDTH));
+}
+
+/*
+ * Get Interrupt Mask Level in CPU
+ */
+EXPORT INT GetCpuIntLevel( void )
+{
+	return (INT)((get_basepri() >> (8-INTPRI_BITWIDTH))-1);
 }
 
 
