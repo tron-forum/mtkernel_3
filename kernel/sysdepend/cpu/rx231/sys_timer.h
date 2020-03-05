@@ -12,25 +12,13 @@
  */
 
 /*
- *	tm_conf.h
- *	T-Monitor Configuration Definition
+ *	sys_timer.h (RX231)
+ *	Hardware-Dependent System Timer Processing
  */
 
-#ifndef __TM_CONF_H__
-#define __TM_CONF_H__
+#ifndef _SYSDEPEND_CPU_SYSTIMER_
+#define _SYSDEPEND_CPU_SYSTIMER_
 
-/* Select a communication port */
-#ifdef _IOTE_M367_
-#define USE_COM_IOTE_M367
-#endif
+#include "../core/rxv2/sys_timer.h"
 
-#ifdef _IOTE_RX231_
-#define USE_COM_IOTE_RX231
-#endif
-
-
-/* tm_printf() call */
-#define	USE_TM_PRINTF		(1)	/* Use tm_printf() & tm_sprintf() calls */
-#define	TM_OUTBUF_SZ		(0)	/* Output Buffer size in stack */
-
-#endif /* __TM_CONF_H__ */
+#endif /* _SYSDEPEND_CPU_SYSTIMER_ */

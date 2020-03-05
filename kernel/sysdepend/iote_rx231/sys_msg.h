@@ -12,25 +12,19 @@
  */
 
 /*
- *	tm_conf.h
- *	T-Monitor Configuration Definition
+ *	sys_msg.h (RX231 IoT-Engine)
+ *	Hardware-Dependent System message
  */
 
-#ifndef __TM_CONF_H__
-#define __TM_CONF_H__
+#ifndef _SYSDEPEND_TARGET_SYSMSG_
+#define _SYSDEPEND_TARGET_SYSMSG_
 
-/* Select a communication port */
-#ifdef _IOTE_M367_
-#define USE_COM_IOTE_M367
-#endif
+#include <tm/tmonitor.h>
 
-#ifdef _IOTE_RX231_
-#define USE_COM_IOTE_RX231
-#endif
+#if (USE_SYSTEM_MESSAGE && USE_TMONITOR)
+#define SYSTEM_MESSAGE(s)	tm_putstring((UB*)s)
+#else
+#define SYSTEM_MESSAGE(s)
+#endif /* USE_SYSTEM_MESSAGE && USE_TMONITOR */
 
-
-/* tm_printf() call */
-#define	USE_TM_PRINTF		(1)	/* Use tm_printf() & tm_sprintf() calls */
-#define	TM_OUTBUF_SZ		(0)	/* Output Buffer size in stack */
-
-#endif /* __TM_CONF_H__ */
+#endif /* _SYSDEPEND_TARGET_SYSMSG_ */

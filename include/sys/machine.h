@@ -26,6 +26,10 @@
 #include "sysdepend/iote_m367/machine.h"
 #endif
 
+#ifdef _IOTE_RX231_
+#include "sysdepend/iote_rx231/machine.h"
+#endif
+
 /* ===== C compiler dependencies definitions ============================= */
 
 #ifdef __GNUC__

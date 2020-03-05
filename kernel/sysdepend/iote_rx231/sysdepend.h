@@ -12,25 +12,14 @@
  */
 
 /*
- *	tm_conf.h
- *	T-Monitor Configuration Definition
+ *	sysdepend.h (RX231 IoT-Engine)
+ *	System-Dependent local defined
  */
 
-#ifndef __TM_CONF_H__
-#define __TM_CONF_H__
-
-/* Select a communication port */
-#ifdef _IOTE_M367_
-#define USE_COM_IOTE_M367
-#endif
-
-#ifdef _IOTE_RX231_
-#define USE_COM_IOTE_RX231
-#endif
+#ifndef _SYSDEPEND_TARGET_SYSDEPEND_
+#define _SYSDEPEND_TARGET_SYSDEPEND_
 
 
-/* tm_printf() call */
-#define	USE_TM_PRINTF		(1)	/* Use tm_printf() & tm_sprintf() calls */
-#define	TM_OUTBUF_SZ		(0)	/* Output Buffer size in stack */
+#include "../cpu/rx231/sysdepend.h"
 
-#endif /* __TM_CONF_H__ */
+#endif /* _SYSDEPEND_TARGET_SYSDEPEND_ */

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.00
  *
@@ -11,26 +11,16 @@
  *----------------------------------------------------------------------
  */
 
+#include <sys/machine.h>
+#ifdef CPU_TMPM369FDFG
+
 /*
- *	tm_conf.h
- *	T-Monitor Configuration Definition
+ *	int.c
+ *
+ *	Interrupt controll (RX231 )
  */
-
-#ifndef __TM_CONF_H__
-#define __TM_CONF_H__
-
-/* Select a communication port */
-#ifdef _IOTE_M367_
-#define USE_COM_IOTE_M367
-#endif
-
-#ifdef _IOTE_RX231_
-#define USE_COM_IOTE_RX231
-#endif
+#include <tk/tkernel.h>
+#include <tk/syslib.h>
 
 
-/* tm_printf() call */
-#define	USE_TM_PRINTF		(1)	/* Use tm_printf() & tm_sprintf() calls */
-#define	TM_OUTBUF_SZ		(0)	/* Output Buffer size in stack */
-
-#endif /* __TM_CONF_H__ */
+#endif /* CPU_TMPM369FDFG */
