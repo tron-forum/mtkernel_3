@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -43,6 +43,8 @@
 #define USE_FUNC_TK_REL_WAI
 #define USE_FUNC_TK_GET_REG
 #define USE_FUNC_TK_SET_REG
+#define USE_FUNC_TK_GET_CPR
+#define USE_FUNC_TK_SET_CPR
 #define USE_FUNC_TK_REF_TSK
 #define USE_FUNC_TK_SUS_TSK
 #define USE_FUNC_TK_RSM_TSK
@@ -56,7 +58,6 @@
 #define USE_FUNC_TD_INF_TSK
 #define USE_FUNC_TD_GET_REG
 #define USE_FUNC_TD_SET_REG
-
 
 /* Semaphore management API */
 #define USE_FUNC_TK_DEL_SEM

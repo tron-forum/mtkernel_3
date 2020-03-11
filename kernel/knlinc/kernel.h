@@ -222,6 +222,11 @@ IMPORT	void	*knl_lowmem_top, *knl_lowmem_limit;
 IMPORT void knl_set_reg( CTXB *ctxb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs );
 IMPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs );
 
+#if NUM_COPROCESSOR > 0
+IMPORT ER knl_get_cpr( CTXB *ctxb, INT copno, T_COPREGS *copregs);
+IMPORT ER knl_set_cpr( CTXB *ctxb, INT copno, CONST T_COPREGS *copregs);
+#endif
+
 /*
  * Interuupt control (interrupt.c)
  */

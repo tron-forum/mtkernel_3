@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -23,7 +23,7 @@
 
 	.section .text
 	.globl Csym(knl_hll_inthdr)
-	.globl Csym(tk_ret_int)
+	.globl Csym(knl_return_inthdr)
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -93,14 +93,14 @@ l_no_change_sp2:
 	popm	r3-r7
 	popm	r14-r15
 
-	/* bra  Cym(tk_ret_int) */
+	/* bra  Cym(knl_return_inthdr) */
 
 /* ------------------------------------------------------------------------ */
 /*
- * tk_ret_int()  System call entry point
+ * knl_return_inthdr()  Called from tk_ret_int call.
  *    This call can be called only from a handler with the assembler attribute.
  */
-Csym(tk_ret_int):
+Csym(knl_return_inthdr):
 	/* During interrupt disable PSW.I=0 */
 	mov.l	#Csym(knl_int_nest), r1		/* Is it a nesting interrupt? */
 	mov.l	[r1], r2

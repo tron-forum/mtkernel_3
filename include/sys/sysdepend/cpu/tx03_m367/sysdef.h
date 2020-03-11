@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -161,5 +161,18 @@
 #define	PUP(n)		(PORT##n##_BASE + 0x2C)	// Pull-up Control
 #define	PDN(n)		(PORT##n##_BASE + 0x30)	// Pull-down Control
 #define	IE(n)		(PORT##n##_BASE + 0x38)	// Input Control
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Coprocessor
+ */
+#define CPU_HAS_FPU			0
+#define CPU_HAS_DPS			0
+
+/*
+ *  Number of coprocessors to use. 
+ *    There is no coprocessor for this microcomputer.
+ */
+#define NUM_COPROCESSOR		0
 
 #endif /* __TK_SYSDEF_DEPEND_CPU_H__ */

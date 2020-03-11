@@ -27,7 +27,6 @@ IMPORT void Reset_Handler(void);		/* Reset Handler */
 /*
  *    Exception Handler (vector_tbl.c/exc_hdr.c)
  */
-IMPORT void Reset_Handler(void);		/* Reset Handler */
 IMPORT void NMI_Handler(void);			/* NMI Handler */
 IMPORT void HardFault_Handler(void);		/* Hard Fault Handler */
 IMPORT void MemManage_Handler(void);		/* MPU Fault Handler */

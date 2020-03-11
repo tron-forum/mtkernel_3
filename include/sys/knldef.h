@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -33,7 +33,13 @@
 # error "The maximum task priority must be 16 or higher."
 #endif
 
+#if USE_FPU && !CPU_HAS_FPU
+# error "USE_FPU cannot be specified."
+#endif
 
+#if USE_DPS && !CPU_HAS_DSP
+# error "USE_DSP cannot be specified."
+#endif
 
 /*---------------------------------------------------------------------- */
 /* System memory area definition

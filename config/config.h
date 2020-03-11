@@ -25,6 +25,7 @@
 	in the development environment.
  */
 //#define _IOTE_M367_
+//#define _IOTE_RX231_
 
 /*---------------------------------------------------------------------- */
 /* SYSCONF : micro T-Kernel system configuration
@@ -134,6 +135,13 @@
 #define USE_SYSTEM_MESSAGE	(1)	/* System Message */
 #define USE_EXCEPTION_DBG_MSG	(1)	/* Excepttion debug message */
 #define USE_TASK_DBG_MSG	(1)	/* Tsak debug message */
+
+/*---------------------------------------------------------------------- */
+/* Use Co-Processor.
+　*  1: Valid  0: Invalid
+ */
+#define	USE_FPU			(0)	/* Use FPU */
+#define	USE_DSP			(0)	/* Use DSP */
 
 /*
  *	Use function Definition

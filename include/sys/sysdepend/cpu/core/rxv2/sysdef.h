@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -77,21 +77,5 @@
  */
 #define DEFAULT_SYS_STKSZ	MIN_SYS_STACK_SIZE
 
-/* ------------------------------------------------------------------------ */
-
-/*
- * Number of coprocessors to use.
- * 	Depends on user configuration
- */
-
-#if USE_FPU && USE_DSP
-#define NUM_COPROCESSOR		2
-#elif USE_FPU
-#define NUM_COPROCESSOR		1
-#elif USE_DSP
-#define NUM_COPROCESSOR		1
-#else
-#define NUM_COPROCESSOR		0
-#endif
 
 #endif /* __SYS_SYSDEF_DEPEND_CORE_H__ */

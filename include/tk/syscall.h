@@ -701,6 +701,9 @@ typedef struct t_devreq {
 #define TDV_CARDEVT	1	/* PC card event (Refer card manager) */
 #define TDV_USBEVT	2	/* USB event     (Refer USB manager) */
 
+/*
+ * System call prototype declaration
+ */
 IMPORT ID tk_cre_tsk( CONST T_CTSK *pk_ctsk );
 IMPORT ER tk_del_tsk( ID tskid );
 IMPORT ER tk_sta_tsk( ID tskid, INT stacd );
@@ -723,6 +726,11 @@ IMPORT ER tk_slp_tsk( TMO tmout );
 IMPORT ER tk_wup_tsk( ID tskid );
 IMPORT INT tk_can_wup( ID tskid );
 IMPORT ER tk_dly_tsk( RELTIM dlytim );
+
+#if NUM_COPROCESSOR > 0
+IMPORT ER tk_get_cpr( ID tskid, INT copno, T_COPREGS *pk_copregs);
+IMPORT ER tk_set_cpr(ID tskid, INT copno, CONST T_COPREGS *pk_copregs);
+#endif
 
 IMPORT ID tk_cre_sem( CONST T_CSEM *pk_csem );
 IMPORT ER tk_del_sem( ID semid );

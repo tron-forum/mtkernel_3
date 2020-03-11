@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -35,6 +35,7 @@ EXPORT	W	knl_taskindp = 0;
 
 Noinit(EXPORT UB knl_tmp_stack[TMP_STACK_SIZE]);
 
+#if defined(USE_FUNC_TK_SET_REG) || defined(USE_FUNC_TD_SET_REG)
 /* ------------------------------------------------------------------------ */
 /*
  * Set task register contents (Used in tk_set_reg())
@@ -65,7 +66,9 @@ EXPORT void knl_set_reg( CTXB *ctxb, CONST T_REGS *regs, CONST T_EIT *eit, CONST
 		ctxb->ssp = cregs->ssp;
 	}
 }
+#endif /* USE_FUNC_TK_SET_REG || USE_FUNC_TD_SET_REG */
 
+#if defined(USE_FUNC_TK_GET_REG) || defined(USE_FUNC_TD_GET_REG)
 /* ------------------------------------------------------------------------ */
 /*
  * Get task register contents (Used in tk_get_reg())
@@ -92,7 +95,10 @@ EXPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 		cregs->ssp = ctxb->ssp; 
 	}
 }
+#endif /* USE_FUNC_TK_GET_REG || USE_FUNC_TD_GET_REG */
 
+#if NUM_COPROCESSOR > 0
+#ifdef USE_FUNC_TK_SET_CPR
 /* ------------------------------------------------------------------------ */
 /*
  * Set Coprocessor registers contents (Used in tk_set_cpr())
@@ -132,8 +138,9 @@ EXPORT ER knl_set_cpr( CTXB *ctxb, INT copno, CONST T_COPREGS *copregs )
 
 	return ercd;
 }
+#endif /* USE_FUNC_TK_SET_CPR */
 
-
+#ifdef USE_FUNC_TK_GET_CPR
 /* ------------------------------------------------------------------------ */
 /*
  * Get Coprocessor registers contents (Used in tk_get_cpr())
@@ -175,7 +182,8 @@ EXPORT ER knl_get_cpr( CTXB *ctxb, INT copno, T_COPREGS *copregs)
 
 	return ercd;
 }
-
+#endif /* USE_FUNC_TK_GET_CPR */
+#endif /* USE_COPROCESSOR */
 
 /* ----------------------------------------------------------------------- */
 /*

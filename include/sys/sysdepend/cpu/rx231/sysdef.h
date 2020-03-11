@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03.
  *
  *----------------------------------------------------------------------
  */
@@ -170,6 +170,27 @@
 #define	PORTE_PMR		0x0008C06EUL
 #define	PORTH_PMR		0x0008C071UL
 #define	PORTJ_PMR		0x0008C072UL
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Coprocessor
+ */
+#define CPU_HAS_FPU			1
+#define CPU_HAS_DPS			1
+
+/*
+ *  Number of coprocessors to use. Depends on user configuration
+ */
+#if USE_FPU && USE_DSP
+#define NUM_COPROCESSOR		2
+#elif USE_FPU
+#define NUM_COPROCESSOR		1
+#elif USE_DSP
+#define NUM_COPROCESSOR		1
+#else
+#define NUM_COPROCESSOR		0
+#endif
 
 
 #endif /* __TK_SYSDEF_DEPEND_CPU_H__ */
