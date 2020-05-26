@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.00.B1
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/.
  *
  *----------------------------------------------------------------------
  */
@@ -16,7 +16,7 @@
 #ifdef IOTE_M367
 
 /*
- *	power.c (M367 IoT-Engine)
+ *	power_save.c (M367 IoT-Engine)
  *	Power-Saving Function
  */
 

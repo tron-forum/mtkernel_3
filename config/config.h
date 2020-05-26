@@ -60,9 +60,7 @@
 /* Version Number */
 #define CNF_VER_MAKER		0
 #define CNF_VER_PRID		0
-#define CNF_VER_MAJOR		2
-#define CNF_VER_MINOR		0
-#define CNF_VER_PRVER		0
+#define CNF_VER_PRVER		1
 #define CNF_VER_PRNO1		0
 #define CNF_VER_PRNO2		0
 #define CNF_VER_PRNO3		0
