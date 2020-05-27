@@ -2,12 +2,16 @@
 # micro T-Kernel 3.00.01  makefile
 ################################################################################
 
+# Specify the name of the executable file to be built (Do not include the extension)
 EXE_FILE := mtkernel_3
+
+# Specify only one target name
 TARGET := _IOTE_M367_
+#TARGET := _IOTE_RX231_
 
 RM := rm -rf
 
-INCPATH = -I"..\include" -I"..\config" -I"..\kernel\knlinc"
+INCPATH = -I"../include" -I"../config" -I"../kernel/knlinc"
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -39,26 +43,18 @@ ifneq ($(strip $(C_DEPS)),)
 endif
 endif
 
-SECONDARY_SIZE += $(EXE_FILE).siz
-
 # All EXE_FILE
-all: $(EXE_FILE).elf secondary-outputs
+all: $(EXE_FILE).elf
 
 $(EXE_FILE).elf: $(OBJS)
 	@echo 'Linker: $@'
-	$(GCC)  $(LFLAGS) -T $(LNKFILE) -Wl,-Map,"$(EXE_FILE).map" -o "$(EXE_FILE).elf" $(OBJS)
+	$(LINK)  $(LFLAGS) -T $(LNKFILE) -Wl,-Map,"$(EXE_FILE).map" -o "$(EXE_FILE).elf" $(OBJS)
 	@echo 'Finished building target: $@'
-	@echo ' 'Ks
-
-$(EXE_FILE).siz: $(EXE_FILE).elf
-	$(SIZE) --format=berkeley "$(EXE_FILE).elf"
 	@echo ' '
 
 # Other EXE_FILEs
 clean:
 	-$(RM) $(OBJS)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_UPPER_DEPS)$(C_DEPS) $(EXE_FILE).elf
 	-@echo ' '
-
-secondary-outputs: $(SECONDARY_SIZE)
 
 .PHONY: all clean dependents

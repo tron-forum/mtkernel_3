@@ -4,7 +4,7 @@
 
 GCC := arm-none-eabi-gcc
 AS := arm-none-eabi-gcc
-SIZE := arm-none-eabi-size
+LINK := arm-none-eabi-gcc
 
 CFLAGS := -mcpu=cortex-m3 -mthumb -ffreestanding\
     -std=gnu11 \
@@ -20,7 +20,7 @@ LFLAGS := -mcpu=cortex-m3 -mthumb -ffreestanding \
     -nostartfiles \
     -O0 -g3 \
 
-LNKFILE := "..\etc\linker\iote_m367\tkernel_map.ld"
+LNKFILE := "../etc/linker/iote_m367/tkernel_map.ld"
 
 -include mtkernel_3/lib/libtm/sysdepend/iote_m367/subdir.mk
 -include mtkernel_3/lib/libtk/sysdepend/cpu/tx03_m367/subdir.mk
