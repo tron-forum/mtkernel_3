@@ -1,15 +1,16 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef CPU_CORE_ACM3
 
@@ -21,6 +22,7 @@
 #include <tk/tkernel.h>
 #include <tm/tmonitor.h>
 #include <kernel.h>
+#include "../../../sysdepend.h"
 
 #if USE_EXCEPTION_DBG_MSG
 	#define EXCEPTION_DBG_MSG(a)	tm_printf(a)

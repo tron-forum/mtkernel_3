@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -19,7 +19,13 @@
 #ifndef __TK_CONFIG__
 #define __TK_CONFIG__
 
-#define _IOTE_M367_
+/*---------------------------------------------------------------------- */
+/*  Target Name
+	Define the system target name. Alternatively, define the target name 
+	in the development environment.
+ */
+//#define _IOTE_M367_
+//#define _IOTE_RX231_
 
 /*---------------------------------------------------------------------- */
 /* SYSCONF : micro T-Kernel system configuration
@@ -54,9 +60,7 @@
 /* Version Number */
 #define CNF_VER_MAKER		0
 #define CNF_VER_PRID		0
-#define CNF_VER_MAJOR		2
-#define CNF_VER_MINOR		0
-#define CNF_VER_PRVER		0
+#define CNF_VER_PRVER		1
 #define CNF_VER_PRNO1		0
 #define CNF_VER_PRNO2		0
 #define CNF_VER_PRNO3		0
@@ -129,6 +133,13 @@
 #define USE_SYSTEM_MESSAGE	(1)	/* System Message */
 #define USE_EXCEPTION_DBG_MSG	(1)	/* Excepttion debug message */
 #define USE_TASK_DBG_MSG	(1)	/* Tsak debug message */
+
+/*---------------------------------------------------------------------- */
+/* Use Co-Processor.
+　*  1: Valid  0: Invalid
+ */
+#define	USE_FPU			(0)	/* Use FPU */
+#define	USE_DSP			(0)	/* Use DSP */
 
 /*
  *	Use function Definition

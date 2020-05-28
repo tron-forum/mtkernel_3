@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -20,7 +20,7 @@
 #include <sys/sysdef.h>
 #include "../../libtm.h"
 
-#if USE_COM_IOTE_M367
+#ifdef USE_COM_IOTE_M367
 
 #define	UART_BASE		(0x40049000UL)
 

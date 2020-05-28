@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -23,12 +23,10 @@
 /* Task creation */
 #define TSK_SELF	0		/* Its own task specify */
 #define TPRI_INI	0		/* Specify priority at task startup */
-#define TPRI_RUN	0		/* Specify highest priority during
-					   running */
+#define TPRI_RUN	0		/* Specify highest priority during running */
 
 #define TA_ASM		0x00000000UL	/* Program by assembler */
-#define TA_HLNG		0x00000001UL	/* Program by high level programming
-					   language */
+#define TA_HLNG		0x00000001UL	/* Program by high level programming language */
 #define TA_USERBUF	0x00000020UL	/* Specify user buffer */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 
@@ -68,26 +66,21 @@
 
 /* Semaphore generation */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
-#define TA_FIRST	0x00000000UL	/* Give priority to task at head of
-					   wait queue */
-#define TA_CNT		0x00000002UL	/* Give priority to task whose
-					   request counts is less */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
+#define TA_FIRST	0x00000000UL	/* Give priority to task at head of wait queue */
+#define TA_CNT		0x00000002UL	/* Give priority to task whose request counts is less */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 
 /* Mutex */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
 #define TA_INHERIT	0x00000002UL	/* Priority inherited protocol */
 #define TA_CEILING	0x00000003UL	/* Upper limit priority protocol */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 
 /* Event flag */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
 #define TA_WSGL		0x00000000UL	/* Disable multiple tasks wait */
 #define TA_WMUL		0x00000008UL	/* Enable multiple tasks wait */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
@@ -100,35 +93,29 @@
 
 /* Mail box */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
 #define TA_MFIFO	0x00000000UL	/* Manage messages by FIFO */
-#define TA_MPRI		0x00000002UL	/* Manage messages by priority
-					   order */
+#define TA_MPRI		0x00000002UL	/* Manage messages by priority order */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 
 /* Message buffer */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
 #define TA_USERBUF	0x00000020UL	/* Specify user buffer */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 
 /* Rendezvous */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 
 /* Handler */
 #define TA_ASM		0x00000000UL	/* Program by assembler */
-#define TA_HLNG		0x00000001UL	/* Program by high level programming
-					   language */
+#define TA_HLNG		0x00000001UL	/* Program by high level programming language */
 
 /* Variable size memory pool */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
 #define TA_USERBUF	0x00000020UL	/* Specify user buffer */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 #define TA_RNG0		0x00000000UL	/* Protection level 0 */
@@ -138,8 +125,7 @@
 
 /* Fixed size memory pool */
 #define TA_TFIFO	0x00000000UL	/* Manage wait task by FIFO */
-#define TA_TPRI		0x00000001UL	/* Manage wait task by priority
-					   order */
+#define TA_TPRI		0x00000001UL	/* Manage wait task by priority order */
 #define TA_USERBUF	0x00000020UL	/* Specify user buffer */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 #define TA_RNG0		0x00000000UL	/* Protection level 0 */
@@ -149,8 +135,7 @@
 
 /* Cycle handler */
 #define TA_ASM		0x00000000UL	/* Program by assembler */
-#define TA_HLNG		0x00000001UL	/* Program by high level programming
-					   language */
+#define TA_HLNG		0x00000001UL	/* Program by high level programming language */
 #define TA_STA		0x00000002UL	/* Cycle handler startup */
 #define TA_PHS		0x00000004UL	/* Save cycle handler phase */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
@@ -160,8 +145,7 @@
 
 /* Alarm handler address */
 #define TA_ASM		0x00000000UL	/* Program by assembler */
-#define TA_HLNG		0x00000001UL	/* Program by high level programming
-					   language */
+#define TA_HLNG		0x00000001UL	/* Program by high level programming language */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
 
 #define TALM_STP	0x00U		/* Alarm handler is not operating */
@@ -717,6 +701,9 @@ typedef struct t_devreq {
 #define TDV_CARDEVT	1	/* PC card event (Refer card manager) */
 #define TDV_USBEVT	2	/* USB event     (Refer USB manager) */
 
+/*
+ * System call prototype declaration
+ */
 IMPORT ID tk_cre_tsk( CONST T_CTSK *pk_ctsk );
 IMPORT ER tk_del_tsk( ID tskid );
 IMPORT ER tk_sta_tsk( ID tskid, INT stacd );
@@ -739,6 +726,11 @@ IMPORT ER tk_slp_tsk( TMO tmout );
 IMPORT ER tk_wup_tsk( ID tskid );
 IMPORT INT tk_can_wup( ID tskid );
 IMPORT ER tk_dly_tsk( RELTIM dlytim );
+
+#if NUM_COPROCESSOR > 0
+IMPORT ER tk_get_cpr( ID tskid, INT copno, T_COPREGS *pk_copregs);
+IMPORT ER tk_set_cpr(ID tskid, INT copno, CONST T_COPREGS *pk_copregs);
+#endif
 
 IMPORT ID tk_cre_sem( CONST T_CSEM *pk_csem );
 IMPORT ER tk_del_sem( ID semid );

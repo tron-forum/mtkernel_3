@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -27,7 +27,6 @@
  */
 
 /* ----- TX03-M367 IoT-Engine (CPU: TMPM369FDFG) definition ----- */
-#undef _IOTE_M367_
 
 #define IOTE_M367		1				/* Target system : M367 IoT-Engine */
 #define CPU_TMPM369FDFG		1				/* Target CPU : Toshiba TMPM369FDFG */

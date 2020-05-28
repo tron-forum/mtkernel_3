@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -112,8 +112,65 @@ SYSCALL ER tk_get_reg( ID tskid, T_REGS *pk_regs, T_EIT *pk_eit, T_CREGS *pk_cre
 	return ercd;
 }
 
-
 #endif /* USE_FUNC_TK_GET_REG */
+
+#if NUM_COPROCESSOR > 0
+#ifdef USE_FUNC_TK_SET_CPR
+/* ------------------------------------------------------------------------ */
+/*
+ * Set coprocessor registers contents
+ */
+SYSCALL ER tk_set_cpr( ID tskid, INT copno, CONST T_COPREGS *pk_copregs )
+{
+	TCB		*tcb;
+	ER		ercd = E_OK;
+
+	CHECK_INTSK();
+	CHECK_TSKID(tskid);
+	CHECK_NONSELF(tskid);
+
+	tcb = get_tcb(tskid);
+
+	BEGIN_CRITICAL_SECTION;
+	if ( tcb->state == TS_NONEXIST ) {
+		ercd = E_NOEXS;
+	} else {
+		ercd = knl_set_cpr(&(tcb->tskctxb), copno, pk_copregs);
+	}
+	END_CRITICAL_SECTION;
+
+	return ercd;
+}
+#endif /* USE_FUNC_TK_SET_CPR */
+
+#ifdef USE_FUNC_TK_GET_CPR
+/* ------------------------------------------------------------------------ */
+/*
+ * Get coprocessor registers contents
+ */
+SYSCALL ER tk_get_cpr( ID tskid, INT copno, T_COPREGS *pk_copregs )
+{
+	TCB		*tcb;
+	ER		ercd = E_OK;
+
+	CHECK_INTSK();
+	CHECK_TSKID(tskid);
+	CHECK_NONSELF(tskid);
+
+	tcb = get_tcb(tskid);
+
+	BEGIN_CRITICAL_SECTION;
+	if ( tcb->state == TS_NONEXIST ) {
+		ercd = E_NOEXS;
+	} else {
+		ercd = knl_get_cpr(&(tcb->tskctxb), copno, pk_copregs);
+	}
+	END_CRITICAL_SECTION;
+
+	return ercd;
+}
+#endif /* USE_FUNC_TK_GET_CPR */
+#endif /* USE_COPROCESSOR */
 
 #if USE_DBGSPT
 /* ------------------------------------------------------------------------ */
@@ -142,7 +199,7 @@ SYSCALL ER td_set_reg( ID tskid, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_C
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_set_reg(tcb, regs, eit, cregs);
+		knl_set_reg(&(tcb->tskctxb), regs, eit, cregs);
 	}
 	END_DISABLE_INTERRUPT;
 
@@ -171,7 +228,7 @@ SYSCALL ER td_get_reg( ID tskid, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_get_reg(tcb, regs, eit, cregs);
+		knl_get_reg(&(tcb->tskctxb), regs, eit, cregs);
 	}
 	END_DISABLE_INTERRUPT;
 

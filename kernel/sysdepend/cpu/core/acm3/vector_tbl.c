@@ -1,15 +1,16 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
+
 #pragma optimize("", off)
 
 #include <sys/machine.h>
@@ -78,16 +79,6 @@ const void (*vector_tbl[])()  __attribute__((section(".vector"))) = {
 	Default_Handler,			/* IRQ 27 */
 	Default_Handler,			/* IRQ 28 */
 	Default_Handler,			/* IRQ 29 */
-	Default_Handler,			/* IRQ 30 */
-	Default_Handler,			/* IRQ 31 */
-	Default_Handler,			/* IRQ 32 */
-	Default_Handler,			/* IRQ 33 */
-	Default_Handler,			/* IRQ 34 */
-	Default_Handler,			/* IRQ 35 */
-	Default_Handler,			/* IRQ 36 */
-	Default_Handler,			/* IRQ 37 */
-	Default_Handler,			/* IRQ 38 */
-	Default_Handler,			/* IRQ 39 */
 	Default_Handler,			/* IRQ 30 */
 	Default_Handler,			/* IRQ 31 */
 	Default_Handler,			/* IRQ 32 */

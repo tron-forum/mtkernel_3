@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -27,13 +27,13 @@
 /*
  * Task dispatch disable state
  */
-Noinit(EXPORT volatile INT	knl_dispatch_disabled);	/* DDS_XXX see task.h */
+Noinit(EXPORT INT	knl_dispatch_disabled);	/* DDS_XXX see task.h */
 
 /*
  * Task execution control 
  */
-Noinit(EXPORT volatile TCB	*knl_ctxtsk);	/* Task in execution */
-Noinit(EXPORT volatile TCB	*knl_schedtsk);	/* Task which should be executed */
+Noinit(EXPORT TCB	*knl_ctxtsk);	/* Task in execution */
+Noinit(EXPORT TCB	*knl_schedtsk);	/* Task which should be executed */
 
 Noinit(EXPORT RDYQUE	knl_ready_queue);	/* Ready queue */
 

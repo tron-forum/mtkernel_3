@@ -1,15 +1,16 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
+
 
 /*
  *	cpudef.h
@@ -24,10 +25,10 @@
 
 /*
  * Using FPU (depend on CPU)
- *   0: not using FPU
- *   TA_COPn(n = 0-3): using FPU
+ *   There is no coprocessor for this microcomputer.
  */
-#define TA_FPU		0
+#define	TA_COPS		0
+#define TA_FPU		TA_COP0		/* dummy. An error occurs when checking API calls. */
 
 /*
  * General purpose register			tk_get_reg tk_set_reg

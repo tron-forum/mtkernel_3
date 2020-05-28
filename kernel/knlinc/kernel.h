@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -54,21 +54,11 @@ struct task_control_block {
 	void	*exinf;		/* Extended information */
 	ATR	tskatr;		/* Task attribute */
 	FP	task;		/* Task startup address */
-
+	CTXB	tskctxb;	/* Task context block */
 	W	sstksz;		/* stack size */
 
-	INT	:0;		/* ### From here */
 	B	isysmode;	/* Task operation mode initial value */
-	H	sysmode;	/* Task operation mode, quasi task part
-				   call level */
-	INT	:0;		/* ### To here, since it might be accessed
-				   from outside of the critical section,
-				   need to be assigned as an independent
-				   word. Also, there is a case where one
-				   word is read from 'reqdct' and is read
-				   all at once from 'reqdct', 'isysmode',
-				   and 'sysmode', so do not change the
-				   order and size. */
+	H	sysmode;	/* Task operation mode, quasi task part call level */
 
 	UB	ipriority;	/* Priority at task startup */
 	UB	bpriority;	/* Base priority */
@@ -87,6 +77,8 @@ struct task_control_block {
 	WINFO	winfo;		/* Wait information */
 	TMEB	wtmeb;		/* Wait timer event block */
 
+	void	*isstack;	/* stack pointer initial value */
+
 #if USE_LEGACY_API && USE_RENDEZVOUS
 	RNO	wrdvno;		/* For creating rendezvous number */
 #endif
@@ -99,8 +91,6 @@ struct task_control_block {
 	UW	utime;		/* User execution time (ms) */
 #endif
 
-	void	*isstack;	/* stack pointer initial value */
-	CTXB	tskctxb;	/* Task context block */
 #if USE_OBJECT_NAME
 	UB	name[OBJECT_NAME_LENGTH];	/* name */
 #endif
@@ -127,7 +117,7 @@ struct task_control_block {
 #define DDS_ENABLE		(0)
 #define DDS_DISABLE_IMPLICIT	(1)	/* set with implicit process */
 #define DDS_DISABLE		(2)	/* set by tk_dis_dsp() */
-IMPORT volatile INT	knl_dispatch_disabled;
+IMPORT INT	knl_dispatch_disabled;
 
 /*
  * Task in execution
@@ -136,7 +126,7 @@ IMPORT volatile INT	knl_dispatch_disabled;
  *	when checking information about the task that requested system call,
  *	use 'ctxtsk'. Only task dispatcher changes 'ctxtsk'.
  */
-IMPORT volatile TCB	*knl_ctxtsk;
+IMPORT TCB	*knl_ctxtsk;
 
 /*
  * Task which should be executed
@@ -144,15 +134,15 @@ IMPORT volatile TCB	*knl_ctxtsk;
  *	If a dispatch is delayed by the delayed dispatch or dispatch disable, 
  *	it does not match with 'ctxtsk.' 
  */
-IMPORT volatile TCB	*knl_schedtsk;
+IMPORT TCB	*knl_schedtsk;
 
 
 /*
  * Startup / Re-start / Shutdown Hardware (start_dev.c)
  */
-IMPORT void knl_startup_device(void);
-IMPORT void knl_shutdown_device( void );
-IMPORT ER knl_restart_device( W mode );
+IMPORT void knl_startup_hw(void);
+IMPORT void knl_shutdown_hw( void );
+IMPORT ER knl_restart_hw( W mode );
 
 /*
  * Kernel-object initialization (each object)
@@ -231,6 +221,11 @@ IMPORT	void	*knl_lowmem_top, *knl_lowmem_limit;
  */
 IMPORT void knl_set_reg( CTXB *ctxb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs );
 IMPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs );
+
+#if NUM_COPROCESSOR > 0
+IMPORT ER knl_get_cpr( CTXB *ctxb, INT copno, T_COPREGS *copregs);
+IMPORT ER knl_set_cpr( CTXB *ctxb, INT copno, CONST T_COPREGS *copregs);
+#endif
 
 /*
  * Interuupt control (interrupt.c)

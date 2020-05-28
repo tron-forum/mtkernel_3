@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
@@ -33,11 +33,9 @@ SYSCALL ID tk_cre_tsk( CONST T_CTSK *pk_ctsk )
 		 TA_HLNG
 		|TA_RNG3
 		|TA_USERBUF
+		|TA_COPS
 #if USE_OBJECT_NAME
 		|TA_DSNAME
-#endif
-#if	TA_FPU
-		|TA_FPU
 #endif
 	};
 #endif
@@ -253,9 +251,6 @@ SYSCALL void tk_ext_tsk( void )
 #ifdef DORMANT_STACK_SIZE
 	/* for WARNING */
 	_dummy[0] = 0;
-#ifdef  __RENESAS__
-	_dummy[_dummy[0]] = 0;		// Adapted to The CubeSuite+ CCRX complier.
-#endif
 #endif
 }
 #endif /* USE_FUNC_TK_EXT_TSK */

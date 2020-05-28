@@ -1,21 +1,22 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.01
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef IOTE_M367
 
 /*
- *	start_dev.c (M367 IoT-Engine)
- *	startup / shoutdown processing for device
+ *	hw_setting.c (M367 IoT-Engine)
+ *	startup / shoutdown processing for hardware
  */
 
 #include "kernel.h"
@@ -75,7 +76,7 @@ LOCAL const T_SETUP_REG setup_regs[] = {
 /*
  * Startup Device
  */
-EXPORT void knl_startup_device(void)
+EXPORT void knl_startup_hw(void)
 {
 	const T_SETUP_REG	*p;
 
@@ -95,7 +96,7 @@ EXPORT void knl_startup_device(void)
 /*
  * Shutdown device
  */
-EXPORT void knl_shutdown_device( void )
+EXPORT void knl_shutdown_hw( void )
 {
 	disint();
 	while(1);
@@ -108,7 +109,7 @@ EXPORT void knl_shutdown_device( void )
  *	mode = -2		fast re-start		(Start)
  *	mode = -3		Normal re-start		(Boot -> Start)
  */
-EXPORT ER knl_restart_device( W mode )
+EXPORT ER knl_restart_hw( W mode )
 {
 	switch(mode) {
 	case -1: /* Reset and re-start */
