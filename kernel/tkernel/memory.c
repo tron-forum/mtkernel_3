@@ -155,7 +155,7 @@ Noinit(EXPORT IMACB *knl_imacb);
 /* ------------------------------------------------------------------------ */
 
 /*
- * Get memory 
+ * Memory allocate
  */
 EXPORT void* knl_Imalloc( SZ size )
 {
@@ -206,7 +206,7 @@ err_ret:
 }
 
 /*
- * Get memory
+ * Memory allocate  and clear
  */
 EXPORT void* knl_Icalloc( SZ nmemb, SZ size )
 {
@@ -223,10 +223,40 @@ EXPORT void* knl_Icalloc( SZ nmemb, SZ size )
 	return mem;
 }
 
+
+/*
+ * Memory allocation size change
+ */
+EXPORT void* knl_Irealloc( void *ptr, SZ size )
+{
+	void	*newptr;
+	QUEUE	*aq;
+	SZ	oldsz;
+
+	if(size != 0) {
+		newptr = knl_Imalloc(size);
+		if(newptr == NULL) {
+			return NULL;
+		}
+	} else {
+		newptr = NULL;
+	}
+
+	if(ptr != NULL) {
+		if(newptr != NULL) {
+			aq = (QUEUE*)ptr - 1;
+			oldsz = (SZ)AreaSize(aq);
+			knl_memcpy(newptr, ptr, (size > oldsz)?oldsz:size);
+		}
+		knl_Ifree(ptr);
+	}
+
+	return newptr;
+}
+
+
 /*
  * Free memory
- *	It may be called during interrupt disable. In this case, need to wait
- *	 until interrupt is enabled and until free.
  */
 EXPORT void  knl_Ifree( void *ptr )
 {
@@ -255,6 +285,7 @@ EXPORT void  knl_Ifree( void *ptr )
 
 	EI(imask);
 }
+
 
 /* ------------------------------------------------------------------------ */
 

@@ -73,6 +73,8 @@ EXPORT INT usermain( void )
 {
 	T_RVER	rver;
 	ID	id1, id2;
+	void	*ptr1, *ptr2;
+	UB	*b1, *b2;
 
 	tm_putstring("Start User-main program.\n");
 
@@ -81,6 +83,31 @@ EXPORT INT usermain( void )
 	tm_printf("Make Code: %04x  Product ID: %04x\n", rver.maker, rver.prid);
 	tm_printf("Product Ver. %04x\nProduct Num. %04x %04x %04x %04x\n", 
 			rver.prver, rver.prno[0],rver.prno[1],rver.prno[2],rver.prno[3]);
+
+	ptr1 = Kmalloc(100);
+	if(ptr1 == NULL) tm_printf("Kmalloc Error\n");
+	b1 = (UB*)ptr1;
+	for(INT i = 0; i < 50; i++) {
+		*b1++ = 0xAA;*b1++ = 0x55;
+	}
+	ptr2 = Krealloc(ptr1, 20);
+	if(ptr2 == NULL) tm_printf("Kremalloc Error\n");
+
+	b2 = (UB*)ptr2;
+	for(INT i = 0; i < 25; i++) {
+		tm_printf("%x ", *b2++);
+	}
+	tm_printf("\n");
+
+	ptr1 = Krealloc(ptr2, 50);
+	if(ptr1 == NULL) tm_printf("Kremalloc Error\n");
+
+	b1 = (UB*)ptr1;
+	for(INT i = 0; i < 30; i++) {
+		tm_printf("%x ", *b1++);
+	}
+	tm_printf("\n");
+
 
 	id1 = tk_cre_tsk(&ctsk1);
 	tk_sta_tsk(id1, 0);

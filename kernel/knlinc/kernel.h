@@ -189,6 +189,7 @@ IMPORT INT knl_chg_pri_mutex( TCB *tcb, INT priority );
 IMPORT ER knl_init_Imalloc( void );
 IMPORT void* knl_Imalloc( SZ size );
 IMPORT void* knl_Icalloc( SZ nmemb, SZ size );
+IMPORT void* knl_Irealloc( void *ptr, SZ size );
 IMPORT void  knl_Ifree( void *ptr );
 
 /*

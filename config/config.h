@@ -72,7 +72,7 @@
  *      micro T-Kernel2.0 API support (Rendezvous)
  */
 #define USE_LEGACY_API		(1)	/* 1: Valid  0: Invalid */
-#define CNF_MAX_PORID		4	/* Maximum number of Rendezvous */
+#define CNF_MAX_PORID		(4)	/* Maximum number of Rendezvous */
 
 
 /*---------------------------------------------------------------------- */

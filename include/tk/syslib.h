@@ -117,6 +117,24 @@ IMPORT ER MUnlock( FastMLock *lock, INT no );
 
 /* ------------------------------------------------------------------------ */
 /*
+ * Memory allocation
+ */
+#if TK_SUPPORT_MEMLIB
+
+#ifndef size_t
+typedef SZ		size_t;
+#endif
+
+IMPORT void *Kmalloc( size_t size );
+IMPORT void *Kcalloc( size_t nmemb, size_t size );
+IMPORT void *Krealloc( void *ptr, size_t size);
+IMPORT void Kfree( void *ptr );
+
+#endif /* TK_SUPPORT_MEMLIB */
+
+
+/* ------------------------------------------------------------------------ */
+/*
  * 4-character object name
  *	(Example)
  *	T_CTSK	ctsk;
