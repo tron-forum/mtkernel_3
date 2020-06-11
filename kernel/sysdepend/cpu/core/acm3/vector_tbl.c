@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/ /.
  *
  *----------------------------------------------------------------------
  */
@@ -70,7 +70,7 @@ const void (*vector_tbl[])()  __attribute__((section(".vector"))) = {
 	Default_Handler,			/* IRQ 18 */
 	Default_Handler,			/* IRQ 19 */
 	Default_Handler,			/* IRQ 20 */
-	knl_dispatch_to_schedtsk,		/* IRQ 21 */
+	Default_Handler,			/* IRQ 21 */
 	Default_Handler,			/* IRQ 22 */
 	Default_Handler,			/* IRQ 23 */
 	Default_Handler,			/* IRQ 24 */

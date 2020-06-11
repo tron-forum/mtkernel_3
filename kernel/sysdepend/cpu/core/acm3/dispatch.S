@@ -1,16 +1,15 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.00.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
- *    This software is distributed under the T-License 2.2.
+ *    Copyright (C) 2006-2019 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/03/13.
  *
  *----------------------------------------------------------------------
  */
-
 #include <sys/machine.h>
 #ifdef CPU_CORE_ACM3
 /*
@@ -36,8 +35,6 @@
  * Dispatcher
  *	knl_dispatch_entry:
  *		Normal dispatch processing.
- *	knl_dispatch_to_schedtsk:
- *		Force dispatch processing
  *
  *	Contexts to save
  *	Save registers except for ssp to a stack. Save 'ssp' to TCB.
@@ -59,46 +56,25 @@
 	.align 2
 	.thumb
 	.thumb_func
-	.globl Csym(knl_dispatch_to_schedtsk)
-
-Csym(knl_dispatch_to_schedtsk):
-	/* Interrupt is disabled(CPSR.I=1 F=1),during SVC mode */
-	ldr	sp, =(Csym(knl_tmp_stack) + TMP_STACK_SIZE)	// Set temporal stack
-
-	ldr	ip, =Csym(knl_dispatch_disabled)
-	ldr	r0, =1
-	str	r0, [ip]			// Dispatch disable
-
-	ldr	r4, =Csym(knl_ctxtsk)		// R4 = &ctxtsk
-	ldr	r0, =0
-
-#if USE_DBGSPT
-	ldr	r8, [r4]
-#endif
-
-	str	r0, [r4]			// ctxtsk = NULL
-
-	/* Clear the pending state from the PendSV exception */
-	ldr	r0, =SCB_ICSR
-	ldr	ip, =ICSR_PENDSVCLR
-	str	ip, [r0]
-
-//	msr	cpsr_c, #PSR_SVC		// Interrupt enable
-	b	l_dispatch0
-
-	.thumb
-	.thumb_func
 	.globl Csym(knl_dispatch_entry)
 Csym(knl_dispatch_entry):
-	push	{lr}				// Context save (lr)
-
 	ldr	r0, =Csym(knl_dispatch_disabled)
 	ldr	r1, =1
 	str	r1, [r0]			// Dispatch disable
 
+	ldr	r0, =Csym(knl_ctxtsk)
+	cmp	r0, #0
+	bne	l_dispatch00
+
+	ldr	sp, =(Csym(knl_tmp_stack) + TMP_STACK_SIZE)	// Set temporal stack
+	b	l_dispatch0
+
+l_dispatch00:
+	// Context save
+	push	{lr}				// Context save (lr)
+
 	stmfd	sp!, {r4-r11}
 
-	// Context save
 	ldr	r4, =Csym(knl_ctxtsk)		// R4 = &ctxtsk
 	ldr	r0, =0
 	ldr	r8, [r4]

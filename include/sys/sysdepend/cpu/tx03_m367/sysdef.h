@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/ /.
  *
  *----------------------------------------------------------------------
  */
@@ -113,7 +113,6 @@
 #define INTPRI_MAX_EXTINT_PRI	1	/* Highest Ext. interrupt level */
 #define INTPRI_SVC		0	/* SVCall */
 #define INTPRI_SYSTICK		1	/* SysTick */
-#define INTPRI_FORCE_DISPATCH	6	/* Force Dispatch */
 #define INTPRI_PENDSV		7	/* PendSV */
 
 /*

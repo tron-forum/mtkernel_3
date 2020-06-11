@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.02.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/ /.
  *
  *----------------------------------------------------------------------
  */
@@ -103,9 +103,6 @@ EXPORT void knl_return_inthdr(void)
  */
 EXPORT ER knl_init_interrupt( void )
 {
-	/* Enable the interrupt for force dispatch */
-	EnableInt(INTNO_FORCE_DISPATCH, INTPRI_FORCE_DISPATCH);
-
 	/* Register exception handler used on OS */
 
 	return E_OK;

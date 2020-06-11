@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.02.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/ /.
  *
  *----------------------------------------------------------------------
  */
@@ -24,14 +24,6 @@
 
 /* CPU-dependent definition */
 #include "../cpu/tx03_m367/sysdef.h"
-
-/* ------------------------------------------------------------------------ */
-/*
- * Force dispatch interrupt for micro T-Kernel
- * Use any unsed intterrupt number.
- */
-#define INTNO_FORCE_DISPATCH	21	/* Serial transmission (channel 2) */
-
 
 /* ------------------------------------------------------------------------ */
 /*

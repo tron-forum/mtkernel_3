@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/ /.
  *
  *----------------------------------------------------------------------
  */
@@ -99,7 +99,9 @@ EXPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
  */
 EXPORT void knl_force_dispatch( void )
 {
-	*(_UW*)SCB_STIR = INTNO_FORCE_DISPATCH;	/* S/W Interrupt */
+	knl_dispatch_disabled = 1;
+	knl_ctxtsk = NULL;
+	*(_UW*)SCB_ICSR = ICSR_PENDSVSET;	/* pendsv exception */
 	set_basepri(0);
 }
 
