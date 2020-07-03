@@ -163,6 +163,78 @@
 
 /* ------------------------------------------------------------------------ */
 /*
+ * Physical timer (for TX03M67 TMRB)
+ */
+#define	CPU_HAS_PTMR	(1)
+
+/* TMRB Register definition */
+#define TMRB0_BASE	0x400C4000
+#define TMRB1_BASE	0x400C4100
+#define TMRB2_BASE	0x400C4200
+#define TMRB3_BASE	0x400C4300
+#define TMRB4_BASE	0x400C4400
+#define TMRB5_BASE	0x400C4500
+#define TMRB6_BASE	0x400C4600
+#define TMRB7_BASE	0x400C4700
+
+#define TBxEN		0x0000
+#define TBxRUN		0x0004
+#define	TBxCR		0x0008
+#define	TBxMOD		0x000C
+#define TBxFFCR		0x0010
+#define TBxST		0x0014
+#define TBxIM		0x0018
+#define TBxUC		0x001C
+#define TBxRG0		0x0020
+#define TBxRG1		0x0024
+#define TBxCP0		0x0028
+#define TBxCP1		0x002C
+
+#define TBxEN_TBEN	(1<<7)
+#define TBxRUN_TBRUN	(1<<0)
+#define TBxRUN_TBPRUN	(1<<2)
+#define	TBxFFCR_TDE	(0x000000C3)
+#define TBxMOD_TBCLE	(1<<3)
+#define TBxIM_TBIMOF	(1<<2)
+#define TBxIM_TBIM1	(1<<1)
+#define TBxIM_TBIM0	(1<<0)
+
+/* Physical timer clock */
+#define	TB0MOD_TBCLK	(0x00000001)    // Source clock = T1
+#define	TB1MOD_TBCLK	(0x00000001)    // Source clock = T1
+#define	TB2MOD_TBCLK	(0x00000001)    // Source clock = T1
+#define	TB3MOD_TBCLK	(0x00000001)    // Source clock = T1
+#define	TB4MOD_TBCLK	(0x00000001)    // Source clock = T1
+#define	TB5MOD_TBCLK	(0x00000001)    // Source clock = T1
+#define	TB6MOD_TBCLK	(0x00000001)    // Source clock = T1
+#define	TB7MOD_TBCLK	(0x00000001)    // Source clock = T1
+
+/* Physical timer interrupt number */
+#define INTNO_TMRB0	75
+#define INTNO_TMRB1	78
+#define INTNO_TMRB2	81
+#define INTNO_TMRB3	84
+#define INTNO_TMRB4	87
+#define INTNO_TMRB5	90
+#define INTNO_TMRB6	93
+#define INTNO_TMRB7	96
+
+/* Physical timer interrupt priority */
+#define INTPRI_TMRB0	5
+#define INTPRI_TMRB1	5
+#define INTPRI_TMRB2	5
+#define INTPRI_TMRB3	5
+#define INTPRI_TMRB4	5
+#define INTPRI_TMRB5	5
+#define INTPRI_TMRB6	5
+#define INTPRI_TMRB7	5
+
+/* Phycail timer Maximum count */
+#define PTMR_MAX_CNT    (0x0000FFFF)
+
+
+/* ------------------------------------------------------------------------ */
+/*
  * Coprocessor
  */
 #define CPU_HAS_FPU			0

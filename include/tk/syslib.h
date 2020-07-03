@@ -135,6 +135,36 @@ IMPORT void Kfree( void *ptr );
 
 /* ------------------------------------------------------------------------ */
 /*
+ * Physical timer
+ */
+#if TK_SUPPORT_PTIMER
+
+#define TA_ALM_PTMR	0
+#define TA_CYC_PTMR	1
+
+typedef struct {
+	void	*exinf;		/* Extended Information */
+	ATR	ptmratr;	/* Physical Timer Attribute */
+	FP	ptmrhdr;	/* Physical Timer Handler Address */
+} T_DPTMR;
+
+typedef struct {
+	UW	ptmrclk;	/* Physical Timer Clock Frequency */
+	UW	maxcount;	/* Maximum Count */
+	BOOL	defhdr;		/* Handler Support */
+} T_RPTMR;
+
+IMPORT ER StartPhysicalTimer( UINT ptmrno, UW limit, UINT mode);
+IMPORT ER StopPhysicalTimer( UINT ptmrno );
+IMPORT ER GetPhysicalTimerCount( UINT ptmrno, UW *p_count );
+IMPORT ER DefinePhysicalTimerHandler( UINT ptmrno, CONST T_DPTMR *pk_dptmr );
+IMPORT ER GetPhysicalTimerConfig(UINT ptmrno, T_RPTMR *pk_rptmr);
+
+#endif /* TK_SUPPORT_PTIMER */
+
+
+/* ------------------------------------------------------------------------ */
+/*
  * 4-character object name
  *	(Example)
  *	T_CTSK	ctsk;
