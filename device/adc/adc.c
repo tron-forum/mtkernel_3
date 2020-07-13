@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/7/13.
  *
  *----------------------------------------------------------------------
  */
@@ -48,8 +48,11 @@ LOCAL ER read_atr(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 
 	switch(req->start) {
 	case TDN_EVENT:			/* MBF ID for event notification */
-		if(req->size) {
+		if(req->size >= sizeof(ID)) {
 			*(ID*)req->buf = p_dcb->evtmbfid;
+		} else if(req->size != 0) {
+			err = E_PAR;
+			break;
 		}
 		req->asize = sizeof(ID);
 		break;
@@ -68,8 +71,11 @@ LOCAL ER write_atr(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 
 	switch(req->start) {
 	case TDN_EVENT:			/* MBF ID for event notification */
-		if(req->size) {
+		if(req->size >= sizeof(ID)) {
 			p_dcb->evtmbfid = *(ID*)req->buf;
+		} else if(req->size != 0) {
+			err = E_PAR;
+			break;
 		}
 		req->asize = sizeof(ID);
 		break;

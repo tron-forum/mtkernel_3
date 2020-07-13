@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -44,5 +44,14 @@ typedef enum {
 #define	DEV_SER_ERR_PE		(1<<1)	/* Parity Error */
 #define	DEV_SER_ERR_FE		(1<<0)	/* Framing Error */
 
+/*----------------------------------------------------------------------
+/* Hardware dependent definition
+ */
+#ifdef CPU_TMPM369FDFG
+#include "../ser/sysdepend/tx03_m367/ser_mode_m367.h"
+#endif		/* CPU_TMPM369FDFG */
+#ifdef CPU_RX231
+#include "../ser/sysdepend/rx231/ser_mode_rx231.h"
+#endif	/* CPU_RX231 */
 
 #endif		/* __DEV_SER_API_H__ */

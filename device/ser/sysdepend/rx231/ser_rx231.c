@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -216,9 +216,9 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 	case LLD_SER_SEND:
 		if((in_b( ba[unit] + SCI_SSR) & SCI_SSR_TDRF) != 0) {
 			out_b(ba[unit] + SCI_TDR, (UB)parm);
-			err = TRUE;
+			err = E_OK;
 		} else {
-			err = FALSE;
+			err = E_BUSY;
 		}
 		break;
 

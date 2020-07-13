@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -261,20 +261,20 @@ EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 		break;
 
 	case LLD_I2C_READ:
-		set_com_start( unit, p1<<1, 0, p2, NULL, (UB*)pp);
+		set_com_start( unit, p1, 0, p2, NULL, (UB*)pp);
 		err = i2c_trans(unit, &ll_devcb[unit]);
 		if(err >= E_OK) err = p1 - ll_devcb[unit].sdat_num;
 		break;
 
 	case LLD_I2C_WRITE:
-		set_com_start( unit, p1<<1, p2, 0, (UB*)pp, NULL);
+		set_com_start( unit, p1, p2, 0, (UB*)pp, NULL);
 		err = i2c_trans(unit, &ll_devcb[unit]);
 		if(err >= E_OK) err = p1 - ll_devcb[unit].sdat_num;
 		break;
 
 	case LLD_I2C_EXEC:
 		p_ex = (T_I2C_EXEC*)pp;
-		set_com_start( unit, (p_ex->sadr)<<1, p_ex->snd_size, p_ex->rcv_size, p_ex->snd_data, p_ex->rcv_data);
+		set_com_start( unit, p_ex->sadr, p_ex->snd_size, p_ex->rcv_size, p_ex->snd_data, p_ex->rcv_data);
 		err = i2c_trans(unit, &ll_devcb[unit]);
 		if(err >= E_OK) err = p_ex->snd_size + p_ex->rcv_size;
 		break;

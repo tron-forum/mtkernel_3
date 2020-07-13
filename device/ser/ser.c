@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -439,7 +439,9 @@ EXPORT ER dev_init_ser( UW unit )
 	if(err != E_OK) goto err_1;
 
 	/* Set default value for attribute data */
+	p_dcb->com_speed = DEVCNF_SER_SPEED;
 	dev_ser_llctl( unit, LLD_SER_SPEED, DEVCNF_SER_SPEED);
+	p_dcb->com_mode = DEVCNF_SER_MODE;
 	dev_ser_llctl( unit, LLD_SER_MODE, DEVCNF_SER_MODE);
 	p_dcb->snd_tmo = DEVCNF_SER_SND_TMO;
 	p_dcb->rcv_tmo = DEVCNF_SER_RCV_TMO;

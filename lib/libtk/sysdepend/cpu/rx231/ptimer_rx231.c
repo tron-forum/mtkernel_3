@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -126,12 +126,9 @@ EXPORT ER StopPhysicalTimer( UINT ptmrno )
 	if( ptmrno == 0 || ptmrno > TK_MAX_PTIMER ) return E_PAR;
 
 	p_cb = &ptmrcb[ptmrno - 1];
-	if(p_cb->mode < 0) return E_PAR;
-	p_cb->mode	= -1;
 
 	/* Stop Physical Timer */
 	DisableInt( p_cb->intno);
-	tk_def_int(p_cb->intno, NULL);
 	out_h(TMR_TCCR, 0);			// Timer Stop
 
 	return E_OK;

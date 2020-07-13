@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/ / .
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13 .
  *
  *----------------------------------------------------------------------
  */

@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -46,12 +46,13 @@ LOCAL ER read_atr(T_I2C_DCB *p_dcb, T_DEVREQ *req)
 {
 	ER	err	= E_OK;
 
-	if(req->size != 1) return E_PAR;
-
 	switch(req->start) {
 	case TDN_EVENT:			/* MBF ID for event notification */
-		if(req->size) {
+		if(req->size >= sizeof(ID)) {
 			*(ID*)req->buf = p_dcb->evtmbfid;
+		} else if(req->size != 0) {
+			err = E_PAR;
+			break;
 		}
 		req->asize = sizeof(ID);
 		break;
@@ -70,29 +71,32 @@ LOCAL ER write_atr(T_I2C_DCB *p_dcb, T_DEVREQ *req)
 	W		rtn;
 	ER		err	= E_OK;
 
-	if(req->size != 1) return E_PAR;
-
 	switch(req->start) {
 	case TDN_EVENT:			/* MBF ID for event notification */
-		if(req->size) {
-			p_dcb->evtmbfid = *(ID*)req->buf;
+		if(req->size >= sizeof(ID)) {
+			p_dcb->evtmbfid = *(ID*)(req->buf);
+		} else if(req->size != 0) {
+			err = E_PAR;
+			break;
 		}
 		req->asize = sizeof(ID);
 		break;
 	case TDN_I2C_EXEC:
-		p_ex = (T_I2C_EXEC*)req->buf;
-		if(p_ex->snd_size <=0 || p_ex->snd_size > DEVCNF_I2C_MAX_SDATSZ) return E_PAR;
-		if(p_ex->rcv_size <=0 || p_ex->rcv_size > DEVCNF_I2C_MAX_RDATSZ) return E_PAR;
+		if(req->size >= sizeof(T_I2C_EXEC)) {
+			p_ex = (T_I2C_EXEC*)(req->buf);
+			if(p_ex->snd_size <=0 || p_ex->snd_size > DEVCNF_I2C_MAX_SDATSZ) return E_PAR;
+			if(p_ex->rcv_size <=0 || p_ex->rcv_size > DEVCNF_I2C_MAX_RDATSZ) return E_PAR;
 
-		if(req->size) {
 			rtn = dev_i2c_llctl(p_dcb->unit, LLD_I2C_EXEC, req->start, req->size, (UW*)p_ex);
 			if(rtn > 0) {
-				req->asize = rtn;
+				req->asize = sizeof(T_I2C_EXEC);
 			} else {
 				err = (ER)rtn;
 			}
+		} else if(req->size == 0){
+			req->asize = sizeof(T_I2C_EXEC);
 		} else {
-			req->asize = req->size;
+			err = E_PAR;
 		}
 		break;
 

@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -86,7 +86,7 @@ LOCAL UW adc_convert( INT start, INT size, UW *buf )
 /*----------------------------------------------------------------------
 /* Low level device control
  */
-EXPORT UW dev_adc_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
+EXPORT W dev_adc_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 {
 	UW	rtn = (UW)E_OK;
 

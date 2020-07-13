@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -37,10 +37,10 @@ typedef struct {
  * Setup module stop Tadle
  */
 LOCAL const T_SETUP_REG mstop_tbl[] = {
-	{ MSTPCRA, 0xEFFF7FFF },	/* Enable DMAC/DTC, CMT0/CMT1 */
-	{ MSTPCRB, 0xFDFFFFFF },	/* Enable SCI6 */
-	{ MSTPCRC, 0x7FFF0000 },	/* Disable Deep-Sleep mode, Enable RAM */
-	{ MSTPCRD, 0xFFFFFF00 },
+	{ MSTPCRA, MSTPCRA_INI },
+	{ MSTPCRB, MSTPCRB_INI },
+	{ MSTPCRC, MSTPCRC_INI },
+	{ MSTPCRD, MSTPCRD_INI },
 	{0, 0}
 };
 
@@ -48,8 +48,8 @@ LOCAL const T_SETUP_REG mstop_tbl[] = {
  * Setup pin functions Tadle
  */
 LOCAL const T_SETUP_REG pinfnc_tbl[] = {
-	{MPC_PB0PFS, 0x0B},		/* PB0 = SCI6.RXD6 */
-	{MPC_PB1PFS, 0x0B},		/* PB1 = SCI6.TXD6 */
+	{MPC_PBnPFS(0), 0x0B},		/* PB0 = SCI6.RXD6 */
+	{MPC_PBnPFS(1), 0x0B},		/* PB1 = SCI6.TXD6 */
 	{0, 0}
 };
 

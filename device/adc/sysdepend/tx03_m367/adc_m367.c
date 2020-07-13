@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020//.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -52,7 +52,6 @@ void adc_inthdr( UINT intno)
 LOCAL UW adc_convert( UINT unit, INT ch, INT size, UW *buf )
 {
 	UW	addr, rtn;
-	ER	err;
 
 	if(ch < 0 || ch >= ADC_CH_NUM) return E_PAR;
 
@@ -78,7 +77,7 @@ LOCAL UW adc_convert( UINT unit, INT ch, INT size, UW *buf )
 	rtn = (UW)tk_slp_tsk(unit?DEVCNF_ADCB_INTPRI:DEVCNF_ADCA_TMOSCAN);
 	if(rtn == E_OK) {
 		addr = ba[unit] + ADxREG00 + (ch<<2);
-		err = size;
+		rtn = size;
 		while( size-- > 0) {
 			*buf++ = in_w( addr) & 0x0000FFF;
 			addr += 4;

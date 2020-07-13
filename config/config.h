@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
  *
  *----------------------------------------------------------------------
  */
@@ -140,6 +140,12 @@
  */
 #define	USE_FPU			(0)	/* Use FPU */
 #define	USE_DSP			(0)	/* Use DSP */
+
+/*---------------------------------------------------------------------- */
+/* Use Physical timer.
+　*  1: Valid  0: Invalid
+ */
+#define USE_PTMR		(1)	/* Use Physical timer */
 
 /*
  *	Use function Definition
