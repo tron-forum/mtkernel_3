@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.02.B1
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -46,16 +46,6 @@
 #define EXP_PSV		EXP_M(14)	/* Software asynchronous System call */
 #define EXP_STK		EXP_M(15)	/* System tick */
 #define EXP_EXT(n)	(EXP_M(16) + n)	/* External interrupt */
-
-
-/* ------------------------------------------------------------------------ */
-
-/*
- * Parameter of SVC instruction 
- */
-#define SVC_SYSCALL		0x00	/* micro T-Kernel system call */
-#define SVC_EXTENDED_SVC	0x10	/* Extended SVC */
-#define SVC_DEBUG_SUPPORT	0xFF	/* Debugger support function */
 
 /* ------------------------------------------------------------------------ */
 
@@ -142,15 +132,6 @@
 /* Interrupt Priority Registers (IPR) are byte-accessible. */
 #define NVIC_IPR_BASE	0xE000E400
 #define NVIC_IPR(x)	(NVIC_IPR_BASE + (x))
-
-/* ------------------------------------------------------------------------ */
-/*
- * Vector table size
- */
-
-#define	SYS_VECTOR_SIZE	(16 * 4)	/* System Exceptions */
-#define	INT_VECTOR_SIZE	(N_INTVEC * 4)	/* External Interrupts */
-
 
 /* ------------------------------------------------------------------------ */
 /*

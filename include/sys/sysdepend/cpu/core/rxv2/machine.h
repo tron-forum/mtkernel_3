@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B1
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -28,11 +28,9 @@
  * ALLOCA_NOSPT		1 if alloca() is not supported 
  */
 
-/* ----- T-Engine Appliance RXv2 definition ----- */
+/* ----- RXv2 definition ----- */
 #define CPU_RX_V2		1
 #define ALLOW_MISALIGN		0
-#define VIRTUAL_ADDRESS		0
-#define ALLOCA_NOSPT		0
 #define INT_BITWIDTH		32
 
 /*

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02.B0
+ *    micro T-Kernel 3.00.02.B1
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -25,7 +25,7 @@
 /*
  * Exception handler table (RAM)
  */
-EXPORT UB	exchdr_tbl[SYS_VECTOR_SIZE+INT_VECTOR_SIZE] __attribute__ ((section (".data_vector")));
+EXPORT UW	exchdr_tbl[N_SYSVEC + N_INTVEC] __attribute__ ((section (".data_vector")));
 
 #endif
 
@@ -81,7 +81,7 @@ EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 	} else 	{	/* Clear interrupt handler */
 		inthdr = Default_Handler;
 	}
-	intvet = (FP*)&exchdr_tbl[SYS_VECTOR_SIZE];
+	intvet = (FP*)&exchdr_tbl[N_SYSVEC];
 	intvet[intno] = inthdr;
 
 	return E_OK;

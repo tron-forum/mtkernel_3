@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02.B0
+ *    micro T-Kernel 3.00.02.B1
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -53,7 +53,12 @@
 #define CLKCTRL_CGPLLSEL	(CLKCTRL_BASE + 0x000C)
 #define CLKCTRL_CGCKSTP		(CLKCTRL_BASE + 0x0018)
 #define CLKCTRL_CGPROTECT	(CLKCTRL_BASE + 0x003C)
+
 #define CLKCTRL_CGIMCG		(CLKCTRL_BASE + 0x0040)
+#define CLKCTRL_CGIMCGA		(CLKCTRL_BASE + 0x0040)
+#define CLKCTRL_CGIMCGB		(CLKCTRL_BASE + 0x0044)
+#define CLKCTRL_CGIMCGC		(CLKCTRL_BASE + 0x0048)
+#define CLKCTRL_CGIMCGD		(CLKCTRL_BASE + 0x004C)
 #define CLKCTRL_CGICRCG		(CLKCTRL_BASE + 0x0060)
 
 /* PLL Selection */
@@ -70,21 +75,22 @@
 #define CLKCTRL_CGOSCCR_PLLON		0x00000004
 #define CLKCTRL_CGOSCCR_WUPSEL_XT1	0x00000008
 
-#define CLKCTRL_CGOSCCR_WUPT(usec,MHz)	( (usec * MHz) >> 4 ) << 20
+#define CLKCTRL_CGOSCCR_WUPT(usec,freq)	( (usec * freq) >> 4 ) << 20
 
+#define	MHz			(UW)(1000000UL)
 #define HISPEED_CLOCK_MHz	12
 
 #define PLL_MODE_4X		4
 #define PLL_MODE_6X		6
 
-#define	CLOCK_fPLL		(HISPEED_CLOCK_MHz * PLL_MODE_6X * 1000000)
+#define	CLOCK_fPLL		(HISPEED_CLOCK_MHz * PLL_MODE_6X * MHz)
 #define	CLOCK_fc		(CLOCK_fPLL)
 #define	CLOCK_fgear		(CLOCK_fc / 2)
 #define	CLOCK_fsys		(CLOCK_fgear)
 #define	CLOCK_fperiph		(CLOCK_fgear)
 #define	CLOCK_T0		(CLOCK_fperiph)
 
-#define TMCLK			(CLOCK_fsys / 1000000)	/* Timer clock input (MHz) */
+#define TMCLK			(CLOCK_fsys / MHz)	/* Timer clock input (MHz) */
 #define TMCLK_KHz		(CLOCK_fsys / 1000)	/* Timer clock input (kHz) */
 
 /*
@@ -99,6 +105,7 @@
  * Number of Interrupt vectors
  */
 #define N_INTVEC		128	/* Number of Interrupt vectors */
+#define	N_SYSVEC		16	/* Number of System Exceptions */
 
 /*
  * The number of the implemented bit width for priority value fields.
@@ -148,18 +155,18 @@
 #define	PORTK_BASE	0x400C0A00
 #define	PORTL_BASE	0x400C0B00
 
-#define	DATA(n)		(PORT##n##_BASE + 0x00)	// data
-#define	CR(n)		(PORT##n##_BASE + 0x04)	// Output Control
-#define	FR1(n)		(PORT##n##_BASE + 0x08)	// Function 1
-#define	FR2(n)		(PORT##n##_BASE + 0x0C)	// Function 2
-#define	FR3(n)		(PORT##n##_BASE + 0x10)	// Function 3
-#define	FR4(n)		(PORT##n##_BASE + 0x14)	// Function 4
-#define	FR5(n)		(PORT##n##_BASE + 0x18)	// Function 5
-#define	FR6(n)		(PORT##n##_BASE + 0x1C)	// Function 6
-#define	OD(n)		(PORT##n##_BASE + 0x28)	// Open Drain Control
-#define	PUP(n)		(PORT##n##_BASE + 0x2C)	// Pull-up Control
-#define	PDN(n)		(PORT##n##_BASE + 0x30)	// Pull-down Control
-#define	IE(n)		(PORT##n##_BASE + 0x38)	// Input Control
+#define	PORT_DATA(n)	(PORT##n##_BASE + 0x00)	// data
+#define	PORT_CR(n)	(PORT##n##_BASE + 0x04)	// Output Control
+#define	PORT_FR1(n)	(PORT##n##_BASE + 0x08)	// Function 1
+#define	PORT_FR2(n)	(PORT##n##_BASE + 0x0C)	// Function 2
+#define	PORT_FR3(n)	(PORT##n##_BASE + 0x10)	// Function 3
+#define	PORT_FR4(n)	(PORT##n##_BASE + 0x14)	// Function 4
+#define	PORT_FR5(n)	(PORT##n##_BASE + 0x18)	// Function 5
+#define	PORT_FR6(n)	(PORT##n##_BASE + 0x1C)	// Function 6
+#define	PORT_OD(n)	(PORT##n##_BASE + 0x28)	// Open Drain Control
+#define	PORT_PUP(n)	(PORT##n##_BASE + 0x2C)	// Pull-up Control
+#define	PORT_PDN(n)	(PORT##n##_BASE + 0x30)	// Pull-down Control
+#define	PORT_IE(n)	(PORT##n##_BASE + 0x38)	// Input Control
 
 /* ------------------------------------------------------------------------ */
 /*

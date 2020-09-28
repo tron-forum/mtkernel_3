@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/7/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -34,7 +34,7 @@ LOCAL T_ADC_DCB	*dev_adc_cb[DEV_ADC_UNITNM];
 #else
 
 LOCAL T_ADC_DCB	dev_adc_cb[DEV_ADC_UNITNM];
-#define		get_dcb_ptr(unit)	(&dev_ADC_cb[unit])
+#define		get_dcb_ptr(unit)	(&dev_adc_cb[unit])
 #define		get_dcb_mem(unit,a)	(dev_adc_cb[unit].a)
 
 #endif	/* TK_SUPPORT_MEMLIB */
