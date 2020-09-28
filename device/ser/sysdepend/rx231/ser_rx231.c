@@ -1,15 +1,16 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef CPU_RX231
 #include "../../../config/devconf.h"
@@ -24,7 +25,7 @@
 #include "../../ser.h"
 
 /*----------------------------------------------------------------------
-/* Device register base address
+ * Device register base address
  */
 const LOCAL UW ba[DEV_SER_UNITNM] = {
 	SCI0_BASE, SCI1_BASE, SCI5_BASE, SCI6_BASE, 
@@ -32,7 +33,7 @@ const LOCAL UW ba[DEV_SER_UNITNM] = {
 };
 
 /*----------------------------------------------------------------------
-/* Interrupt number Table
+ * Interrupt number Table
  */
 const LOCAL UINT inotbl[DEV_SER_UNITNM] = {
 	INTNO_SCI0_ERI, INTNO_SCI1_ERI, INTNO_SCI5_ERI, INTNO_SCI6_ERI,
@@ -54,7 +55,7 @@ typedef struct {
 LOCAL T_DEV_SER_LLDEVCB		ll_devcb[DEV_SER_UNITNM];
 
 /*----------------------------------------------------------------------
-/* Interrupt handler
+ * Interrupt handler
  */
 
 /*
@@ -106,7 +107,7 @@ void sci_eri_inthdr( UINT intno)
 
 
 /*----------------------------------------------------------------------
-/* Set mode & Start communication
+ * Set mode & Start communication
  */
 LOCAL void start_com(UW unit, UW mode, UW speed)
 {
@@ -125,7 +126,7 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
 }
 
 /*----------------------------------------------------------------------
-/* Calculate baud rate
+ * Calculate baud rate
  */
 LOCAL UW calc_brr(UW baud)
 {
@@ -172,7 +173,7 @@ LOCAL UW calc_brr(UW baud)
 }
 
 /*----------------------------------------------------------------------
-/* Low level device control
+ * Low level device control
  */
 EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 {
@@ -231,7 +232,7 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 }
 
 /*----------------------------------------------------------------------
-/* Device initialization
+ * Device initialization
  */
 EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 {

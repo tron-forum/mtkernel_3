@@ -1,15 +1,17 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/7/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
+
+#include <sys/machine.h>
 #include "../config/devconf.h"
 #if DEVCNF_DEV_ADC
 /*
@@ -22,7 +24,7 @@
 
 #include "adc.h"
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Device driver Control block
  */
 #if TK_SUPPORT_MEMLIB
@@ -34,12 +36,12 @@ LOCAL T_ADC_DCB	*dev_adc_cb[DEV_ADC_UNITNM];
 #else
 
 LOCAL T_ADC_DCB	dev_adc_cb[DEV_ADC_UNITNM];
-#define		get_dcb_ptr(unit)	(&dev_ADC_cb[unit])
+#define		get_dcb_ptr(unit)	(&dev_adc_cb[unit])
 #define		get_dcb_mem(unit,a)	(dev_adc_cb[unit].a)
 
 #endif	/* TK_SUPPORT_MEMLIB */
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Attribute data control
  */
 LOCAL ER read_atr(T_ADC_DCB *p_dcb, T_DEVREQ *req)
@@ -87,7 +89,7 @@ LOCAL ER write_atr(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 	return err;
 }
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /*　Device-specific data control
  */
 LOCAL ER read_data(T_ADC_DCB *p_dcb, T_DEVREQ *req)
@@ -230,7 +232,7 @@ EXPORT ER dev_init_adc( UW unit )
 	dmsdi.writefn	= dev_adc_writefn;
 	dmsdi.eventfn	= dev_adc_eventfn;
 	
-	knl_strcpy( dmsdi.devnm, DEVCNF_ADC_DEVNAME);
+	knl_strcpy( (char*)dmsdi.devnm, DEVCNF_ADC_DEVNAME);
 	i = knl_strlen(DEVCNF_ADC_DEVNAME);
 	dmsdi.devnm[i] = (UB)('a' + unit);
 	dmsdi.devnm[i+1] = 0;

@@ -1,15 +1,16 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef CPU_TMPM369FDFG
 #include "../../../config/devconf.h"
@@ -36,7 +37,7 @@ LOCAL struct {
 
 
 /*----------------------------------------------------------------------
-/* Interrupt handler
+ * Interrupt handler
  */
 void adc_inthdr( UINT intno)
 {
@@ -90,7 +91,7 @@ LOCAL UW adc_convert( UINT unit, INT ch, INT size, UW *buf )
 
 
 /*----------------------------------------------------------------------
-/* Low level device control
+ * Low level device control
  */
 EXPORT W dev_adc_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 {
@@ -128,7 +129,7 @@ EXPORT W dev_adc_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 }
 
 /*----------------------------------------------------------------------
-/* Device initialization
+ * Device initialization
  */
 EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 {

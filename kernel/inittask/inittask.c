@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -116,7 +116,7 @@ LOCAL void init_task_main(void)
 	if(ercd  >= E_OK) {
 
 #if (USE_SYSTEM_MESSAGE && USE_TMONITOR)
-		tm_printf("\n\nmicroT-Kernel Version %x.%02x\n\n", VER_MAJOR, VER_MINOR);
+		tm_printf((UB*)"\n\nmicroT-Kernel Version %x.%02x\n\n", VER_MAJOR, VER_MINOR);
 #endif
 
 #if USE_USERINIT

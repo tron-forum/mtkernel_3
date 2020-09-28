@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B1
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -37,38 +37,38 @@ LOCAL const T_SETUP_REG setup_regs[] = {
 	// PA5	RXD5
 	// PA6	TXD5
 	// PA7	CTS5
-	{FR1(A),0x0000000f},
-	{FR2(A),0x000000f0},
-	{PUP(A),0x0000000a},
-	{CR(A),	0x00000053},
-	{IE(A),	0x000000ae},
+	{PORT_FR1(A),	0x0000000f},
+	{PORT_FR2(A),	0x000000f0},
+	{PORT_PUP(A),	0x0000000a},
+	{PORT_CR(A),	0x00000053},
+	{PORT_IE(A),	0x000000ae},
 
 	// PE5	TXD1		UART
 	// PE6	RXD1
-	{FR1(E),0x00000060},
-	{CR(E),	0x00000020},
-	{IE(E),	0x00000040},
+	{PORT_FR1(E),	0x00000060},
+	{PORT_CR(E),	0x00000020},
+	{PORT_IE(E),	0x00000040},
 
 	// PF5	P-IN		CD (SD Card)
 	// PF6	SCL1		I2C
 	// PF7	SDA1
-	{FR4(F),0x000000c0},
-	{OD(F),	0x000000c0},
-	{CR(F),	0x000000c0},
-	{IE(F),	0x000000e0},
+	{PORT_FR4(F),	0x000000c0},
+	{PORT_OD(F),	0x000000c0},
+	{PORT_CR(F),	0x000000c0},
+	{PORT_IE(F),	0x000000e0},
 
 	// PK1	P-OUT		CS (SD Card)
 	// PK2	SP0DI		SPI (SD Card)
 	// PK3	SP0DO
 	// PK4	SP0CLK-OUT
-	{DATA(K),	0x00000002},
-	{FR2(K),	0x0000001c},
-	{CR(K),		0x0000001a},
-	{IE(K),		0x00000004},
+	{PORT_DATA(K),	0x00000002},
+	{PORT_FR2(K),	0x0000001c},
+	{PORT_CR(K),	0x0000001a},
+	{PORT_IE(K),	0x00000004},
 
 	// PL1	P-OUT		I2C_ENABLE
-	{DATA(L),	0x00000000},
-	{CR(L),		0x00000002},
+	{PORT_DATA(L),	0x00000000},
+	{PORT_CR(L),	0x00000002},
 
 	{0, 0}
 };
@@ -84,7 +84,7 @@ EXPORT void knl_startup_hw(void)
 	*(_UW*)WDOG_WDMOD &= ~0x00000080;
 	*(_UW*)WDOG_WDCR = WDOG_WDCR_DISABLE;
 
-	enable_pll(PLL_MODE_6X);
+	startup_clock(PLL_MODE_6X);
 
 	/* Setup Pin Function */
 	for(p = setup_regs; p->addr != 0; p++) {

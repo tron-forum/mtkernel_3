@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -71,7 +71,6 @@ LOCAL ER msdi_closefn( ID devid, UINT option, T_MSDI *msdi )
 LOCAL ER msdi_execfn( T_DEVREQ *req, TMO tmout, T_MSDI *msdi )
 {
 	INT	(*fp)( T_DEVREQ*, T_MSDI* );
-	INT	memsz;
 	ER	err;
 
 	fp = ( req->cmd == TDC_READ )? msdi->dmsdi.readfn: msdi->dmsdi.writefn;

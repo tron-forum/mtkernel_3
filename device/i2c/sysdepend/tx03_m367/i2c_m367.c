@@ -1,15 +1,16 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef CPU_TMPM369FDFG
 #include "../../../config/devconf.h"
@@ -75,7 +76,6 @@ LOCAL T_I2C_LLDCB	ll_devcb[DEV_I2C_UNITNM];
 LOCAL void i2c_inthdr( UINT intno )
 {
 	T_I2C_LLDCB	*p_cb;
-	UW		dat;
 	UW		sbisr;
 	INT		unit;
 
@@ -169,7 +169,7 @@ LOCAL void i2c_wait_status( T_I2C_LLDCB *p_cb, INT unit, UW mask, UW value )
  */
 LOCAL ER i2c_trans(INT unit, T_I2C_LLDCB *p_cb)
 {
-	UINT		flgptn, imask;
+	UINT		imask;
 	ER		err;
 
 	p_cb->ioerr		= E_OK;
@@ -232,7 +232,7 @@ Inline void set_com_start(UW unit, UW sadr, UW sdat_num, UW rdat_num, UB *sbuf, 
 
 
 /*----------------------------------------------------------------------
-/* Low level device control
+ * Low level device control
  */
 EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 {
@@ -284,7 +284,7 @@ EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 }
 
 /*----------------------------------------------------------------------
-/* Device initialization
+ * Device initialization
  */
 EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 {

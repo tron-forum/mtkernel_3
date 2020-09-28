@@ -1,15 +1,17 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
+
+#include <sys/machine.h>
 #include "../config/devconf.h"
 #if DEVCNF_DEV_IIC
 /*
@@ -22,7 +24,7 @@
 
 #include "i2c.h"
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
 /*I2C Device driver Control block
  */
 #if TK_SUPPORT_MEMLIB
@@ -39,7 +41,7 @@ LOCAL T_I2C_DCB	dev_i2c_cb[DEV_I2C_UNITNM];
 
 #endif
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
 /* Attribute data control
  */
 LOCAL ER read_atr(T_I2C_DCB *p_dcb, T_DEVREQ *req)
@@ -108,7 +110,7 @@ LOCAL ER write_atr(T_I2C_DCB *p_dcb, T_DEVREQ *req)
 	return err;
 }
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
 /*Device-specific data control
  */
 LOCAL ER read_data(T_I2C_DCB *p_dcb, T_DEVREQ *req)
@@ -278,7 +280,7 @@ EXPORT ER dev_init_i2c( UW unit )
 	dmsdi.writefn	= dev_i2c_writefn;
 	dmsdi.eventfn	= dev_i2c_eventfn;
 	
-	knl_strcpy( dmsdi.devnm, DEVCNF_I2C_DEVNAME);
+	knl_strcpy( (char*)dmsdi.devnm, DEVCNF_I2C_DEVNAME);
 	i = knl_strlen(DEVCNF_I2C_DEVNAME);
 	dmsdi.devnm[i] = (UB)('a' + unit);
 	dmsdi.devnm[i+1] = 0;

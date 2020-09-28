@@ -11,8 +11,6 @@
  *----------------------------------------------------------------------
  */
 
-#pragma optimize("", off)
-
 #include <sys/machine.h>
 #ifdef CPU_CORE_ACM3
 

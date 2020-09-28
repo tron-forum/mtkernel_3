@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -23,7 +23,7 @@
 #include "../include/dev_adc.h"
 #include "adc_cnf.h"
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Hardware dependent definition
  */
 #ifdef CPU_TMPM369FDFG
@@ -33,7 +33,7 @@
 #include "sysdepend/rx231/adc_rx231.h"
 #endif	/* CPU_RX231 */
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Device driver Control block
  */
 typedef struct {
@@ -44,7 +44,7 @@ typedef struct {
 	ID	evtmbfid;			/* MBF ID for event notification */
 } T_ADC_DCB;
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Device driver low-level interface
  */
 

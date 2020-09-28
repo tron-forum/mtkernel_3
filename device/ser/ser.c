@@ -1,20 +1,22 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
+
+#include <sys/machine.h>
 #include "../config/devconf.h"
-#if DEVCNF_DEV_SER
+#if DEVCNF_DEV_IIC
 /*
- *	dev_sc.c
- *	Serial communication device driver
+ *	ser.c
+ *	Serial communication driver
 */
 
 #include <tk/tkernel.h>
@@ -22,7 +24,7 @@
 
 #include "ser.h"
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Serial Device driver Control block
  */
 #if TK_SUPPORT_MEMLIB
@@ -39,7 +41,7 @@ LOCAL T_SER_DCB	dev_ser_cb[DEV_SER_UNITNM];
 
 #endif
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Serial device driver low-level interface
  *
  *	Called from a low level interrupt handler.
@@ -87,13 +89,10 @@ EXPORT void dev_ser_notify_rcv(UW unit, UW data)
 
 EXPORT void dev_ser_notify_err(UW unit, UW err)
 {
-	T_SER_BUFF	*p_buff;
-
-	p_buff = &get_dcb_mem( unit, rcv_buff);
 	get_dcb_mem(unit, com_error) |= err;	
 }
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /* Attribute data control
  */
 
@@ -194,7 +193,7 @@ LOCAL ER write_atr(T_SER_DCB *p_dcb, T_DEVREQ *req)
 	return err;
 }
 
-/*----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
 /*　Device-specific data control
  */
 
@@ -423,7 +422,7 @@ EXPORT ER dev_init_ser( UW unit )
 	dmsdi.writefn	= dev_ser_writefn;
 	dmsdi.eventfn	= dev_ser_eventfn;
 	
-	knl_strcpy( dmsdi.devnm, DEVCNF_SER_DEVNAME);
+	knl_strcpy( (char*)dmsdi.devnm, DEVCNF_SER_DEVNAME);
 	i = knl_strlen(DEVCNF_SER_DEVNAME);
 	dmsdi.devnm[i] = (UB)('a' + unit);
 	dmsdi.devnm[i+1] = 0;

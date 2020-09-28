@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02.B1
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -54,7 +54,7 @@ EXPORT void Reset_Handler(void)
 	src = (UW*)vector_tbl;;
 	top = (UW*)exchdr_tbl;
 
-	for(i=0; i < ( (SYS_VECTOR_SIZE+INT_VECTOR_SIZE)/sizeof(UW) ); i++) {
+	for(i=0; i < ((N_SYSVEC + N_INTVEC)); i++) {
 		*top++ = *src++;
 	}
 	
@@ -76,7 +76,7 @@ EXPORT void Reset_Handler(void)
 #else 
 	top = (UW*)&__bss_start;
 #endif
-	for(i = (INT)&__bss_end - (INT)&__bss_start; i > 0 ; i--) {
+	for(i = ((INT)&__bss_end - (INT)&__bss_start)/sizeof(UW); i > 0 ; i--) {
 		*top++ = 0;
 	}
 

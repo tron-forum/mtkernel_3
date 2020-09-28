@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -23,14 +23,14 @@
 #include "../include/dev_i2c.h"
 #include "i2c_cnf.h"
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
 /* Hardware dependent definition
  */
 #ifdef CPU_TMPM369FDFG
 #include "sysdepend/tx03_m367/i2c_m367.h"
 #endif		/* CPU_TMPM369FDFG */
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
 /* Device driver Control block
  */
 typedef struct {
@@ -40,7 +40,7 @@ typedef struct {
 	ID	evtmbfid;			/* MBF ID for event notification */
 } T_I2C_DCB;
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
 /* Device driver low-level interface
  * 	These functions are defined in the system dependent part.
  */

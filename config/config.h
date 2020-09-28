@@ -121,7 +121,7 @@
  *   1: Valid  0: Invalid
  */
 #define USE_DBGSPT		(1)	/* Use mT-Kernel/DS */
-#define USE_OBJECT_NAME		(1)	/* Use DS object name */
+#define USE_OBJECT_NAME		(0)	/* Use DS object name */
 
 #define OBJECT_NAME_LENGTH	(8)	/* DS Object name length */
 

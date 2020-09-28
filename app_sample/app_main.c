@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -38,14 +38,10 @@
  */
 void tsk1(INT stacd, void *exinf)
 {
-	tm_putstring("Start Task-1\n");
+	tm_putstring((UB*)"Start Task-1\n");
 
 	tk_exd_tsk();	/* Exit task */
 }
-
-const T_CTSK	ctsk1	= {
-	0, (TA_HLNG | TA_RNG1), &tsk1, 10, 1024, 0
-};
 
 /* ---------------------------------------------------------
  *
@@ -54,34 +50,31 @@ const T_CTSK	ctsk1	= {
  */
 void tsk2(INT stacd, void *exinf)
 {
-	tm_putstring("Start Task-2\n");
+	tm_putstring((UB*)"Start Task-2\n");
 
 	tk_exd_tsk();	/* Exit Task */
 }
 
-const T_CTSK	ctsk2	= {
-	0, (TA_HLNG | TA_RNG1), &tsk2, 11, 1024, 0
-};
-
+const T_CTSK	ctsk1	= { 0, (TA_HLNG | TA_RNG1), &tsk1, 10, 1024, 0};
+const T_CTSK	ctsk2	= { 0, (TA_HLNG | TA_RNG1), &tsk2, 11, 1024, 0 };
 
 /* ----------------------------------------------------------
  *
  * User-Main Definition (Run on initial task)
  *
  */
+
 EXPORT INT usermain( void )
 {
 	T_RVER	rver;
 	ID	id1, id2;
-	void	*ptr1, *ptr2;
-	UB	*b1, *b2;
 
-	tm_putstring("Start User-main program.\n");
+	tm_putstring((UB*)"Start User-main program.\n");
 
 	tk_ref_ver(&rver);		/* Get the OS Version. */
 
-	tm_printf("Make Code: %04x  Product ID: %04x\n", rver.maker, rver.prid);
-	tm_printf("Product Ver. %04x\nProduct Num. %04x %04x %04x %04x\n", 
+	tm_printf((UB*)"Make Code: %04x  Product ID: %04x\n", rver.maker, rver.prid);
+	tm_printf((UB*)"Product Ver. %04x\nProduct Num. %04x %04x %04x %04x\n", 
 			rver.prver, rver.prno[0],rver.prno[1],rver.prno[2],rver.prno[3]);
 
 	id1 = tk_cre_tsk(&ctsk1);

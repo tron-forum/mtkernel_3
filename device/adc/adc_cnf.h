@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -21,7 +21,7 @@
 #define	DEVCNF_ADC_DEVNAME	"adc"		// Device name ("adc") */
 
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
 /* Hardware dependent definition
  */
 #ifdef CPU_TMPM369FDFG

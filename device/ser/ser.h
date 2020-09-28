@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
  *
  *----------------------------------------------------------------------
  */
@@ -24,7 +24,7 @@
 #include "ser_cnf.h"
 
 /*----------------------------------------------------------------------
-/* Hardware dependent definition
+ * Hardware dependent definition
  */
 #ifdef CPU_TMPM369FDFG
 #include "sysdepend/tx03_m367/ser_m367.h"
@@ -35,7 +35,7 @@
 
 
 /*----------------------------------------------------------------------
-/* Communication data buffer
+ * Communication data buffer
  */
 typedef struct {
 	UW	top;
@@ -50,7 +50,7 @@ Inline	void buff_init(T_SER_BUFF *buff)
 }
 
 /*----------------------------------------------------------------------
-/* Device driver Control block
+ * Device driver Control block
  */
 typedef struct {
 	UW	unit;		/* Unit No. */
@@ -75,7 +75,7 @@ typedef struct {
 } T_SER_DCB;
 
 /*----------------------------------------------------------------------
-/* Serial device driver low-level interface
+ * Serial device driver low-level interface
  */
 
 /* The following functions are defined in the system common part. */
