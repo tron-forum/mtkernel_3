@@ -149,8 +149,8 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 
 	/* P40-P47 = AN00-AN07 */
 	cnf = DEVCONF_ENA_AN00_07;
-	*(UB*)PORTn_PDR(4) &= ~cnf;		// Set input port
-	*(UB*)PORTn_PMR(4) &= ~cnf;		// Set General-purpose i/o port
+	*(UB*)PORT4_PDR &= ~cnf;		// Set input port
+	*(UB*)PORT4_PMR &= ~cnf;		// Set General-purpose i/o port
 	for( i = 0; i < 8; i++, cnf<<=1) {
 		if(cnf & 1) {
 			out_b(MPC_P4nPFS(i), MPC_PFS_ASEL);

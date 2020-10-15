@@ -13,7 +13,7 @@
 
 #include <sys/machine.h>
 #include "../config/devconf.h"
-#if DEVCNF_DEV_IIC
+#if DEVCNF_DEV_SER
 /*
  *	ser.c
  *	Serial communication driver

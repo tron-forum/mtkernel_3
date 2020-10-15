@@ -157,7 +157,7 @@
  * Pin function control
  */
 
-#define MPC_PWPR		0x008C11FUL
+#define MPC_PWPR		(0x0008C11F)
 #define	MPC_PWMR_PFSWE		(1<<6)
 #define	MPC_PWMR_B0WI		(1<<7)
 
@@ -175,21 +175,64 @@
 #define MPC_PHnPFS(n)		(0x0008C1C8+n)
 
 #define	MPC_PFS_ASEL		(1<<7)
+#define	MPC_PFS_PSEL		(0x1F)
 
 /* ------------------------------------------------------------------------ */
 /*
- * Port mode
+ * I/O Port
  */
-#define PORTn_PDR(n)		(0x0008C000+n)
-#define	PORTA_PDR		(0x0006C00A)
-#define	PORTB_PDR		(0x0006C00B)
-#define	PORTC_PDR		(0x0006C00C)
-#define	PORTD_PDR		(0x0006C00D)
-#define	PORTE_PDR		(0x0006C00E)
-#define	PORTH_PDR		(0x0006C011)
-#define	PORTJ_PDR		(0x0006C012)
+/* Port direction register */
+#define	PORT0_PDR		(0x0008C000)
+#define	PORT1_PDR		(0x0008C001)
+#define	PORT2_PDR		(0x0008C002)
+#define	PORT3_PDR		(0x0008C003)
+#define	PORT4_PDR		(0x0008C004)
+#define	PORT5_PDR		(0x0008C005)
+#define	PORTA_PDR		(0x0008C00A)
+#define	PORTB_PDR		(0x0008C00B)
+#define	PORTC_PDR		(0x0008C00C)
+#define	PORTD_PDR		(0x0008C00D)
+#define	PORTE_PDR		(0x0008C00E)
+#define	PORTH_PDR		(0x0008C011)
+#define	PORTJ_PDR		(0x0008C012)
 
-#define	PORTn_PMR(n)		(0x0008C060+n)
+/* Port output data register */
+#define	PORT0_PODR		(0x0008C020)
+#define	PORT1_PODR		(0x0008C021)
+#define	PORT2_PODR		(0x0008C022)
+#define	PORT3_PODR		(0x0008C023)
+#define	PORT4_PODR		(0x0008C024)
+#define	PORT5_PODR		(0x0008C025)
+#define	PORTA_PODR		(0x0008C02A)
+#define	PORTB_PODR		(0x0008C02B)
+#define	PORTC_PODR		(0x0008C02C)
+#define	PORTD_PODR		(0x0008C02D)
+#define	PORTE_PODR		(0x0008C02E)
+#define	PORTH_PODR		(0x0008C031)
+#define	PORTJ_PODR		(0x0008C032)
+
+/* Port input data register */
+#define	PORT0_PIDR		(0x0008C040)
+#define	PORT1_PIDR		(0x0008C041)
+#define	PORT2_PIDR		(0x0008C042)
+#define	PORT3_PIDR		(0x0008C043)
+#define	PORT4_PIDR		(0x0008C044)
+#define	PORT5_PIDR		(0x0008C045)
+#define	PORTA_PIDR		(0x0008C04A)
+#define	PORTB_PIDR		(0x0008C04B)
+#define	PORTC_PIDR		(0x0008C04C)
+#define	PORTD_PIDR		(0x0008C04D)
+#define	PORTE_PIDR		(0x0008C04E)
+#define	PORTH_PIDR		(0x0008C051)
+#define	PORTJ_PIDR		(0x0008C052)
+
+/* Port mode register */
+#define	PORT0_PMR		(0x0008C060)
+#define	PORT1_PMR		(0x0008C061)
+#define	PORT2_PMR		(0x0008C062)
+#define	PORT3_PMR		(0x0008C063)
+#define	PORT4_PMR		(0x0008C064)
+#define	PORT5_PMR		(0x0008C065)
 #define	PORTA_PMR		(0x0008C06A)
 #define	PORTB_PMR		(0x0008C06B)
 #define	PORTC_PMR		(0x0008C06C)
@@ -198,18 +241,58 @@
 #define	PORTH_PMR		(0x0008C071)
 #define	PORTJ_PMR		(0x0008C072)
 
-#define	PORTn_ODR0(n)		(0x0008C080+(n<<1))
+/* Open drain control register 0 */
+#define	PORT1_ODR0		(0x0008C082)
+#define	PORT2_ODR0		(0x0008C084)
+#define	PORT3_ODR0		(0x0008C086)
+#define	PORT5_ODR0		(0x0008C08A)
 #define	PORTA_ODR0		(0x0008C094)
 #define	PORTB_ODR0		(0x0008C096)
 #define	PORTC_ODR0		(0x0008C098)
 #define	PORTE_ODR0		(0x0008C09C)
 #define	PORTJ_ODR0		(0x0008C0A4)
 
-#define	PORTn_ODR1(n)		(0x0008C081+(n<<1))
+/* Open drain control register 1 */
+#define	PORT1_ODR1		(0x0008C083)
+#define	PORT2_ODR1		(0x0008C085)
+#define	PORT3_ODR1		(0x0008C087)
+#define	PORT5_ODR1		(0x0008C08B)
 #define	PORTA_ODR1		(0x0008C095)
 #define	PORTB_ODR1		(0x0008C097)
-#define	PORTC_ODR1		(0x0008C098)
+#define	PORTC_ODR1		(0x0008C099)
 #define	PORTE_ODR1		(0x0008C09D)
+
+/* Pull-up control register */
+#define	PORT0_PCR		(0x0008C0C0)
+#define	PORT1_PCR		(0x0008C0C1)
+#define	PORT2_PCR		(0x0008C0C2)
+#define	PORT3_PCR		(0x0008C0C3)
+#define	PORT4_PCR		(0x0008C0C4)
+#define	PORT5_PCR		(0x0008C0C5)
+#define	PORTA_PCR		(0x0008C0CA)
+#define	PORTB_PCR		(0x0008C0CB)
+#define	PORTC_PCR		(0x0008C0CC)
+#define	PORTD_PCR		(0x0008C0CD)
+#define	PORTE_PCR		(0x0008C0CE)
+#define	PORTH_PCR		(0x0008C0D1)
+#define	PORTJ_PCR		(0x0008C0D2)
+
+/* Port switching register */
+#define	PORT_PSRA		(0x0008C121)
+#define	PORT_PSRB		(0x0008C120)
+
+/* Drive capacity control register */
+#define	PORT1_DSCR		(0x0008C0E1)
+#define	PORT2_DSCR		(0x0008C0E2)
+#define	PORT3_DSCR		(0x0008C0E3)
+#define	PORT5_DSCR		(0x0008C0E5)
+#define	PORTA_DSCR		(0x0008C0EA)
+#define	PORTB_DSCR		(0x0008C0EB)
+#define	PORTC_DSCR		(0x0008C0EC)
+#define	PORTD_DSCR		(0x0008C0ED)
+#define	PORTE_DSCR		(0x0008C0EE)
+#define	PORTH_DSCR		(0x0008C0F1)
+#define	PORTJ_DSCR		(0x0008C0F2)
 
 
 /* ------------------------------------------------------------------------ */
@@ -261,7 +344,6 @@
 
 /* Phycail timer Maximum count */
 #define PTMR_MAX_CNT    (0x0000FFFF)
-
 
 
 /* ------------------------------------------------------------------------ */
