@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -41,7 +41,7 @@ typedef struct {
 	UINT	omode;		/* Open mode */
 
 	/* Attribute data */
-	ID	evtmbfid;			/* MBF ID for event notification */
+	ID	evtmbfid;	/* MBF ID for event notification */
 } T_ADC_DCB;
 
 /*----------------------------------------------------------------------*/

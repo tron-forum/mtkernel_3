@@ -6,10 +6,11 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
+
 
 /*
  *	i2c_cnf.h 
@@ -20,7 +21,7 @@
 #define	__DEV_I2C_CNF_H__
 
 
-#define	DEVCNF_I2C_DEVNAME	"iic"		// Device name ("iic") */
+#define	DEVCNF_I2C_DEVNAME	"iic"		// Device name ("iic")
 
 #define	DEVCNF_I2C_MAX_SDATSZ	100		// Maximum transmission data size
 #define	DEVCNF_I2C_MAX_RDATSZ	100		// Maximum received data size

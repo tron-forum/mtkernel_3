@@ -1,15 +1,16 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02.B1
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef CPU_CORE_ACM3
 /*

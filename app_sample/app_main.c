@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.02
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -55,8 +55,8 @@ void tsk2(INT stacd, void *exinf)
 	tk_exd_tsk();	/* Exit Task */
 }
 
-const T_CTSK	ctsk1	= { 0, (TA_HLNG | TA_RNG1), &tsk1, 10, 1024, 0};
-const T_CTSK	ctsk2	= { 0, (TA_HLNG | TA_RNG1), &tsk2, 11, 1024, 0 };
+const T_CTSK	ctsk1	= {0, (TA_HLNG | TA_RNG1), &tsk1, 10, 1024, 0};
+const T_CTSK	ctsk2	= {0, (TA_HLNG | TA_RNG1), &tsk2, 11, 1024, 0};
 
 /* ----------------------------------------------------------
  *

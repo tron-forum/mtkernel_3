@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02.B0
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -121,7 +121,7 @@ IMPORT ER MUnlock( FastMLock *lock, INT no );
  */
 #if TK_SUPPORT_MEMLIB
 
-#ifndef size_t
+#ifndef PROHIBIT_DEF_SIZE_T
 typedef SZ		size_t;
 #endif
 

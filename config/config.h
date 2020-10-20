@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02.B0
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/07/13.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -60,7 +60,7 @@
 /* Version Number */
 #define CNF_VER_MAKER		0
 #define CNF_VER_PRID		0
-#define CNF_VER_PRVER		1
+#define CNF_VER_PRVER		2
 #define CNF_VER_PRNO1		0
 #define CNF_VER_PRNO2		0
 #define CNF_VER_PRNO3		0

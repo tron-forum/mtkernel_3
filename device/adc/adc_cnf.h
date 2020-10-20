@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -18,7 +18,7 @@
 #ifndef	__DEV_ADC_CNF_H__
 #define	__DEV_ADC_CNF_H__
 
-#define	DEVCNF_ADC_DEVNAME	"adc"		// Device name ("adc") */
+#define	DEVCNF_ADC_DEVNAME	"adc"		/* Device name ("adc") */
 
 
 /*---------------------------------------------------------------------*/
