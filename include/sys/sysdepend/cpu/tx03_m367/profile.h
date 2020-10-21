@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.02
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
  *
  *----------------------------------------------------------------------
  */
@@ -35,11 +35,15 @@
 #define TK_SUPPORT_IOPORT	TRUE		/* Support of I/O port access */
 
 /*
- * physical timer
+ * Physical timer
  */
+#if USE_PTMR
+#define TK_SUPPORT_PTIMER	TRUE		/* Support of physical timer */
+#define TK_MAX_PTIMER		8		/* Maximum number of physical timers. */
+#else
 #define TK_SUPPORT_PTIMER	FALSE		/* Support of physical timer */
 #define TK_MAX_PTIMER		0		/* Maximum number of physical timers. */
-
+#endif
 
 
 #endif /* __SYS_DEPEND_PROFILE_CPU_H__ */

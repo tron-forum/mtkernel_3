@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
  *
  *----------------------------------------------------------------------
  */
@@ -84,7 +84,7 @@ EXPORT void reset_main(void)
 #else 
 	top = (UW*)&_bss_start;
 #endif
-	for(i = (INT)&_bss_end - (INT)&_bss_start; i > 0 ; i--) {
+	for(i = ((INT)&_bss_end - (INT)&_bss_start)/sizeof(UW); i > 0 ; i--) {
 		*top++ = 0;
 	}
 

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
  *
  *----------------------------------------------------------------------
  */
@@ -46,7 +46,7 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
 /*
  * Interrupt Control (interrupt.c)
  */
-IMPORT	UB	exchdr_tbl[];			/* Exception handler table (RAM) */
+IMPORT	UW exchdr_tbl[];			/* Exception handler table (RAM) */
 
 IMPORT void knl_systim_inthdr(void);		/* System-timer Interrupt handler */
 

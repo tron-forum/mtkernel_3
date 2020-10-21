@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -60,7 +60,7 @@
 /* Version Number */
 #define CNF_VER_MAKER		0
 #define CNF_VER_PRID		0
-#define CNF_VER_PRVER		1
+#define CNF_VER_PRVER		2
 #define CNF_VER_PRNO1		0
 #define CNF_VER_PRNO2		0
 #define CNF_VER_PRNO3		0
@@ -72,7 +72,7 @@
  *      micro T-Kernel2.0 API support (Rendezvous)
  */
 #define USE_LEGACY_API		(1)	/* 1: Valid  0: Invalid */
-#define CNF_MAX_PORID		4	/* Maximum number of Rendezvous */
+#define CNF_MAX_PORID		(4)	/* Maximum number of Rendezvous */
 
 
 /*---------------------------------------------------------------------- */
@@ -121,7 +121,7 @@
  *   1: Valid  0: Invalid
  */
 #define USE_DBGSPT		(1)	/* Use mT-Kernel/DS */
-#define USE_OBJECT_NAME		(1)	/* Use DS object name */
+#define USE_OBJECT_NAME		(0)	/* Use DS object name */
 
 #define OBJECT_NAME_LENGTH	(8)	/* DS Object name length */
 
@@ -140,6 +140,12 @@
  */
 #define	USE_FPU			(0)	/* Use FPU */
 #define	USE_DSP			(0)	/* Use DSP */
+
+/*---------------------------------------------------------------------- */
+/* Use Physical timer.
+　*  1: Valid  0: Invalid
+ */
+#define USE_PTMR		(1)	/* Use Physical timer */
 
 /*
  *	Use function Definition

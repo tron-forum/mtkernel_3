@@ -1,15 +1,16 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.02
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef CPU_CORE_ACM3
 /*
@@ -25,7 +26,7 @@
 /*
  * Exception handler table (RAM)
  */
-EXPORT UB	exchdr_tbl[SYS_VECTOR_SIZE+INT_VECTOR_SIZE] __attribute__ ((section (".data_vector")));
+EXPORT UW exchdr_tbl[N_SYSVEC + N_INTVEC] __attribute__ ((section (".data_vector")));
 
 #endif
 
@@ -81,7 +82,7 @@ EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 	} else 	{	/* Clear interrupt handler */
 		inthdr = Default_Handler;
 	}
-	intvet = (FP*)&exchdr_tbl[SYS_VECTOR_SIZE];
+	intvet = (FP*)&exchdr_tbl[N_SYSVEC];
 	intvet[intno] = inthdr;
 
 	return E_OK;
@@ -103,9 +104,6 @@ EXPORT void knl_return_inthdr(void)
  */
 EXPORT ER knl_init_interrupt( void )
 {
-	/* Enable the interrupt for force dispatch */
-	EnableInt(INTNO_FORCE_DISPATCH, INTPRI_FORCE_DISPATCH);
-
 	/* Register exception handler used on OS */
 
 	return E_OK;

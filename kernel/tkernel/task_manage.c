@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10.
  *
  *----------------------------------------------------------------------
  */
@@ -249,8 +249,8 @@ SYSCALL void tk_ext_tsk( void )
 	/* No return */
 
 #ifdef DORMANT_STACK_SIZE
-	/* for WARNING */
-	_dummy[0] = 0;
+	/* Avoid WARNING (This code does not execute) */
+	_dummy[0] = _dummy[0];
 #endif
 }
 #endif /* USE_FUNC_TK_EXT_TSK */

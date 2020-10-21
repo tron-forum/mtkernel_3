@@ -24,7 +24,7 @@
 /*
  *    Clock Setting (cpu_clock.c)
  */
-IMPORT void enable_pll(UB pll_mode);
-IMPORT void disable_pll();
+IMPORT void startup_clock(UB pll_mode);
+IMPORT void shutdown_clock();
 
 #endif /* _SYSDEPEND_CPU_SYSDEPEND_ */

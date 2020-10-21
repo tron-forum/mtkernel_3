@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
  *
  *----------------------------------------------------------------------
  */
@@ -54,6 +54,12 @@
 #define	MSTPCRC		(0x00080018)
 #define	MSTPCRD		(0x0008001C)
 
+/* Module stop initial value */
+#define MSTPCRA_INI	0xEFFF7FCF	/* Enable DMAC/DTC, CMT0-1, TMR0-3 */
+#define MSTPCRB_INI	0xFDDFFFFF	/* Enable SCI6, RIIC0 */
+#define MSTPCRC_INI	0x7FFF0000	/* Disable Deep-Sleep mode, Enable RAM */
+#define MSTPCRD_INI	0xFFFFFF00
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -78,6 +84,11 @@
 #define PCLK_DIV	(2)		/* PCLK Devistion = PCLKB of SCKCR */
 #define CMCR_DIV	(8)		/* PCLK/CMCR_DIV */
 #define CMCR_CKS_PLCK8	(0x0000)	/* CMCR.CKS PCLK/8 */
+
+#define	SYSCLK_ICLK	(UW)(54*MHz)
+#define	SYSCLK_PCLKA	(UW)(54*MHz)
+#define	SYSCLK_PCLKB	(UW)(27*MHz)
+#define	SYSCLK_PCLKD	(UW)(54*MHz)
 
 /*
  * Settable interval range (milli second)
@@ -146,30 +157,193 @@
  * Pin function control
  */
 
-#define MPC_PWPR		0x008C11FUL
-#define	MPC_PWMR_PFSWE		(0x40)
-#define	MPC_PWMR_B0WI		(0x80)
+#define MPC_PWPR		(0x0008C11F)
+#define	MPC_PWMR_PFSWE		(1<<6)
+#define	MPC_PWMR_B0WI		(1<<7)
 
-#define	MPC_PB0PFS		0x0008C198UL
-#define	MPC_PB1PFS		0x0008C199UL
+#define MPC_P0nPFS(n)		(0x0008C140+n)
+#define MPC_P1nPFS(n)		(0x0008C148+n)
+#define MPC_P2nPFS(n)		(0x0008C150+n)
+#define MPC_P3nPFS(n)		(0x0008C158+n)
+#define MPC_P4nPFS(n)		(0x0008C160+n)
+#define MPC_P5nPFS(n)		(0x0008C168+n)
+#define MPC_PAnPFS(n)		(0x0008C190+n)
+#define MPC_PBnPFS(n)		(0x0008C198+n)
+#define MPC_PCnPFS(n)		(0x0008C1A0+n)
+#define MPC_PDnPFS(n)		(0x0008C1A8+n)
+#define MPC_PEnPFS(n)		(0x0008C1B0+n)
+#define MPC_PHnPFS(n)		(0x0008C1C8+n)
+
+#define	MPC_PFS_ASEL		(1<<7)
+#define	MPC_PFS_PSEL		(0x1F)
 
 /* ------------------------------------------------------------------------ */
 /*
- * Port mode
+ * I/O Port
  */
-#define	PORT0_PMR		0x0008C060UL
-#define	PORT1_PMR		0x0008C061UL
-#define	PORT2_PMR		0x0008C062UL
-#define	PORT3_PMR		0x0008C063UL
-#define	PORT4_PMR		0x0008C064UL
-#define	PORT5_PMR		0x0008C065UL
-#define	PORTA_PMR		0x0008C06AUL
-#define	PORTB_PMR		0x0008C06BUL
-#define	PORTC_PMR		0x0008C06CUL
-#define	PORTD_PMR		0x0008C06DUL
-#define	PORTE_PMR		0x0008C06EUL
-#define	PORTH_PMR		0x0008C071UL
-#define	PORTJ_PMR		0x0008C072UL
+/* Port direction register */
+#define	PORT0_PDR		(0x0008C000)
+#define	PORT1_PDR		(0x0008C001)
+#define	PORT2_PDR		(0x0008C002)
+#define	PORT3_PDR		(0x0008C003)
+#define	PORT4_PDR		(0x0008C004)
+#define	PORT5_PDR		(0x0008C005)
+#define	PORTA_PDR		(0x0008C00A)
+#define	PORTB_PDR		(0x0008C00B)
+#define	PORTC_PDR		(0x0008C00C)
+#define	PORTD_PDR		(0x0008C00D)
+#define	PORTE_PDR		(0x0008C00E)
+#define	PORTH_PDR		(0x0008C011)
+#define	PORTJ_PDR		(0x0008C012)
+
+/* Port output data register */
+#define	PORT0_PODR		(0x0008C020)
+#define	PORT1_PODR		(0x0008C021)
+#define	PORT2_PODR		(0x0008C022)
+#define	PORT3_PODR		(0x0008C023)
+#define	PORT4_PODR		(0x0008C024)
+#define	PORT5_PODR		(0x0008C025)
+#define	PORTA_PODR		(0x0008C02A)
+#define	PORTB_PODR		(0x0008C02B)
+#define	PORTC_PODR		(0x0008C02C)
+#define	PORTD_PODR		(0x0008C02D)
+#define	PORTE_PODR		(0x0008C02E)
+#define	PORTH_PODR		(0x0008C031)
+#define	PORTJ_PODR		(0x0008C032)
+
+/* Port input data register */
+#define	PORT0_PIDR		(0x0008C040)
+#define	PORT1_PIDR		(0x0008C041)
+#define	PORT2_PIDR		(0x0008C042)
+#define	PORT3_PIDR		(0x0008C043)
+#define	PORT4_PIDR		(0x0008C044)
+#define	PORT5_PIDR		(0x0008C045)
+#define	PORTA_PIDR		(0x0008C04A)
+#define	PORTB_PIDR		(0x0008C04B)
+#define	PORTC_PIDR		(0x0008C04C)
+#define	PORTD_PIDR		(0x0008C04D)
+#define	PORTE_PIDR		(0x0008C04E)
+#define	PORTH_PIDR		(0x0008C051)
+#define	PORTJ_PIDR		(0x0008C052)
+
+/* Port mode register */
+#define	PORT0_PMR		(0x0008C060)
+#define	PORT1_PMR		(0x0008C061)
+#define	PORT2_PMR		(0x0008C062)
+#define	PORT3_PMR		(0x0008C063)
+#define	PORT4_PMR		(0x0008C064)
+#define	PORT5_PMR		(0x0008C065)
+#define	PORTA_PMR		(0x0008C06A)
+#define	PORTB_PMR		(0x0008C06B)
+#define	PORTC_PMR		(0x0008C06C)
+#define	PORTD_PMR		(0x0008C06D)
+#define	PORTE_PMR		(0x0008C06E)
+#define	PORTH_PMR		(0x0008C071)
+#define	PORTJ_PMR		(0x0008C072)
+
+/* Open drain control register 0 */
+#define	PORT1_ODR0		(0x0008C082)
+#define	PORT2_ODR0		(0x0008C084)
+#define	PORT3_ODR0		(0x0008C086)
+#define	PORT5_ODR0		(0x0008C08A)
+#define	PORTA_ODR0		(0x0008C094)
+#define	PORTB_ODR0		(0x0008C096)
+#define	PORTC_ODR0		(0x0008C098)
+#define	PORTE_ODR0		(0x0008C09C)
+#define	PORTJ_ODR0		(0x0008C0A4)
+
+/* Open drain control register 1 */
+#define	PORT1_ODR1		(0x0008C083)
+#define	PORT2_ODR1		(0x0008C085)
+#define	PORT3_ODR1		(0x0008C087)
+#define	PORT5_ODR1		(0x0008C08B)
+#define	PORTA_ODR1		(0x0008C095)
+#define	PORTB_ODR1		(0x0008C097)
+#define	PORTC_ODR1		(0x0008C099)
+#define	PORTE_ODR1		(0x0008C09D)
+
+/* Pull-up control register */
+#define	PORT0_PCR		(0x0008C0C0)
+#define	PORT1_PCR		(0x0008C0C1)
+#define	PORT2_PCR		(0x0008C0C2)
+#define	PORT3_PCR		(0x0008C0C3)
+#define	PORT4_PCR		(0x0008C0C4)
+#define	PORT5_PCR		(0x0008C0C5)
+#define	PORTA_PCR		(0x0008C0CA)
+#define	PORTB_PCR		(0x0008C0CB)
+#define	PORTC_PCR		(0x0008C0CC)
+#define	PORTD_PCR		(0x0008C0CD)
+#define	PORTE_PCR		(0x0008C0CE)
+#define	PORTH_PCR		(0x0008C0D1)
+#define	PORTJ_PCR		(0x0008C0D2)
+
+/* Port switching register */
+#define	PORT_PSRA		(0x0008C121)
+#define	PORT_PSRB		(0x0008C120)
+
+/* Drive capacity control register */
+#define	PORT1_DSCR		(0x0008C0E1)
+#define	PORT2_DSCR		(0x0008C0E2)
+#define	PORT3_DSCR		(0x0008C0E3)
+#define	PORT5_DSCR		(0x0008C0E5)
+#define	PORTA_DSCR		(0x0008C0EA)
+#define	PORTB_DSCR		(0x0008C0EB)
+#define	PORTC_DSCR		(0x0008C0EC)
+#define	PORTD_DSCR		(0x0008C0ED)
+#define	PORTE_DSCR		(0x0008C0EE)
+#define	PORTH_DSCR		(0x0008C0F1)
+#define	PORTJ_DSCR		(0x0008C0F2)
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Physical timer
+ */
+#define	CPU_HAS_PTMR	(1)
+
+/* TMR Register definition */
+#define	TMR01_BASE		0x00088200
+#define	TMR23_BASE		0x00088210
+
+#define TCR			0x0000
+#define TCSR			0x0002
+#define	TCORA			0x0004
+#define	TCORB			0x0006
+#define	TCNT			0x0008
+#define	TCCR			0x000A
+#define TCSTR			0x000C
+
+#define	TCR_CCLR_CMA		(1<<3)		// Cleared by compare match A
+#define	TCR_OVIE		(1<<5)		// Enable OVIn
+#define	TCR_CMIEA		(1<<6)		// Enable CMIAn
+#define	TCR_CMIEB		(1<<7)		// Enable CMIBn
+
+#define TCCR_CSS_16BIT		(0x18)
+
+/* Physical timer clock */
+#define TMR01_CLOCK		(0x08)		// Count PCLK
+#define TMR23_CLOCK		(0x08)		// Count PCLK
+
+/* Physical timer interrupt number */
+#define INTNO_CMIA0		174
+#define INTNO_CMIB0		175
+#define INTNO_OVI0		176
+#define INTNO_CMIA1		177
+#define INTNO_CMIB1		178
+#define INTNO_OVI1		179
+#define INTNO_CMIA2		180
+#define INTNO_CMIB2		181
+#define INTNO_OVI2		182
+#define INTNO_CMIA3		183
+#define INTNO_CMIB3		184
+#define INTNO_OVI3		185
+
+/* Physical timer interrupt priority */
+#define INTPRI_TMR01		5
+#define INTPRI_TMR23		5
+
+/* Phycail timer Maximum count */
+#define PTMR_MAX_CNT    (0x0000FFFF)
 
 
 /* ------------------------------------------------------------------------ */

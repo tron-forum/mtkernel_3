@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -25,7 +25,7 @@
 #include "../../../sysdepend.h"
 
 #if USE_EXCEPTION_DBG_MSG
-	#define EXCEPTION_DBG_MSG(a)	tm_printf(a)
+	#define EXCEPTION_DBG_MSG(a)	tm_printf((UB*)a)
 #else
 	#define EXCEPTION_DBG_MSG(a)
 #endif
@@ -58,9 +58,9 @@ WEAK_FUNC EXPORT void HardFault_Handler(void)
 
 	if(hfsr & 0x40000000) {
 		cfsr = *(_UW*)SCB_CFSR;
-		tm_printf("*** Hard fault ***  ctxtsk:%d  HFSR:%x  CFSR:%x\n", ctskid, hfsr, cfsr);
+		tm_printf((UB*)"*** Hard fault ***  ctxtsk:%d  HFSR:%x  CFSR:%x\n", ctskid, hfsr, cfsr);
 	} else {
-		tm_printf("*** Hard fault ***  ctxtsk:%d  HFSR:%x%x\n", ctskid, hfsr);
+		tm_printf((UB*)"*** Hard fault ***  ctxtsk:%d  HFSR:%x%x\n", ctskid, hfsr);
 	}
 #endif
 	while(1);
@@ -122,11 +122,11 @@ WEAK_FUNC EXPORT void Default_Handler(void)
 
 	icpr = (_UW*)NVIC_ICPR_BASE;
 
-	tm_printf("Undefine Exceptio ICPR: ");
+	tm_printf((UB*)"Undefine Exceptio ICPR: ");
 	for(i=0; i < 8; i++) {
-		tm_printf("%x ", *icpr++);
+		tm_printf((UB*)"%x ", *icpr++);
 	}
-	tm_putstring("\n");
+	tm_putstring((UB*)"\n");
 #endif
 	while(1);
 }

@@ -23,9 +23,11 @@
 #include "sysdepend.h"
 
 /*
- *  PLL Setting
+ *  Startup System Clock
+ *    Input clock = 12MHz  Output clock = 72MHz(PLL_MODE_6X) or 48MHz(PLL_MODE_4X)
+ *    **** This implementation assumes 6 multiplication.
  */
-EXPORT void enable_pll(UB pll_mode)
+EXPORT void startup_clock(UB pll_mode)
 {
 	_UW	*osccr	= (_UW*)CLKCTRL_CGOSCCR;
 
@@ -91,7 +93,7 @@ EXPORT void enable_pll(UB pll_mode)
 }
 
 
-EXPORT void disable_pll()
+EXPORT void shutdown_clock()
 {
 
 }

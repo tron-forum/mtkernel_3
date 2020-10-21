@@ -68,7 +68,7 @@
  */
 #define TK_SUPPORT_USERBUF		TRUE				/* Support of user-specified buffer (TA_USERBUF) */
 #define TK_SUPPORT_AUTOBUF		TRUE				/* Support of automatic buffer allocation (No TA_USERBUF specification) */
-#define TK_SUPPORT_MEMLIB		FALSE				/* Support of memory allocation library */
+#define TK_SUPPORT_MEMLIB		(USE_IMALLOC)			/* Support of memory allocation library */
 
 /*
  * Task exception

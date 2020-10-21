@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -24,7 +24,7 @@
 #include <kernel.h>
 
 #if USE_EXCEPTION_DBG_MSG
-	#define EXCEPTION_DBG_MSG(a)	tm_printf(a)
+	#define EXCEPTION_DBG_MSG(a)	tm_printf((UB*)a)
 #else
 	#define EXCEPTION_DBG_MSG(a)
 #endif
@@ -82,7 +82,7 @@ WEAK_FUNC EXPORT void Default_Handler(UW intno)
 {
 
 #if USE_EXCEPTION_DBG_MSG
-	tm_printf("Un-defined Interrupt %d\n",intno);
+	tm_printf((UB*)"Un-defined Interrupt %d\n",intno);
 #endif
 
 	while(1);

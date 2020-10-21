@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.02
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
  *
  *----------------------------------------------------------------------
  */
@@ -113,6 +113,54 @@ IMPORT ER DeleteMLock( FastMLock *lock );
 IMPORT ER MLockTmo( FastMLock *lock, INT no, TMO tmout );
 IMPORT ER MLock( FastMLock *lock, INT no );
 IMPORT ER MUnlock( FastMLock *lock, INT no );
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Memory allocation
+ */
+#if TK_SUPPORT_MEMLIB
+
+#ifndef PROHIBIT_DEF_SIZE_T
+typedef SZ		size_t;
+#endif
+
+IMPORT void *Kmalloc( size_t size );
+IMPORT void *Kcalloc( size_t nmemb, size_t size );
+IMPORT void *Krealloc( void *ptr, size_t size);
+IMPORT void Kfree( void *ptr );
+
+#endif /* TK_SUPPORT_MEMLIB */
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Physical timer
+ */
+#if TK_SUPPORT_PTIMER
+
+#define TA_ALM_PTMR	0
+#define TA_CYC_PTMR	1
+
+typedef struct {
+	void	*exinf;		/* Extended Information */
+	ATR	ptmratr;	/* Physical Timer Attribute */
+	FP	ptmrhdr;	/* Physical Timer Handler Address */
+} T_DPTMR;
+
+typedef struct {
+	UW	ptmrclk;	/* Physical Timer Clock Frequency */
+	UW	maxcount;	/* Maximum Count */
+	BOOL	defhdr;		/* Handler Support */
+} T_RPTMR;
+
+IMPORT ER StartPhysicalTimer( UINT ptmrno, UW limit, UINT mode);
+IMPORT ER StopPhysicalTimer( UINT ptmrno );
+IMPORT ER GetPhysicalTimerCount( UINT ptmrno, UW *p_count );
+IMPORT ER DefinePhysicalTimerHandler( UINT ptmrno, CONST T_DPTMR *pk_dptmr );
+IMPORT ER GetPhysicalTimerConfig(UINT ptmrno, T_RPTMR *pk_rptmr);
+
+#endif /* TK_SUPPORT_PTIMER */
 
 
 /* ------------------------------------------------------------------------ */
