@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2020/ .
  *
  *----------------------------------------------------------------------
  */
@@ -57,6 +57,7 @@ LOCAL const T_SETUP_REG pinfnc_tbl[] = {
  */
 LOCAL const T_SETUP_REG portmode_tbl[] = {
 	{PORTB_PMR, 0x03},		/* Set PB0&PB1 as a peripheral function. */
+	{PORTB_PCR, 0x03},
 	{0, 0}
 };
 

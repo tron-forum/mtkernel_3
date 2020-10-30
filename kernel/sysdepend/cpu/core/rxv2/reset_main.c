@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2020/.
  *
  *----------------------------------------------------------------------
  */
@@ -46,7 +46,6 @@ IMPORT	const void *_noinit_end;
 EXPORT void reset_main(void)
 {
 	UW	*src, *top, *end;
-	UW	reg;
 	INT	i;
 
 	/* Startup Hardware */

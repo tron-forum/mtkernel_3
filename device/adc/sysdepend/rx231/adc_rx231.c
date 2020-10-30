@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/.
  *
  *----------------------------------------------------------------------
  */
@@ -37,8 +37,6 @@ LOCAL struct {
  */
 void adc_inthdr( UINT intno)
 {
-	INT		unit;
-
 	ClearInt(intno);
 	tk_wup_tsk(ll_devcb.wait_tskid);
 }
@@ -49,7 +47,6 @@ void adc_inthdr( UINT intno)
 LOCAL UW adc_convert( INT start, INT size, UW *buf )
 {
 	INT	ch, end;
-	UH	data;
 	ER	err;
 
 	ll_devcb.wait_tskid = tk_get_tid();
