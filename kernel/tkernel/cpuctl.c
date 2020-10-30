@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/.
  *
  *----------------------------------------------------------------------
  */
@@ -77,7 +77,7 @@ SYSCALL ER tk_set_reg( ID tskid,
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_set_reg(&(tcb->tskctxb), pk_regs, pk_eit, pk_cregs);
+		knl_set_reg(tcb, pk_regs, pk_eit, pk_cregs);
 	}
 	END_CRITICAL_SECTION;
 
@@ -105,7 +105,7 @@ SYSCALL ER tk_get_reg( ID tskid, T_REGS *pk_regs, T_EIT *pk_eit, T_CREGS *pk_cre
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_get_reg(&(tcb->tskctxb), pk_regs, pk_eit, pk_cregs);
+		knl_get_reg(tcb, pk_regs, pk_eit, pk_cregs);
 	}
 	END_CRITICAL_SECTION;
 
@@ -130,12 +130,16 @@ SYSCALL ER tk_set_cpr( ID tskid, INT copno, CONST T_COPREGS *pk_copregs )
 	CHECK_NONSELF(tskid);
 
 	tcb = get_tcb(tskid);
+	if((copno < 0) || (copno >= NUM_COPROCESSOR)
+		|| !(tcb->tskatr & (TA_COP0 << copno))) {
+		return E_PAR;
+	}
 
 	BEGIN_CRITICAL_SECTION;
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		ercd = knl_set_cpr(&(tcb->tskctxb), copno, pk_copregs);
+		ercd = knl_set_cpr(tcb, copno, pk_copregs);
 	}
 	END_CRITICAL_SECTION;
 
@@ -158,12 +162,16 @@ SYSCALL ER tk_get_cpr( ID tskid, INT copno, T_COPREGS *pk_copregs )
 	CHECK_NONSELF(tskid);
 
 	tcb = get_tcb(tskid);
+	if((copno < 0) || (copno >= NUM_COPROCESSOR)
+		|| !(tcb->tskatr & (TA_COP0 << copno))) {
+		return E_PAR;
+	}
 
 	BEGIN_CRITICAL_SECTION;
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		ercd = knl_get_cpr(&(tcb->tskctxb), copno, pk_copregs);
+		ercd = knl_get_cpr(tcb, copno, pk_copregs);
 	}
 	END_CRITICAL_SECTION;
 
@@ -199,7 +207,7 @@ SYSCALL ER td_set_reg( ID tskid, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_C
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_set_reg(&(tcb->tskctxb), regs, eit, cregs);
+		knl_set_reg(tcb, regs, eit, cregs);
 	}
 	END_DISABLE_INTERRUPT;
 
@@ -228,7 +236,7 @@ SYSCALL ER td_get_reg( ID tskid, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	if ( tcb->state == TS_NONEXIST ) {
 		ercd = E_NOEXS;
 	} else {
-		knl_get_reg(&(tcb->tskctxb), regs, eit, cregs);
+		knl_get_reg(tcb, regs, eit, cregs);
 	}
 	END_DISABLE_INTERRUPT;
 

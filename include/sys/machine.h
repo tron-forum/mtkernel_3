@@ -29,6 +29,13 @@
 
 #endif
 
+#ifdef _IOTE_STM32_
+#include "sysdepend/iote_stm32/machine.h"
+
+#define Csym(sym) sym
+
+#endif
+
 #ifdef _IOTE_RX231_
 #include "sysdepend/iote_rx231/machine.h"
 

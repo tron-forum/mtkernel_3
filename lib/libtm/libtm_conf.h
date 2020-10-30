@@ -28,6 +28,10 @@
 #define USE_COM_IOTE_RX231
 #endif
 
+#ifdef _IOTE_STM32_
+#define USE_COM_IOTE_STM32
+#endif
+
 
 /* tm_printf() call */
 #define	USE_TM_PRINTF		(1)	/* Use tm_printf() & tm_sprintf() calls */
