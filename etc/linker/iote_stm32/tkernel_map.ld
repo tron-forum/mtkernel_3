@@ -13,7 +13,7 @@
 
 /*
  *      tkernel_map.ld
- *	micro T-Kernel linker script for STM32 IoT-Engine
+ *	micro T-Kernel linker script for STM32L4 IoT-Engine
  */
 
 ENTRY(Reset_Handler)

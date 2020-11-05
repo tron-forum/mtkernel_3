@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2019 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -12,15 +12,14 @@
  */
 
 /*
- *	cpudef.h
+ *	syslib.h
  *
- *	CPU dependent definition (STM32 IoT-Engine depended)
- *	include in syscall.h
+ *	micro T-Kernel System Library  (STM32L4 IoT-Engine depended)
  */
 
-#ifndef __TK_CPUDEF_H__
-#define __TK_CPUDEF_H__
+#ifndef __TK_SYSLIB_DEPEND_H__
+#define __TK_SYSLIB_DEPEND_H__
 
-#include "../cpu/core/armv7m/cpudef.h"
+#include "../cpu/stm32l4/syslib.h"
 
-#endif /* __TK_CPUDEF_H__ */
+#endif /* __TK_SYSLIB_DEPEND_H__ */

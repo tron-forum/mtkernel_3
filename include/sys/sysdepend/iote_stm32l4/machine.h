@@ -14,7 +14,7 @@
 /*
  *	machine.h
  *
- *	Machine type definition (STM32 IoT-Engine depended)
+ *	Machine type definition (STM32L4 IoT-Engine depended)
  */
 
 #ifndef __SYS_SYSDEPEND_MACHINE_H__
@@ -28,13 +28,13 @@
 
 /* ----- TX03-M367 IoT-Engine (CPU: STM32L486) definition ----- */
 
-#define IOTE_STM32		1		/* Target system   : STM32 IoT-Engine */
+#define IOTE_STM32L4		1		/* Target system   : STM32L4 IoT-Engine */
 #define CPU_STM32L4		1		/* Target CPU type : STM32L4 series */
 #define CPU_STM32L486		1		/* Target CPU      : STM32L486 */
 #define CPU_CORE_ARMV7M		1		/* Target CPU-Core type : ARMv7-M */
 #define CPU_CORE_ACM4F		1		/* Target CPU-Core      : ARM Cortex-M4F */
 
-#define TARGET_DIR		iote_stm32	/* Sysdepend-Directory name */
+#define TARGET_DIR		iote_stm32l4	/* Sysdepend-Directory name */
 
 /*
  **** CPU-depeneded profile (STM32L4)

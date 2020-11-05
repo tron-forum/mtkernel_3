@@ -12,19 +12,13 @@
  */
 
 /*
- *	sys_msg.h (STM32 IoT-Engine)
- *	Hardware-Dependent System message
+ *	cpu_task.h (STM32L4 IoT-Engine)
+ *	CPU-Dependent Task Start Processing
  */
 
-#ifndef _SYSDEPEND_TARGET_SYSMSG_
-#define _SYSDEPEND_TARGET_SYSMSG_
+#ifndef _SYSDEPEND_TARGET_CPUTASK_
+#define _SYSDEPEND_TARGET_CPUTASK_
 
-#include <tm/tmonitor.h>
+#include "../cpu/stm32l4/cpu_task.h"
 
-#if (USE_SYSTEM_MESSAGE && USE_TMONITOR)
-#define SYSTEM_MESSAGE(s)	tm_putstring((UB*)s)
-#else
-#define SYSTEM_MESSAGE(s)
-#endif /* USE_SYSTEM_MESSAGE && USE_TMONITOR */
-
-#endif /* _SYSDEPEND_TARGET_SYSMSG_ */
+#endif /* _SYSDEPEND_TARGET_CPUTASK_ */

@@ -111,8 +111,8 @@ EXPORT void Reset_Handler(void)
 
 #if USE_FPU
 	/* Enable FPU */
-	*(_UW*)SCB_CPACR |= SCB_CPACR_FPUENABLE;
-	*(_UW*)SCB_FPCCR |= (SCB_FPCCR_ASPEN | SCB_FPCCR_LSPEN);
+	*(_UW*)FPU_CPACR |= FPU_CPACR_FPUENABLE;
+	*(_UW*)FPU_FPCCR |= (FPU_FPCCR_ASPEN | FPU_FPCCR_LSPEN);
 #endif /* USE_FPU */
 
 	/* Startup Kernel */

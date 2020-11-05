@@ -145,7 +145,7 @@
 /* Use Physical timer.
 　*  1: Valid  0: Invalid
  */
-#define USE_PTMR		(0)	/* Use Physical timer */
+#define USE_PTMR		(1)	/* Use Physical timer */
 
 /*
  *	Use function Definition

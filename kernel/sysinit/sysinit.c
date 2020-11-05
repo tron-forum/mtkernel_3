@@ -12,7 +12,7 @@
  */
 
 /*
- *	sysinit.c 
+ *	sysinit.c
  *	micro T-Kernel Startup / Finalization
  */
 #include "kernel.h"

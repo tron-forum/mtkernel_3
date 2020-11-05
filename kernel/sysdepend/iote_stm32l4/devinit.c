@@ -12,10 +12,10 @@
  */
 
 #include <sys/machine.h>
-#ifdef IOTE_STM32
+#ifdef IOTE_STM32L4
 
 /*
- *	devinit.c (STM32 IoT-Engine)
+ *	devinit.c (STM32L4 IoT-Engine)
  *	Device-Dependent Initialization
  */
 
@@ -60,4 +60,4 @@ EXPORT ER knl_finish_device( void )
 
 #endif /* USE_SHUTDOWN */
 
-#endif /* IOTE_STM32 */
+#endif /* IOTE_STM32L4 */

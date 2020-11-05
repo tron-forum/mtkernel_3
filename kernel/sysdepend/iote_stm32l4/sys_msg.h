@@ -12,14 +12,19 @@
  */
 
 /*
- *	sysdepend.h (STM32 IoT-Engine)
- *	System-Dependent local defined
+ *	sys_msg.h (STM32L4 IoT-Engine)
+ *	Hardware-Dependent System message
  */
 
-#ifndef _SYSDEPEND_TARGET_SYSDEPEND_
-#define _SYSDEPEND_TARGET_SYSDEPEND_
+#ifndef _SYSDEPEND_TARGET_SYSMSG_
+#define _SYSDEPEND_TARGET_SYSMSG_
 
+#include <tm/tmonitor.h>
 
-#include "../cpu/stm32l4/sysdepend.h"
+#if (USE_SYSTEM_MESSAGE && USE_TMONITOR)
+#define SYSTEM_MESSAGE(s)	tm_putstring((UB*)s)
+#else
+#define SYSTEM_MESSAGE(s)
+#endif /* USE_SYSTEM_MESSAGE && USE_TMONITOR */
 
-#endif /* _SYSDEPEND_TARGET_SYSDEPEND_ */
+#endif /* _SYSDEPEND_TARGET_SYSMSG_ */

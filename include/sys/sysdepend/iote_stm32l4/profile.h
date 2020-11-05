@@ -14,7 +14,7 @@
 /*
  *	profile.h
  *
- *	Service Profile (STM32 IoT-Engine depended)
+ *	Service Profile (STM32L4 IoT-Engine depended)
  */
 
 #ifndef __SYS_DEPEND_PROFILE_H__
@@ -26,7 +26,7 @@
 #include "../cpu/stm32l4/profile.h"
 
 /*
- **** Target-depeneded profile (STM32 IoT-Engine)
+ **** Target-depeneded profile (STM32L4 IoT-Engine)
  */
 
 /*

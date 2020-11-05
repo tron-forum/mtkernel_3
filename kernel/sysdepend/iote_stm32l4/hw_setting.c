@@ -12,10 +12,10 @@
  */
 
 #include <sys/machine.h>
-#ifdef IOTE_STM32
+#ifdef IOTE_STM32L4
 
 /*
- *	hw_setting.c (STM32 IoT-Engine)
+ *	hw_setting.c (STM32L4 IoT-Engine)
  *	startup / shoutdown processing for hardware
  */
 
@@ -37,7 +37,8 @@ typedef struct {
  */
 LOCAL const T_SETUP_REG modclk_tbl[] = {
 	{RCC_AHB2ENR,		0x00000008},	// GPIOD enable
-	{RCC_APB1ENR1,		0x00020000},	// USART2 enable
+	{RCC_APB1ENR1,		0x1002000F},	// PWR, USART2, TIM2-TIM5 enable
+	{RCC_APB2ENR,		0x00000001},	// SYSCFG enable
 	{0, 0}
 };
 
@@ -111,4 +112,4 @@ EXPORT ER knl_restart_hw( W mode )
 }
 
 
-#endif /* IOTE_STM32 */
+#endif /* IOTE_STM32L4 */

@@ -12,7 +12,7 @@
  */
 
 /*
- *	sys_timer.h (STM32 IoT-Engine)
+ *	sys_timer.h (STM32L4 IoT-Engine)
  *	Hardware-Dependent System Timer Processing
  */
 

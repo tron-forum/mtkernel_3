@@ -13,7 +13,7 @@
 
 /*
  *    tm_com.c
- *    T-Monitor Communication low-level device driver (STM32 IoT-Engine)
+ *    T-Monitor Communication low-level device driver (STM32L4 IoT-Engine)
  */
 
 #include <tk/typedef.h>

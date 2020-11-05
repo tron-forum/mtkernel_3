@@ -14,7 +14,7 @@
 /*
  *	sysdef.h
  *
- *	System dependencies definition (STM32 IoT-Engine depended)
+ *	System dependencies definition (STM32L4 IoT-Engine depended)
  *	Included also from assembler program.
  */
 
@@ -31,7 +31,7 @@
  */
 
 /* RCC register initial value */
-#define	RCC_CFGR_INIT		(0x00000003)	// SYSCLK not divided. Source = PLL
+#define	RCC_CFGR_INIT		(0x00000003)	// SYSCLK,HCLK not divided. Source = PLL
 #define	RCC_PLLCFGR_INIT	(0x00002813)	// PLLM = 2, PLLN = 40, PLLP = 7, PLLQ = 2, PLLR =2
 
 /* ------------------------------------------------------------------------ */

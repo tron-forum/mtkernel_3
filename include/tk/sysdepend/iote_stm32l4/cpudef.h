@@ -11,32 +11,16 @@
  *----------------------------------------------------------------------
  */
 
-#include <sys/machine.h>
-#ifdef IOTE_STM32
-
-#include <tk/tkernel.h>
-#include <kernel.h>
-
 /*
- *	power_save.c (STM32 IoT-Engine)
- *	Power-Saving Function
+ *	cpudef.h
+ *
+ *	CPU dependent definition (STM32L4 IoT-Engine depended)
+ *	include in syscall.h
  */
 
-#include "sysdepend.h"
+#ifndef __TK_CPUDEF_H__
+#define __TK_CPUDEF_H__
 
-/*
- * Switch to power-saving mode
- */
-EXPORT void low_pow( void )
-{
-}
+#include "../cpu/core/armv7m/cpudef.h"
 
-/*
- * Move to suspend mode
- */
-EXPORT void off_pow( void )
-{
-}
-
-
-#endif /* IOTE_STM32 */
+#endif /* __TK_CPUDEF_H__ */

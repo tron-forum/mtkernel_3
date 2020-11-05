@@ -28,7 +28,7 @@
 #define USE_COM_IOTE_RX231
 #endif
 
-#ifdef _IOTE_STM32_
+#ifdef _IOTE_STM32L4_
 #define USE_COM_IOTE_STM32
 #endif
 

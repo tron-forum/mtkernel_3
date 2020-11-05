@@ -12,13 +12,14 @@
  */
 
 /*
- *	cpu_status.h (STM32 IoT-Engine)
- *	CPU-Dependent Task Start Processing
+ *	sysdepend.h (STM32L4 IoT-Engine)
+ *	System-Dependent local defined
  */
 
-#ifndef _SYSDEPEND_TARGET_CPUSTATUS_
-#define _SYSDEPEND_TARGET_CPUSTATUS_
+#ifndef _SYSDEPEND_TARGET_SYSDEPEND_
+#define _SYSDEPEND_TARGET_SYSDEPEND_
 
-#include "../cpu/stm32l4/cpu_status.h"
 
-#endif /* _SYSDEPEND_CPUSTATUS_ */
+#include "../cpu/stm32l4/sysdepend.h"
+
+#endif /* _SYSDEPEND_TARGET_SYSDEPEND_ */

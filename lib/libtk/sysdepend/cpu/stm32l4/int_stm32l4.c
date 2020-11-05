@@ -15,7 +15,7 @@
 #ifdef CPU_STM32L4
 
 /*
- *	int.c
+ *	int_stm32l4.c
  *
  *	Interrupt controller (STM32L4 )
  */
@@ -148,6 +148,8 @@ EXPORT BOOL CheckInt( UINT intno )
 		rtncd = CheckInt_nvic( intno);
 	} else if(intno >= MIN_EXTI_INTNO && intno <= MAX_EXTI_INTNO) {
 		rtncd = CheckInt_exti( intno - MIN_EXTI_INTNO);
+	} else {
+		rtncd = FALSE;
 	}
 	return rtncd;
 }

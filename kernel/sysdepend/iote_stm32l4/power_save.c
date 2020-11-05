@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -11,15 +11,32 @@
  *----------------------------------------------------------------------
  */
 
+#include <sys/machine.h>
+#ifdef IOTE_STM32L4
+
+#include <tk/tkernel.h>
+#include <kernel.h>
+
 /*
- *	syslib.h
- *
- *	micro T-Kernel System Library  (STM32 IoT-Engine depended)
+ *	power_save.c (STM32L4 IoT-Engine)
+ *	Power-Saving Function
  */
 
-#ifndef __TK_SYSLIB_DEPEND_H__
-#define __TK_SYSLIB_DEPEND_H__
+#include "sysdepend.h"
 
-#include "../cpu/stm32l4/syslib.h"
+/*
+ * Switch to power-saving mode
+ */
+EXPORT void low_pow( void )
+{
+}
 
-#endif /* __TK_SYSLIB_DEPEND_H__ */
+/*
+ * Move to suspend mode
+ */
+EXPORT void off_pow( void )
+{
+}
+
+
+#endif /* IOTE_STM32L4 */

@@ -14,7 +14,7 @@
 /*
  *	dbgspt.h
  *
- *	micro T-Kernel Debugger Support Definition (STM32 IoT-Engine depended)
+ *	micro T-Kernel Debugger Support Definition (STM32L4 IoT-Engine depended)
  */
 
 #ifndef __TK_DBGSPT_DEPEND_H__

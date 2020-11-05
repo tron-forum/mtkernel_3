@@ -400,10 +400,67 @@
 
 /* ------------------------------------------------------------------------ */
 /*
- * Physical timer (for STM32L476)
+ * Physical timer (for STM32L4)
  */
-#define	CPU_HAS_PTMR	(0)
+#define	CPU_HAS_PTMR	(1)
 
+/* Timer register definition */
+#define	TIM2_BASE	0x40000000
+#define	TIM3_BASE	0x40000400
+#define	TIM4_BASE	0x40000800
+#define	TIM5_BASE	0x40000C00
+#define	TIM6_BASE	0x40001000
+#define	TIM7_BASE	0x40001400
+
+#define	TIMxCR1		0x00
+#define TIMxCR2		0x04
+#define TIMxSMCR	0x08
+#define TIMxDIER	0x0C
+#define TIMxSR		0x10
+#define TIMxEGR		0x14
+#define TIMxCCMR1	0x18
+#define TIMxCCMR2	0x1C
+#define TIMxCCER	0x20
+#define TIMxCNT		0x24
+#define TIMxPSC		0x28
+#define TIMxARR		0x2C
+#define TIMxCCR1	0x34
+#define TIMxCCR2	0x38
+#define TIMxCCR3	0x3C
+#define TIMxCCR4	0x40
+#define TIMxDCR		0x48
+#define TIMxDMAR	0x4C
+#define TIMxOR1		0x50
+#define TIMxOR2		0x60
+
+#define	TIMxCR1_CEN	(1<<0)
+#define	TIMxCR1_OPM	(1<<3)
+#define	TIMxCR1_DIR	(1<<4)
+#define	TIMxDIER_UIE	(1<<0)
+#define TIMxSR_UIF	(1<<0)
+#define TIMxEGR_UG	(1<<0)
+
+/* Prescaler value */
+#define TIM2PSC_PSC_INIT	0
+#define TIM3PSC_PSC_INIT	0
+#define TIM4PSC_PSC_INIT	0
+#define TIM5PSC_PSC_INIT	0
+
+/* Physical timer interrupt number */
+#define INTNO_TIM2	28
+#define INTNO_TIM3	29
+#define INTNO_TIM4	30
+#define INTNO_TIM5	50
+
+/* Physical timer interrupt priority */
+#define INTPRI_TIM2	5
+#define INTPRI_TIM3	5
+#define INTPRI_TIM4	5
+#define INTPRI_TIM5	5
+
+/* Phycail timer Maximum count */
+#define PTMR_MAX_CNT16    (0x0000FFFF)
+#define PTMR_MAX_CNT32    (0xFFFFFFFF)
 
 /* ------------------------------------------------------------------------ */
 /*

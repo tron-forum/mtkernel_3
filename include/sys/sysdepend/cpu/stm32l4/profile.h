@@ -37,8 +37,13 @@
 /*
  * Physical timer
  */
+#if USE_PTMR
+#define TK_SUPPORT_PTIMER	TRUE		/* Support of physical timer */
+#define TK_MAX_PTIMER		4		/* Maximum number of physical timers. */
+#else
 #define TK_SUPPORT_PTIMER	FALSE		/* Support of physical timer */
 #define TK_MAX_PTIMER		0		/* Maximum number of physical timers. */
+#endif
 
 
 #endif /* __SYS_DEPEND_PROFILE_CPU_H__ */
