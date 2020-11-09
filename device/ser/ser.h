@@ -33,6 +33,9 @@
 #ifdef CPU_RX231
 #include "sysdepend/rx231/ser_rx231.h"
 #endif	/* CPU_RX231 */
+#ifdef CPU_STM32L4
+#include "sysdepend/stm32l4/ser_stm32l4.h"
+#endif	/* CPU_STM32L4 */
 
 
 /*----------------------------------------------------------------------

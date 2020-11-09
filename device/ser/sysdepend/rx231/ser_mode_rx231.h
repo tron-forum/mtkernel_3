@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/12.
  *
  *----------------------------------------------------------------------
  */
@@ -34,5 +34,11 @@
 
 #define	DEV_SER_MODE_CTSEN	(0x00008000)	/* CTS Hard flow control enable */
 #define	DEV_SER_MODE_RTSEN	(0x00004000)	/* RTS Hard flow control enable */
+
+/* Communication Error */
+#define	DEV_SER_ERR_PE		(1<<3)	/* Parity Error */
+#define	DEV_SER_ERR_FE		(1<<4)	/* Framing Error */
+#define	DEV_SER_ERR_OE		(1<<5)	/* Overrun Error */
+
 
 #endif /* __DEV_SER_MODE_RX231_H__ */

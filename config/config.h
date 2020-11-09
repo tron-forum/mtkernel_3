@@ -132,7 +132,7 @@
 #define	USE_TMONITOR		(1)	/* T-Monitor API */
 #define USE_SYSTEM_MESSAGE	(1)	/* System Message */
 #define USE_EXCEPTION_DBG_MSG	(1)	/* Excepttion debug message */
-#define USE_TASK_DBG_MSG	(1)	/* Tsak debug message */
+#define USE_TASK_DBG_MSG	(0)	/* Tsak debug message */
 
 /*---------------------------------------------------------------------- */
 /* Use Co-Processor.

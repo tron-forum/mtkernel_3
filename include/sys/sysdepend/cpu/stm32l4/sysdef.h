@@ -297,7 +297,7 @@
 #define RCC_APB2ENR_TIM17EN	0x00040000	// TIM 17 Enable timer clock
 #define RCC_APB2ENR_TIM16EN	0x00020000	// TIM16 Enable timer clock
 #define RCC_APB2ENR_TIM15EN	0x00010000	// TIM 15 Enable timer clock
-#define RCC_APB2ENR_USART1EN	0x00004000	// USART1clock enable
+#define RCC_APB2ENR_USART1EN	0x00004000	// USART1 clock enable
 #define RCC_APB2ENR_TIM8EN	0x00002000	// TIM 8 Timer clock enable
 #define RCC_APB2ENR_SPI1EN	0x00001000	// SPI 1 clock enable
 #define RCC_APB2ENR_TIM1EN	0x00000800	// TIM1 Enable timer clock
