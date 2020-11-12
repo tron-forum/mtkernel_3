@@ -36,7 +36,7 @@ typedef struct {
  * Setup module clock
  */
 LOCAL const T_SETUP_REG modclk_tbl[] = {
-	{RCC_AHB2ENR,		0x00000008},	// GPIOD enable
+	{RCC_AHB2ENR,		0x0000000B},	// GPIOA, B, D enable
 	{RCC_APB1ENR1,		0x1002000F},	// PWR, USART2, TIM2-TIM5 enable
 	{RCC_APB2ENR,		0x00000001},	// SYSCFG enable
 	{0, 0}

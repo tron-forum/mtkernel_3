@@ -305,6 +305,17 @@
 #define RCC_APB2ENR_FWEN	0x00000080	// Enable Firewall Clock
 #define RCC_APB2ENR_SYSCFGEN	0x00000001	// SYSCFG + COMP + VREFBUF clock enable
 
+/* RCC_AHB2ENR bit definition */
+#define	RCC_AHB2ENR_GPIOAEN	0x00000001	// GPIOA clock enable
+#define	RCC_AHB2ENR_GPIOBEN	0x00000002	// GPIOB clock enable
+#define	RCC_AHB2ENR_GPIOCEN	0x00000004	// GPIOC clock enable
+#define	RCC_AHB2ENR_GPIODEN	0x00000008	// GPIOD clock enable
+#define	RCC_AHB2ENR_GPIOEEN	0x00000010	// GPIOE clock enable
+#define	RCC_AHB2ENR_GPIOFEN	0x00000020	// GPIOF clock enable
+#define	RCC_AHB2ENR_GPIOGEN	0x00000040	// GPIOG clock enable
+#define	RCC_AHB2ENR_GPIOHEN	0x00000080	// GPIOH clock enable
+#define	RCC_AHB2ENR_GPIOIEN	0x00000100	// GPIOI clock enable
+#define	RCC_AHB2ENR_ADCEN	0x00002000	// ADC clock enable
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -396,7 +407,7 @@
 #define GPIO_AFRL(n)	(GPIO##n##_BASE + 0x20)		/* GPIO alternate function low register */
 #define GPIO_AFRH(n)	(GPIO##n##_BASE + 0x24)		/* GPIO alternate function high register */
 #define GPIO_BRR(n)	(GPIO##n##_BASE + 0x28)		/* GPIO port bit reset register */
-
+#define	GPIO_ASCR(n)	(GPIO##n##_BASE + 0x2C)		/* GPIO port analog switch control register */
 
 /* ------------------------------------------------------------------------ */
 /*

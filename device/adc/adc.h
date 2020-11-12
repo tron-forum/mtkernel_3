@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/.
  *
  *----------------------------------------------------------------------
  */
@@ -32,6 +32,9 @@
 #ifdef CPU_RX231
 #include "sysdepend/rx231/adc_rx231.h"
 #endif	/* CPU_RX231 */
+#ifdef CPU_STM32L4
+#include "sysdepend/stm32l4/adc_stm32l4.h"
+#endif	/* CPU_STM32L4 */
 
 /*----------------------------------------------------------------------*/
 /* Device driver Control block
