@@ -26,7 +26,7 @@
  * CPU_CORE_xxx		CPU core type
  */
 
-/* ----- TX03-M367 IoT-Engine (CPU: STM32L486) definition ----- */
+/* ----- STM32L4 IoT-Engine (CPU: STM32L486VGT6) definition ----- */
 
 #define IOTE_STM32L4		1		/* Target system   : STM32L4 IoT-Engine */
 #define CPU_STM32L4		1		/* Target CPU type : STM32L4 series */

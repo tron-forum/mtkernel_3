@@ -193,6 +193,10 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 	ER	err;
 
 #if DEVCONF_ADC_INIT_MCLK
+	*(_UW*)RCC_CCIPR |= CCIPR_ADCSEL_PLLSAI1;
+	*(_UW*)RCC_PLLSAI1CFGR |= 1<<24;
+	*(_UW*)RCC_CR |= 1<<26;
+
 	*(_UW*)RCC_AHB2ENR |= RCC_AHB2ENR_ADCEN;
 #endif
 
@@ -201,7 +205,7 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 	/* ADC Power-On */
 	out_w(ADC_CR(unit), 0);					// DEEPPWD = 0 
 	out_w(ADC_CR(unit), ADC_CR_ADVREGEN);			// ADVREGEN = 1
-	tk_dly_tsk(100);
+//	tk_dly_tsk(100);
 
 	/* Common ADC settings */
 	if(uninit) {

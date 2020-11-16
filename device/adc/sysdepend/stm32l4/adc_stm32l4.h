@@ -38,7 +38,7 @@
 #define	CCIPR_ADCSEL_PLLSAI2	0x20000000	// PLLADC2CLK
 #define	CCIPR_ADCSEL_SYSCLK	0x30000000	// SYSCLOCK
 
-#define	ADC_CCR_CKMODE_CKADC	(0)	
+#define	ADC_CCR_CKMODE_CKADC	(0<<16)	
 #define	ADC_CCR_CKMODE_HCLKx1	(1<<16)	
 #define	ADC_CCR_CKMODE_HCLKx2	(2<<16)	
 #define	ADC_CCR_CKMODE_HCLKx4	(3<<16)	
@@ -57,7 +57,7 @@
 #define	ADC_CCR_PRESC_x128	(10<<18)
 #define	ADC_CCR_PRESC_x256	(11<<18)
 
-/*
+/*----------------------------------------------------------------------
  * A/DC registers
  */
 
@@ -66,7 +66,7 @@
 #define	ADC_CCR		(0x50040308UL)	// Common control register
 #define	ADC_CDR		(0x5004030CUL)	// Common regular register
 
-/* Base address for A/DC */
+/* Base address */
 #define ADC1_BASE	(0x50040000UL)
 #define ADC2_BASE	(0x50040100UL)
 #define ADC3_BASE	(0x50040200UL)

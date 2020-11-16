@@ -25,7 +25,8 @@
 
 /* Device control data */
 /* Common */
-#define	ADC_CCR_INIT	ADC_CCR_CKMODE_HCLKx4	// ADC common control (ADC_CCR initial value)
+//#define	ADC_CCR_INIT	ADC_CCR_CKMODE_HCLKx4	// ADC common control (ADC_CCR initial value)
+#define	ADC_CCR_INIT	ADC_CCR_CKMODE_CKADC	// ADC common control (ADC_CCR initial value)
 
 /* ADC1 */
 #define	DEVCONF_ADC1_SMPR1	0x00000030	// Sampling time (ADC_SMPR1 initial value)

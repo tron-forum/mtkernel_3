@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/.
  *
  *----------------------------------------------------------------------
  */
@@ -29,6 +29,10 @@
 #ifdef CPU_TMPM369FDFG
 #include "sysdepend/tx03_m367/i2c_m367.h"
 #endif		/* CPU_TMPM369FDFG */
+
+#ifdef CPU_STM32L4
+#include "sysdepend/stm32l4/i2c_stm32l4.h"
+#endif		/* CPU_STM32L4 */
 
 /*---------------------------------------------------------------------*/
 /* Device driver Control block

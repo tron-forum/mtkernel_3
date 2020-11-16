@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/.
  *
  *----------------------------------------------------------------------
  */
@@ -40,7 +40,7 @@
 #ifdef CPU_STM32L4
 #define DEVCNF_DEV_SER		1		// Serial communication device 
 #define DEVCNF_DEV_ADC		1		// A/D conversion device
-#define DEVCNF_DEV_IIC		0		// I2C communication device
+#define DEVCNF_DEV_IIC		1		// I2C communication device
 #endif
 
 
