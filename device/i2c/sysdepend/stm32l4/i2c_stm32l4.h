@@ -33,6 +33,11 @@
 #define	I2C_STS_RECV		0x0005
 #define	I2C_STS_TOP		0x8000
 
+/*
+ * I2C Clock source
+ */
+#define	RCC_CCIPR_I2CSEL	0x00003000	// I2C Clock source
+
 /*----------------------------------------------------------------------
  * I2C registers
  */

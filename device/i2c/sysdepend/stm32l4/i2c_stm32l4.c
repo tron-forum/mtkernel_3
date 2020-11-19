@@ -89,8 +89,8 @@ LOCAL void i2c_evhdr( UINT intno )
 {
 	T_I2C_LLDCB	*p_cb;
 	UW		i2c_st;
-	BOOL		wup;
 	INT		unit;
+	BOOL		wup	= FALSE;
 
 	for ( unit = 0; unit < DEV_I2C_UNITNM; unit++ ) {
 		if ( ll_devdat[unit].intno == intno ) {
@@ -101,37 +101,41 @@ LOCAL void i2c_evhdr( UINT intno )
 	if(unit >= DEV_I2C_UNITNM) return;
 
 	i2c_st = in_w(I2C_ISR(unit));
-	out_w(I2C_ICR(unit), I2C_ICR_ALL);	// Clear all Interrupt flag
-	ClearInt(intno);			// Clear interrupt
-
-	wup = FALSE;
-
 	if( i2c_st & I2C_ISR_NACKF) {
-		p_cb->ioerr = 1;
+		p_cb->ioerr = E_IO;
 		wup = TRUE;
 
 	} else if( i2c_st & I2C_ISR_TXIS) {		/* TX interrupt */
 		out_w(I2C_TXDR(unit),*p_cb->sbuf++);
 		if(--(p_cb->sdat_num) <= 0) {			/* final data ? */
 			if(p_cb->rdat_num == 0) {
+				out_w(I2C_CR1(unit), I2C_CR1_PE);
 				p_cb->state = I2C_STS_STOP;
 				wup = TRUE;
+			} else {
+				out_w(I2C_CR1(unit), I2C_CR1_PE | I2C_CR1_TCIE | I2C_CR1_RXIE | I2C_CR1_NACKIE | I2C_CR1_ERRIE );
 			}
 		}
 
 	} else if( i2c_st & I2C_ISR_TC) {		/* Transfer complete */
+		out_w(I2C_CR1(unit), I2C_CR1_PE | I2C_CR1_RXIE | I2C_CR1_NACKIE | I2C_CR1_ERRIE );
 		p_cb->state = I2C_STS_START;
 		wup = TRUE;
 
 	} else if( i2c_st & I2C_ISR_RXNE) {	/* RX interrupt */
 		*(p_cb->rbuf++) = (UB)in_w(I2C_RXDR(unit));
 		if(--(p_cb->rdat_num) <= 0) {			/* final data ? */
+			out_w(I2C_CR1(unit), I2C_CR1_PE);
 			p_cb->state = I2C_STS_STOP;
 			wup = TRUE;
 		}
 	} else {	/* Error */
+		out_w(I2C_CR1(unit), I2C_CR1_PE);
 		p_cb->ioerr = E_IO;
 	}
+
+	out_w(I2C_ICR(unit), I2C_ICR_ALL);	// Clear all Interrupt flag
+	ClearInt(intno);			// Clear interrupt
 
 	if(wup) {
 		if(p_cb->wait_tskid) {
@@ -160,6 +164,8 @@ LOCAL void i2c_erhdr( UINT intno )
 
 	out_w(I2C_ICR(unit), I2C_ICR_ALL);	// Clear all Interrupt flag
 	ClearInt(intno);			// Clear interrupt
+	
+	out_w(I2C_CR1(unit), I2C_CR1_PE);
 
 	p_cb->ioerr = E_IO;
 	if(p_cb->wait_tskid) {
@@ -181,13 +187,12 @@ LOCAL ER i2c_trans(INT unit, T_I2C_LLDCB *p_cb)
 	p_cb->wait_tskid	= 0;
 
 	/* I2C Device enable */
-	out_w(I2C_CR1(unit), I2C_CR1_PE
-		| I2C_CR1_TXIE | I2C_CR1_TCIE | I2C_CR1_RXIE | I2C_CR1_NACKIE | I2C_CR1_ERRIE );
+	out_w(I2C_CR1(unit), I2C_CR1_PE | I2C_CR1_TXIE | I2C_CR1_RXIE | I2C_CR1_NACKIE | I2C_CR1_ERRIE );
 
 	while ((err = p_cb->ioerr) == E_OK ) {
 
 		switch ( p_cb->state ) {
-		  case I2C_STS_START:
+		case I2C_STS_START:
 			DI(imask);
 			i2c_ctl = p_cb->sadr <<1;
 			if(p_cb->sdat_num > 0 ) {	/* Send */
@@ -207,8 +212,8 @@ LOCAL ER i2c_trans(INT unit, T_I2C_LLDCB *p_cb)
 			EI(imask);
 			break;
 
-		  case I2C_STS_STOP:
-		  	while(in_w(I2C_ISR(unit)) & I2C_ISR_BUSY) {
+		case I2C_STS_STOP:
+			while(in_w(I2C_ISR(unit)) & I2C_ISR_BUSY) {
 				tk_dly_tsk(1);
 			}
 			break;
@@ -300,6 +305,10 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 	unit = p_dcb->unit;
 
 #if DEVCONF_I2C_INIT_MCLK
+	UW	ccipr;
+	ccipr = in_w(RCC_CCIPR) & ~(RCC_CCIPR_I2CSEL << (unit<<1));
+	out_w(RCC_CCIPR, ccipr |(DEVCNF_I2CSEL << (12 + (unit<<1))));
+
 	*(_UW*)RCC_APB1ENR1 |= (RCC_APB1ENR1_I2C1EN << unit);
 #endif
 

@@ -14,6 +14,7 @@
 /*
  *	adc.h
  *	A/D converter device driver 
+ *	Driver local definition
 */
 
 #ifndef	__DEV_ADC_H__

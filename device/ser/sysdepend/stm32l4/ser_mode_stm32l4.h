@@ -15,8 +15,7 @@
 /*
  *	ser_mode_stm32l4.h
  *	Serial communication device driver
- *	Communication mode definition
- *	System-dependent definition for STM32L4
+ *	Communication mode definition for STM32L4
  */
 
 #ifndef	__DEV_SER_MODE_STM32L4_H__

@@ -17,8 +17,8 @@
  *	I2C device driver
  */
 
-#ifndef	__DEV_I2C_API_H__
-#define	__DEV_I2C_API_H__
+#ifndef	__DEVINC_I2C_H__
+#define	__DEVINC_I2C_H__
 
 /*----------------------------------------------------------------------*/
 /* Device driver initialization
@@ -43,4 +43,4 @@ typedef struct {
 } T_I2C_EXEC;
 
 
-#endif	/* __DEV_I2C_API_H__ */
+#endif	/* __DEVINC_I2C_H__ */

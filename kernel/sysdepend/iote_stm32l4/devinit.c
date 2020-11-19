@@ -21,8 +21,9 @@
 
 #include <sys/sysdef.h>
 #include <tm/tmonitor.h>
-#include "kernel.h"
+#include <tk/device.h>
 
+#include "kernel.h"
 #include "sysdepend.h"
 
 /* ------------------------------------------------------------------------ */
@@ -43,6 +44,30 @@ EXPORT ER knl_init_device( void )
  */
 EXPORT ER knl_start_device( void )
 {
+
+#if USE_SDEV_DRV	// Use sample driver
+	ER	err;
+
+	/* A/D Converter unit.0 "adca" */
+	#if DEVCNF_DEV_ADC
+		err = dev_init_adc(0);
+		if(err < E_OK) return err;
+	#endif
+
+	/* I2C unit.0 "iica" */
+	#if DEVCNF_DEV_IIC
+		err = dev_init_i2c(0);
+		if(err < E_OK) return err;
+	#endif
+
+	/* Serial ch.2 "serb" */
+	#if DEVCNF_DEV_SER
+		err = dev_init_ser(1);
+		if(err < E_OK) return err;
+	#endif
+
+#endif
+
 	return E_OK;
 }
 

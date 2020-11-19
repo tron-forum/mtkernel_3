@@ -26,5 +26,13 @@
 /* Device control data */
 #define	DEVCNF_SER_INTPRI	5		// Interrupt priority
 
+/* Debug option
+ *	Specify the device used by T-Monitor.
+ *	  0: "sera" - USART1
+ *	  1: "serb" - USART2
+ *	  2: "serc" - USART3
+ *	  other : T-Monitor does not use serial devices
+ */
+#define	DEVCNF_SER_DEBUGCH	1		// Used by T-Monitor
 
 #endif		/* __DEV_SER_CNF_STM32L4_H__ */

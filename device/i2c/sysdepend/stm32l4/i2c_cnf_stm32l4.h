@@ -23,8 +23,12 @@
 /* Device initialization */
 #define DEVCONF_I2C_INIT_MCLK	FALSE		// Initialize module clock
 
+/* ADC Clock (I2C) */
+#define	DEVCNF_I2CSEL		0		// I2C clock source
+
 /* Register initial value */
-#define	I2C_TIMINGR_INIT	0x10901CEC	// Standard mode, 100KHz
+#define	I2C_TIMINGR_INIT		0x10909CEC	// Standard mode, 100KHz
+//#define	I2C_TIMINGR_INIT	0x00702991	// Fast mode, 400KHz
 
 // Interrupt priority
 #define	DEVCNF_I2C1_INTPRI	5

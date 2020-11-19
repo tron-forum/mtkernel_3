@@ -321,12 +321,8 @@
 /*
  * System Timer clock
  */
-#define TMCLK			(80)		/* Timer clock input (MHz) */
-#define TMCLK_KHz		(TMCLK * 1000)	/* Timer clock input (kHz) */
 
-/*
- * Settable interval range (millisecond)
- */
+/* Settable interval range (millisecond) */
 #define MIN_TIMER_PERIOD	1
 #define MAX_TIMER_PERIOD	50
 

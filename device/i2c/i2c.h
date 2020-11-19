@@ -14,6 +14,7 @@
 /*
  *	i2c.h
  *	I2C device driver
+ *	Driver local definition
  */
 
 #ifndef	__DEV_I2C_H__

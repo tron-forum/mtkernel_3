@@ -188,7 +188,7 @@ EXPORT ER GetPhysicalTimerConfig(UINT ptmrno, T_RPTMR *pk_rptmr)
 	/* parameter check */
 	if( ptmrno == 0 || ptmrno > TK_MAX_PTIMER ) return E_PAR;
 
-	ptmrclk = (TMCLK / (ptmrcb[--ptmrno].psc + 1));
+	ptmrclk = (PCLK1 / (ptmrcb[--ptmrno].psc + 1));
 
 	pk_rptmr->ptmrclk	= ptmrclk;
 	pk_rptmr->maxcount	= (ptmrcb[--ptmrno].tim32)?PTMR_MAX_CNT32:PTMR_MAX_CNT16;
@@ -198,4 +198,4 @@ EXPORT ER GetPhysicalTimerConfig(UINT ptmrno, T_RPTMR *pk_rptmr)
 }
 
 #endif	/* USE_PTMR */
-#endif	/* CPU_TMPM369FDFG */
+#endif	/* CPU_STM32L4 */

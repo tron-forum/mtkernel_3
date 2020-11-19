@@ -16,8 +16,8 @@
  *	Serial communication device driver
  */
 
-#ifndef	__DEV_SER_API_H__
-#define	__DEV_SER_API_H__
+#ifndef	__DEVINC_SER_H__
+#define	__DEVINC_SER_H__
 
 /*----------------------------------------------------------------------*/
 /* Device driver initialization
@@ -51,4 +51,5 @@ typedef enum {
 #ifdef CPU_STM32L4
 #include "../ser/sysdepend/stm32l4/ser_mode_stm32l4.h"
 #endif	/* CPU_STM32L4 */
-#endif		/* __DEV_SER_API_H__ */
+
+#endif	/* __DEVINC_SER_H__ */

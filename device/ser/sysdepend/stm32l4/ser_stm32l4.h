@@ -115,6 +115,11 @@
 #define	USART_ICR_WUCF		(1<<20)
 #define	USART_ICR_ALL		(0x00121BDF)
 
+/*Initial register value when using debug */
+#define USART_CR1_DEBUG		0x0000000D	/* USART enable, 8bit, Non parity */
+#define USART_CR2_DEBUG		0		/* Stop bit 1 */
+#define USART_CR3_DEBUG		0		/* No hard flow control */
+
 
 /* USART interrupt number */
 #define	INTNO_USART1		37

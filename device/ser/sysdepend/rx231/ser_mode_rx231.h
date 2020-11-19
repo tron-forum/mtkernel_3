@@ -15,8 +15,7 @@
 /*
  *	ser_mode_rx231.h
  *	Serial communication device driver
- *	Communication mode definition
- *	System-dependent definition for RX231
+ *	Communication mode definition for RX231
  */
 
 #ifndef	__DEV_SER_MODE_RX231_H__

@@ -60,7 +60,7 @@
 /* Version Number */
 #define CNF_VER_MAKER		0
 #define CNF_VER_PRID		0
-#define CNF_VER_PRVER		2
+#define CNF_VER_PRVER		3
 #define CNF_VER_PRNO1		0
 #define CNF_VER_PRNO2		0
 #define CNF_VER_PRNO3		0
@@ -147,6 +147,13 @@
  */
 #define USE_PTMR		(1)	/* Use Physical timer */
 
+/*---------------------------------------------------------------------- */
+/* Use Sample device driver.
+　*  1: Valid  0: Invalid
+ */
+#define USE_SDEV_DRV		(1)	/* Use Sample device driver */
+
+/*---------------------------------------------------------------------- */
 /*
  *	Use function Definition
  */

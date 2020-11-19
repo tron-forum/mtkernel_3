@@ -39,9 +39,9 @@
  * Interrupt mode ( Use SetIntMode )
  */
 #define IM_EDGE		0x0000		/* Edge trigger */
-#define IM_HI		0x0002		/* H level/Interrupt at rising edge */
-#define IM_LOW		0x0001		/* L level/Interrupt at falling edge */
-#define IM_BOTH		0x0003		/* L level/Interrupt at both edge */
+#define IM_HI		0x0002		/* Interrupt at rising edge */
+#define IM_LOW		0x0001		/* Interrupt at falling edge */
+#define IM_BOTH		0x0003		/* Interrupt at both edge */
 
 
 /* ------------------------------------------------------------------------ */

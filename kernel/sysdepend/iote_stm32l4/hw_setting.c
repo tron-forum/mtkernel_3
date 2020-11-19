@@ -36,9 +36,17 @@ typedef struct {
  * Setup module clock
  */
 LOCAL const T_SETUP_REG modclk_tbl[] = {
+
+#if !USE_SDEV_DRV	// Do not use sample device driver
+	{RCC_AHB2ENR,		0x00000008},	// GPIOD enable
+	{RCC_APB1ENR1,		0x1002000F},	// USART2, TIM2-TIM5 enable
+
+#else			// Use the sample device driver
 	{RCC_AHB2ENR,		0x0000000B},	// GPIOA, B, D enable
 	{RCC_APB1ENR1,		0x1022000F},	// PWR, USART2, I2C1, TIM2-TIM5 enable
 	{RCC_APB2ENR,		0x00000001},	// SYSCFG enable
+#endif /* !USE_SDEV_DRV */
+
 	{0, 0}
 };
 
@@ -46,19 +54,47 @@ LOCAL const T_SETUP_REG modclk_tbl[] = {
  * Setup pin functions Tadle
  */
 LOCAL const T_SETUP_REG pinfnc_tbl[] = {
-	// Serial debug I/F : GPIOD5 -> USART2_TX, GPIOD6 -> USART2_RX
-	// Port Output : GPIOD11, GPIOD15
-	{GPIO_MODER(D),		0x40402800},
+
+#if !USE_SDEV_DRV	// Do not use device sample driver
+	// Serial debug I/F : PD5 -> USART2_TX, PD6 -> USART2_RX
+	{GPIO_MODER(D),		0x00002800},
 	{GPIO_OTYPER(D),	0x00000000},
 	{GPIO_OSPEEDR(D),	0x00001400},
 	{GPIO_PUPDR(D),		0x00001400},
-	{GPIO_AFRL(D),		0x07700000},	
-	// I2C I/F : GPIOB8 -> I2C1_SCL, GPIOB9 -> I2C1_SDA
-	{GPIO_MODER(B),		0x000A0000},
+	{GPIO_AFRL(D),		0x00000000},
+	{GPIO_AFRL(D),		0x07700000},
+
+#else			// Use the device sample driver
+	// A/DC in: PA1,PA2,PA4
+	{GPIO_MODER(A),		0xABFFFFFF},
+	{GPIO_OTYPER(A),	0x00000000},
+	{GPIO_OSPEEDR(A),	0x0C0F0000},
+	{GPIO_PUPDR(A),		0x64050000},
+	{GPIO_AFRL(A),		0x00000000},
+	{GPIO_AFRH(A),		0x00000000},
+	{GPIO_ASCR(A),		0x00000016},	
+
+	// I2C I/F : PB8 -> I2C1_SCL, PB9 -> I2C1_SDA
+	// A/DC in : PB1
+	{GPIO_MODER(B),		0xFFFAFFBF},
 	{GPIO_OTYPER(B),	0x00000300},
 	{GPIO_OSPEEDR(B),	0x000F0000},
-	{GPIO_PUPDR(B),		0x00050000},
-	{GPIO_AFRH(B),		0x00000044},	
+	{GPIO_PUPDR(B),		0x00050100},
+	{GPIO_AFRL(B),		0x00000000},
+	{GPIO_AFRH(B),		0x00000044},
+	{GPIO_ASCR(B),		0x00000002},
+
+	// Serial debug I/F : PD5 -> USART2_TX, PD6 -> USART2_RX
+	// Port Output : PD9, PD11, PD15
+	{GPIO_MODER(D),		0x40442800},
+	{GPIO_OTYPER(D),	0x00000000},
+	{GPIO_OSPEEDR(D),	0x00001400},
+	{GPIO_PUPDR(D),		0x00001400},
+	{GPIO_AFRL(D),		0x00000000},
+	{GPIO_AFRL(D),		0x07700000},
+
+#endif /* USE_SDEV_DRV */
+
 	{0, 0}
 };
 

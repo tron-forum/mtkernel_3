@@ -111,6 +111,22 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
 }
 
 /*----------------------------------------------------------------------
+ * Stop communication
+ */
+LOCAL void stop_com(UW unit)
+{
+	if(unit != DEVCNF_SER_DEBUGCH) {
+		out_w(USART_CR1(unit), 0);
+		out_w(USART_CR2(unit), 0);
+		out_w(USART_CR3(unit), 0);
+	} else {	/* Used by T-Monitor */
+		out_w(USART_CR1(unit), USART_CR1_DEBUG);
+		out_w(USART_CR2(unit), USART_CR2_DEBUG);
+		out_w(USART_CR3(unit), USART_CR3_DEBUG);
+	}
+}
+
+/*----------------------------------------------------------------------
  * Low level device control
  */
 EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
@@ -127,6 +143,7 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 		break;
 	
 	case LLD_SER_START:	/* Start communication */
+		out_w(USART_CR1(unit), 0);
 		out_w(USART_ICR(unit), USART_ICR_ALL);			// Clear interrupt
 		ClearInt(INTNO_USART1 + unit);
 		EnableInt(INTNO_USART1 + unit, DEVCNF_SER_INTPRI);	// Enable Interrupt
@@ -135,7 +152,7 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 	
 	case LLD_SER_STOP:
 		DisableInt(INTNO_USART1 + unit);
-		*(_UW*)( USART_CR1(unit)) &= ~(USART_CR1_RE | USART_CR1_TE | USART_CR1_UE);	// Stop communication
+		stop_com(unit);
 		break;
 
 	case LLD_SER_SEND:
@@ -187,9 +204,7 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 #endif
 
 	/* USART device initialize (Disable USART & Disable all interrupt) */
-	out_w(USART_CR1(unit), 0);
-	out_w(USART_CR2(unit), 0);
-	out_w(USART_CR3(unit), 0);
+	stop_com(unit);
 
 	/* Device Control block Initizlize */
 	p_dcb->intno_rcv = p_dcb->intno_snd = INTNO_USART1 + unit;

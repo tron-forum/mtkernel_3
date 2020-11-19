@@ -15,6 +15,7 @@
 /*
  *	dev_ser.h
  *	Serial communication device driver
+ *	Driver local definition
  */
 
 #ifndef	__DEV_SER_H__

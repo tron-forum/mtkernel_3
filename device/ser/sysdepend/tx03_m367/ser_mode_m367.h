@@ -15,8 +15,7 @@
 /*
  *	ser_mode_m367.h
  *	Serial communication device driver
- *	Communication mode definition
- *	System-dependent definition for TX03_M367
+ *	Communication mode definition for TX03_M367
  */
 
 #ifndef	__DEV_SER_MODE_M367_H__
