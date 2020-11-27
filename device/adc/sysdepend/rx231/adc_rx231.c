@@ -175,7 +175,7 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 		}
 	}
 
-	out_b(MPC_PWPR, MPC_PWMR_B0WI);			// PWPR.PFSWE = 0, PWPR.B0WI = 1
+	out_b(MPC_PWPR, MPC_PWMR_B0WI);		// PWPR.PFSWE = 0, PWPR.B0WI = 1
 #endif		/* DEVCOBF_ADC_INIT_PIN */
 
 	/* ADC device initialize */

@@ -58,48 +58,48 @@ void tsk2(INT stacd, void *exinf)
 
 	tm_putstring((UB*)"Start Task-2\n");
 
-	d1 = tk_opn_dev((UB*)"serb", TD_UPDATE);
-	if(d1 < E_OK) tm_printf((UB*)"Err %x\n", d1);
+	d1 = tk_opn_dev((UB*)"serd", TD_UPDATE);
+	if(d1 < E_OK) tm_printf((UB*)"Err %d\n", d1);
 
 	for(INT i = 0; i < 10; i++) {
 		err = tk_swri_dev(d1, 0, data, sizeof(data), &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 	}
 	tk_dly_tsk(1);
 	err = tk_cls_dev(d1, 0);
-	if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+	if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 
 
-	d2 = tk_opn_dev((UB*)"serb", TD_UPDATE);
-	if(d2 < E_OK) tm_printf((UB*)"Err %x\n", d2);
+	d2 = tk_opn_dev((UB*)"serd", TD_UPDATE);
+	if(d2 < E_OK) tm_printf((UB*)"Err %d\n", d2);
 	for(INT i = 0; i < 100; i++ ) {
 		for(INT j = 0; j < 5; j++) {
 			data[0] = '0';
 			for( INT k = 0; k < 10; k++) {
 				err = tk_swri_dev(d2, 0, data, 1, &asz);
-				if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+				if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 				data[0]++;
 			}
 		}
 		data[0] = '\n'; data[1] = '\r';
 		err = tk_swri_dev(d2, 0, data, 2, &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 	}
 
 	for(INT i = 0; i < 40; i++) {
 		err = tk_srea_dev(d2, 0, data, 1, &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 		err = tk_swri_dev(d2, 0, data, 1, &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 	}
 	data[0] = '\n'; data[1] = '\r';
 	err = tk_swri_dev(d2, 0, data, 2, &asz);
-	if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+	if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 
 	tk_dly_tsk(100);
 
 	err = tk_cls_dev(d2, 0);
-	if(err < E_OK) tm_printf((UB*)"Err %x\n", err);
+	if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
 
 	tm_putstring((UB*)"End Task-2\n");
 

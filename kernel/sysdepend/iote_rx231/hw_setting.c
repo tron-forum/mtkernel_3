@@ -49,6 +49,13 @@ LOCAL const T_SETUP_REG mstop_tbl[] = {
 LOCAL const T_SETUP_REG pinfnc_tbl[] = {
 	{MPC_PBnPFS(0), 0x0B},		/* PB0 = SCI6.RXD6 */
 	{MPC_PBnPFS(1), 0x0B},		/* PB1 = SCI6.TXD6 */
+
+#if USE_SDEV_DRV	// Use the sample device driver
+	{MPC_P4nPFS(0), 0x80},		/* P40 = AN000 */
+	{MPC_P4nPFS(1), 0x80},		/* P41 = AN001 */
+	{MPC_P4nPFS(2), 0x80},		/* P42 = AN002 */
+#endif /* USE_SDEV_DRV */
+
 	{0, 0}
 };
 
@@ -57,7 +64,12 @@ LOCAL const T_SETUP_REG pinfnc_tbl[] = {
  */
 LOCAL const T_SETUP_REG portmode_tbl[] = {
 	{PORTB_PMR, 0x03},		/* Set PB0&PB1 as a peripheral function. */
-	{PORTB_PCR, 0x03},
+
+#if USE_SDEV_DRV	// Use the sample device driver
+	{PORT4_PMR, 0x00},		/* Set P40-P42 General-purpose i/o port */
+	{PORT4_PDR, 0x00},		/* Set P40-P42 input port */
+#endif /* USE_SDEV_DRV */
+
 	{0, 0}
 };
 

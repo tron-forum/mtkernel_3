@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/12.
  *
  *----------------------------------------------------------------------
  */
@@ -21,8 +21,9 @@
 
 #include <sys/sysdef.h>
 #include <tm/tmonitor.h>
-#include "kernel.h"
+#include <tk/device.h>
 
+#include "kernel.h"
 #include "sysdepend.h"
 
 /* ------------------------------------------------------------------------ */
@@ -43,6 +44,23 @@ EXPORT ER knl_init_device( void )
  */
 EXPORT ER knl_start_device( void )
 {
+#if USE_SDEV_DRV	// Use sample driver
+	ER	err;
+
+	/* A/D Converter "adca" */
+	#if DEVCNF_DEV_ADC
+		err = dev_init_adc(0);
+		if(err < E_OK) return err;
+	#endif
+
+	/* SCI6 "serd" */
+	#if DEVCNF_DEV_SER
+		err = dev_init_ser(3);
+		if(err < E_OK) return err;
+	#endif
+
+#endif
+
 	return E_OK;
 }
 
