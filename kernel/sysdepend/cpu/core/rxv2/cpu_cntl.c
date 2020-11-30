@@ -180,7 +180,7 @@ EXPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs)
 	return ercd;
 }
 #endif /* USE_FUNC_TK_GET_CPR */
-#endif /* USE_COPROCESSOR */
+#endif /* NUM_COPROCESSOR > 0 */
 
 /* ----------------------------------------------------------------------- */
 /*

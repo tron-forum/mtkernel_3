@@ -71,8 +71,8 @@
 /* Backwards compatible api support 
  *      micro T-Kernel2.0 API support (Rendezvous)
  */
-#define USE_LEGACY_API		(1)	/* 1: Valid  0: Invalid */
-#define CNF_MAX_PORID		(4)	/* Maximum number of Rendezvous */
+#define USE_LEGACY_API		(0)	/* 1: Valid  0: Invalid */
+#define CNF_MAX_PORID		(0)	/* Maximum number of Rendezvous */
 
 
 /*---------------------------------------------------------------------- */
@@ -138,7 +138,7 @@
 /* Use Co-Processor.
 　*  1: Valid  0: Invalid
  */
-#define	USE_FPU			(1)	/* Use FPU */
+#define	USE_FPU			(0)	/* Use FPU */
 #define	USE_DSP			(0)	/* Use DSP */
 
 /*---------------------------------------------------------------------- */

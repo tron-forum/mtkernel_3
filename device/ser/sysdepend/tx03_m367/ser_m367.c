@@ -90,6 +90,18 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
 }
 
 /*----------------------------------------------------------------------
+ * Stop communication
+ */
+LOCAL void stop_com(UW unit)
+{
+	if(unit != DEVCNF_SER_DEBUGCH) {
+		out_w( ba[unit] + UARTxCR, UARTxCR_UARTEN);
+	} else {	/* Used by T-Monitor */
+		out_w( ba[unit] + UARTxCR, UARTxCR_UARTEN | UARTxCR_TXE | UARTxCR_RXE);
+	}
+}
+
+/*----------------------------------------------------------------------
  * Low level device control
  */
 EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
@@ -108,13 +120,13 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 	case LLD_SER_START:	/* Start communication */
 		out_w(ba[unit] + UARTxICR, UARTxINT_ALL);	// Clear interrupt
 		out_w(ba[unit] + UARTxIMSC, UARTxINT_COM);	// Unmask all interrupts
-		EnableInt(INTNO_UART0 + 1, DEVCNF_SER_INTPRI);	// /* Enable Interrupt */
+		EnableInt(unit?INTNO_UART1:INTNO_UART0, DEVCNF_SER_INTPRI);	// Enable Interrupt
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
 		break;
 	
 	case LLD_SER_STOP:
 		DisableInt(unit?INTNO_UART1:INTNO_UART0);
-		*(UW*)( ba[unit] + UARTxCR) &= ~(UARTxCR_TXE | UARTxCR_RXE);	// Stop communication
+		stop_com(unit);
 		break;
 
 	case LLD_SER_SEND:
@@ -152,16 +164,16 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 
 	unit = p_dcb->unit;
 
+	stop_com(unit);
+
 	/* UART device initialize */
 	out_w(ba[unit] + UARTxIMSC, 0);			// Mask all interrupt
 	out_w(ba[unit] + UARTxECR, 0);			// Clear error
-	out_w(ba[unit] + UARTxLCR_H, UARTxLCR_H_FEN);	// Enable FIFO
-	out_w(ba[unit] + UARTxCR, UARTxCR_UARTEN);	// Enable UART & Stop communication
 	out_w(ba[unit] + UARTxIFLS, 			// Set FIFO level
 			UARTxIFLS_RXIFLSEL(UARTxIFLS_RXINI) |
 			UARTxIFLS_TXIFLSEL(UARTxIFLS_TXINI));
 	out_w(ba[unit] + UARTxICR, 0x000007FF);		// Clear interrupt
-	out_w(ba[unit] + UARTxDMACR, 0);			// Stop DMA
+	out_w(ba[unit] + UARTxDMACR, 0);		// Stop DMA
 
 	/* Device Control block Initizlize */
 	p_dcb->intno_rcv = p_dcb->intno_snd = INTNO_UART0 + unit;

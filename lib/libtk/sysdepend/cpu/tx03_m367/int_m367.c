@@ -21,6 +21,31 @@
  */
 #include <tk/tkernel.h>
 #include <tk/syslib.h>
+
+#include "../core/armv7m/int_armv7m.h"
+
+/*----------------------------------------------------------------------*/
+/*
+ * Interrupt control API
+ * 
+ */
+
+/*
+ * Enable interrupt 
+ */
+EXPORT void EnableInt( UINT intno, INT level )
+{
+	EnableInt_nvic( intno, level);
+}
+
+/*
+ * Disable interrupt 
+ */
+EXPORT void DisableInt( UINT intno )
+{
+	DisableInt_nvic( intno);
+}
+
 /*
  * Clear interrupt
  */
@@ -28,7 +53,7 @@ EXPORT void ClearInt(UINT intno)
 {
 	UW	val;
 
-	ClearPendingInt(intno);		/* Un-pends the associated interrupt */
+	ClearInt_nvic(intno);		/* Un-pends the associated interrupt */
 
 	/* Clear Clock Generetor Interrupt request */
 	switch (intno) 	{
@@ -53,6 +78,24 @@ EXPORT void ClearInt(UINT intno)
 		break;
 	}
 	*(_UW*)CLKCTRL_CGICRCG = val;
+}
+
+/*
+ * Issue EOI to interrupt controller
+ */
+EXPORT void EndOfInt(UINT intno)
+{
+	/* No opetarion. */
+}
+
+/*
+ * Check active state
+ */
+EXPORT BOOL CheckInt( UINT intno )
+{
+	BOOL rtncd;
+
+	return CheckInt_nvic( intno);
 }
 
 /*

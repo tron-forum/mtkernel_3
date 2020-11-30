@@ -178,7 +178,7 @@ SYSCALL ER tk_get_cpr( ID tskid, INT copno, T_COPREGS *pk_copregs )
 	return ercd;
 }
 #endif /* USE_FUNC_TK_GET_CPR */
-#endif /* USE_COPROCESSOR */
+#endif /* NUM_COPROCESSOR > 0 */
 
 #if USE_DBGSPT
 /* ------------------------------------------------------------------------ */

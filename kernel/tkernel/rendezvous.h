@@ -41,6 +41,8 @@ IMPORT QUEUE knl_free_porcb;	/* FreeQue */
 
 #define get_porcb(id)	( &knl_porcb_table[INDEX_POR(id)] )
 
+#if USE_LEGACY_API
+
 #define RDVNO_SHIFT	(sizeof(RNO)*8/2)
 
 /*
@@ -73,6 +75,7 @@ Inline ID knl_get_tskid_rdvno( RNO rdvno )
 	}							\
 }
 
+#endif	/* USE_LEGACY_API */
 
 /*
  * Definition of rendezvous wait specification

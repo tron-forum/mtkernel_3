@@ -33,42 +33,36 @@ typedef struct {
 } T_SETUP_REG;
 
 LOCAL const T_SETUP_REG setup_regs[] = {
-	// PA4	RTS5		Console UART
-	// PA5	RXD5
-	// PA6	TXD5
-	// PA7	CTS5
-	{PORT_FR1(A),	0x0000000f},
-	{PORT_FR2(A),	0x000000f0},
-	{PORT_PUP(A),	0x0000000a},
+
+#if !USE_SDEV_DRV	// Do not use device sample driver
+	//  Debugger I/F : PA0 ~ PA4
+	//  Serial debug I/F : PA4 -> RTS5, PA5 -> RXD5, PA6 -> TXD5, PA7 -> CTS5
+	{PORT_FR1(A),	0x0000000F},
+	{PORT_FR2(A),	0x000000F0},
+	{PORT_PUP(A),	0x0000000A},
 	{PORT_CR(A),	0x00000053},
-	{PORT_IE(A),	0x000000ae},
+	{PORT_IE(A),	0x000000AE},
 
-	// PE5	TXD1		UART
-	// PE6	RXD1
-	{PORT_FR1(E),	0x00000060},
-	{PORT_CR(E),	0x00000020},
-	{PORT_IE(E),	0x00000040},
+#else			// Use the device sample driver
+	//  Debugger I/F : PA0 ~ PA4
+	//  Serial debug I/F : PA4 -> RTS5, PA5 -> RXD5, PA6 -> TXD5, PA7 -> CTS5
+	{PORT_FR1(A),	0x0000000F},
+	{PORT_FR2(A),	0x000000F0},
+	{PORT_PUP(A),	0x0000000A},
+	{PORT_CR(A),	0x00000053},
+	{PORT_IE(A),	0x000000AE},
 
-	// PF5	P-IN		CD (SD Card)
-	// PF6	SCL1		I2C
-	// PF7	SDA1
+	// I2C I/F : PF6 -> SCL1, PF7 -> SDA1
 	{PORT_FR4(F),	0x000000c0},
 	{PORT_OD(F),	0x000000c0},
 	{PORT_CR(F),	0x000000c0},
-	{PORT_IE(F),	0x000000e0},
+	{PORT_IE(F),	0x000000C0},
 
-	// PK1	P-OUT		CS (SD Card)
-	// PK2	SP0DI		SPI (SD Card)
-	// PK3	SP0DO
-	// PK4	SP0CLK-OUT
-	{PORT_DATA(K),	0x00000002},
-	{PORT_FR2(K),	0x0000001c},
-	{PORT_CR(K),	0x0000001a},
-	{PORT_IE(K),	0x00000004},
-
-	// PL1	P-OUT		I2C_ENABLE
+	// PL1	P-OUT	I2C_ENABLE
 	{PORT_DATA(L),	0x00000000},
 	{PORT_CR(L),	0x00000002},
+
+#endif /* USE_SDEV_DRV */
 
 	{0, 0}
 };

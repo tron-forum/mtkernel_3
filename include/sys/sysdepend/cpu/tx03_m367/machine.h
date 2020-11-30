@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/.
  *
  *----------------------------------------------------------------------
  */
@@ -21,10 +21,10 @@
 #define __SYS_SYSDEPEND_MACHINE_CPU_H__
 
 /*
- **** CPU core-depeneded profile (ARM Cortex-M3)
+ **** CPU core-depeneded profile (ARMv7M(ARM Cortex-M3))
  */
 
-#include "../core/acm3/machine.h"
+#include "../core/armv7m/machine.h"
 
 /*
  **** CPU-depeneded profile (TX03-M367)

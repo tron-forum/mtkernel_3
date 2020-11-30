@@ -12,15 +12,15 @@
  */
 
 #include <sys/machine.h>
-#ifdef CPU_CORE_ACM3
+#ifdef CPU_TMPM369FDFG
 
 /*
- *	vector_tbl.h (ARM Cortex-M3)
+ *	vector_tbl.h (TX03-M367)
  *	Exception/Interrupt Vector Table
  */
 
 #include "kernel.h"
-#include "../../../sysdepend.h"
+#include "../../sysdepend.h"
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -178,4 +178,4 @@ const void (*vector_tbl[])()  __attribute__((section(".vector"))) = {
 
 };
 
-#endif /* CPU_CORE_ACM3 */
+#endif /* CPU_TMPM369FDFG */

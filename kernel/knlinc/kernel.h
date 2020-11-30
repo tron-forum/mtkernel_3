@@ -170,7 +170,7 @@ IMPORT void knl_timer_shutdown( void );
 IMPORT void knl_timer_handler( void );
 
 /*
- * Mutex control
+ * Mutex control (mutex.c)
  */
 IMPORT void knl_signal_all_mutex( TCB *tcb );
 IMPORT INT knl_chg_pri_mutex( TCB *tcb, INT priority );
