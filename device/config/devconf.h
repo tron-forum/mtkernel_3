@@ -34,7 +34,7 @@
 #ifdef CPU_RX231
 #define DEVCNF_DEV_SER		1		// Serial communication device 
 #define DEVCNF_DEV_ADC		1		// A/D conversion device
-#define DEVCNF_DEV_IIC		0		// I2C communication device
+#define DEVCNF_DEV_IIC		1		// I2C communication device
 #endif
 
 #ifdef CPU_STM32L4

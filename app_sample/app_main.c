@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/12/.
  *
  *----------------------------------------------------------------------
  */
@@ -40,7 +40,6 @@ void tsk1(INT stacd, void *exinf)
 {
 	tm_putstring((UB*)"Start Task-1\n");
 
-
 	tk_exd_tsk();	/* Exit task */
 }
 
@@ -51,57 +50,7 @@ void tsk1(INT stacd, void *exinf)
  */
 void tsk2(INT stacd, void *exinf)
 {
-	UB	data[] = {'T','E','S','T', '\n', '\r'};
-	SZ	asz;
-	ID	d1,d2;
-	ER	err;
-
 	tm_putstring((UB*)"Start Task-2\n");
-
-	d1 = tk_opn_dev((UB*)"serd", TD_UPDATE);
-	if(d1 < E_OK) tm_printf((UB*)"Err %d\n", d1);
-
-	for(INT i = 0; i < 10; i++) {
-		err = tk_swri_dev(d1, 0, data, sizeof(data), &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-	}
-	tk_dly_tsk(1);
-	err = tk_cls_dev(d1, 0);
-	if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-
-
-	d2 = tk_opn_dev((UB*)"serd", TD_UPDATE);
-	if(d2 < E_OK) tm_printf((UB*)"Err %d\n", d2);
-	for(INT i = 0; i < 100; i++ ) {
-		for(INT j = 0; j < 5; j++) {
-			data[0] = '0';
-			for( INT k = 0; k < 10; k++) {
-				err = tk_swri_dev(d2, 0, data, 1, &asz);
-				if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-				data[0]++;
-			}
-		}
-		data[0] = '\n'; data[1] = '\r';
-		err = tk_swri_dev(d2, 0, data, 2, &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-	}
-
-	for(INT i = 0; i < 40; i++) {
-		err = tk_srea_dev(d2, 0, data, 1, &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-		err = tk_swri_dev(d2, 0, data, 1, &asz);
-		if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-	}
-	data[0] = '\n'; data[1] = '\r';
-	err = tk_swri_dev(d2, 0, data, 2, &asz);
-	if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-
-	tk_dly_tsk(100);
-
-	err = tk_cls_dev(d2, 0);
-	if(err < E_OK) tm_printf((UB*)"Err %d\n", err);
-
-	tm_putstring((UB*)"End Task-2\n");
 
 	tk_exd_tsk();	/* Exit Task */
 }
@@ -129,7 +78,7 @@ EXPORT INT usermain( void )
 			rver.prver, rver.prno[0],rver.prno[1],rver.prno[2],rver.prno[3]);
 
 	id1 = tk_cre_tsk(&ctsk1);
-//	tk_sta_tsk(id1, 0);
+	tk_sta_tsk(id1, 0);
 
 	id2 = tk_cre_tsk(&ctsk2);
 	tk_sta_tsk(id2, 0);

@@ -17,7 +17,7 @@
 #ifdef IOTE_RX231
 
 /*
- *	power.c (RX231 IoT-Engine)
+ *	power_save.c (RX231 IoT-Engine)
  *	Power-Saving Function
  */
 

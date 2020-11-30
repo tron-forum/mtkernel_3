@@ -36,5 +36,8 @@
 #include "sysdepend/stm32l4/i2c_cnf_stm32l4.h"
 #endif		/* CPU_STM32L4 */
 
+#ifdef CPU_RX231
+#include "sysdepend/rx231/i2c_cnf_rx231.h"
+#endif		/* CPU_RX231 */
 
 #endif		/* __DEVCNF_I2C_H__ */

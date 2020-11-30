@@ -35,6 +35,10 @@
 #include "sysdepend/stm32l4/i2c_stm32l4.h"
 #endif		/* CPU_STM32L4 */
 
+#ifdef CPU_RX231
+#include "sysdepend/rx231/i2c_rx231.h"
+#endif	/* CPU_RX231 */
+
 /*---------------------------------------------------------------------*/
 /* Device driver Control block
  */

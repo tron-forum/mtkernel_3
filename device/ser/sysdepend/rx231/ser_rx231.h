@@ -62,6 +62,7 @@
 #define	SCI_SCR_TIE		(0x80)		// Transmit end interrupt enable
 
 #define	SCI_SCR_INI		(0x00)		// SCR initial value
+#define	SCI_SCR_DEBUG		(0x32)		// SCR initial value when using debug
 
 /* SSR: Serial status register */
 #define	SCI_SSR_TEND		(0x04)		// Transmit end

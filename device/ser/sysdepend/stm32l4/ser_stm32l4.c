@@ -117,12 +117,8 @@ LOCAL void stop_com(UW unit)
 {
 	if(unit != DEVCNF_SER_DEBUGCH) {
 		out_w(USART_CR1(unit), 0);
-		out_w(USART_CR2(unit), 0);
-		out_w(USART_CR3(unit), 0);
 	} else {	/* Used by T-Monitor */
 		out_w(USART_CR1(unit), USART_CR1_DEBUG);
-		out_w(USART_CR2(unit), USART_CR2_DEBUG);
-		out_w(USART_CR3(unit), USART_CR3_DEBUG);
 	}
 }
 
