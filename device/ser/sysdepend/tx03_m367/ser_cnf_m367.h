@@ -28,7 +28,7 @@
  *	  1: "serb" - UART5
  *	  other : T-Monitor does not use serial devices
  */
-#define	DEVCNF_SER_DEBUGCH	1		// Used by T-Monitor
+#define	DEVCNF_SER_DBGUN	1		// Used by T-Monitor
 
 
 #endif		/* __DEV_SER_CNF_M367_H__ */

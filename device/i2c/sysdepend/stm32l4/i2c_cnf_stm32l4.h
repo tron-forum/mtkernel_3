@@ -21,7 +21,7 @@
 #define	__DEV_I2C_CNF_STM32L4_H__
 
 /* Device initialization */
-#define DEVCONF_I2C_INIT_MCLK	FALSE		// Initialize module clock
+#define DEVCONF_I2C_INIT_MCLK	TRUE		// Initialize module clock
 
 /* ADC Clock (I2C) */
 #define	DEVCNF_I2CSEL		0		// I2C clock source

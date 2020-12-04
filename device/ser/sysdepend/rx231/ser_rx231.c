@@ -130,7 +130,7 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
  */
 LOCAL void stop_com(UW unit)
 {
-	if(unit != DEVCNF_SER_DEBUGCH) {
+	if(unit != DEVCNF_SER_DBGUN) {
 		out_b(ba[unit] + SCI_SCR, SCI_SCR_INI);		/* SCR.TIE,RIE,TE,RE,TEIE <- 0 & Set SCR.CKE */
 	} else {	/* Used by T-Monitor */
 		out_b(ba[unit] + SCI_SCR, SCI_SCR_DEBUG);

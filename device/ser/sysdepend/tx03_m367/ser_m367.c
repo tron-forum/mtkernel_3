@@ -94,7 +94,7 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
  */
 LOCAL void stop_com(UW unit)
 {
-	if(unit != DEVCNF_SER_DEBUGCH) {
+	if(unit != DEVCNF_SER_DBGUN) {
 		out_w( ba[unit] + UARTxCR, UARTxCR_UARTEN);
 	} else {	/* Used by T-Monitor */
 		out_w( ba[unit] + UARTxCR, UARTxCR_UARTEN | UARTxCR_TXE | UARTxCR_RXE);

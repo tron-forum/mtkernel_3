@@ -31,6 +31,6 @@
  *	  0 - 6: "sera" - "serg"
  *	  other : T-Monitor does not use serial devices
  */
-#define	DEVCNF_SER_DEBUGCH	3		// Used by T-Monitor
+#define	DEVCNF_SER_DBGUN	3		// Used by T-Monitor
 
 #endif		/* __DEV_SER_CNF_RX231_H__ */

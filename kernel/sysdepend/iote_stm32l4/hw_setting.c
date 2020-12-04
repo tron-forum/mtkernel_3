@@ -38,12 +38,13 @@ typedef struct {
 LOCAL const T_SETUP_REG modclk_tbl[] = {
 
 #if !USE_SDEV_DRV	// Do not use sample device driver
-	{RCC_AHB2ENR,		0x00000008},	// GPIOD enable
-	{RCC_APB1ENR1,		0x1002000F},	// USART2, TIM2-TIM5 enable
+	{RCC_AHB2ENR,		0x00000008},	// GPIO-D enable
+	{RCC_APB1ENR1,		0x0002000F},	// USART2, TIM2-TIM5 enable
+	{RCC_APB2ENR,		0x00000001},	// SYSCFG enable
 
 #else			// Use the sample device driver
-	{RCC_AHB2ENR,		0x0000000B},	// GPIOA, B, D enable
-	{RCC_APB1ENR1,		0x1022000F},	// PWR, USART2, I2C1, TIM2-TIM5 enable
+	{RCC_AHB2ENR,		0x0000000B},	// GPIO-A, B, D enable
+	{RCC_APB1ENR1,		0x0002000F},	// USART2, TIM2-TIM5 enable
 	{RCC_APB2ENR,		0x00000001},	// SYSCFG enable
 #endif /* !USE_SDEV_DRV */
 
