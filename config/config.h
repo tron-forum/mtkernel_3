@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
  *
  *----------------------------------------------------------------------
  */
@@ -151,7 +151,7 @@
 /* Use Sample device driver.
 　*  1: Valid  0: Invalid
  */
-#define USE_SDEV_DRV		(1)	/* Use Sample device driver */
+#define USE_SDEV_DRV		(0)	/* Use Sample device driver */
 
 /*---------------------------------------------------------------------- */
 /*

@@ -1,19 +1,19 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0.3.B0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12.
+ *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_cnf_stm32.h 
+ *	ser_cnf_m367.h 
  *	Serial Device configuration file
  *		for TX03_M367 (TMPM369FDFG)
  */
