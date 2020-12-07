@@ -59,6 +59,12 @@ EXPORT ER knl_start_device( void )
 		if(err < E_OK) return err;
 	#endif
 
+	/* RIIC0 "iica" */
+	#if DEVCNF_DEV_SER
+		err = dev_init_i2c(0);
+		if(err < E_OK) return err;
+	#endif
+
 #endif
 
 	return E_OK;

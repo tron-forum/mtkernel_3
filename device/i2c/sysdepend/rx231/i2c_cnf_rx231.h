@@ -19,10 +19,14 @@
 #ifndef	__DEV_I2C_CNF_RX231_H__
 #define	__DEV_I2C_CNF_RX231_H__
 
-/* Frequency selection (0-7)  ICMR1.CKS */
-#define	DEVCNF_I2C_SCK		1
+/* Device initialization */
+#define DEVCONF_I2C_INIT_MSTP	FALSE		// Initialize module stop
+#define DEVCONF_I2C_INIT_PIN	FALSE		// Initialize I/O pin
 
-// Interrupt priority
+/* Frequency selection (0-7)  ICMR1.CKS */
+#define	DEVCNF_I2C_CKS		1
+
+/* Interrupt priority */
 #define	DEVCNF_I2C_INTPRI	5
 
 /* Communication timeout time */

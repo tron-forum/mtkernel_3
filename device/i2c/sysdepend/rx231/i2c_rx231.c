@@ -228,7 +228,7 @@ EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 
 		/* I2C Initial setting */
 		out_b( RIIC_ICSER, 0);
-		out_b( RIIC_ICMR1, DEVCNF_I2C_SCK<<4 );
+		out_b( RIIC_ICMR1, DEVCNF_I2C_CKS<<4 );
 		//out_b( RIIC_ICMR3, RIIC_ICMR3_ACKWP);
 		out_b( RIIC_ICBRH, RIIC_ICBRH_INI);
 		out_b( RIIC_ICBRL, RIIC_ICBRL_INI);
@@ -282,10 +282,11 @@ EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 {
 	T_DINT	dint;
-	UINT	sts;
 	ER	err;
 
-	/* Release module stop */
+#if DEVCONF_I2C_INIT_MSTP		// Initialize module stop
+	UINT	sts;
+
 	if(in_w(MSTPCRB) & (1<<21)) {
 		DI(sts);
 		out_h(SYSTEM_PRCR, 0xA502);		// Disable Register Protect
@@ -294,9 +295,11 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 		EI(sts);
 
 	}
+#endif	/* DEVCONF_I2C_INIT_MSTP */
 
 	*(UB*)RIIC_ICCR1 &= ~RIIC_ICCR1_ICE;		// Disable RIIC
 
+#if DEVCONF_I2C_INIT_PIN		// Initialize I/O pin
 	/* Set pin-function   P16 = SCL0, P17 = SDA0 */
 	out_b(MPC_PWPR, 0);				// PWPR.B0WI = 0
 	out_b(MPC_PWPR, MPC_PWMR_PFSWE);		// PWPR.PFSWE = 1
@@ -306,6 +309,8 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 
 	out_b(PORT1_ODR1, 0x50);			// Set to open drain
 	out_b(PORT1_PMR, 0xC0);				// Set as peripheral function
+
+#endif	/* DEVCONF_I2C_INIT_PIN */
 
 	/* Interrupt handler definition */
 	dint.intatr	= TA_HLNG;
