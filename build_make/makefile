@@ -1,5 +1,5 @@
 ################################################################################
-# micro T-Kernel 3.00.01  makefile
+# micro T-Kernel 3.00.03  makefile
 ################################################################################
 
 # Specify the name of the executable file to be built (Do not include the extension)
@@ -13,16 +13,17 @@ RM := rm -rf
 
 INCPATH = -I"../include" -I"../config" -I"../kernel/knlinc"
 
-# All of the sources participating in the build are defined here
 -include sources.mk
--include mtkernel_3/lib/libtm/subdir.mk
--include mtkernel_3/lib/libtk/subdir.mk
--include mtkernel_3/kernel/usermain/subdir.mk
--include mtkernel_3/kernel/tstdlib/subdir.mk
--include mtkernel_3/kernel/tkernel/subdir.mk
--include mtkernel_3/kernel/sysinit/subdir.mk
--include mtkernel_3/kernel/inittask/subdir.mk
--include mtkernel_3/app_sample/subdir.mk
+
+include mtkernel_3/lib/libtm/subdir.mk
+include mtkernel_3/lib/libtk/subdir.mk
+include mtkernel_3/kernel/usermain/subdir.mk
+include mtkernel_3/kernel/tstdlib/subdir.mk
+include mtkernel_3/kernel/tkernel/subdir.mk
+include mtkernel_3/kernel/sysinit/subdir.mk
+include mtkernel_3/kernel/inittask/subdir.mk
+
+include mtkernel_3/device/subdir.mk
 
 ifeq ($(TARGET), _IOTE_M367_)
 include iote_m367.mk
@@ -30,6 +31,8 @@ endif
 ifeq ($(TARGET), _IOTE_RX231_)
 include iote_rx231.mk
 endif
+
+-include mtkernel_3/app_sample/subdir.mk
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(strip $(ASM_DEPS)),)

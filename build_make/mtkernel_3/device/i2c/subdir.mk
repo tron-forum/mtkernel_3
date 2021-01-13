@@ -3,19 +3,18 @@
 ################################################################################
 
 OBJS += \
-./mtkernel_3/lib/libtk/fastlock.o \
-./mtkernel_3/lib/libtk/fastmlock.o \
-./mtkernel_3/lib/libtk/kmalloc.o 
+./mtkernel_3/device/i2c/i2c.o 
 
 C_DEPS += \
-./mtkernel_3/lib/libtk/fastlock.d \
-./mtkernel_3/lib/libtk/fastmlock.d \
-./mtkernel_3/lib/libtk/kmalloc.d 
+./mtkernel_3/device/i2c/i2c.d 
 
-mtkernel_3/lib/libtk/%.o: ../lib/libtk/%.c
+mtkernel_3/device/i2c/%.o: ../device/i2c/%.c
 	@echo 'Building file: $<'
 	$(GCC) $(CFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
+ifeq ($(TARGET), _IOTE_M367_)
+-include mtkernel_3/device/i2c/sysdepend/tx03_m367/subdir.mk
+endif
 

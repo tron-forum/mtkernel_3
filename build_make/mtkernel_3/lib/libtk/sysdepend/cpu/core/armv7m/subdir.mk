@@ -3,19 +3,16 @@
 ################################################################################
 
 OBJS += \
-./mtkernel_3/lib/libtk/fastlock.o \
-./mtkernel_3/lib/libtk/fastmlock.o \
-./mtkernel_3/lib/libtk/kmalloc.o 
+./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7m/int_armv7m.o \
+./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7m/wusec_aemv7m4.o 
 
 C_DEPS += \
-./mtkernel_3/lib/libtk/fastlock.d \
-./mtkernel_3/lib/libtk/fastmlock.d \
-./mtkernel_3/lib/libtk/kmalloc.d 
+./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7m/int_armv7m.d \
+./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7m/wusec_aemv7m4.d 
 
-mtkernel_3/lib/libtk/%.o: ../lib/libtk/%.c
+
+mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7m/%.o: ../lib/libtk/sysdepend/cpu/core/armv7m/%.c
 	@echo 'Building file: $<'
 	$(GCC) $(CFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
-
-
