@@ -17,3 +17,7 @@ mtkernel_3/device/adc/%.o: ../device/adc/%.c
 ifeq ($(TARGET), _IOTE_M367_)
 -include mtkernel_3/device/adc/sysdepend/tx03_m367/subdir.mk
 endif
+
+ifeq ($(TARGET), _IOTE_RX231_)
+-include mtkernel_3/device/adc/sysdepend/rx231/subdir.mk
+endif
