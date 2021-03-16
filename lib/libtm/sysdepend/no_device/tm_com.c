@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -21,7 +21,7 @@
 #include <sys/sysdef.h>
 #include "../../libtm.h"
 
-#ifdef USE_COM_NO_DEVICE
+#ifdef TM_COM_NO_DEV
 
 EXPORT	void	tm_snd_dat( const UB* buf, INT size )
 {

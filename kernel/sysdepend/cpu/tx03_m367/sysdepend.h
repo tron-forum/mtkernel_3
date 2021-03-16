@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -25,6 +25,6 @@
  *    Clock Setting (cpu_clock.c)
  */
 IMPORT void startup_clock(UB pll_mode);
-IMPORT void shutdown_clock();
+IMPORT void shutdown_clock(void);
 
 #endif /* _SYSDEPEND_CPU_SYSDEPEND_ */

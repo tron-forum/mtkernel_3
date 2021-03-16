@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -99,7 +99,7 @@ EXPORT void startup_clock(ATR clkatr)
 	out_w(RCC_CIER, 0);
 }
 
-EXPORT void shutdown_clock()
+EXPORT void shutdown_clock(void)
 {
 
 }

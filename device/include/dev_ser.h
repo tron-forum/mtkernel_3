@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -42,9 +42,9 @@ typedef enum {
 /*----------------------------------------------------------------------*/
 /* Hardware dependent definition
  */
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_TMPM367FDFG
 #include "../ser/sysdepend/tx03_m367/ser_mode_m367.h"
-#endif		/* CPU_TMPM369FDFG */
+#endif		/* CPU_TMPM367FDFG */
 #ifdef CPU_RX231
 #include "../ser/sysdepend/rx231/ser_mode_rx231.h"
 #endif	/* CPU_RX231 */

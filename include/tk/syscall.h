@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -716,8 +716,6 @@ IMPORT ER tk_chg_pri( ID tskid, PRI tskpri );
 IMPORT ER tk_rot_rdq( PRI tskpri );
 IMPORT ER tk_rel_wai( ID tskid );
 IMPORT ID tk_get_tid( void );
-IMPORT ER tk_get_reg( ID tskid, T_REGS *pk_regs, T_EIT *pk_eit, T_CREGS *pk_cregs );
-IMPORT ER tk_set_reg( ID tskid, CONST T_REGS *pk_regs, CONST T_EIT *pk_eit, CONST T_CREGS *pk_cregs );
 IMPORT ER tk_ref_tsk( ID tskid, T_RTSK *pk_rtsk );
 IMPORT ER tk_sus_tsk( ID tskid );
 IMPORT ER tk_rsm_tsk( ID tskid );
@@ -726,6 +724,11 @@ IMPORT ER tk_slp_tsk( TMO tmout );
 IMPORT ER tk_wup_tsk( ID tskid );
 IMPORT INT tk_can_wup( ID tskid );
 IMPORT ER tk_dly_tsk( RELTIM dlytim );
+
+#if TK_SUPPORT_REGOPS
+IMPORT ER tk_get_reg( ID tskid, T_REGS *pk_regs, T_EIT *pk_eit, T_CREGS *pk_cregs );
+IMPORT ER tk_set_reg( ID tskid, CONST T_REGS *pk_regs, CONST T_EIT *pk_eit, CONST T_CREGS *pk_cregs );
+#endif /* TK_SUPPORT_REGOPS */
 
 #if NUM_COPROCESSOR > 0
 IMPORT ER tk_get_cpr( ID tskid, INT copno, T_COPREGS *pk_copregs);

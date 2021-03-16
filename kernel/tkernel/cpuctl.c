@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -55,7 +55,7 @@ SYSCALL ER tk_ena_dsp( void )
 }
 #endif /* USE_FUNC_TK_ENA_DSP */
 
-
+#if TK_SUPPORT_REGOPS
 #ifdef USE_FUNC_TK_SET_REG
 /* ------------------------------------------------------------------------ */
 /*
@@ -113,6 +113,7 @@ SYSCALL ER tk_get_reg( ID tskid, T_REGS *pk_regs, T_EIT *pk_eit, T_CREGS *pk_cre
 }
 
 #endif /* USE_FUNC_TK_GET_REG */
+#endif /* TK_SUPPORT_REGOPS */
 
 #if NUM_COPROCESSOR > 0
 #ifdef USE_FUNC_TK_SET_CPR
@@ -186,6 +187,7 @@ SYSCALL ER tk_get_cpr( ID tskid, INT copno, T_COPREGS *pk_copregs )
  *	Debugger support function
  */
 
+#if TK_SUPPORT_REGOPS
 #ifdef USE_FUNC_TD_SET_REG
 /* ------------------------------------------------------------------------ */
 /*
@@ -243,5 +245,6 @@ SYSCALL ER td_get_reg( ID tskid, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	return ercd;
 }
 #endif /* USE_FUNC_TD_GET_REG */
+#endif /* TK_SUPPORT_REGOPS */
 
 #endif /* USE_DBGSPT */

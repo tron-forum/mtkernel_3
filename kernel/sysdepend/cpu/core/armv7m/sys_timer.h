@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -20,9 +20,10 @@
 #define _SYSDEPEND_CPU_CORE_SYSTIMER_
 
 /*
- * Set timer
+ * Timer start processing
+ *	Initialize the timer and start the periodical timer interrupt.
  */
-Inline void knl_init_hw_timer( void )
+Inline void knl_start_hw_timer( void )
 {
 	UINT	n, imask;
 
@@ -39,16 +40,6 @@ Inline void knl_init_hw_timer( void )
 	out_w(SYST_CSR, 0x00000007);
 
 	EI(imask);
-}
-
-/*
- * Timer start processing
- *	Initialize the timer and start the periodical timer interrupt.
- */
-Inline void knl_start_hw_timer( void )
-{
-	/* Set timer */
-	knl_init_hw_timer();
 }
 
 /*

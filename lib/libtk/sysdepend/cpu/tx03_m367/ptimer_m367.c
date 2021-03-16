@@ -1,18 +1,18 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03 .
  *
  *----------------------------------------------------------------------
  */
 
 #include <sys/machine.h>
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_TMPM367FDFG
 /*
  *	ptimer_m367.c
  *
@@ -233,4 +233,4 @@ EXPORT ER GetPhysicalTimerConfig(UINT ptmrno, T_RPTMR *pk_rptmr)
 }
 
 #endif	/* USE_PTMR */
-#endif	/* CPU_TMPM369FDFG */
+#endif	/* CPU_TMPM367FDFG */

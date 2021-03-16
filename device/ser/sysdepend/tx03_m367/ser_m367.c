@@ -1,19 +1,19 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
 
 
 #include <sys/machine.h>
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_TMPM367FDFG
 #include "../../../config/devconf.h"
 #if DEVCNF_DEV_SER
 /*
@@ -77,16 +77,18 @@ void uart_inthdr( UINT intno)
  */
 LOCAL void start_com(UW unit, UW mode, UW speed)
 {
-	/* Set communication mode */
-	out_w( ba[unit] + UARTxLCR_H, (mode & (UARTxLCR_H_SPS|UARTxLCR_H_WLEN(8)| UARTxLCR_H_STP2| UARTxLCR_H_EPS|UARTxLCR_H_PEN)) |UARTxLCR_H_FEN);
-	*(UW*)(ba[unit] + UARTxCR) |= mode & (UARTxCR_CTSEN | UARTxCR_RTSEN);
+	out_w( ba[unit] + UARTxCR, 0);
 
 	/* Set communication Speed */
 	out_w( ba[unit] + UARTxIBDR, speed >> 6);
 	out_w( ba[unit] + UARTxFBDR, speed & 0x3f);		
 
+	/* Set communication mode */
+	out_w( ba[unit] + UARTxLCR_H, (mode & (UARTxLCR_H_SPS|UARTxLCR_H_WLEN(8)| UARTxLCR_H_STP2| UARTxLCR_H_EPS|UARTxLCR_H_PEN)) |UARTxLCR_H_FEN);
+	*(UW*)(ba[unit] + UARTxCR) |= mode & (UARTxCR_CTSEN | UARTxCR_RTSEN);
+
 	/* Start communication */
-	*(UW*)(ba[unit] + UARTxCR) |= (UARTxCR_TXE | UARTxCR_RXE);
+	*(UW*)(ba[unit] + UARTxCR) |= (UARTxCR_TXE | UARTxCR_RXE | UARTxCR_UARTEN);
 }
 
 /*----------------------------------------------------------------------
@@ -164,7 +166,7 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 
 	unit = p_dcb->unit;
 
-	stop_com(unit);
+	out_w( ba[unit] + UARTxCR, 0);
 
 	/* UART device initialize */
 	out_w(ba[unit] + UARTxIMSC, 0);			// Mask all interrupt
@@ -181,8 +183,10 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	/* Interrupt handler definition */
 	err = tk_def_int((INTNO_UART0 + unit), &dint);
 
+	stop_com(unit);
+
 	return err;
 }
 
 #endif		/* DEVCNF_DEV_SER */
-#endif		/* CPU_TMPM369FDFG */
+#endif		/* CPU_TMPM367FDFG */

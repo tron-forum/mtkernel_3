@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -76,7 +76,10 @@ EXPORT void SetCpuIntLevel( INT level )
  */
 EXPORT INT GetCpuIntLevel( void )
 {
-	return (INT)((get_basepri() >> (8-INTPRI_BITWIDTH))-1);
+	INT	lv;
+
+	lv = (INT)(get_basepri() >>(8-INTPRI_BITWIDTH)) -1;
+	return lv<0?INTLEVEL_EI:lv;
 }
 
 

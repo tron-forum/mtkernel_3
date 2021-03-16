@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -218,8 +218,10 @@ IMPORT ER knl_restart_hw( W mode );
 /*
  * CPU control (cpu_cntl.c)
  */
+#if TK_SUPPORT_REGOPS
 IMPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs );
 IMPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs );
+#endif /* TK_SUPPORT_REGOPS */
 
 #if NUM_COPROCESSOR > 0
 IMPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs);

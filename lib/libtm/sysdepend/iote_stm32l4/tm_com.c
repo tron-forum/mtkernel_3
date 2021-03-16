@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -20,7 +20,8 @@
 #include <sys/sysdef.h>
 #include "../../libtm.h"
 
-#ifdef USE_COM_IOTE_STM32
+#ifdef IOTE_STM32
+#ifdef TM_COM_SERIAL_DEV
 
 /* UART register definition (Use USART2) */
 #define	UART_BASE		(0x40004400UL)		/* USART2 register base address */
@@ -82,4 +83,5 @@ EXPORT	void	tm_com_init(void)
 	UART_CR1 = CR1_UE | CR1_RE |CR1_TE;	/* Start UART */
 }
 
-#endif /* USE_COM_IOTE_STM32 */
+#endif /* TM_COM_SERIAL_DEV */
+#endif /* IOTE_STM32 */

@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03.B0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -327,4 +327,4 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 }
 
 #endif		/* DEVCNF_DEV_IIC */
-#endif		/* CPU_TMPM369FDFG */
+#endif		/* CPU_TMPM367FDFG */

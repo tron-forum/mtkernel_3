@@ -7,7 +7,7 @@ EXE_FILE := mtkernel_3
 
 # Specify only one target name
 #TARGET := _IOTE_M367_
-TARGET := _IOTE_RX231_
+#TARGET := _IOTE_RX231_
 
 RM := rm -rf
 
