@@ -8,6 +8,7 @@ EXE_FILE := mtkernel_3
 # Specify only one target name
 #TARGET := _IOTE_M367_
 #TARGET := _IOTE_RX231_
+TARGET := _IOTE_STM32L4_
 
 RM := rm -rf
 
@@ -30,6 +31,9 @@ include iote_m367.mk
 endif
 ifeq ($(TARGET), _IOTE_RX231_)
 include iote_rx231.mk
+endif
+ifeq ($(TARGET), _IOTE_STM32L4_)
+include iote_stm32l4.mk
 endif
 
 -include mtkernel_3/app_sample/subdir.mk

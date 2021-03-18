@@ -20,6 +20,7 @@
 #ifndef	__DEV_CONF_H__
 #define	__DEV_CONF_H__
 
+#if USE_SDEV_DRV
 /* ------------------------------------------------------------------------ */
 /* Device usage settings
  *	1: Use   0: Do not use
@@ -43,5 +44,5 @@
 #define DEVCNF_DEV_IIC		1		// I2C communication device
 #endif
 
-
+#endif /* USE_SDEV_DRV */
 #endif	/* __DEV_CONF_H__ */

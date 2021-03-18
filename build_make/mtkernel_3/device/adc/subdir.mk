@@ -21,3 +21,7 @@ endif
 ifeq ($(TARGET), _IOTE_RX231_)
 -include mtkernel_3/device/adc/sysdepend/rx231/subdir.mk
 endif
+
+ifeq ($(TARGET), _IOTE_STM32L4_)
+-include mtkernel_3/device/adc/sysdepend/stm32l4/subdir.mk
+endif

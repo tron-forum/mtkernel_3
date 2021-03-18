@@ -20,7 +20,7 @@
 #include <sys/sysdef.h>
 #include "../../libtm.h"
 
-#ifdef IOTE_STM32
+#ifdef IOTE_STM32L4
 #ifdef TM_COM_SERIAL_DEV
 
 /* UART register definition (Use USART2) */

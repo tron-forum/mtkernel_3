@@ -3,14 +3,12 @@
 ################################################################################
 
 OBJS += \
-./mtkernel_3/lib/libtk/sysdepend/cpu/rx231/int_rx231.o \
-./mtkernel_3/lib/libtk/sysdepend/cpu/rx231/ptimer_rx231.o 
+./mtkernel_3/lib/libtm/sysdepend/iote_stm32l4/tm_com.o 
 
 C_DEPS += \
-./mtkernel_3/lib/libtk/sysdepend/cpu/rx231/int_rx231.d \
-./mtkernel_3/lib/libtk/sysdepend/cpu/rx231/ptimer_rx231.d 
+./mtkernel_3/lib/libtm/sysdepend/iote_stm32l4/tm_com.d 
 
-mtkernel_3/lib/libtk/sysdepend/cpu/rx231/%.o: ../lib/libtk/sysdepend/cpu/rx231/%.c
+mtkernel_3/lib/libtm/sysdepend/iote_stm32l4/%.o: ../lib/libtm/sysdepend/iote_stm32l4/%.c
 	@echo 'Building file: $<'
 	$(GCC) $(CFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
