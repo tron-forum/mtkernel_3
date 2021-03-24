@@ -7,8 +7,8 @@ EXE_FILE := mtkernel_3
 
 # Specify only one target name
 #TARGET := _IOTE_M367_
-#TARGET := _IOTE_RX231_
-TARGET := _IOTE_STM32L4_
+TARGET := _IOTE_RX231_
+#TARGET := _IOTE_STM32L4_
 
 RM := rm -rf
 
@@ -61,7 +61,7 @@ $(EXE_FILE).elf: $(OBJS)
 
 # Other EXE_FILEs
 clean:
-	-$(RM) $(OBJS)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_UPPER_DEPS)$(C_DEPS) $(EXE_FILE).elf
+	-$(RM) $(OBJS) $(SECONDARY_SIZE) $(ASM_DEPS) $(S_UPPER_DEPS) $(C_DEPS) $(EXE_FILE).elf
 	-@echo ' '
 
 .PHONY: all clean dependents

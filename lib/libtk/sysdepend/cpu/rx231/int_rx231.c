@@ -12,7 +12,7 @@
  */
 
 #include <sys/machine.h>
-#ifdef CPU_TMPM367FDFG
+#ifdef CPU_RX231
 
 /*
  *	int.c
@@ -23,4 +23,4 @@
 #include <tk/syslib.h>
 
 
-#endif /* CPU_TMPM367FDFG */
+#endif /* CPU_RX231 */
