@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -130,7 +130,7 @@
 /* Use T-Monitor Compatible API Library  & Message to terminal.
 　*  1: Valid  0: Invalid
  */
-#define	USE_TMONITOR		(1)	/* T-Monitor API */
+#define	USE_TMONITOR		(0)	/* T-Monitor API */
 #define USE_SYSTEM_MESSAGE	(1)	/* System Message */
 #define USE_EXCEPTION_DBG_MSG	(1)	/* Excepttion debug message */
 #define USE_TASK_DBG_MSG	(0)	/* Tsak debug message */

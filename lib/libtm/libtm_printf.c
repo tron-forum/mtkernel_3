@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -27,6 +27,8 @@
 
 #include <tk/tkernel.h>
 #include <tm/tmonitor.h>
+
+#if USE_TMONITOR
 #include "libtm.h"
 
 #if USE_TM_PRINTF
@@ -355,3 +357,4 @@ EXPORT INT	tm_sprintf( UB *str, const UB *format, ... )
 }
 
 #endif /* USE_TM_PRINTF */
+#endif /* USE_TMONITOR */

@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -38,7 +38,9 @@
  */
 void tsk1(INT stacd, void *exinf)
 {
+#if  USE_TMONITOR
 	tm_putstring((UB*)"Start Task-1\n");
+#endif
 
 	tk_exd_tsk();	/* Exit task */
 }
@@ -50,7 +52,9 @@ void tsk1(INT stacd, void *exinf)
  */
 void tsk2(INT stacd, void *exinf)
 {
+#if  USE_TMONITOR
 	tm_putstring((UB*)"Start Task-2\n");
+#endif
 
 	tk_exd_tsk();	/* Exit Task */
 }
@@ -69,13 +73,17 @@ EXPORT INT usermain( void )
 	T_RVER	rver;
 	ID	id1, id2;
 
+#if  USE_TMONITOR
 	tm_putstring((UB*)"Start User-main program.\n");
+#endif
 
 	tk_ref_ver(&rver);		/* Get the OS Version. */
 
+#if  USE_TMONITOR
 	tm_printf((UB*)"Make Code: %04x  Product ID: %04x\n", rver.maker, rver.prid);
 	tm_printf((UB*)"Product Ver. %04x\nProduct Num. %04x %04x %04x %04x\n", 
 			rver.prver, rver.prno[0],rver.prno[1],rver.prno[2],rver.prno[3]);
+#endif
 
 	id1 = tk_cre_tsk(&ctsk1);
 	tk_sta_tsk(id1, 0);

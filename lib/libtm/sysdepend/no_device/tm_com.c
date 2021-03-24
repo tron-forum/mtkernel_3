@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -19,6 +19,8 @@
 
 #include <tk/typedef.h>
 #include <sys/sysdef.h>
+
+#if USE_TMONITOR
 #include "../../libtm.h"
 
 #ifdef TM_COM_NO_DEV
@@ -38,3 +40,4 @@ EXPORT	void	tm_com_init(void)
 }
 
 #endif /* USE_COM_NO_DEVICE */
+#endif /* USE_TMONITOR */

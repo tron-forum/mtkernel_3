@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.03.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03.
  *
  *----------------------------------------------------------------------
  */
@@ -24,7 +24,7 @@
 #include <kernel.h>
 #include "../../../sysdepend.h"
 
-#if USE_EXCEPTION_DBG_MSG
+#if (USE_EXCEPTION_DBG_MSG && USE_TMONITOR)
 	#define EXCEPTION_DBG_MSG(a)	tm_putstring((UB*)a)
 #else
 	#define EXCEPTION_DBG_MSG(a)
@@ -44,7 +44,7 @@ WEAK_FUNC EXPORT void NMI_Handler(void)
  */
 WEAK_FUNC EXPORT void HardFault_Handler(void)
 {
-#if USE_EXCEPTION_DBG_MSG
+#if (USE_EXCEPTION_DBG_MSG  && USE_TMONITOR)
 
 	UW	hfsr, cfsr;
 	ID	ctskid;
@@ -116,7 +116,7 @@ WEAK_FUNC EXPORT void DebugMon_Handler(void)
  */
 WEAK_FUNC EXPORT void Default_Handler(void)
 {
-#if USE_EXCEPTION_DBG_MSG
+#if (USE_EXCEPTION_DBG_MSG  && USE_TMONITOR)
 	INT	i;
 	_UW	*icpr;
 
