@@ -33,6 +33,10 @@
  *	  2: "serc" - USART3
  *	  other : T-Monitor does not use serial devices
  */
+#if USE_TMONITOR
 #define	DEVCNF_SER_DBGUN	1		// Used by T-Monitor
+#else 
+#define	DEVCNF_SER_DBGUN	-1		// T-Monitor not executed
+#endif
 
 #endif		/* __DEV_SER_CNF_STM32L4_H__ */

@@ -77,8 +77,6 @@ void uart_inthdr( UINT intno)
  */
 LOCAL void start_com(UW unit, UW mode, UW speed)
 {
-	out_w( ba[unit] + UARTxCR, 0);
-
 	/* Set communication Speed */
 	out_w( ba[unit] + UARTxIBDR, speed >> 6);
 	out_w( ba[unit] + UARTxFBDR, speed & 0x3f);		
@@ -97,7 +95,7 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
 LOCAL void stop_com(UW unit)
 {
 	if(unit != DEVCNF_SER_DBGUN) {
-		out_w( ba[unit] + UARTxCR, UARTxCR_UARTEN);
+		out_w( ba[unit] + UARTxCR, 0);
 	} else {	/* Used by T-Monitor */
 		out_w( ba[unit] + UARTxCR, UARTxCR_UARTEN | UARTxCR_TXE | UARTxCR_RXE);
 	}
