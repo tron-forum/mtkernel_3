@@ -1,19 +1,19 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
 
 /*
  *	cpu_status.h (RXv2)
- *	Cortex-M3 Dependent Definition
+ *	CPU-Dependent Status Definition
  */
 
 #ifndef _SYSDEPEND_CPU_CORE_STATUS_
@@ -22,6 +22,7 @@
 #include <tk/syslib.h>
 #include <sys/sysdef.h>
 
+#include "sysdepend.h"
 /*
  * Start/End critical section
  */
@@ -114,30 +115,5 @@ Inline void knl_LeaveTaskIndependent( void )
  */
 #define in_qtsk()	( knl_ctxtsk->sysmode > knl_ctxtsk->isysmode )
 
-/* ----------------------------------------------------------------------- */
-/*
- *	Task dispatcher startup
- */
-IMPORT void knl_force_dispatch( void );
-IMPORT void knl_dispatch( void );
-
-
-/* ------------------------------------------------------------------------ */
-/*
- *	Control register operation
- */
-Inline void knl_set_intb(UW intb)
-{
-	Asm("mvtc %0, intb":: "r"(intb));
-}
-
-
-/* ----------------------------------------------------------------------- */
-/*
- * Task context block
- */
-typedef struct {
-	void	*ssp;		/* System stack pointer */
-} CTXB;
 
 #endif /* _SYSDEPEND_CPU_CORE_STATUS_ */

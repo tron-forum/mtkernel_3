@@ -1,17 +1,17 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
 #include <sys/machine.h>
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_TMPM367FDFG
 
 /*
  *	cpu_clock.c (TX03-M367)
@@ -93,9 +93,9 @@ EXPORT void startup_clock(UB pll_mode)
 }
 
 
-EXPORT void shutdown_clock()
+EXPORT void shutdown_clock(void)
 {
 
 }
 
-#endif /* CPU_TMPM369FDFG */
+#endif /* CPU_TMPM367FDFG */

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -18,9 +18,12 @@
 
 #include <tk/tkernel.h>
 #include <sys/sysdef.h>
+
+#if USE_TMONITOR
 #include "../../libtm.h"
 
-#ifdef USE_COM_IOTE_RX231
+#ifdef IOTE_RX231
+#ifdef TM_COM_SERIAL_DEV
 
 #define	INTNO_TXI6	226
 #define INTNO_RXI6	227
@@ -89,4 +92,6 @@ EXPORT	void	tm_com_init(void)
 	out_b(SCI6_SCR, 0x30);				// TE = 1 RE = 1
 }
 
-#endif /* USE_COM_IOTE_RX231 */
+#endif /* TM_COM_SERIAL_DEV */
+#endif /* IOTE_RX231 */
+#endif /* USE_TMONITOR */

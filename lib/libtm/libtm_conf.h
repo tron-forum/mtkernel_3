@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -20,14 +20,8 @@
 #define __TM_CONF_H__
 
 /* Select a communication port */
-#ifdef _IOTE_M367_
-#define USE_COM_IOTE_M367
-#endif
-
-#ifdef _IOTE_RX231_
-#define USE_COM_IOTE_RX231
-#endif
-
+#define	TM_COM_SERIAL_DEV
+//#define	TM_COM_NO_DEV
 
 /* tm_printf() call */
 #define	USE_TM_PRINTF		(1)	/* Use tm_printf() & tm_sprintf() calls */

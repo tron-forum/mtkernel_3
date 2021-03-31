@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -41,16 +41,12 @@ Noinit(EXPORT UB knl_tmp_stack[TMP_STACK_SIZE]);
 /*
  * Set task register contents (Used in tk_set_reg())
  */
-EXPORT void knl_set_reg( CTXB *ctxb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs )
+EXPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs )
 {
 	SStackFrame	*ssp;
 	INT		i;
 
-	ssp = ctxb->ssp;
-
-	if ( cregs != NULL ) {
-		ssp = cregs->ssp;
-	}
+	ssp = (SStackFrame*)(( cregs != NULL )? cregs->ssp: tcb->tskctxb.ssp);
 
 	if ( regs != NULL ) {
 		for ( i = 0; i < 15; ++i ) {
@@ -64,7 +60,7 @@ EXPORT void knl_set_reg( CTXB *ctxb, CONST T_REGS *regs, CONST T_EIT *eit, CONST
 	}
 
 	if ( cregs != NULL ) {
-		ctxb->ssp = cregs->ssp;
+		tcb->tskctxb.ssp = cregs->ssp;
 	}
 }
 #endif /* USE_FUNC_TK_SET_REG || USE_FUNC_TD_SET_REG */
@@ -74,12 +70,12 @@ EXPORT void knl_set_reg( CTXB *ctxb, CONST T_REGS *regs, CONST T_EIT *eit, CONST
 /*
  * Get task register contents (Used in tk_get_reg())
  */
-EXPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
+EXPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 {
 	SStackFrame	*ssp;
 	INT		i;
 
-	ssp = ctxb->ssp;
+	ssp = (SStackFrame*)tcb->tskctxb.ssp;
 
 	if ( regs != NULL ) {
 		for ( i = 0; i < 15; ++i ) {
@@ -93,7 +89,7 @@ EXPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	}
 
 	if ( cregs != NULL ) {
-		cregs->ssp = ctxb->ssp; 
+		cregs->ssp = tcb->tskctxb.ssp; 
 	}
 }
 #endif /* USE_FUNC_TK_GET_REG || USE_FUNC_TD_GET_REG */
@@ -104,12 +100,12 @@ EXPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 /*
  * Set Coprocessor registers contents (Used in tk_set_cpr())
  */
-EXPORT ER knl_set_cpr( CTXB *ctxb, INT copno, CONST T_COPREGS *copregs )
+EXPORT ER knl_set_cpr( TCB *tcb, INT copno, CONST T_COPREGS *copregs )
 {
 	SStackFrame	*ssp;
 	ER		ercd;
 
-	ssp = ctxb->ssp;
+	ssp = (SStackFrame*)tcb->tskctxb.ssp;
 	ercd = E_OK;
 
 	switch(copno) {
@@ -146,12 +142,12 @@ EXPORT ER knl_set_cpr( CTXB *ctxb, INT copno, CONST T_COPREGS *copregs )
 /*
  * Get Coprocessor registers contents (Used in tk_get_cpr())
  */
-EXPORT ER knl_get_cpr( CTXB *ctxb, INT copno, T_COPREGS *copregs)
+EXPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs)
 {
 	SStackFrame	*ssp;
 	ER		ercd;
 
-	ssp = ctxb->ssp;
+	ssp = (SStackFrame*)tcb->tskctxb.ssp;
 	ercd = E_OK;
 
 	switch (copno) {
@@ -184,7 +180,7 @@ EXPORT ER knl_get_cpr( CTXB *ctxb, INT copno, T_COPREGS *copregs)
 	return ercd;
 }
 #endif /* USE_FUNC_TK_GET_CPR */
-#endif /* USE_COPROCESSOR */
+#endif /* NUM_COPROCESSOR > 0 */
 
 /* ----------------------------------------------------------------------- */
 /*

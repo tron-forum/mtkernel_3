@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -15,8 +15,7 @@
 /*
  *	ser_mode_m367.h
  *	Serial communication device driver
- *	Communication mode definition
- *	System-dependent definition for TX03_M367
+ *	Communication mode definition for TX03_M367
  */
 
 #ifndef	__DEV_SER_MODE_M367_H__
@@ -34,5 +33,12 @@
 
 #define	DEV_SER_MODE_CTSEN	(0x00008000)	/* CTS Hard flow control enable */
 #define	DEV_SER_MODE_RTSEN	(0x00004000)	/* RTS Hard flow control enable */
+
+/* Communication Error */
+#define	DEV_SER_ERR_OE		(1<<3)	/* Overrun Error */
+#define	DEV_SER_ERR_BE		(1<<2)	/* Break Error */
+#define	DEV_SER_ERR_PE		(1<<1)	/* Parity Error */
+#define	DEV_SER_ERR_FE		(1<<0)	/* Framing Error */
+
 
 #endif /* __DEV_SER_MODE_M367_H__ */

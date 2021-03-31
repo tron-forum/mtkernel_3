@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -15,6 +15,7 @@
 /*
  *	dev_ser.h
  *	Serial communication device driver
+ *	Driver local definition
  */
 
 #ifndef	__DEV_SER_H__
@@ -27,12 +28,15 @@
 /*----------------------------------------------------------------------
  * Hardware dependent definition
  */
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_TMPM367FDFG
 #include "sysdepend/tx03_m367/ser_m367.h"
-#endif		/* CPU_TMPM369FDFG */
+#endif		/* CPU_TMPM367FDFG */
 #ifdef CPU_RX231
 #include "sysdepend/rx231/ser_rx231.h"
 #endif	/* CPU_RX231 */
+#ifdef CPU_STM32L4
+#include "sysdepend/stm32l4/ser_stm32l4.h"
+#endif	/* CPU_STM32L4 */
 
 
 /*----------------------------------------------------------------------

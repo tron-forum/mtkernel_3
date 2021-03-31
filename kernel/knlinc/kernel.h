@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -136,14 +136,6 @@ IMPORT TCB	*knl_ctxtsk;
  */
 IMPORT TCB	*knl_schedtsk;
 
-
-/*
- * Startup / Re-start / Shutdown Hardware (start_dev.c)
- */
-IMPORT void knl_startup_hw(void);
-IMPORT void knl_shutdown_hw( void );
-IMPORT ER knl_restart_hw( W mode );
-
 /*
  * Kernel-object initialization (each object)
  */
@@ -178,7 +170,7 @@ IMPORT void knl_timer_shutdown( void );
 IMPORT void knl_timer_handler( void );
 
 /*
- * Mutex control
+ * Mutex control (mutex.c)
  */
 IMPORT void knl_signal_all_mutex( TCB *tcb );
 IMPORT INT knl_chg_pri_mutex( TCB *tcb, INT priority );
@@ -202,31 +194,45 @@ IMPORT const T_CTSK knl_init_ctsk;
  */
 IMPORT INT usermain( void );
 
-
 /*
- * power-saving function
+ * power-saving function (power.c)
  */
 IMPORT UINT	knl_lowpow_discnt;
 
 
 /* ----------------------------------------------------------------------- */
 /*
- * Target system-dependent routine (interrupt.c)
+ * Target system-dependent routine (/sysdepend)
  */
 
 /* Low-level memory management information (reset_hdl.c) */
 IMPORT	void	*knl_lowmem_top, *knl_lowmem_limit;
 
 /*
- * CPU control (cpu.c)
+ * Startup / Re-start / Shutdown Hardware (hw_setting.c)
  */
-IMPORT void knl_set_reg( CTXB *ctxb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs );
-IMPORT void knl_get_reg( CTXB *ctxb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs );
+IMPORT void knl_startup_hw(void);
+IMPORT void knl_shutdown_hw( void );
+IMPORT ER knl_restart_hw( W mode );
+
+/*
+ * CPU control (cpu_cntl.c)
+ */
+#if TK_SUPPORT_REGOPS
+IMPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs );
+IMPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs );
+#endif /* TK_SUPPORT_REGOPS */
 
 #if NUM_COPROCESSOR > 0
-IMPORT ER knl_get_cpr( CTXB *ctxb, INT copno, T_COPREGS *copregs);
-IMPORT ER knl_set_cpr( CTXB *ctxb, INT copno, CONST T_COPREGS *copregs);
+IMPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs);
+IMPORT ER knl_set_cpr( TCB *tcb, INT copno, CONST T_COPREGS *copregs);
 #endif
+
+/*
+ *	Task dispatcher (cpu_cntl.c)
+ */
+IMPORT void knl_force_dispatch( void );
+IMPORT void knl_dispatch( void );
 
 /*
  * Interuupt control (interrupt.c)
@@ -254,7 +260,7 @@ IMPORT void knl_tkernel_exit( void );
 IMPORT void knl_call_entry( void );
 
 /*
- *	Power-Saving Function (power.c)
+ *	Power-Saving Function (power_save.c)
  */
 IMPORT void low_pow( void );		/* Switch to power-saving mode */
 IMPORT void off_pow( void );		/* Move to suspend mode */

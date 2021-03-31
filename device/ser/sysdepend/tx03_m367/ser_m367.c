@@ -1,19 +1,19 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
 
 
 #include <sys/machine.h>
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_TMPM367FDFG
 #include "../../../config/devconf.h"
 #if DEVCNF_DEV_SER
 /*
@@ -77,16 +77,28 @@ void uart_inthdr( UINT intno)
  */
 LOCAL void start_com(UW unit, UW mode, UW speed)
 {
-	/* Set communication mode */
-	out_w( ba[unit] + UARTxLCR_H, (mode & (UARTxLCR_H_SPS|UARTxLCR_H_WLEN(8)| UARTxLCR_H_STP2| UARTxLCR_H_EPS|UARTxLCR_H_PEN)) |UARTxLCR_H_FEN);
-	*(UW*)(ba[unit] + UARTxCR) |= mode & (UARTxCR_CTSEN | UARTxCR_RTSEN);
-
 	/* Set communication Speed */
 	out_w( ba[unit] + UARTxIBDR, speed >> 6);
 	out_w( ba[unit] + UARTxFBDR, speed & 0x3f);		
 
+	/* Set communication mode */
+	out_w( ba[unit] + UARTxLCR_H, (mode & (UARTxLCR_H_SPS|UARTxLCR_H_WLEN(8)| UARTxLCR_H_STP2| UARTxLCR_H_EPS|UARTxLCR_H_PEN)) |UARTxLCR_H_FEN);
+	*(UW*)(ba[unit] + UARTxCR) |= mode & (UARTxCR_CTSEN | UARTxCR_RTSEN);
+
 	/* Start communication */
-	*(UW*)(ba[unit] + UARTxCR) |= (UARTxCR_TXE | UARTxCR_RXE);
+	*(UW*)(ba[unit] + UARTxCR) |= (UARTxCR_TXE | UARTxCR_RXE | UARTxCR_UARTEN);
+}
+
+/*----------------------------------------------------------------------
+ * Stop communication
+ */
+LOCAL void stop_com(UW unit)
+{
+	if(unit != DEVCNF_SER_DBGUN) {
+		out_w( ba[unit] + UARTxCR, 0);
+	} else {	/* Used by T-Monitor */
+		out_w( ba[unit] + UARTxCR, UARTxCR_UARTEN | UARTxCR_TXE | UARTxCR_RXE);
+	}
 }
 
 /*----------------------------------------------------------------------
@@ -108,13 +120,13 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 	case LLD_SER_START:	/* Start communication */
 		out_w(ba[unit] + UARTxICR, UARTxINT_ALL);	// Clear interrupt
 		out_w(ba[unit] + UARTxIMSC, UARTxINT_COM);	// Unmask all interrupts
-		EnableInt(INTNO_UART0 + 1, DEVCNF_SER_INTPRI);	// /* Enable Interrupt */
+		EnableInt(unit?INTNO_UART1:INTNO_UART0, DEVCNF_SER_INTPRI);	// Enable Interrupt
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
 		break;
 	
 	case LLD_SER_STOP:
 		DisableInt(unit?INTNO_UART1:INTNO_UART0);
-		*(UW*)( ba[unit] + UARTxCR) &= ~(UARTxCR_TXE | UARTxCR_RXE);	// Stop communication
+		stop_com(unit);
 		break;
 
 	case LLD_SER_SEND:
@@ -152,16 +164,16 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 
 	unit = p_dcb->unit;
 
+	out_w( ba[unit] + UARTxCR, 0);
+
 	/* UART device initialize */
 	out_w(ba[unit] + UARTxIMSC, 0);			// Mask all interrupt
 	out_w(ba[unit] + UARTxECR, 0);			// Clear error
-	out_w(ba[unit] + UARTxLCR_H, UARTxLCR_H_FEN);	// Enable FIFO
-	out_w(ba[unit] + UARTxCR, UARTxCR_UARTEN);	// Enable UART & Stop communication
 	out_w(ba[unit] + UARTxIFLS, 			// Set FIFO level
 			UARTxIFLS_RXIFLSEL(UARTxIFLS_RXINI) |
 			UARTxIFLS_TXIFLSEL(UARTxIFLS_TXINI));
 	out_w(ba[unit] + UARTxICR, 0x000007FF);		// Clear interrupt
-	out_w(ba[unit] + UARTxDMACR, 0);			// Stop DMA
+	out_w(ba[unit] + UARTxDMACR, 0);		// Stop DMA
 
 	/* Device Control block Initizlize */
 	p_dcb->intno_rcv = p_dcb->intno_snd = INTNO_UART0 + unit;
@@ -169,8 +181,10 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	/* Interrupt handler definition */
 	err = tk_def_int((INTNO_UART0 + unit), &dint);
 
+	stop_com(unit);
+
 	return err;
 }
 
 #endif		/* DEVCNF_DEV_SER */
-#endif		/* CPU_TMPM369FDFG */
+#endif		/* CPU_TMPM367FDFG */

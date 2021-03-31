@@ -55,10 +55,21 @@
 #define	MSTPCRD		(0x0008001C)
 
 /* Module stop initial value */
+#if !USE_SDEV_DRV	// Do not use sample device driver
+
 #define MSTPCRA_INI	0xEFFF7FCF	/* Enable DMAC/DTC, CMT0-1, TMR0-3 */
+#define MSTPCRB_INI	0xFDFFFFFF	/* Enable SCI6 */
+#define MSTPCRC_INI	0x7FFF0000	/* Disable Deep-Sleep mode, Enable RAM */
+#define MSTPCRD_INI	0xFFFFFF00
+
+#else			// Use the sample device driver
+
+#define MSTPCRA_INI	0xEFFD7FCF	/* Enable DMAC/DTC, ADC, CMT0-1, TMR0-3 */
 #define MSTPCRB_INI	0xFDDFFFFF	/* Enable SCI6, RIIC0 */
 #define MSTPCRC_INI	0x7FFF0000	/* Disable Deep-Sleep mode, Enable RAM */
 #define MSTPCRD_INI	0xFFFFFF00
+
+#endif /* !USE_SDEV_DRV */
 
 
 /* ------------------------------------------------------------------------ */

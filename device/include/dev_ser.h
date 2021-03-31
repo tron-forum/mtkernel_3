@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -16,8 +16,8 @@
  *	Serial communication device driver
  */
 
-#ifndef	__DEV_SER_API_H__
-#define	__DEV_SER_API_H__
+#ifndef	__DEVINC_SER_H__
+#define	__DEVINC_SER_H__
 
 /*----------------------------------------------------------------------*/
 /* Device driver initialization
@@ -38,20 +38,18 @@ typedef enum {
 
 /* Communication Error */
 #define	DEV_SER_ERR_ROVR	(1<<7)	/* Recive buffe over flow */
-#define	DEV_SER_ERR_SOVR	(1<<6)	/* Send buffer over flow */
-#define	DEV_SER_ERR_OE		(1<<3)	/* Overrun Error */
-#define	DEV_SER_ERR_BE		(1<<2)	/* Break Error */
-#define	DEV_SER_ERR_PE		(1<<1)	/* Parity Error */
-#define	DEV_SER_ERR_FE		(1<<0)	/* Framing Error */
 
 /*----------------------------------------------------------------------*/
 /* Hardware dependent definition
  */
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_TMPM367FDFG
 #include "../ser/sysdepend/tx03_m367/ser_mode_m367.h"
-#endif		/* CPU_TMPM369FDFG */
+#endif		/* CPU_TMPM367FDFG */
 #ifdef CPU_RX231
 #include "../ser/sysdepend/rx231/ser_mode_rx231.h"
 #endif	/* CPU_RX231 */
+#ifdef CPU_STM32L4
+#include "../ser/sysdepend/stm32l4/ser_mode_stm32l4.h"
+#endif	/* CPU_STM32L4 */
 
-#endif		/* __DEV_SER_API_H__ */
+#endif	/* __DEVINC_SER_H__ */

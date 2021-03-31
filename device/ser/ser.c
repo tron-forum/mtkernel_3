@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -31,13 +31,11 @@
 #if TK_SUPPORT_MEMLIB
 
 LOCAL T_SER_DCB	*dev_ser_cb[DEV_SER_UNITNM];
-#define		get_dcb_ptr(unit)	(dev_ser_cb[unit])
 #define		get_dcb_mem(unit,a)	(dev_ser_cb[unit]->a)
 
 #else
 
 LOCAL T_SER_DCB	dev_ser_cb[DEV_SER_UNITNM];
-#define		get_dcb_ptr(unit)	(&dev_ser_cb[unit])
 #define		get_dcb_mem(unit,a)	(dev_ser_cb[unit].a)
 
 #endif
@@ -435,7 +433,7 @@ EXPORT ER dev_init_ser( UW unit )
 	p_dcb->evtmbfid	= idev.evtmbfid;
 
 	/* Low-level device initialization */
-	err = dev_ser_llinit( get_dcb_ptr(unit));
+	err = dev_ser_llinit( p_dcb);
 	if(err != E_OK) goto err_1;
 
 	/* Set default value for attribute data */

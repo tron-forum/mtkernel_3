@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -126,6 +126,18 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
 }
 
 /*----------------------------------------------------------------------
+ * Stop communication
+ */
+LOCAL void stop_com(UW unit)
+{
+	if(unit != DEVCNF_SER_DBGUN) {
+		out_b(ba[unit] + SCI_SCR, SCI_SCR_INI);		/* SCR.TIE,RIE,TE,RE,TEIE <- 0 & Set SCR.CKE */
+	} else {	/* Used by T-Monitor */
+		out_b(ba[unit] + SCI_SCR, SCI_SCR_DEBUG);
+	}
+}
+
+/*----------------------------------------------------------------------
  * Calculate baud rate
  */
 LOCAL UW calc_brr(UW baud)
@@ -211,7 +223,7 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 		DisableInt( INTNO_ERI(unit));
 		DisableInt( INTNO_RXI(unit));
 		DisableInt( INTNO_TXI(unit));
-		out_w(ba[unit] + SCI_SCR, SCI_SCR_INI);		// Stop communication
+		stop_com(unit);			// Stop communication
 		break;
 
 	case LLD_SER_SEND:
@@ -262,11 +274,8 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	}
 #endif		/* DEVCONF_SER_INIT_MSTP */
 
-	/* SCR.TIE,RIE,TE,RE,TEIE <- 0 & Set SCR.CKE */
-	out_b(ba[unit] + SCI_SCR, SCI_SCR_INI);
-
-	/* Set Hard flow control */
-	out_b(ba[unit] + SCI_SPMR, SCI_SPMR_INI);
+	stop_com(unit);					/* Stop communication */
+	out_b(ba[unit] + SCI_SPMR, SCI_SPMR_INI);	/* Set Hard flow control */
 
 	/* Device Control block Initizlize */
 	p_dcb->intno_rcv = INTNO_SCI0_RXI + (unit<<2);

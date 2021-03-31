@@ -1,5 +1,5 @@
 ################################################################################
-# micro T-Kernel 3.00.01  makefile
+# micro T-Kernel 3.00.03  makefile
 ################################################################################
 
 GCC := arm-none-eabi-gcc
@@ -22,9 +22,9 @@ LFLAGS := -mcpu=cortex-m3 -mthumb -ffreestanding \
 
 LNKFILE := "../etc/linker/iote_m367/tkernel_map.ld"
 
--include mtkernel_3/lib/libtm/sysdepend/iote_m367/subdir.mk
--include mtkernel_3/lib/libtk/sysdepend/cpu/tx03_m367/subdir.mk
--include mtkernel_3/lib/libtk/sysdepend/cpu/core/acm3/subdir.mk
--include mtkernel_3/kernel/sysdepend/iote_m367/subdir.mk
--include mtkernel_3/kernel/sysdepend/cpu/tx03_m367/subdir.mk
--include mtkernel_3/kernel/sysdepend/cpu/core/acm3/subdir.mk
+include mtkernel_3/lib/libtm/sysdepend/iote_m367/subdir.mk
+include mtkernel_3/lib/libtk/sysdepend/cpu/tx03_m367/subdir.mk
+include mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7m/subdir.mk
+include mtkernel_3/kernel/sysdepend/iote_m367/subdir.mk
+include mtkernel_3/kernel/sysdepend/cpu/tx03_m367/subdir.mk
+include mtkernel_3/kernel/sysdepend/cpu/core/armv7m/subdir.mk

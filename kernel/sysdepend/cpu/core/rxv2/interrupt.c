@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -51,8 +51,6 @@ EXPORT FP knl_hll_inthdr_ram[N_INTVEC] __attribute__ ((section (".data_hvector")
 #if !USE_STATIC_IVT
 EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 {
-	volatile FP	*intvet;
-
 	/* check system interrupt number */
 	if((intno < INTNO_USER_MIN) || (intno == INTNO_SYS_TICK)) {
 		return E_PAR;

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -18,9 +18,12 @@
 
 #include <tk/typedef.h>
 #include <sys/sysdef.h>
+
+#if USE_TMONITOR
 #include "../../libtm.h"
 
-#ifdef USE_COM_IOTE_M367
+#ifdef IOTE_M367
+#ifdef TM_COM_SERIAL_DEV
 
 #define	UART_BASE		(0x40049000UL)
 
@@ -90,4 +93,6 @@ EXPORT	void	tm_com_init(void)
 		UART_CR_RXE | UART_CR_TXE | UART_CR_UARTEN;
 }
 
-#endif /* USE_COM_IOTE_M367 */
+#endif /* TM_COM_SERIAL_DEV */
+#endif /* IOTE_M367 */
+#endif /* USE_TMONITOR */

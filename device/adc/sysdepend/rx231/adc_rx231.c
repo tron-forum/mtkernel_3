@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -37,8 +37,6 @@ LOCAL struct {
  */
 void adc_inthdr( UINT intno)
 {
-	INT		unit;
-
 	ClearInt(intno);
 	tk_wup_tsk(ll_devcb.wait_tskid);
 }
@@ -49,7 +47,6 @@ void adc_inthdr( UINT intno)
 LOCAL UW adc_convert( INT start, INT size, UW *buf )
 {
 	INT	ch, end;
-	UH	data;
 	ER	err;
 
 	ll_devcb.wait_tskid = tk_get_tid();
@@ -141,7 +138,7 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 	}
 #endif	/* DEVCONF_ADC_INIT_MSTP */
 
-#if DEVCOBF_ADC_INIT_PIN		// Initialize I/O pin
+#if DEVCONF_ADC_INIT_PIN		// Initialize I/O pin
 	INT	i;
 	UB	cnf;
 
@@ -178,8 +175,8 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 		}
 	}
 
-	out_b(MPC_PWPR, MPC_PWMR_B0WI);			// PWPR.PFSWE = 0, PWPR.B0WI = 1
-#endif		/* DEVCOBF_ADC_INIT_PIN */
+	out_b(MPC_PWPR, MPC_PWMR_B0WI);		// PWPR.PFSWE = 0, PWPR.B0WI = 1
+#endif		/* DEVCONF_ADC_INIT_PIN */
 
 	/* ADC device initialize */
 	out_h(ADCER, ADCER_INI);

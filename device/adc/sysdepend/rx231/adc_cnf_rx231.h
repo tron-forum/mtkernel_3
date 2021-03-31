@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.000.03
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -21,8 +21,8 @@
 #define	__DEV_ADC_CNF_RX231_H__
 
 /* Device initialization */
-#define DEVCONF_ADC_INIT_MSTP	TRUE		// Initialize module stop
-#define DEVCOBF_ADC_INIT_PIN	TRUE		// Initialize I/O pin
+#define DEVCONF_ADC_INIT_MSTP	FALSE		// Initialize module stop
+#define DEVCONF_ADC_INIT_PIN	FALSE		// Initialize I/O pin
 #define DEVCONF_ENA_AN00_07	(0b00000111)	// AN00-AN07  1: Used  0: unused
 #define DEVCONF_ENA_AN16_23	(0b00000000)	// AN16-AN23  1: Used  0: unused
 #define DEVCONF_ENA_AN24_31	(0b00000000)	// AN24-AN31  1: Used  0: unused

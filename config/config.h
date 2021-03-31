@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -26,6 +26,7 @@
  */
 //#define _IOTE_M367_
 //#define _IOTE_RX231_
+//#define _IOTE_STM32L4_
 
 /*---------------------------------------------------------------------- */
 /* SYSCONF : micro T-Kernel system configuration
@@ -60,7 +61,7 @@
 /* Version Number */
 #define CNF_VER_MAKER		0
 #define CNF_VER_PRID		0
-#define CNF_VER_PRVER		2
+#define CNF_VER_PRVER		3
 #define CNF_VER_PRNO1		0
 #define CNF_VER_PRNO2		0
 #define CNF_VER_PRNO3		0
@@ -71,8 +72,8 @@
 /* Backwards compatible api support 
  *      micro T-Kernel2.0 API support (Rendezvous)
  */
-#define USE_LEGACY_API		(1)	/* 1: Valid  0: Invalid */
-#define CNF_MAX_PORID		(4)	/* Maximum number of Rendezvous */
+#define USE_LEGACY_API		(0)	/* 1: Valid  0: Invalid */
+#define CNF_MAX_PORID		(0)	/* Maximum number of Rendezvous */
 
 
 /*---------------------------------------------------------------------- */
@@ -120,7 +121,7 @@
 /* Debugger support function
  *   1: Valid  0: Invalid
  */
-#define USE_DBGSPT		(1)	/* Use mT-Kernel/DS */
+#define USE_DBGSPT		(0)	/* Use mT-Kernel/DS */
 #define USE_OBJECT_NAME		(0)	/* Use DS object name */
 
 #define OBJECT_NAME_LENGTH	(8)	/* DS Object name length */
@@ -132,7 +133,7 @@
 #define	USE_TMONITOR		(1)	/* T-Monitor API */
 #define USE_SYSTEM_MESSAGE	(1)	/* System Message */
 #define USE_EXCEPTION_DBG_MSG	(1)	/* Excepttion debug message */
-#define USE_TASK_DBG_MSG	(1)	/* Tsak debug message */
+#define USE_TASK_DBG_MSG	(0)	/* Tsak debug message */
 
 /*---------------------------------------------------------------------- */
 /* Use Co-Processor.
@@ -147,6 +148,13 @@
  */
 #define USE_PTMR		(1)	/* Use Physical timer */
 
+/*---------------------------------------------------------------------- */
+/* Use Sample device driver.
+　*  1: Valid  0: Invalid
+ */
+#define USE_SDEV_DRV		(1)	/* Use Sample device driver */
+
+/*---------------------------------------------------------------------- */
 /*
  *	Use function Definition
  */

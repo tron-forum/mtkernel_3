@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
@@ -24,6 +24,13 @@
 
 #ifdef _IOTE_M367_
 #include "sysdepend/iote_m367/machine.h"
+
+#define Csym(sym) sym
+
+#endif
+
+#ifdef _IOTE_STM32L4_
+#include "sysdepend/iote_stm32l4/machine.h"
 
 #define Csym(sym) sym
 

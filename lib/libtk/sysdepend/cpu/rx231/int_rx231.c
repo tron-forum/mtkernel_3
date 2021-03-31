@@ -1,18 +1,18 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.03
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
  *
  *----------------------------------------------------------------------
  */
 
 #include <sys/machine.h>
-#ifdef CPU_TMPM369FDFG
+#ifdef CPU_RX231
 
 /*
  *	int.c
@@ -23,4 +23,4 @@
 #include <tk/syslib.h>
 
 
-#endif /* CPU_TMPM369FDFG */
+#endif /* CPU_RX231 */
