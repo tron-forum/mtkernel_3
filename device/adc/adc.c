@@ -2,18 +2,19 @@
  *----------------------------------------------------------------------
  *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/05.
  *
  *----------------------------------------------------------------------
  */
 
 #include <sys/machine.h>
-#include "../config/devconf.h"
-#if DEVCNF_DEV_ADC
+#include "../include/dev_def.h"
+
+#if DEV_ADC_ENABLE
 /*
  *	adc.c
  *	A/D converter device driver 
@@ -256,4 +257,4 @@ err_2:
 	return err;
 }
 
-#endif	/* DEVCNF_DEV_ADC */
+#endif	/* DEV_ADC_ENABLE */

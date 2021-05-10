@@ -12,28 +12,34 @@
  */
 
 /*
- *	device.c
- *	Device driver definition for User program
+ *	dev_def.c
+ *	Device driver common definition
 */
 
-#ifndef	__DEVINC_DEVICE_H__
-#define	__DEVINC_DEVICE_H__
+#ifndef	__DEVINC_DEVDEF_H__
+#define	__DEVINC_DEVDEF_H__
 
 #include <config_device.h>
 
 #if USE_SDEV_DRV		/* Use Sample device driver */
 
 #if DEVCNF_USE_SER		/* Use Serial communication device */
-#include "dev_ser.h"
+#define DEV_SER_ENABLE		1
 #endif	/* DEVCNF_USE_SER */
 
 #if DEVCNF_USE_ADC		/* Use A/D conversion device */
-#include "dev_adc.h"
+#define DEV_ADC_ENABLE		1
 #endif	/* DEVCNF_USE_ADC */
 
 #if DEVCNF_USE_IIC		/* Use I2C communication device */
-#include "dev_i2c.h"
+#define DEV_IIC_ENABLE		1
 #endif	/* DEVCNF_USE_IIC */
+
+#else				/* Do not use sample device driver */
+
+#define DEV_SER_ENABLE		0		// Serial communication device 
+#define DEV_ADC_ENABLE		0		// A/D conversion device
+#define DEV_IIC_ENABLE		0		// I2C communication device
 
 #endif	/* USE_SDEV_DRV */
 #endif	/* __DEVINC_DEVICE_H__ */
