@@ -160,7 +160,8 @@ LOCAL UW calc_brr(UW baud)
 		cks	= 1;
 		brr = SYSCLK_PCLKB / (baud * 64) - 1;
 	} else if(work < 128) {
-		abcs	= 1;
+		abcs	= 0;
+		cks	= 1;
 		brr = SYSCLK_PCLKB / (baud * 128) - 1;
 	} else if(work < 256) {
 		abcs	= SCI_SEMR_ABCS;

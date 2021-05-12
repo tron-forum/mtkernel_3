@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.04
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/05.
  *
  *----------------------------------------------------------------------
  */
@@ -28,7 +28,7 @@
  * 
  */
 
-const void (*reset_vect[])()  __attribute__((section (".fvectors"))) = {
+void (* const reset_vect[])()  __attribute__((section (".fvectors"))) = {
 	Reset_Handler,				/* Power On Reset */
 };
 
@@ -38,7 +38,7 @@ const void (*reset_vect[])()  __attribute__((section (".fvectors"))) = {
  * 
  */
 
-const void (*exvect_tbl[])()  __attribute__((section(".exvectors"))) = {
+void (* const exvect_tbl[])()  __attribute__((section(".exvectors"))) = {
 	(void(*)())(0xffffffff),		/* MDES  Endian Select Register */
 	0,
 	(void(*)())(0xffffffff),		/* OFS1 Option function */
