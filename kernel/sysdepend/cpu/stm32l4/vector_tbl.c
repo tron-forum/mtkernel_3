@@ -28,7 +28,7 @@
  * 
  */
 
-const void (*vector_tbl[])()  __attribute__((section(".vector"))) = {
+void (* const vector_tbl[])()  __attribute__((section(".vector"))) = {
 	(void(*)()) (INITIAL_SP),		/* 0: Top of Stack */
 	Reset_Handler,				/* 1: Reset Handler */
 	NMI_Handler,				/* 2: NMI Handler */

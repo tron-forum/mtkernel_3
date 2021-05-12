@@ -71,7 +71,7 @@ LOCAL void ptmr2_inthdr( UINT intno ) { ptmr_int_main( intno, &ptmrcb[1]); }
 LOCAL void ptmr3_inthdr( UINT intno ) { ptmr_int_main( intno, &ptmrcb[2]); }
 LOCAL void ptmr4_inthdr( UINT intno ) { ptmr_int_main( intno, &ptmrcb[3]); }
 
-LOCAL const void (*inthdr_tbl[])() = {
+LOCAL void (* const inthdr_tbl[])() = {
 	ptmr1_inthdr, ptmr2_inthdr, ptmr3_inthdr, ptmr4_inthdr
 };
 

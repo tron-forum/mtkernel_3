@@ -93,8 +93,6 @@ EXPORT void EndOfInt(UINT intno)
  */
 EXPORT BOOL CheckInt( UINT intno )
 {
-	BOOL rtncd;
-
 	return CheckInt_nvic( intno);
 }
 
