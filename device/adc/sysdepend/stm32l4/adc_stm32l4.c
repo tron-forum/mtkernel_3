@@ -1,21 +1,21 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
 
-
 #include <sys/machine.h>
 #ifdef CPU_STM32L4
-#include "../../../config/devconf.h"
-#if DEVCNF_DEV_ADC
+
+#include "../../../include/dev_def.h"
+#if DEV_ADC_ENABLE
 /*
  *	dev_adc_stm32l4.c
  *	A/D converter device driver
@@ -253,5 +253,5 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 	return err;
 }
 
-#endif		/* DEVCNF_DEV_ADC */
+#endif		/* DEV_ADC_ENABLE */
 #endif		/* CPU_STM32L4 */

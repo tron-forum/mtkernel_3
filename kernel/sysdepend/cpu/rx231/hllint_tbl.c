@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.04
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
@@ -27,7 +27,7 @@
  * HLL Interrupt Handler Table (ROM)
  * 
  */
-EXPORT const void (*knl_hll_inthdr_rom[])()  __attribute__((section(".hvectors"))) = {
+EXPORT void (* const knl_hll_inthdr_rom[])()  __attribute__((section(".hvectors"))) = {
 	Default_Handler,			/* Unconditional trap */
 	Default_Handler,			/* Dispatch */
 	Default_Handler,			/* System call (reserved) */

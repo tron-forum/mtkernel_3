@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.04
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
@@ -24,14 +24,14 @@
 /*
  *    Interrupt Vector Table (ROM) (intvect_tbl.c)
  */
-IMPORT const void (*knl_int_vect_rom[])();
+IMPORT void (* const knl_int_vect_rom[])();
 
 /* ------------------------------------------------------------------------ */
 /*
  * HLL Interrupt Handler Table (ROM) (hllint_tbl.c)
  * 
  */
-IMPORT const void (*knl_hll_inthdr_rom[])();
+IMPORT void (* const knl_hll_inthdr_rom[])();
 
 /*
  *    Clock Setting (cpu_clock.c)

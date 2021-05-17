@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.04
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
@@ -23,7 +23,7 @@
 #include "../../libtm.h"
 
 #ifdef IOTE_RX231
-#ifdef TM_COM_SERIAL_DEV
+#if TM_COM_SERIAL_DEV
 
 #define	INTNO_TXI6	226
 #define INTNO_RXI6	227

@@ -2,19 +2,18 @@
  *----------------------------------------------------------------------
  *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
 
-
 #include <sys/machine.h>
-#include "../config/devconf.h"
-#if DEVCNF_DEV_IIC
+#include "../include/dev_def.h"
+#if DEV_IIC_ENABLE
 /*
  *	i2c.c
  *	I2C device driver
@@ -307,4 +306,4 @@ err_2:
 	return err;
 }
 
-#endif		/* DEVCNF_DEV_IIC */
+#endif		/* DEV_IIC_ENABLE */

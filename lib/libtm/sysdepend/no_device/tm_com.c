@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.04
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
@@ -23,7 +23,7 @@
 #if USE_TMONITOR
 #include "../../libtm.h"
 
-#ifdef TM_COM_NO_DEV
+#if TM_COM_NO_DEV
 
 EXPORT	void	tm_snd_dat( const UB* buf, INT size )
 {
@@ -39,5 +39,5 @@ EXPORT	void	tm_com_init(void)
 {
 }
 
-#endif /* USE_COM_NO_DEVICE */
+#endif /* TM_COM_NO_DEV */
 #endif /* USE_TMONITOR */

@@ -1,20 +1,21 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.04
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
 
 #include <sys/machine.h>
 #ifdef CPU_RX231
-#include "../../../config/devconf.h"
-#if DEVCNF_DEV_SER
+
+#include "../../../include/dev_def.h"
+#if DEV_SER_ENABLE
 /*
  *	ser_rx231.c
  *	Serial communication device driver
@@ -159,7 +160,8 @@ LOCAL UW calc_brr(UW baud)
 		cks	= 1;
 		brr = SYSCLK_PCLKB / (baud * 64) - 1;
 	} else if(work < 128) {
-		abcs	= 1;
+		abcs	= 0;
+		cks	= 1;
 		brr = SYSCLK_PCLKB / (baud * 128) - 1;
 	} else if(work < 256) {
 		abcs	= SCI_SEMR_ABCS;
@@ -293,5 +295,5 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	return err;
 }
 
-#endif		/* DEVCNF_DEV_SER */
+#endif		/* DEV_SER_ENABLE */
 #endif		/* CPU_RX231 */

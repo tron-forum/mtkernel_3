@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.04
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17 .
  *
  *----------------------------------------------------------------------
  */
@@ -66,7 +66,7 @@ LOCAL void ptmr_int_main( UINT intno, T_PTMRCB *p_cb)
 LOCAL void ptmr1_inthdr( UINT intno ) { ptmr_int_main( intno, &ptmrcb[0]); }
 LOCAL void ptmr2_inthdr( UINT intno ) { ptmr_int_main( intno, &ptmrcb[1]); }
 
-LOCAL const void (*inthdr_tbl[])() = {
+LOCAL void (* const inthdr_tbl[])() = {
 	ptmr1_inthdr, ptmr2_inthdr
 };
 

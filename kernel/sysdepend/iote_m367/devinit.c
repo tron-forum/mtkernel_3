@@ -1,15 +1,16 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.04
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef IOTE_M367
 
@@ -48,7 +49,7 @@ EXPORT ER knl_start_device( void )
 	ER	err;
 
 	/* A/D Converter unit.A "adca" & Unit.B "adcb" */
-	#if DEVCNF_DEV_ADC
+	#if DEVCNF_USE_ADC
 		err = dev_init_adc(0);
 		if(err < E_OK) return err;
 		err = dev_init_adc(1);
@@ -56,13 +57,13 @@ EXPORT ER knl_start_device( void )
 	#endif
 
 	/* I2C SBI1 "iicb" */
-	#if DEVCNF_DEV_IIC
+	#if DEVCNF_USE_IIC
 		err = dev_init_i2c(1);
 		if(err < E_OK) return err;
 	#endif
 
 	/* Serial UART5 "serb" */
-	#if DEVCNF_DEV_SER
+	#if DEVCNF_USE_SER
 		err = dev_init_ser(1);
 		if(err < E_OK) return err;
 	#endif

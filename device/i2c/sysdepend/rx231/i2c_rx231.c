@@ -1,19 +1,21 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
+
 #include <sys/machine.h>
 #ifdef CPU_RX231
-#include "../../../config/devconf.h"
-#if DEVCNF_DEV_IIC
+
+#include "../../../include/dev_def.h"
+#if DEV_IIC_ENABLE
 /*
  *	i2c_rx231.c
   *	I2C device driver
@@ -329,5 +331,5 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 	return err;
 }
 
-#endif		/* DEVCNF_DEV_IIC */
+#endif		/* DEV_IIC_ENABLE */
 #endif		/* CPU_RX231 */

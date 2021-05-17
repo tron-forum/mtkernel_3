@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.04
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31 .
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17 .
  *
  *----------------------------------------------------------------------
  */
@@ -28,7 +28,7 @@
  * 
  */
 
-const void (*vector_tbl[])()  __attribute__((section(".vector"))) = {
+void (* const vector_tbl[])()  __attribute__((section(".vector"))) = {
 	(void(*)()) (INITIAL_SP),		/* 0: Top of Stack */
 	Reset_Handler,				/* 1: Reset Handler */
 	NMI_Handler,				/* 2: NMI Handler */

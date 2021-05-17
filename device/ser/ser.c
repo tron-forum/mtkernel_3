@@ -1,20 +1,19 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.04
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2012/05/17.
  *
  *----------------------------------------------------------------------
  */
 
-
 #include <sys/machine.h>
-#include "../config/devconf.h"
-#if DEVCNF_DEV_SER
+#include "../include/dev_def.h"
+#if DEV_SER_ENABLE
 /*
  *	ser.c
  *	Serial communication driver
@@ -453,4 +452,4 @@ err_2:
 	return err;
 }
 
-#endif		/* DEVCNF_DEV_SER */
+#endif		/* DEV_SER_ENABLE */
