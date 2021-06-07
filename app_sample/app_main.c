@@ -1,6 +1,6 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.04
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -87,7 +87,7 @@ EXPORT INT usermain( void )
 
 	tk_ref_ver(&rver);		/* Get the OS Version. */
 
-#if USE_TMONTOR
+#if USE_TMONITOR
 	tm_printf((UB*)"Make Code: %04x  Product ID: %04x\n", rver.maker, rver.prid);
 	tm_printf((UB*)"Product Ver. %04x\nProduct Num. %04x %04x %04x %04x\n", 
 			rver.prver, rver.prno[0],rver.prno[1],rver.prno[2],rver.prno[3]);
