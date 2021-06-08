@@ -12,28 +12,28 @@
  */
 
 /*
- *	machine.h
+ *	profile.h
  *
- *	Machine type definition (ARMv7-M core depended)
+ *	Service Profile (RZ/A2M IoT-Engine depended)
  */
 
-#ifndef __SYS_MACHINE_CORE_H__
-#define __SYS_MACHINE_CORE_H__
+#ifndef __SYS_DEPEND_PROFILE_H__
+#define __SYS_DEPEND_PROFILE_H__
 
 /*
- * CPU_xxxx		CPU type
- * ALLOW_MISALIGN	1 if access to misalignment data is allowed 
- * BIGENDIAN		1 if big endian 
+ **** CPU-depeneded profile (RZ/A2M)
  */
-
-/* ----- ARMv7-M definition ----- */
-
-#define ALLOW_MISALIGN		0
-#define INT_BITWIDTH		32
+#include "../cpu/rza2m/profile.h"
 
 /*
- * Endianness
+ **** Target-depeneded profile (RZ/A2M IoT-Engine)
  */
-#define BIGENDIAN		0	/* Default (Little Endian) */
 
-#endif /* __SYS_MACHINE_CORE_H__ */
+/*
+ * Power management
+ */
+#define TK_SUPPORT_LOWPOWER	FALSE		/* Support of power management */
+
+
+
+#endif /* __SYS_DEPEND_PROFILE_H__ */

@@ -12,28 +12,23 @@
  */
 
 /*
- *	machine.h
+ *	machine_depend.h
  *
- *	Machine type definition (ARMv7-M core depended)
+ *	Machine type definition (RZ/A2M depended)
  */
 
-#ifndef __SYS_MACHINE_CORE_H__
-#define __SYS_MACHINE_CORE_H__
+#ifndef __SYS_SYSDEPEND_MACHINE_CPU_H__
+#define __SYS_SYSDEPEND_MACHINE_CPU_H__
 
 /*
- * CPU_xxxx		CPU type
- * ALLOW_MISALIGN	1 if access to misalignment data is allowed 
- * BIGENDIAN		1 if big endian 
+ **** CPU core-depeneded profile (ARM Cortex-A9)
  */
 
-/* ----- ARMv7-M definition ----- */
-
-#define ALLOW_MISALIGN		0
-#define INT_BITWIDTH		32
+#include "../core/armv7a/machine.h"
 
 /*
- * Endianness
+ **** CPU-depeneded profile (RZ/A2M)
  */
-#define BIGENDIAN		0	/* Default (Little Endian) */
 
-#endif /* __SYS_MACHINE_CORE_H__ */
+
+#endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

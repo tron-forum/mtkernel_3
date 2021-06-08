@@ -43,6 +43,13 @@
 
 #endif
 
+#ifdef _IOTE_RZA2M_
+#include "sysdepend/iote_rza2m/machine.h"
+
+#define Csym(sym) sym
+
+#endif
+
 /* ===== C compiler dependencies definitions ============================= */
 
 #ifdef __GNUC__

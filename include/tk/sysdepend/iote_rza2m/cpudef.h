@@ -12,28 +12,15 @@
  */
 
 /*
- *	machine.h
+ *	cpudef.h
  *
- *	Machine type definition (ARMv7-M core depended)
+ *	CPU dependent definition (RZ/A2M IoT-Engine depended)
+ *	include in syscall.h
  */
 
-#ifndef __SYS_MACHINE_CORE_H__
-#define __SYS_MACHINE_CORE_H__
+#ifndef __TK_CPUDEF_H__
+#define __TK_CPUDEF_H__
 
-/*
- * CPU_xxxx		CPU type
- * ALLOW_MISALIGN	1 if access to misalignment data is allowed 
- * BIGENDIAN		1 if big endian 
- */
+#include "../cpu/core/armv7a/cpudef.h"
 
-/* ----- ARMv7-M definition ----- */
-
-#define ALLOW_MISALIGN		0
-#define INT_BITWIDTH		32
-
-/*
- * Endianness
- */
-#define BIGENDIAN		0	/* Default (Little Endian) */
-
-#endif /* __SYS_MACHINE_CORE_H__ */
+#endif /* __TK_CPUDEF_H__ */

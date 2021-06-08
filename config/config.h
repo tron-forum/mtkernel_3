@@ -99,7 +99,7 @@
  */
 #define CHK_NOSPT		(1)	/* Check unsupported function (E_NOSPT) */
 #define CHK_RSATR		(1)	/* Check reservation attribute error (E_RSATR) */
-#define CHK_PAR			(1)	/* Check parameter (E_PAR) */
+#define CHK_PAR			(0)	/* Check parameter (E_PAR) */
 #define CHK_ID			(1)	/* Check object ID range (E_ID) */
 #define CHK_OACV		(1)	/* Check Object Access Violation (E_OACV) */
 #define CHK_CTX			(1)	/* Check whether task-independent part is running (E_CTX) */
@@ -146,13 +146,13 @@
 /* Use Physical timer.
 　*  1: Valid  0: Invalid
  */
-#define USE_PTMR		(1)	/* Use Physical timer */
+#define USE_PTMR		(0)	/* Use Physical timer */
 
 /*---------------------------------------------------------------------- */
 /* Use Sample device driver.
 　*  1: Valid  0: Invalid
  */
-#define USE_SDEV_DRV		(1)	/* Use Sample device driver */
+#define USE_SDEV_DRV		(0)	/* Use Sample device driver */
 
 /*---------------------------------------------------------------------- */
 /*

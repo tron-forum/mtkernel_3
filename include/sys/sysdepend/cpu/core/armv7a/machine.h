@@ -14,7 +14,7 @@
 /*
  *	machine.h
  *
- *	Machine type definition (ARMv7-M core depended)
+ *	Machine type definition (ARM Cortex-A9 core depended)
  */
 
 #ifndef __SYS_MACHINE_CORE_H__
@@ -23,10 +23,11 @@
 /*
  * CPU_xxxx		CPU type
  * ALLOW_MISALIGN	1 if access to misalignment data is allowed 
+ * INT_BITWIDTH		Integer bit width
  * BIGENDIAN		1 if big endian 
  */
 
-/* ----- ARMv7-M definition ----- */
+/* ----- ARMv7-A definition ----- */
 
 #define ALLOW_MISALIGN		0
 #define INT_BITWIDTH		32
