@@ -3,21 +3,23 @@
 ################################################################################
 
 S_UPPER_DEPS += \
-./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/vector_tbl.d \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/exc_entry.d \
-./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/reset_hdl.d 
+./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/reset_hdl.d \
+./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/vector_tbl.d 
 
 C_DEPS += \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/cpu_cntl.d \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/exc_hdl.d \
+./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/interrupt.d \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/reset_main.d
 
 OBJS += \
-./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/vector_tbl.o \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/exc_entry.o \
+./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/reset_hdl.o \
+./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/vector_tbl.o \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/cpu_cntl.o \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/exc_hdl.o \
-./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/reset_hdl.o \
+./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/interrupt.o \
 ./mtkernel_3/kernel/sysdepend/cpu/core/armv7a/reset_main.o
 
 mtkernel_3/kernel/sysdepend/cpu/core/armv7a/%.o: ../kernel/sysdepend/cpu/core/armv7a/%.c

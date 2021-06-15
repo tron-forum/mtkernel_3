@@ -46,56 +46,82 @@ EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 /*
  * Interrupt initialize
  */
+
+ /* GICD_ICFGR(n) Register default value */
+LOCAL const UW GICD_ICFGR_inival[] =
+{				//           Interrupt ID
+	0xAAAAAAAAuL,		// GICD_ICFGR0  :  15 to   0
+	0x55540000uL,		// GICD_ICFGR1  :  19 to  16
+	0xFD555555uL,		// GICD_ICFGR2  :  47 to  32
+	0x7FFFFFFFuL,		// GICD_ICFGR3  :  63 to  48
+	0x55555555uL,		// GICD_ICFGR4  :  79 to  64
+	0xD57F5555uL,		// GICD_ICFGR5  :  95 to  80
+	0xFFFFFFFFuL,		// GICD_ICFGR6  : 111 to  96
+	0xFFFFFFFFuL,		// GICD_ICFGR7  : 127 to 112
+	0xFFFFFFFFuL,		// GICD_ICFGR8  : 143 to 128
+	0xFFFFFFFFuL,		// GICD_ICFGR9  : 159 to 144
+	0xFFFFFFFFuL,		// GICD_ICFGR10 : 175 to 160
+	0xFFFFFFFFuL,		// GICD_ICFGR11 : 191 to 176
+	0xFFFFFFFFuL,		// GICD_ICFGR12 : 207 to 192
+	0xFFFFFFFFuL,		// GICD_ICFGR13 : 223 to 208
+	0xFFFFFFFFuL,		// GICD_ICFGR14 : 239 to 224
+	0x7D5FD57FuL,		// GICD_ICFGR15 : 255 to 240
+	0x557D7DDFuL,		// GICD_ICFGR16 : 271 to 256
+	0x557D557DuL,		// GICD_ICFGR17 : 287 to 272
+	0x5555557DuL,		// GICD_ICFGR18 : 303 to 288
+	0x55555555uL,		// GICD_ICFGR19 : 319 to 304
+	0xF5555555uL,		// GICD_ICFGR20 : 335 to 320
+	0x5555FFFFuL,		// GICD_ICFGR21 : 351 to 336
+	0x55555555uL,		// GICD_ICFGR22 : 367 to 352
+	0xFFDD5555uL,		// GICD_ICFGR23 : 383 to 368
+	0xFFFFFFFFuL,		// GICD_ICFGR24 : 399 to 384
+	0xFFFFFFFFuL,		// GICD_ICFGR25 : 415 to 400
+	0xFFFFFFFFuL,		// GICD_ICFGR26 : 431 to 416
+	0x5FFFFFDFuL,		// GICD_ICFGR27 : 447 to 432
+	0x55555555uL,		// GICD_ICFGR28 : 463 to 448
+	0x55555555uL,		// GICD_ICFGR29 : 479 to 464
+	0x55555555uL,		// GICD_ICFGR30 : 495 to 480
+	0x55555555uL,		// GICD_ICFGR31 : 511 to 496
+};
+
 EXPORT ER knl_init_interrupt( void )
 {
 	INT	i;
-	_UW	*base;
+	_UW	*reg;
 
 	/* Initialization of interrupt vector table */
 	for(i = 0; i < N_INTVEC; i++) knl_intvec_tbl[i] = (FP)NULL;
 
-    // GICD_IGROUPRnレジスタの初期化
-    base = (volatile unsigned long *)&INTC.GICD_IGROUPR0.LONG;
-    for (i = 0; i < INTC_GICD_IGROUPR_REG_NUM; i++) {
-        base[i] = 0x00000000uL;                         // すべての割り込みをGroup0に
-    }
+	/* GIC initialization */
+	reg = (_UW*)GICD_IGROUPR(0);
+	for (i = 0; i < GICD_IGROUPR_N; i++) {
+		reg[i] = 0x00000000uL;		/* All interrupts are Group 0 */
+	}
 
-    // GICD_ICFGRnレジスタの初期化
-    base = (volatile unsigned long *)&INTC.GICD_ICFGR0.LONG;
-    for (i = 0; i < INTC_GICD_ICFGR_REG_NUM; i++) {
-        base[i] = GICD_ICFGR_init_values[i];          // 初期設定値テーブルからコピー
-    }
+	reg = (_UW*)GICD_ICFGR(0);
+	for (i = 0; i < GICD_ICFGR_N; i++) {
+		reg[i] = GICD_ICFGR_inival[i];	/* Copy from the default table */
+	}
 
-    // GICD_IPRIORITYRnレジスタの初期化
-    base = (volatile unsigned long *)&INTC.GICD_IPRIORITYR0.LONG;
-    for (i = 0; i < INTC_GICD_IPRIORITYR_REG_NUM; i++) {
-        base[i] = 0xF8F8F8F8uL;                         // すべてのプライオリティを31に
-    }
+	reg = (_UW*)GICD_IPRIORITYR(0);
+	for (i = 0; i < GICD_IPRIORITYR_N; i++) {
+		reg[i] = 0xF8F8F8F8uL;		/* All priorities are 31 */
+	}
 
-    // GICD_ITARGETRnレジスタの初期化
-    // GICD_ITARGETR0～7は初期化しない(固定orリザーブのため)
-    base = (volatile unsigned long *)&INTC.GICD_ITARGETR0.LONG;
-    for (i = 8; i < INTC_GICD_ITARGETR_REG_NUM; i++) {
-        base[i] = 0x01010101uL;                         // シングルCPUのため、各設定値は1(CPU0)固定
-    }
+	reg = (_UW*)GICD_ITARGETR(0);
+	for (i = 8; i < GICD_ITARGETR_N; i++) {
+		reg[i] = 0x01010101uL;		/* Target processor is CPU-0 */
+	}
+	
+	reg = (_UW*)GICD_ICENABLER(0);
+	for (i = 0; i < GICD_ICENABLER_N; i++) {
+		reg[i] = 0xFFFFFFFFuL;
+	}
 
-    // 割り込み禁止(INTCレベル)設定
-    base = (volatile unsigned long *)&INTC.GICD_ICENABLER0.LONG;
-    for (i = 0; i < INTC_GICD_ICENABLER_REG_NUM; i++) {
-        base[i] = 0xFFFFFFFFuL;
-    }
-
-    // 割り込み優先度マスクの設定(すべての優先度を許可)
-    INTC_SetMaskLevel(31);
-
-    // GICC_BPRレジスタの設定(サブプライオリティをbit2-0に設定)
-    INTC.GICC_BPR.LONG = 0x00000002uL;
-
-    // GICC_CTLRレジスタの設定(CPUインタフェース有効化)
-    INTC.GICC_CTLR.LONG = 0x00000003uL;
-
-    // GICD_CTLRレジスタの設定(フォワード有効)
-    INTC.GICD_CTLR.LONG = 0x00000001uL;
+	out_w(GICC_PMR, 31<<3);			/* Allow all interrupts */
+	out_w(GICC_BPR, 0x00000002UL);
+	out_w(GICC_CTLR, 0x00000003UL);
+	out_w(GICD_CTLR, 0x00000001uL);
 
 	return E_OK;
 }

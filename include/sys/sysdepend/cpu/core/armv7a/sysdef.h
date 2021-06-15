@@ -53,12 +53,12 @@
 /*
  * CP15 System Control Register (SCTLR)
  */
-#define CP15_SCTLR_I		0x00001000	/* */
-#define CP15_SCTLR_Z		0x00000800	/* */
-#define CP15_SCTLR_C		0x00000004
-#define CP15_SCTLR_A		0x00000002
-#define CP15_SCTLR_M		0x00000001
-#define CP15_SCTLR_V		0x00002000
+#define CP15_SCTLR_I	0x00001000
+#define CP15_SCTLR_Z	0x00000800
+#define CP15_SCTLR_C	0x00000004
+#define CP15_SCTLR_A	0x00000002
+#define CP15_SCTLR_M	0x00000001
+#define CP15_SCTLR_V	0x00002000
 
 /*
  * CP15 Auxiliary Control Register(ACTLR)
@@ -67,33 +67,76 @@
 
 
 /* ------------------------------------------------------------------------ */
-
 /*
  * Parameter of SVC instruction 
  */
-#define	SVC_SYSCALL		    6	/* micro T-Kernel system call */
+#define	SVC_SYSCALL		6	/* micro T-Kernel system call */
 #define	SVC_FORCE_DISPATCH	7	/* force dispatch */
 #define	SVC_DISPATCH		8	/* task dispatcher */
 #define	SVC_DEBUG_SUPPORT	9	/* debug support function */
 #define	SVC_EXTENDED_SVC	10	/* Extended SVC */
 
 /* ------------------------------------------------------------------------ */
-
 /*
- * INTC(GIC) register
+ * GIC(Generic Interrupt Controller) register
+ * 	GIC-400 
  */
-#define GIC_ICC_BASE		0xE8222000
-#define GIC_ICC_ICR_OFF		0x0000	/* Control Register　*/
-    #define GIC_ICC_ENABLE	0x00000001
-#define GIC_ICC_PMR_OFF		0x0004	/* Priority Mask Register */
-#define GIC_ICC_BPR_OFF		0x0008	/* Binary Point Register */
-#define GIC_ICC_IAR_OFF		0x000C	/* Interrupt Acknowledge Register */
-#define GIC_ICC_EOIR_OFF	0x0010	/* End of Interrupt Register */
-#define GIC_ICC_RPR_OFF		0x0014	/* Running Priority Register */
-#define GIC_ICC_HPIR_OFF	0x0018	/* Highest Pending Interrupt Register */
+#define GICD_BASE		0xE8221000UL
 
-#define GIC_ICD_ISACTIVER0  0xE8221300	/* Active set register 0 */
+#define GICD_CTLR		(GICD_BASE + 0x0000)		/* Distributor Control Register */
+#define GICD_TYPER		(GICD_BASE + 0x0004)		/* Interrupt Controller Type Register */
+#define GICD_IIDR		(GICD_BASE + 0x0008)		/* Distributor Implementer Identification Register */
+#define GICD_IGROUPR(n)		(GICD_BASE + 0x0080 + (0x04*n))	/* Interrupt Group Registerse */
+#define GICD_ISENABLER(n)	(GICD_BASE + 0x0100 + (0x04*n))	/* Interrupt Set-Enable Registers */
+#define GICD_ICENABLER(n)	(GICD_BASE + 0x0180 + (0x04*n))	/* Interrupt Clear-Enable Registers */
+#define GICD_ISPENDR(n)		(GICD_BASE + 0x0200 + (0x04*n))	/* Interrupt Set-Pending Registers */
+#define GICD_ICPENDR(n)		(GICD_BASE + 0x0280 + (0x04*n))	/* Interrupt Clear-Pending Registers */
+#define GICD_ISACTIVER(n)	(GICD_BASE + 0x0300 + (0x04*n))	/* Interrupt Set-Active Registers */
+#define GICD_ICACTIVER(n)	(GICD_BASE + 0x0380 + (0x04*n))	/* Interrupt Clear-Active Registers */
+#define GICD_IPRIORITYR(n)	(GICD_BASE + 0x0400 + (0x04*n))	/* Interrupt Priority Registers */
+#define GICD_ITARGETR(n)	(GICD_BASE + 0x0800 + (0x04*n))	/* Interrupt Processor Targets Registersi */
+#define GICD_ICFGR(n)		(GICD_BASE + 0x0C00 + (0x04*n))	/* Interrupt Configuration Registers */
+#define GICD_PPISR		(GICD_BASE + 0x0D00)		/* Private Peripheral Interrupt Status Register */
+#define GICD_SPISR(n)		(GICD_BASE + 0x0D04 + (0x04*n))	/* Shared Peripheral Interrupt Status Registers */
+#define GICD_SGIR		(GICD_BASE + 0x0F00)		/* Software Generated Interrupt Register */
+#define GICD_CPENDSGIR(n)	(GICD_BASE + 0x0F10 + (0x04*n)) /* SGI Clear-Pending Registers */
+#define GICD_SPENDSGIR(n)	(GICD_BASE + 0x0F20 + (0x04*n)) /* SGI Set-Pending Registers */
+#define GICD_PIDR(n)		(GICD_BASE + 0x0FD0 + (0x04*n)) /* Peripheral ID n Register */
+#define GICD_CIDR(n)		(GICD_BASE + 0x0FF0 + (0x04*n)) /* Component ID n Register */
 
+/* Number of registers*/
+#define GICD_IGROUPR_N		16
+#define GICD_ICFGR_N		32
+#define GICD_IPRIORITYR_N	128
+#define GICD_ITARGETR_N		128
+#define GICD_ISENABLER_N	16
+#define GICD_ICENABLER_N	16
+
+#define GICC_BASE		0xE8222000UL
+
+#define GICC_CTLR		(GICC_BASE + 0x0000)		/* CPU Interface Control Register */
+#define GICC_PMR		(GICC_BASE + 0x0004)		/* Interrupt Priority Mask Register */
+#define GICC_BPR		(GICC_BASE + 0x0008)		/* Binary Point Register */
+#define GICC_IAR		(GICC_BASE + 0x000C)		/* Interrupt Acknowledge Register */
+#define GICC_EOIR		(GICC_BASE + 0x0010)		/* End of Interrupt Register */
+#define GICC_RPR		(GICC_BASE + 0x0014)		/* Running Priority Register */
+#define GICC_HPPIR		(GICC_BASE + 0x0018)		/* Highest Priority Pending Interrupt Register */
+#define GICC_ABPR		(GICC_BASE + 0x001C)		/* Aliased Binary Point Register */
+#define GICC_AIAR		(GICC_BASE + 0x0020)		/* Aliased Interrupt Acknowledge Register */
+#define GICC_AEOIR		(GICC_BASE + 0x0024)		/* Aliased End of Interrupt Register */
+#define GICC_AHPPIR		(GICC_BASE + 0x0028)		/* Aliased Highest Priority Pending Interrupt Register */
+#define GICC_APR0		(GICC_BASE + 0x00D0)		/* Active Priority Register */
+#define GICC_NSAPR0		(GICC_BASE + 0x00E0)		/* Non-Secure Active Priority Register */
+#define GICC_IIDR		(GICC_BASE + 0x00FC)		/* CPU Interface Identification Register */
+#define GICC_DIR		(GICC_BASE + 0x1000)		/* Deactivate Interrupt Register */
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Level 2 Cache Controller register
+ *	L2C-310
+ */
+#define PL310_BASE		0x1F003000
+#define PL310_POWER_CTL		(PL310_BASE + 0x0F80)		/* Power Control Register */
 /*
  * VFP Status/Control Register (FPSCR)
  */

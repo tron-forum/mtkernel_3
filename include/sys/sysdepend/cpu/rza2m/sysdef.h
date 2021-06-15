@@ -111,15 +111,6 @@
 
 #define N_INTVEC		(512)		/* Number of Interrupt vectors */
 
-#if 0
-#define EIT_IRQ(n)		((n) + 32)		/* convert interrupt ID to EIT ID */
-#define IRQ_EIT(n)		((n) - 32)		/* convert EIT ID to interrupt ID */
-
-#define N_INTVEC		EIT_IRQ(512)		/* Number of Interrupt vectors */
-#define N_EXCVEC		EIT_IRQ(0)		/* Number of exceptions */
-#define N_IRQVEC		(N_INTVEC- N_EXCVEC)	/* Number of IRQs */
-#endif
-
 /*
  * The number of the implemented bit width for priority value fields.
  */
@@ -136,7 +127,7 @@
 /*
  * Interrupt used by micro T-Kernel
  */
-#define INTNO_SYSTICK		EIT_IRQ(88)	/* Systten timer tick */
+#define INTNO_SYSTICK		88	/* System Timer interrupt (OSTIM0) */
 
 /*
  * Time-event handler interrupt level
