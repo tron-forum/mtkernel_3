@@ -24,9 +24,10 @@ LFLAGS := -mcpu=cortex-a9 -mthumb -ffreestanding \
 
 LNKFILE := "../etc/linker/iote_rza2m/tkernel_map.ld"
 
-#include mtkernel_3/lib/libtm/sysdepend/iote_rza2m/subdir.mk
+include mtkernel_3/lib/libtm/sysdepend/iote_rza2m/subdir.mk
+include mtkernel_3/lib/libtm/sysdepend/no_device/subdir.mk
 #include mtkernel_3/lib/libtk/sysdepend/cpu/rza2m/subdir.mk
 include mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7a/subdir.mk
-#include mtkernel_3/kernel/sysdepend/iote_rza2m/subdir.mk
+include mtkernel_3/kernel/sysdepend/iote_rza2m/subdir.mk
 include mtkernel_3/kernel/sysdepend/cpu/rza2m/subdir.mk
 include mtkernel_3/kernel/sysdepend/cpu/core/armv7a/subdir.mk

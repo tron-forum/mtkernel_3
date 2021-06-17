@@ -66,19 +66,22 @@ Csym(knl_hll_inthdr):
 
 	push	{r1, r2}			// save fpexc & task SP
 
-not_1st_hllint:					// call knl_inthdr_tbl[n](intno)
-	ldr	ip, =Csym(knl_inthdr_tbl)
+not_1st_hllint:					// call knl_hll_inthdr_tbl[n](intno)
+	ldr	ip, =Csym(knl_hll_inthdr_tbl)
 	ldr	ip, [ip, r0, lsl #2]
 	blx	ip
 
-	b	return_inthdr
+	b	Csym(knl_return_inthdr)
 
 
 
-/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------
  * Return Interrupt Handler
  */
-return_inthdr:
+	.global	Csym(knl_return_inthdr)
+	.type	Csym(knl_return_inthdr), %function
+
+Csym(knl_return_inthdr):
 	cpsid	ia				// disable interrupt
 
 	ldr	ip, =Csym(knl_taskindp)

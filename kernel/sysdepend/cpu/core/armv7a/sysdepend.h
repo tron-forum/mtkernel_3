@@ -43,7 +43,14 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
 /*
  * Interrupt Control (interrupt.c)
  */
-IMPORT void knl_systim_inthdr(void);		/* System-timer Interrupt handler */
+IMPORT FP knl_intvec_tbl[N_INTVEC];		/* Interrupt vector table */
+IMPORT FP knl_hll_inthdr_tbl[N_INTVEC];		/* /* High level programming language interrupt handler table */
+
+/*
+ * Interrupt Control (int_asm.S)
+ */
+IMPORT void knl_hll_inthdr(void);		/* High level programming language routine for interrupt handler */
+
 
 /*
  * Task context block

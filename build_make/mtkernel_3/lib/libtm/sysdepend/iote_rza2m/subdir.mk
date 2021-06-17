@@ -3,16 +3,15 @@
 ################################################################################
 
 OBJS += \
-./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7a/int_armv7a.o \
-./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7a/wusec_armv7a.o 
+./mtkernel_3/lib/libtm/sysdepend/iote_rza2m/tm_com.o 
 
 C_DEPS += \
-./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7a/int_armv7a.d \
-./mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7a/wusec_armv7a.d 
+./mtkernel_3/lib/libtm/sysdepend/iote_rza2m/tm_com.d 
 
-
-mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7a/%.o: ../lib/libtk/sysdepend/cpu/core/armv7a/%.c
+mtkernel_3/lib/libtm/sysdepend/iote_rza2m/%.o: ../lib/libtm/sysdepend/iote_rza2m/%.c
 	@echo 'Building file: $<'
 	$(GCC) $(CFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
+
+

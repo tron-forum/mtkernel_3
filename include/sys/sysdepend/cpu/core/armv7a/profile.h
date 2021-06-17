@@ -42,8 +42,8 @@
  */
 #define TK_SUPPORT_INTCTRL	TRUE			/* Support of interrupt controller management. */
 #define TK_HAS_ENAINTLEVEL	TRUE 			/* Can specify interrupt priority level */
-#define TK_SUPPORT_CPUINTLEVEL	TRUE			/* Support of get/set of CPU interrupt mask level */
-#define TK_SUPPORT_CTRLINTLEVEL	FALSE			/* Support of get/set of interrupt controller interrupt mask level */
+#define TK_SUPPORT_CPUINTLEVEL	FALSE			/* Support of get/set of CPU interrupt mask level */
+#define TK_SUPPORT_CTRLINTLEVEL	TRUE			/* Support of get/set of interrupt controller interrupt mask level */
 #define TK_SUPPORT_INTMODE	TRUE			/* Supoprt of interrupt mode setting */
 
 /*

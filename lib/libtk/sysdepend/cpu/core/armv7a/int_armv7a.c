@@ -22,55 +22,75 @@
 
 #include <tk/tkernel.h>
 
-#include "int_armv7a.h"
-
 /*----------------------------------------------------------------------*/
 /*
  * CPU Interrupt Control for ARMv7-A.
  *
  */
 
-/*
- * Interrupt priority mask setting
+/* 
+ * Disable interrupt (IRQ)
+ *	Set CPSR.I value to 1. And return the original CPSR.I value.
  */
-LOCAL void set_mask_level(UB lv)
+EXPORT UW disint(void)
 {
-	_UB	dummy;
+	UW	intsts;
 
-	if (lv > INTPRI_LOWEST) return;
+	Asm("mrs %0, cpsr": "=r"(intsts));	/* Get CPSR reg. */
+	Asm("cpsid I");				/* Disable IRQ */
 
-	out_w(GICC_PMR, lv << INTPRI_SHIFT);	/* bit7-3 is valid */
-	dummy = in_w(GICC_PMR);
-	(void)dummy;			/* Warning avoidance */
+	return intsts & PSR_I;
 }
 
-/*
- * Set Interrupt Mask Level in CPU
+/* 
+ * Enable interrupt (IRQ)
+ *	Sets the CPSR.I value to the specified value..
  */
-EXPORT void SetCpuIntLevel( INT level )
+EXPORT void enaint( UW intsts )
 {
-	UB	lv;
-	_UB	dummy;
+	if(intsts & PSR_I) {
+		Asm("cpsid I");		/* Disable IRQ */
+	} else {
+		Asm("cpsie I");		/* Enable IRQ */
+	}
+	return;
+}
+
+/*----------------------------------------------------------------------*/
+/*
+ * Arm Generic Interrupt Controller (GIC))
+ *
+ */
+
+/*
+ * Set Interrupt Mask Level in Interrupt Controller
+ */
+EXPORT void SetCtrlIntLevel( INT level )
+{
+	_UW	dummy;
 
 	if (level < INTPRI_HIGHEST || level > INTPRI_LOWEST) return;	/* Error */
 
-	lv = (UB)level << INTPRI_SHIFT;		/* bit7-3 is valid */
+	level = (level<<INTPRI_SHIFT) & 0x00FF;	/* bit7-3 is valid */
 
-	out_w(GICC_PMR, (UW)lv);
+	out_w(GICC_PMR, (UW)level);
 	dummy = in_w(GICC_PMR);
 	(void)dummy;				/* Warning avoidance */
+
 	return;
 }
 
 /*
- * Get Interrupt Mask Level in CPU
+ * Get Interrupt Mask Level in Interrupt Controller
  */
-EXPORT INT GetCpuIntLevel( void )
+EXPORT INT GetCtrlIntLevel( void )
 {
-	UB lv;
+	UW level;
 
-	lv =in_w(GICC_PMR) >> INTPRI_SHIFT;	/* bit7-3 is valid */
-	return (INT)lv;
+	level = in_w(GICC_PMR);
+	level = (level & 0x00FF) >>INTPRI_SHIFT;	/* bit7-3 is valid */
+
+	return (INT)level;
 }
 
 /*
@@ -80,29 +100,28 @@ EXPORT INT GetCpuIntLevel( void )
  */
 EXPORT void EnableInt( UINT intno, INT level )
 {
-	UB	pri;
-	UW	icdipr;
-	UW	shift;
-	_UW	*addr;
+	UW	pri, icdipr;
+	UINT	shift;
+	UW	addr;
 
-	if ((intno < IRQVEC_TOP || intno >= IRQVEC_END) 
-		|| (level < INTPRI_HIGHEST) || (level > INTPRI_LOWEST)) {
-		return;
-	}
+	if (( intno >= N_INTVEC) 
+		|| (level < INTPRI_HIGHEST) || (level > INTPRI_LOWEST)) return;	/* Error */
 
 	/* Set priority (GICD.IPRIORITYR reg) */
-	pri = (UB)level << INTPRI_SHIFT;	/* bit7-3 is valid */
+	pri = ((UW)level & 0x00FF) << INTPRI_SHIFT;	/* bit7-3 is valid */
 
-	addr = GICD_IPRIORITYR( intno>>2);
+	addr = (UW)GICD_IPRIORITYR(intno>>2);
 	shift = (intno & 0x03) << 3;	/* (intno % 4) * 8 */
 
 	icdipr = in_w(addr);
 	icdipr &= ~(0x000000ff << shift);
-	icdipr |= (UW)pri << shift;
+	icdipr |= pri << shift;
 	out_w(addr , icdipr);
 
 	/* Enable Interrupt */
 	out_w(GICD_ISENABLER(intno>>5), 1<<(intno&0x1F));
+
+	return;
 }
 
 /*
@@ -112,11 +131,11 @@ EXPORT void EnableInt( UINT intno, INT level )
  */
 EXPORT void DisableInt( UINT intno )
 {
-	_UW	*addr;
-
-	if (intno < IRQVEC_TOP || intno >= IRQVEC_END) return;
+	if (intno >= N_INTVEC) return;		/* Error */
 
 	out_w(GICD_ICENABLER(intno>>5), 1<<(intno&0x1F));
+
+	return;
 }
 
 /*
@@ -127,47 +146,35 @@ EXPORT void DisableInt( UINT intno )
  */
 EXPORT void SetIntMode(  UINT intno, UINT mode )
 {
-	UW	mask;
+	UW	bit;
 	_UW	*addr;
 
-	if (intno < EIT_TINT0 || intno >= IRQVEC_END || mode > IM_EDGE) return;
+	if (intno >= N_INTVEC || mode > IM_EDGE) return;	/* Error */
 
-	addr = GICD_ICFGR(intno>>4);
-	mask = 1 << (((intno&0x0F)<<1) + 1);
+	addr = (_UW*)GICD_ICFGR(intno>>4);
+	bit = 1 << (((intno&0x0F)<<1) + 1);
 
 	if (IM_LEVEL == mode) {
-		*addr &= ~mask;		/* Level detection */
+		*addr &= ~bit;		/* Level detection */
 	} else {
-		*addr |= mask;		/* Edge detection */
+		*addr |= bit;		/* Edge detection */
 	}
+
+	return;
 }
 
 /*
- * Set-Pending
- *  Pends the associated interrupt under software control.
- *	External Interrupt can be specified. 
- */
-EXPORT void SetPendingInt( UINT intno )
-{
-	if (intno < IRQVEC_TOP || intno >= IRQVEC_END) return;
-
-	if (intno >= EIT_SW0 && intno <= EIT_SW15) {	/* GIC software interrupt */
-		out_w(GICD_SGIR, (0b10 << 24) | (UW)intno);
-	} else {
-		out_w(GICD_ISPENDR(intno>>5), 1<<(intno&0x1F));
-	}
-}
-
-/*
- * Clear-Pending
+ * Clear Interrupt
  *	Un-pends the associated interrupt under software control.
  *	External Interrupt can be specified. 
  */
-EXPORT void ClearPendingInt( UINT intno )
+EXPORT void ClearInt( UINT intno )
 {
-	if (intno < IRQVEC_TOP || intno >= IRQVEC_END) return;
+	if (intno >= N_INTVEC) return;		/* Error */
 
 	out_w(GICD_ICPENDR(intno>>5), 1<<(intno&0x1F));
+
+	return;
 }
 
 /*
@@ -179,7 +186,7 @@ EXPORT BOOL CheckInt( UINT intno )
 {
 	UW	data;
 
-	if (intno < IRQVEC_TOP || intno >= IRQVEC_END) return FALSE;
+	if (intno >= N_INTVEC) return FALSE;	/* Error */
 
 	data = in_w(GICD_ICPENDR(intno>>5));
 	return (data & (1 << (intno&0x1F))) ? TRUE : FALSE;
@@ -187,9 +194,11 @@ EXPORT BOOL CheckInt( UINT intno )
 
 EXPORT void EndOfInt( UINT intno )
 {
-	if (intno < IRQVEC_TOP || intno >= IRQVEC_END) 	return;
+	if (intno >= N_INTVEC) return;	/* Error */
 
 	out_w(GICC_EOIR, intno);
+	
+	return;
 }
 
 

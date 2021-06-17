@@ -21,6 +21,7 @@
 #ifndef __SYS_SYSDEF_DEPEND_CORE_H__
 #define __SYS_SYSDEF_DEPEND_CORE_H__
 
+/* ------------------------------------------------------------------------ */
 /*
  * Program Status Register (PSR)
  */
@@ -81,11 +82,12 @@
  * GIC(Generic Interrupt Controller) register
  * 	GIC-400 
  */
-#define GICD_BASE		0xE8221000UL
 
+/* Distributor register address */
 #define GICD_CTLR		(GICD_BASE + 0x0000)		/* Distributor Control Register */
 #define GICD_TYPER		(GICD_BASE + 0x0004)		/* Interrupt Controller Type Register */
 #define GICD_IIDR		(GICD_BASE + 0x0008)		/* Distributor Implementer Identification Register */
+
 #define GICD_IGROUPR(n)		(GICD_BASE + 0x0080 + (0x04*n))	/* Interrupt Group Registerse */
 #define GICD_ISENABLER(n)	(GICD_BASE + 0x0100 + (0x04*n))	/* Interrupt Set-Enable Registers */
 #define GICD_ICENABLER(n)	(GICD_BASE + 0x0180 + (0x04*n))	/* Interrupt Clear-Enable Registers */
@@ -101,8 +103,20 @@
 #define GICD_SGIR		(GICD_BASE + 0x0F00)		/* Software Generated Interrupt Register */
 #define GICD_CPENDSGIR(n)	(GICD_BASE + 0x0F10 + (0x04*n)) /* SGI Clear-Pending Registers */
 #define GICD_SPENDSGIR(n)	(GICD_BASE + 0x0F20 + (0x04*n)) /* SGI Set-Pending Registers */
-#define GICD_PIDR(n)		(GICD_BASE + 0x0FD0 + (0x04*n)) /* Peripheral ID n Register */
-#define GICD_CIDR(n)		(GICD_BASE + 0x0FF0 + (0x04*n)) /* Component ID n Register */
+
+#define GICD_PIDR4		(GICD_BASE + 0x0FD0)		/* Peripheral ID 4 Register */
+#define GICD_PIDR5		(GICD_BASE + 0x0FD4)		/* Peripheral ID 5 Register */
+#define GICD_PIDR6		(GICD_BASE + 0x0FD8)		/* Peripheral ID 6 Register */
+#define GICD_PIDR7		(GICD_BASE + 0x0FDC)		/* Peripheral ID 7 Register */
+#define GICD_PIDR0		(GICD_BASE + 0x0FE0)		/* Peripheral ID 0 Register */
+#define GICD_PIDR1		(GICD_BASE + 0x0FE4)		/* Peripheral ID 1 Register */
+#define GICD_PIDR2		(GICD_BASE + 0x0FE8)		/* Peripheral ID 2 Register */
+#define GICD_PIDR3		(GICD_BASE + 0x0FEC)		/* Peripheral ID 3 Register */
+
+#define GICD_CIDR0		(GICD_BASE + 0x0FF0)		/* Component ID 0 Register */
+#define GICD_CIDR1		(GICD_BASE + 0x0FF4)		/* Component ID 1 Register */
+#define GICD_CIDR2		(GICD_BASE + 0x0FF8)		/* Component ID 2 Register */
+#define GICD_CIDR3		(GICD_BASE + 0x0FFC)		/* Component ID 3 Register */
 
 /* Number of registers*/
 #define GICD_IGROUPR_N		16
@@ -112,8 +126,7 @@
 #define GICD_ISENABLER_N	16
 #define GICD_ICENABLER_N	16
 
-#define GICC_BASE		0xE8222000UL
-
+/* CPU interface register address */
 #define GICC_CTLR		(GICC_BASE + 0x0000)		/* CPU Interface Control Register */
 #define GICC_PMR		(GICC_BASE + 0x0004)		/* Interrupt Priority Mask Register */
 #define GICC_BPR		(GICC_BASE + 0x0008)		/* Binary Point Register */
@@ -130,13 +143,7 @@
 #define GICC_IIDR		(GICC_BASE + 0x00FC)		/* CPU Interface Identification Register */
 #define GICC_DIR		(GICC_BASE + 0x1000)		/* Deactivate Interrupt Register */
 
-/* ------------------------------------------------------------------------ */
-/*
- * Level 2 Cache Controller register
- *	L2C-310
- */
-#define PL310_BASE		0x1F003000
-#define PL310_POWER_CTL		(PL310_BASE + 0x0F80)		/* Power Control Register */
+
 /*
  * VFP Status/Control Register (FPSCR)
  */

@@ -60,7 +60,7 @@ Inline void knl_clear_hw_timer_interrupt( void )
 
 Inline void knl_end_of_hw_timer_interrupt( void )
 {
-	disint();
+	disint();	/* disint() in front of the EOI to prevent inadvertent interrupts. */
 	EndOfInt(INTNO_SYSTICK);
 }
 

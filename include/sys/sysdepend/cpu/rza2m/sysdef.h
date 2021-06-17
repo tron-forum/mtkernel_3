@@ -72,12 +72,28 @@
 #define	CPG_SYSCR2		0xFCFE0404
 #define	CPG_SYSCR3		0xFCFE0408
 
+/*
+ * Stanby control registers
+ */
+#define CPG_STBCR1		0xFCFE0020
+#define CPG_STBCR2		0xFCFE0024
+#define CPG_STBCR3		0xFCFE0420
+#define CPG_STBCR4		0xFCFE0424
+#define CPG_STBCR5		0xFCFE0428
+#define CPG_STBCR6		0xFCFE042C
+#define CPG_STBCR7		0xFCFE0430
+#define CPG_STBCR8		0xFCFE0434
+#define CPG_STBCR9		0xFCFE0438
+#define CPG_STBCR10		0xFCFE043C
+
+
 /* ------------------------------------------------------------------------ */
 /*
  * Level2 cache controller (PL310) registers
  */
-#define PL310_BASE			0x1F003000
-#define	PL310_REG15			
+#define PL310_BASE		0x1F003000
+#define PL310_POWER_CTL		(PL310_BASE + 0x0F80)		/* Power Control Register */
+
 /* ------------------------------------------------------------------------ */
 /*
  * System Timer Clock
@@ -106,6 +122,14 @@
 
 /* ------------------------------------------------------------------------ */
 /*
+ * GIC(Generic Interrupt Controller) -400
+ */
+#define GICD_BASE	0xE8221000UL		/* Distributor register base address */
+#define GICC_BASE	0xE8222000UL		/* CPU interface register base address */
+
+
+/* ------------------------------------------------------------------------ */
+/*
  * Number of Interrupt vectors
  */
 
@@ -127,6 +151,9 @@
 /*
  * Interrupt used by micro T-Kernel
  */
+#define INTNO_SW0		0	/* GIC software interrupt 0 (min.) */
+#define INTNO_SW15		15	/* GIC software interrupt 15 (max.) */
+
 #define INTNO_SYSTICK		88	/* System Timer interrupt (OSTIM0) */
 
 /*

@@ -32,8 +32,6 @@ EXPORT void startup_clock(void)
 	_UB	dummy_8b;
 
 	/* standby_mode_en bit of Power Control Register setting */
-//	pl310.REG15_POWER_CTRL.BIT.standby_mode_en = 1;
-//	dummy_32b = pl310.REG15_POWER_CTRL.LONG;
 	*(_UW*)PL310_POWER_CTL |= 0x0001;
 	dummy_32b = in_w(PL310_POWER_CTL);
 	(void)dummy_32b;		/* Warning avoidance */

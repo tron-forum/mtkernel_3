@@ -19,11 +19,13 @@
  *	Exception entry routine
  */
 
-/* GIC Register definition */
-#define GIC_ICC_BASE		0xE8202000
-#define GIC_ICC_IAR		0x000C		// Interrupt Acknowledge Register 
-#define GIC_ICC_EOIR		0x0010		// End of Interrupt Register 
+#define	_in_asm_source_
+#include <sys/knldef.h>
 
+/* GIC Register definition */
+#define GIC_ICC_BASE	0xE8202000
+#define GIC_ICC_IAR	0x000C		// Interrupt Acknowledge Register
+#define GIC_ICC_EOIR	0x0010		// End of Interrupt Register
 
 	.section    EXC_ENTRY, "ax"
 	.arm	
@@ -44,9 +46,10 @@
 /* ---------------------------------------------------------------------------------
  *	IRQ exception
  */
+	.global Csym(irq_entry)
 	.extern Csym(knl_intvec_tbl)
 	.extern Csym(Default_Handler)
-
+	
 Csym(irq_entry):
 	sub	lr, lr, #4			// Return address adjustment
 	srsdb	sp!, #PSR_SVC			// Save SPSR_und & R14_und to SVC stack
@@ -75,28 +78,31 @@ Csym(irq_entry):
 	beq     3f		//	 => return
 2:
 	ldr	lr, =GIC_ICC_BASE
-	str	r3, [lr, #GIC_ICC_EOIR_OFF]	// Writing the interrupt end register
+	str	r3, [lr, #GIC_ICC_EOIR]		// Writing the interrupt end register
 
 	ldr	lr, =Csym(Default_Handler)
 	bx	lr
 3:
-	ldmfd	sp!, {r0-r3, ip, lr}	// restore registers
-	rfefd	sp!			// restore SPSR_xxx, pc_xxxx(return from exception)
+	ldmfd	sp!, {r0-r3, ip, lr}		// restore registers
+	rfefd	sp!				// restore SPSR_xxx, pc_xxxx(return from exception)
 
 
 /* ---------------------------------------------------------------------------------
  *	FIQ exception
  */
+	.global Csym(fiq_entry)
 Csym(fiq_entry):
 
 /* ---------------------------------------------------------------------------------
  *	Supervisor call (SVC)
  */
+	.global Csym(svc_entry)
 Csym(svc_entry):
 
 /* ---------------------------------------------------------------------------------
  *	Undefined instruction exception
  */
+	.global Csym(undef_entry)
 	.extern Csym(UndefinedInst_Handler)
 	.extern Csym(VFPInvalid_Handler)
 
@@ -124,6 +130,7 @@ not_navfp:
 /* ---------------------------------------------------------------------------------
  *	Prefetch abort exception
  */
+	.global Csym(iabort_entry)
 	.extern Csym(PrefetchAbort_Handler)
 
 Csym(iabort_entry):
@@ -138,6 +145,7 @@ Csym(iabort_entry):
 /* ---------------------------------------------------------------------------------
  *	Data abort exception
  */
+	.global Csym(dabort_entry)
 	.extern Csym(DataAbort_Handler)
 
 Csym(dabort_entry):

@@ -31,6 +31,7 @@
 
 #define IOTE_RZA2M		1				/* Target system : RZ/A2M IoT-Engine */
 #define CPU_RZA2M		1				/* Target CPU : Renesas RZ/A2M */
+#define	CPU_CORE_ARMV7A		1				/* Target CPU-Core type : ARMv7-A */
 #define CPU_CORE_ACA9		1				/* Target CPU-Core : ARM Cortex-A9 */
 
 #define TARGET_DIR		iote_rza2m			/* Sysdepend-Directory name */

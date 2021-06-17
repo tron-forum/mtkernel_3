@@ -21,6 +21,7 @@
 
 #define	_in_asm_source_
 #include <sys/sysdef.h>
+#include <sys/knldef.h>
 
 	.section    RESET_HANDLER, "ax"
 	.arm	
@@ -31,6 +32,12 @@
 	.weak start
 start:
 	.global  Csym(Reset_Handler)
+
+	.extern  Csym(startup_clock)
+	.extern  Csym(vector_table)
+	.extern  Csym(knl_init_ttb)
+	.extern  Cstm(reset_main)
+
 Csym(Reset_Handler):
 	/* Disable IRQ */
 	mrs	r0, cpsr
@@ -55,7 +62,7 @@ Csym(Reset_Handler):
 	ldr	sp, =__tmp_stack_start
 
 	/* CPG settings */
-	bl	=Csym(startup_clock)	// (CPU depended part)/cpu_clock.c
+	bl	Csym(startup_clock)	// (CPU depended part)/cpu_clock.c
 
 	/* Invalidate TLB */
 	mov	r0,#0
@@ -80,7 +87,7 @@ dc_loop2:				// loop of set
 	bne	dc_loop1
 
 	/* TTB initialize */
-	bl	=Csym(knl_init_ttb)	// (System depended part)/ttb_init.S
+	bl	Csym(knl_init_ttb)	// (System depended part)/ttb_init.S
 
 	// domain access control register
 	mrc	p15, 0, r0, c3, c0, 0	// Read CP15 Domain Access Control Register (DACR)

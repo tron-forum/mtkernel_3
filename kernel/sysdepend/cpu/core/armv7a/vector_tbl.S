@@ -29,6 +29,14 @@
 _PowerON_Reset:				// Power-on reset entry point
 
 	.global Csym(vector_table)
+	.extern Csym(Reset_Handler)
+	.extern Csym(undef_entry)
+	.extern Csym(svc_entry)
+	.extern Csym(iabort_entry)
+	.extern Csym(dabort_entry)
+	.extern Csym(irq_entry)
+	.extern Csym(fiq_entry)
+
 Csym(vector_table):
 	ldr pc, =Csym(Reset_Handler)	// 0x0000 : Reset exception
 	ldr pc, =Csym(undef_entry)	// 0x0004 : Undefined instructions exception

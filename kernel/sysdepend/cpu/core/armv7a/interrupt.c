@@ -19,11 +19,14 @@
  *	Interrupt control
  */
 
+#include <kernel.h>
+#include "../../../sysdepend.h"
+
 /* Interrupt vector table */
 Noinit(EXPORT FP knl_intvec_tbl[N_INTVEC]);
 
 /* High level programming language interrupt handler table */
-Noinit(EXPORT FP knl_inthdr_tbl[N_INTVEC]);
+Noinit(EXPORT FP knl_hll_inthdr_tbl[N_INTVEC]);
 
 /* ----------------------------------------------------------------------- */
 /*
@@ -34,7 +37,7 @@ EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 	volatile FP	*intvet;
 
 	if((inthdr != NULL) && ((intatr & TA_HLNG) != 0 )) {
-		knl_inthdr_tbl[intno] = inthdr;
+		knl_hll_inthdr_tbl[intno] = inthdr;
 		inthdr = knl_hll_inthdr;
 	}
 	knl_intvec_tbl[intno] = inthdr;
@@ -91,6 +94,9 @@ EXPORT ER knl_init_interrupt( void )
 
 	/* Initialization of interrupt vector table */
 	for(i = 0; i < N_INTVEC; i++) knl_intvec_tbl[i] = (FP)NULL;
+
+	/* Register exception handler used on OS */
+	knl_define_inthdr(INTNO_SYSTICK, TA_HLNG, (FP)knl_timer_handler);	/* System Timer Interruput */
 
 	/* GIC initialization */
 	reg = (_UW*)GICD_IGROUPR(0);

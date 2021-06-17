@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03.B0
+ *    micro T-Kernel 3.00.05.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/ /.
+ *    Released by TRON Forum(http://www.tron.org) at 2021.
  *
  *----------------------------------------------------------------------
  */
@@ -100,6 +100,11 @@ SECTIONS
 		. += 0x00004000;
 		__ttb_area_bottom = .;
 	} > TTB_RAM
+
+	_text_load	= ABSOLUTE( LOADADDR(.text) );	/* load base address of .text section    */
+	_text_start	= ABSOLUTE( ADDR(.text) );	/* execute base address of .text section */
+	_text_size	= SIZEOF(.text);
+	_text_end	= _text_start + _text_size;
 
 	_data_org	= ABSOLUTE( LOADADDR(.data) );	/* load base address of .data section    */
 	_data_start	= ABSOLUTE( ADDR(.data) );	/* execute base address of .data section */

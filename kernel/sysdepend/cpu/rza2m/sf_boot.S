@@ -78,9 +78,9 @@ sf_reset_handler:
 	ldr	sp, =__tmp_stack_start
 
 	/* copy text section */
-	ldr	r0, =__text_start	// r0 <- text start address 
-	ldr	r1, =__text_size	// r1 <- text_size 
-	ldr	r2, =__text_load	// r2 <- text load address
+	ldr	r0, =_text_start	// r0 <- text start address 
+	ldr	r1, =_text_size	// r1 <- text_size 
+	ldr	r2, =_text_load	// r2 <- text load address
 
 	add	r1, r1, #3
 	and	r1, r1, #0xfffffffc	// Rounded up
@@ -88,7 +88,7 @@ sf_reset_handler:
 	cmp	r1, #0
 	beq	copy_done		// if text_size == 0
 	cmp	r0, r2
-	beq	copy_done		// if __text_start == __text_load(text section is not imaged)
+	beq	copy_done		// if _text_start == _text_load(text section is not imaged)
 
 copy_loop:
 	subs	r1, r1, #16		// text_size -= 16
@@ -120,7 +120,7 @@ copy_done:
 	mov	r11, #0
 	mov	r12, #0	
 	/* jump to text section on RAM */
-	ldr  lr, =__text_start		// r0 <- text start address 
+	ldr  lr, =_text_start		// r0 <- text start address 
 	bx   lr
 
 #endif /* CPU_RZA2M */
