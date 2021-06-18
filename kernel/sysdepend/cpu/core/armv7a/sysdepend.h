@@ -33,6 +33,7 @@ IMPORT void DataAbort_Handler(void);		/* Data abort exception handler */
 IMPORT void VFPInvalid_Handler(void);		/* VFP invalid handler */
 
 IMPORT void Default_Handler(void);		/* Default Handler (Undefine Interrupt) */
+IMPORT void SVC_default_Handler(void);		/* SVC default Handler (Undefine SVC) */
 
 /*
  * Dispatcher (dispatch.S)
@@ -44,7 +45,8 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
  * Interrupt Control (interrupt.c)
  */
 IMPORT FP knl_intvec_tbl[N_INTVEC];		/* Interrupt vector table */
-IMPORT FP knl_hll_inthdr_tbl[N_INTVEC];		/* /* High level programming language interrupt handler table */
+IMPORT FP knl_hll_inthdr_tbl[N_INTVEC];		/* High level programming language interrupt handler table */
+IMPORT const FP knl_svcvec_tbl[N_SVCHDR];	/* SVC handler tavle */
 
 /*
  * Interrupt Control (int_asm.S)

@@ -33,6 +33,16 @@
 /*
  * Undefined instruction exception handler
  */
+WEAK_FUNC EXPORT void FIQ_Handler(void)
+{
+	EXCEPTION_DBG_MSG("FIQ\n");
+	while(1);
+}
+
+
+/*
+ * Undefined instruction exception handler
+ */
 WEAK_FUNC EXPORT void UndefinedInst_Handler(void)
 {
 	EXCEPTION_DBG_MSG("Undef\n");
@@ -72,6 +82,16 @@ WEAK_FUNC EXPORT void VFPInvalid_Handler(void)
 WEAK_FUNC EXPORT void Default_Handler(void)
 {
 	EXCEPTION_DBG_MSG("Undefine Interrupt\n");
+	while(1);
+}
+
+
+/*
+ * SVC default Handler (Undefine SVC) 
+ */
+WEAK_FUNC EXPORT void SVC_default_Handler(void)
+{
+	EXCEPTION_DBG_MSG("Undefine SVC\n");
 	while(1);
 }
 

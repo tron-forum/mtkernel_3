@@ -38,22 +38,43 @@ LOCAL const UB stbcr_tbl[] = {
 	0b10011111,	/* STBCR10  TSIP, [0], [0], NAND, SDHI00, SDHI01, SDHI10, SDHI11 */
 };
 
+/* 
+ * Setup register data 
+ */
+typedef struct {
+	UW	addr;
+	UW	data;
+} T_SETUP_REG;
+
+/* 
+ * Setup pin functions Tadle
+ */
+LOCAL const T_SETUP_REG pinfnc_tbl[] = {
+	{0, 0}
+};
+
+
 /*
  * Startup hardware
  */
 EXPORT void knl_startup_hw(void)
 {
-	_UW	*p_reg;
+	const T_SETUP_REG	*p;
+
+	_UW	*p_stbcr;
 	_UB	dummy_b;
 	UINT	i;
 
 	/* Setting the clock supply to each module */
-	for(p_reg = (_UW*)CPG_STBCR3, i = 0; p_reg <= (_UW*)CPG_STBCR10; p_reg++, i++ ) {
-		*(_UB*)p_reg = stbcr_tbl[i];
-		dummy_b = *(_UB*)p_reg;
+	for(p_stbcr = (_UW*)CPG_STBCR3, i = 0; p_stbcr <= (_UW*)CPG_STBCR10; p_stbcr++, i++ ) {
+		*(_UB*)p_stbcr = stbcr_tbl[i];
+		dummy_b = *(_UB*)p_stbcr;
 	}
 
 	/* Setup Pin Function */
+	for(p = pinfnc_tbl; p->addr != 0; p++) {
+		*(_UW*)(p->addr) = p->data;
+	}
 
 	/* Setup port mode */
 

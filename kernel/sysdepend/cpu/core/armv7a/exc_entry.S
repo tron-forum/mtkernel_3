@@ -30,19 +30,6 @@
 	.section    EXC_ENTRY, "ax"
 	.arm	
 
-/* Stack image by exception handling
-*	          +---------------+
-*	 SP_svc ->|R0             |
-*	          |R1             |
-*	          |R2             |
-*	          |R3             |
-*	          |R12(ip)        |
-*	          |R14_svc(lr)    |
-*	          |R14_irq(lr)    | <- return address from interrupt
-*	          |SPSR_irq       |
-*	          +---------------+
-*/
-
 /* ---------------------------------------------------------------------------------
  *	IRQ exception
  */
@@ -52,9 +39,22 @@
 	
 Csym(irq_entry):
 	sub	lr, lr, #4			// Return address adjustment
-	srsdb	sp!, #PSR_SVC			// Save SPSR_und & R14_und to SVC stack
+	srsdb	sp!, #PSR_SVC			// Save SPSR_irq & R14_irq to SVC stack
 	CPS	#PSR_SVC			// Change to SVC mode
 	stmfd	sp!, {r0-r3, ip, lr}		// Save R0-R3,R12,LR to SVC stack
+
+	/* Stack image by exception handling
+	*	          +---------------+
+	*	 SP_svc ->|R0             |
+	*	          |R1             |
+	*	          |R2             |
+	*	          |R3             |
+	*	          |R12(ip)        |
+	*	          |R14_svc(lr)    |
+	*	          |R14_irq(lr)    | <- return address from interrupt
+	*	          |SPSR_irq       |
+	*	          +---------------+
+	*/
 
 	ldr	lr, =GIC_ICC_BASE
 	ldr	r3, [lr, #GIC_ICC_IAR]		// Read interrupt response register
@@ -63,41 +63,103 @@ Csym(irq_entry):
 
 	ldr	r0, =N_INTVEC
 	cmp	r3, r0				// Is the interrupt number correct?
-	bge	1f				//	NO => Jump
+	bge	l_irq1				//	NO => Jump
 
 	ldr	lr,  =Csym(knl_intvec_tbl)
 	add	lr, r0, lsl #2
 	ldr	lr, [lr]			// lr <- Interrupt handler address
 	cmp	lr, #0				// Is an interrupt handler registered?
 	bxne	lr				//	YES => jump    r0: Interrupt ID
-	b	2f				//	NO  => default_entry
+	b	l_irq2				//	NO  => default_entry
 
-1:  // Interrupt ID is an abnormal value
+l_irq1: // Interrupt ID is an abnormal value
 	ldr     r0, =0x3ff
-	cmp     r3, r0		// False positive if ID is 0x3ff
-	beq     3f		//	 => return
-2:
+	cmp     r3, r0				// If Interrupt ID is 0x3ff,
+	beq     l_irq3				//	it is a false positive and returns.
+
+l_irq2:	// Call the default handler
 	ldr	lr, =GIC_ICC_BASE
 	str	r3, [lr, #GIC_ICC_EOIR]		// Writing the interrupt end register
 
 	ldr	lr, =Csym(Default_Handler)
 	bx	lr
-3:
+
+l_irq3:	// Return without doing anything.
 	ldmfd	sp!, {r0-r3, ip, lr}		// restore registers
-	rfefd	sp!				// restore SPSR_xxx, pc_xxxx(return from exception)
+	rfefd	sp!				// restore SPSR_irq, R14_irq (return from exception)
+
+
+/* ---------------------------------------------------------------------------------
+ *	Supervisor call (SVC)
+ */
+	.global Csym(svc_entry)
+	.extern Csym(knl_svcvec_tbl)
+	.extern Csym(SVC_default_Handler)
+Csym(svc_entry):
+	srsdb	sp!, #PSR_SVC			// Save SPSR_svc and R14_svc on SVC stack.
+	stmfd	sp!, {r0-r3, ip, lr}		// Save R0-R3,R12,LR on SVC stack.
+	mov	r0, #0xffffffff
+	str	r0, [sp, #(5 * 4)]		// Change the value of LR on the stack.
+
+	/*
+	* Stack image
+	*          +---------------+
+	* SP_svc ->|R0             |
+	*          |R1             |
+	*          |R2             |
+	*          |R3             |
+	*          |R12(ip)        |
+	*          |0xffffffff     |
+	*          |R14_svc(lr)    | <- return address from exception
+	*          |SPSR_svc       |
+	*          +---------------+
+	*/
+
+	mrs	r0, spsr
+	tst	r0, #PSR_T
+	ldrneh	r0, [lr, #-2]		// Thumb instruction
+	ldreq	r0, [lr, #-4]		// ARM instruction
+	bicne	r0, r0, #0xff00
+	biceq   r0, r0, #0xff000000
+	// r0 = SVC No.
+
+	cmp	r0, #N_SVCHDR
+	bge	SVC_default_Handler	// SVC No. >= N_SVC  => SVC default_entry
+
+	ldr	lr, =knl_svcvec_tbl
+	add	lr, r0, lsl #2
+	ldr	lr, [lr]		// lr: SVC handler address
+	cmp	lr, #0			// Registered?
+	bxne	lr			//   YES -> jump    r0: SVC No.
+	b	SVC_default_Handler		//   NO  -> SVC default_entry
 
 
 /* ---------------------------------------------------------------------------------
  *	FIQ exception
  */
 	.global Csym(fiq_entry)
+	.extern Csym(FIQ_Handler)
 Csym(fiq_entry):
+	sub	lr, lr, #4		// Return address adjustment
+	srsdb	sp!, #PSR_SVC		// Save SPSR_fiq & R14_fiq to SVC stack
+	CPS	#PSR_SVC		// Change to SVC mode
+	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
 
-/* ---------------------------------------------------------------------------------
- *	Supervisor call (SVC)
- */
-	.global Csym(svc_entry)
-Csym(svc_entry):
+	/* Stack image
+	*          +---------------+
+	* SP_svc ->|R0             |
+	*          |R1             |
+	*          |R2             |
+	*          |R3             |
+	*          |R12(ip)        |
+	*          |R14_svc(lr)    |
+	*          |R14_fiq(lr)    | <- return address from exception
+	*          |SPSR_fiq       |
+	*          +---------------+
+	*/
+
+	ldr	lr, =Csym(FIQ_Handler)
+	bx	lr
 
 /* ---------------------------------------------------------------------------------
  *	Undefined instruction exception
@@ -111,6 +173,18 @@ Csym(undef_entry):
 	srsdb	sp!, #PSR_SVC		// Save SPSR_und & R14_und to SVC stack
 	CPS	#PSR_SVC		// Change to SVC mode
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+	/* Stack image
+	*          +---------------+
+	* SP_svc ->|R0             |
+	*          |R1             |
+	*          |R2             |
+	*          |R3             |
+	*          |R12(ip)        |
+	*          |R14_svc(lr)    |
+	*          |R14_und(lr)    | <- return address from exception
+	*          |SPSR_und       |
+	*          +---------------+
+	*/
 
 #if USE_FPU
 	mrc	p15, 0, ip, c1, c0, 2	// CPACR
@@ -138,6 +212,18 @@ Csym(iabort_entry):
 	srsdb	sp!, #PSR_SVC		// Save SPSR_abt & R14_abt to SVC stack
 	CPS	#PSR_SVC		// Change to SVC mode
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+	/* Stack image
+	*          +---------------+
+	* SP_svc ->|R0             |
+	*          |R1             |
+	*          |R2             |
+	*          |R3             |
+	*          |R12(ip)        |
+	*          |R14_svc(lr)    |
+	*          |R14_abt(lr)    | <- return address from exception
+	*          |SPSR_abt       |
+	*          +---------------+
+	*/
 
 	ldr	lr, =Csym(PrefetchAbort_Handler)
 	bx	lr
@@ -153,6 +239,18 @@ Csym(dabort_entry):
 	srsdb	sp!, #PSR_SVC		// Save SPSR_abt & R14_abt to SVC stack
 	CPS	#PSR_SVC		// Change to SVC mode
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+	/* Stack image
+	*          +---------------+
+	* SP_svc ->|R0             |
+	*          |R1             |
+	*          |R2             |
+	*          |R3             |
+	*          |R12(ip)        |
+	*          |R14_svc(lr)    |
+	*          |R14_abt(lr)    | <- return address from exception
+	*          |SPSR_abt       |
+	*          +---------------+
+	*/
 
 	ldr	lr, =Csym(DataAbort_Handler)
 	bx	lr

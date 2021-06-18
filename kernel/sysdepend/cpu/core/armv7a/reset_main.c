@@ -36,9 +36,6 @@ IMPORT	const void *_bss_start;
 IMPORT	const void *_bss_end;
 IMPORT	const void *_HeapStart;
 
-IMPORT void BSC_Init(void);
-IMPORT void knl_init_l1cache(void);
-
 /* ------------------------------------------------------------------------ */
 /*
  * Reset Handler Main routine (Called from reset_hdl.S)
@@ -83,8 +80,6 @@ EXPORT void reset_main(void)
 		knl_lowmem_limit = (UW*)(INTERNAL_RAM_END);
 	}
 #endif	/* USE_IMALLOC */
-
-	knl_init_l1cache();	/* L1 cache initialize (reset_hdl.S) */
 
 	/* Startup Kernel */
 	main();		/**** No return ****/

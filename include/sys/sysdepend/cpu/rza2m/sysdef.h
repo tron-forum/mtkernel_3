@@ -27,18 +27,50 @@
 
 /* ------------------------------------------------------------------------ */
 /*
- * Internal Memorie (Main RAM)  0x800208000 - 0x802FFFFF
+ * RAM Map (Internal Memorie 0x80020000 - 0x803FFFFF)
+ *       Backup RAM     0x80000000 - 0x8001FFFF
+ *       Cached RAM     0x80020000 - 0x802FFFFF
+ *       Uncached RAM   0x80300000 - 0x803FBFFF
+ *       TTB RAM        0x803FC000 - 0c803FFFFF
  */
+
+#define	IRAM_START_ADDR			0x80000000
+#define	IRAM_SIZE			0x00400000
+#define	IRAM_UNCACHED_SIZE		0x00200000
+
+#define	IRAM_CACHED_START_ADDR		IRAM_START_ADDR
+#define	IRAM_CACHED_SIZE		(IRAM_SIZE - IRAM_UNCACHED_SIZE)
+#define	IRAM_CACHED_END_ADDR		(IRAM_CACHED_START_ADDR + IRAM_CACHED_SIZE)
+#define	IRAM_UNCACHED_START_ADDR	IRAM_CACHED_END_ADDR
+
+/*
+ * mT-Kernel RAM area (OS uses cached RAM area.)
+*/
 #define INTERNAL_RAM_SIZE	0x002E0000
 #define INTERNAL_RAM_START	0x80020000
 #define INTERNAL_RAM_END	(INTERNAL_RAM_START+INTERNAL_RAM_SIZE)
-
 
 /* ------------------------------------------------------------------------ */
 /*
  * Initial Stack pointer (Used in initialization process)
  */
 #define	INITIAL_SP		INTERNAL_RAM_END
+
+/* ------------------------------------------------------------------------ */
+/*
+ * TTB(translation table base) Attribute
+ */
+#define TTB_ATR_STRGLY				0x00DF2	/* 0000_0000_0000_0000_0000_1101_1111_0010    Secure Strongly-ordered memory */
+#define TTB_ATR_STRGLY_NS			0x80DF2	/* 0000_0000_0000_1000_0000_1101_1111_0010    Non-secure Strongly-ordered memory */
+#define TTB_ATR_DEVICE				0x00DF6	/* 0000_0000_0000_0000_0000_1101_1111_0110    Secure Device memory */
+#define TTB_ATR_DEVICE_NS			0x80DF6	/* 0000_0000_0000_1000_0000_1101_1111_0110    Non-secure Device memory */
+#define TTB_ATR_NORMAL_NOT_CACHE		0x04DE2	/* 0000_0000_0000_0000_0100_1101_1110_0010    Outer and inner Non-cacheable, and Secure Normal memory */
+#define TTB_ATR_NORMAL_NOT_CACHE_NS		0x84DE2	/* 0000_0000_0000_1000_0100_1101_1110_0010    Outer and inner Non-cacheable, and Non-secure Normal memory */
+#define TTB_ATR_NORMAL_CACHE			0x01DEE	/* 0000_0000_0000_0000_0001_1101_1110_1110    Outer and inner Write-Back Write-Allocate Cacheable, and Secure Normal memory */
+#define TTB_ATR_NORMAL_CACHE_NS			0x81DEE	/* 0000_0000_0000_1000_0001_1101_1110_1110    Outer and inner Write-Back Write-Allocate Cacheable, and Non-secure Normal memory */
+#define TTB_ATR_NORMAL_L1_CACHE_L2_NOT_CACHE	0x04DE6	/* 0000_0000_0000_0000_0100_1101_1110_0110    Outer Non-cacheable, Inner Write-Back Write-Allocate Cacheable, and Secure Normal memory */
+#define TTB_ATR_NORMAL_L1_CACHE_L2_NOT_CACHE_NS	0x84DE6	/* 0000_0000_0000_1000_0100_1101_1110_0110    Outer Non-cacheable, Inner Write-Back Write-Allocate Cacheable, and Non-secure Normal memory */
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -132,7 +164,6 @@
 /*
  * Number of Interrupt vectors
  */
-
 #define N_INTVEC		(512)		/* Number of Interrupt vectors */
 
 /*
@@ -160,6 +191,21 @@
  * Time-event handler interrupt level
  */
 #define TIMER_INTLEVEL		0
+
+/* ------------------------------------------------------------------------ */
+/*
+ * Number of SVC handlers
+ */
+#define N_SVCHDR		(11)	/* Number of SVC handlers ( used by micro T-Kernel) */
+
+/*
+ * SVC used by micro T-Kernel
+ */
+#define	SVC_SYSCALL		6	/* micro T-Kernel system call */
+#define	SVC_FORCE_DISPATCH	7	/* force dispatch */
+#define	SVC_DISPATCH		8	/* task dispatcher */
+#define	SVC_DEBUG_SUPPORT	9	/* debug support function */
+#define	SVC_EXTENDED_SVC	10	/* Extended SVC */
 
 /* ------------------------------------------------------------------------ */
 /*

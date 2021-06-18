@@ -28,6 +28,16 @@ Noinit(EXPORT FP knl_intvec_tbl[N_INTVEC]);
 /* High level programming language interrupt handler table */
 Noinit(EXPORT FP knl_hll_inthdr_tbl[N_INTVEC]);
 
+/* SVC handler table */
+EXPORT const FP knl_svcvec_tbl[N_SVCHDR] = {
+	NULL, NULL, NULL, NULL, NULL, NULL,	/* 0 ~ 5 : reserved.
+	NULL,					/* 6 : micro T-Kernel system call */
+	knl_dispatch_to_schedtsk,		/* 7 : force dispatch */
+	knl_dispatch_entry,			/* 8 : task dispatcher */
+	NULL,					/* 9 : debug support function */
+	NULL					/* 10: Extended SVC */
+};
+
 /* ----------------------------------------------------------------------- */
 /*
  * Set interrupt handler (Used in tk_def_int())
