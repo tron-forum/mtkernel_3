@@ -43,13 +43,27 @@ LOCAL const UB stbcr_tbl[] = {
  */
 typedef struct {
 	UW	addr;
-	UW	data;
+	UB	data;
 } T_SETUP_REG;
 
 /* 
- * Setup pin functions Tadle
+ * Pin mode Tadle
  */
-LOCAL const T_SETUP_REG pinfnc_tbl[] = {
+LOCAL const T_SETUP_REG pmode_tbl[] = {
+	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
+	{PORT9_PMR, 0b00000011},
+
+	{0, 0}
+};
+
+/* 
+ * Pin function Tadle
+ */
+LOCAL const T_SETUP_REG pfunc_tbl[] = {
+	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
+	{PORT9_PFS(0), 0x04},
+	{PORT9_PFS(1), 0x04},
+
 	{0, 0}
 };
 
@@ -67,16 +81,22 @@ EXPORT void knl_startup_hw(void)
 
 	/* Setting the clock supply to each module */
 	for(p_stbcr = (_UW*)CPG_STBCR3, i = 0; p_stbcr <= (_UW*)CPG_STBCR10; p_stbcr++, i++ ) {
-		*(_UB*)p_stbcr = stbcr_tbl[i];
-		dummy_b = *(_UB*)p_stbcr;
+		out_b( (UW)p_stbcr, stbcr_tbl[i]);
+		dummy_b = in_b((UW)p_stbcr);
 	}
 
-	/* Setup Pin Function */
-	for(p = pinfnc_tbl; p->addr != 0; p++) {
-		*(_UW*)(p->addr) = p->data;
+	/* Pin mode selection */
+	for(p = pmode_tbl; p->addr != 0; p++) {
+		out_b(p->addr, p->data);
 	}
 
-	/* Setup port mode */
+	/* Pin function selection */
+	out_b(PORT_PWPR, 0);
+	out_b(PORT_PWPR, PORT_PWPR_PFSWE);		/* Allow writing to PFS */
+	for(p = pfunc_tbl; p->addr != 0; p++) {
+		out_b(p->addr, p->data);
+	}
+	out_b(PORT_PWPR, PORT_PWPR_B0WI);		/* Prohibit writing to PFS */
 
 }
 

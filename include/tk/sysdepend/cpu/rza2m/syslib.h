@@ -68,4 +68,30 @@ Inline UB in_b( UW port )
 	return *(_UB*)port;
 }
 
+Inline void and_w( UW port, UW data)
+{
+	*(_UW*)port &= data;
+}
+Inline void and_h( UW port, UH data)
+{
+	*(_UH*)port &= data;
+}
+Inline void and_b( UW port, UB data)
+{
+	*(_UB*)port &= data;
+}
+
+Inline void or_w( UW port, UW data)
+{
+	*(_UW*)port |= data;
+}
+Inline void or_h( UW port, UH data)
+{
+	*(_UH*)port |= data;
+}
+Inline void or_b( UW port, UB data)
+{
+	*(_UB*)port |= data;
+}
+
 #endif /* __TK_SYSLIB_DEPEND_H__ */

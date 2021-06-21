@@ -24,8 +24,8 @@
  *      Select the communication port used by T-Monitor.
  *         1: Valid  0: Invalid  (Only one of them is valid)
  */
-#define	TM_COM_SERIAL_DEV	(0)	/* Use serial communication device */
-#define	TM_COM_NO_DEV		(1)	/* Do not use communication port */
+#define	TM_COM_SERIAL_DEV	(1)	/* Use serial communication device */
+#define	TM_COM_NO_DEV		(0)	/* Do not use communication port */
 
 /*---------------------------------------------------------------------- */
 /* tm_printf() call setting
