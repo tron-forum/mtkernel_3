@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.05.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/.
  *
  *----------------------------------------------------------------------
  */
@@ -64,8 +64,8 @@ IMPORT INT GetCpuIntLevel( void );
 #endif /* TK_SUPPORT_CPUINTLEVEL */
 
 #if TK_SUPPORT_CTRLINTLEVEL
-IMPORT void SetCtlIntLevel(INT level);	/* Set interrupt mask level in interrupt controller */
-IMPORT INT  GetCtlIntLevel(void);	/* Get interrupt mask level in interrupt controller */
+IMPORT void SetCtrlIntLevel(INT level);	/* Set interrupt mask level in interrupt controller */
+IMPORT INT  GetCtrlIntLevel(void);	/* Get interrupt mask level in interrupt controller */
 #endif /* TK_SUPPORT_CTRLINTLEVEL */
 
 
