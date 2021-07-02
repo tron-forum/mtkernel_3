@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.05.B0
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/.
  *
  *----------------------------------------------------------------------
  */
@@ -15,9 +15,9 @@
 #ifdef CPU_CORE_ARMV7M
 
 /*
- *	waitusec.c
+ *	waitusec_armv7m.c
  *
- *	Micro Wait: Busy loop wait time in micro-sec (ARM Cortex-M3)
+ *	Micro Wait: Busy loop wait time in micro-sec (ARMv7M)
  */
 
 #include <tk/tkernel.h>
