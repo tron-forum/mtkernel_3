@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03.B0
+ *    micro T-Kernel 3.00.05.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/ /.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -24,20 +24,6 @@
 
 #include "sysdepend.h"
 
-/*
- * Setting the clock supply to each module
- */
-LOCAL const UB stbcr_tbl[] = {
-	0b11111101,	/* STBCR3   [1], OSTM0, OSTM1, OSTM3, MTU3, CAN-FD, [0], GPT */
-	0b11111111,	/* STBCR4   SCIF0, SCIF1, SCIF2, SCIF3, SCIF4, SCI0, SCI1,IrDA */
-	0b11111111,	/* STBCR5   A/D, CEU, [1], [1], RTC0, RTC1, JCU, [1] */
-	0b11111111,	/* STBCR6   [1], VIN, ETHER0, ETHER1, EtherPTR, EtherM, USB0, USB1 */
-	0b11111111,	/* STBCR7   IMR-LS2, DAVE-2D, MIPI, [1], SSIF0, SSIF1, SSIF2, SSIF3 */
-	0b11111111,	/* STBCR8   IIC0, IIC1, IIC2, IIC3, SPIBSC, [1], VDC6, [1] */
-	0b11111111,	/* STBCR9   RSPI0, RSPI1, RSPI2, [1], HYPER, OCTA, SPDIF, DRP */
-	0b10011111,	/* STBCR10  TSIP, [0], [0], NAND, SDHI00, SDHI01, SDHI10, SDHI11 */
-};
-
 /* 
  * Setup register data 
  */
@@ -46,9 +32,21 @@ typedef struct {
 	UB	data;
 } T_SETUP_REG;
 
-/* 
- * Pin mode Tadle
- */
+/* Setting the clock supply to each module */
+LOCAL const T_SETUP_REG stbcr_tbl[] = {
+	{CPG_STBCR3 , 0b10111101},	/* [1], OSTM0, OSTM1, OSTM3, MTU3, CAN-FD, [0], GPT */
+	{CPG_STBCR4 , 0b11110111},	/* SCIF0, SCIF1, SCIF2, SCIF3, SCIF4, SCI0, SCI1,IrDA */
+//	{CPG_STBCR5 , 0b11110011},	/* A/D, CEU, [1], [1], RTC0, RTC1, JCU, [1] */
+//	{CPG_STBCR6 , 0b11111111},	/* [1], VIN, ETHER0, ETHER1, EtherPTR, EtherM, USB0, USB1 */
+//	{CPG_STBCR7 , 0b11111111},	/* IMR-LS2, DAVE-2D, MIPI, [1], SSIF0, SSIF1, SSIF2, SSIF3 */
+//	{CPG_STBCR8 , 0b11110111},	/* IIC0, IIC1, IIC2, IIC3, SPIBSC, [1], VDC6, [1] */
+//	{CPG_STBCR9 , 0b11111111},	/* RSPI0, RSPI1, RSPI2, [1], HYPER, OCTA, SPDIF, DRP */
+//	{CPG_STBCR10, 0b10011111},	/* TSIP, [0], [0], NAND, SDHI00, SDHI01, SDHI10, SDHI11 */
+
+	{0, 0}
+};
+
+/* Pin mode Tadle */
 LOCAL const T_SETUP_REG pmode_tbl[] = {
 	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
 	{PORT9_PMR, 0b00000011},
@@ -56,17 +54,14 @@ LOCAL const T_SETUP_REG pmode_tbl[] = {
 	{0, 0}
 };
 
-/* 
- * Pin function Tadle
- */
+/* Pin function Tadle */
 LOCAL const T_SETUP_REG pfunc_tbl[] = {
 	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
-	{PORT9_PFS(0), 0x04},
-	{PORT9_PFS(1), 0x04},
+	{PORT9n_PFS(0), 0x04},
+	{PORT9n_PFS(1), 0x04},
 
 	{0, 0}
 };
-
 
 /*
  * Startup hardware
@@ -74,20 +69,17 @@ LOCAL const T_SETUP_REG pfunc_tbl[] = {
 EXPORT void knl_startup_hw(void)
 {
 	const T_SETUP_REG	*p;
-
-	_UW	*p_stbcr;
-	_UB	dummy_b;
-	UINT	i;
+	_UB			dummy_b;
 
 	/* Setting the clock supply to each module */
-	for(p_stbcr = (_UW*)CPG_STBCR3, i = 0; p_stbcr <= (_UW*)CPG_STBCR10; p_stbcr++, i++ ) {
-		out_b( (UW)p_stbcr, stbcr_tbl[i]);
-		dummy_b = in_b((UW)p_stbcr);
+	for(p = stbcr_tbl; p->addr != 0; p++) {
+		out_b(p->addr, p->data);
+		dummy_b = in_b(p->addr);
 	}
 
 	/* Pin mode selection */
 	for(p = pmode_tbl; p->addr != 0; p++) {
-		out_b(p->addr, p->data);
+		or_b(p->addr, p->data);
 	}
 
 	/* Pin function selection */
@@ -97,7 +89,6 @@ EXPORT void knl_startup_hw(void)
 		out_b(p->addr, p->data);
 	}
 	out_b(PORT_PWPR, PORT_PWPR_B0WI);		/* Prohibit writing to PFS */
-
 }
 
 #if USE_SHUTDOWN

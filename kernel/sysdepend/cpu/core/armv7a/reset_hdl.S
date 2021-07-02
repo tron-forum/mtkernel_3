@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -45,6 +45,15 @@ Csym(Reset_Handler):
 	orr	r0, r0, #PSR_DI
 	msr	cpsr_c, r0	
 
+	/* Disable cache & MMU */
+	MRC	p15, 0, r0, c1, c0, 0	// Read CP15 System Control register (SCTLR)
+	BIC	r0, r0, #CP15_SCTLR_I	// Clear I bit to disable I Cache
+	BIC	r0, r0, #CP15_SCTLR_C	// Clear C bit to disable D Cache
+	BIC	r0, r0, #CP15_SCTLR_M	// Clear M bit to disable MMU
+	BIC	r0, r0, #CP15_SCTLR_V	// Clear V bit to VBAR vector
+	MCR	p15, 0, r0, c1, c0, 0	// Write value back to CP15 System Control register (SCTLR)
+	ISB				// Instruction  Synchronization  barrier
+
 	/* Set VBAR */
 	ldr	r0, =Csym(vector_table)
 	mcr	p15, 0, r0, c12, c0, 0	
@@ -81,24 +90,18 @@ dc_loop2:				// loop of set
 	/* TTB initialize */
 	bl	init_ttb
 
-	// domain access control register
+	/* domain access control register */
 	mrc	p15, 0, r0, c3, c0, 0	// Read CP15 Domain Access Control Register (DACR)
 	ldr	r0, =0x55555555		// Initialize every domain entry to b01 (client)
 	mcr	p15, 0, r0, c3, c0, 0	// Write CP15 Domain Access Control Register (DACR)
 
-	// enable MMU, D/I-cache, branch prediction
+	/* enable MMU (cache not yet) */
 	mrc	p15, 0, r0, c1, c0, 0	// Read CP15 System Control register (SCTLR)
-	orr	r0, r0, #CP15_SCTLR_I	// Set   I bit to dnable I Cache
-	orr	r0, r0, #CP15_SCTLR_C	// Set   C bit to enable D Cache
-	orr	r0, r0, #CP15_SCTLR_Z	// Set   Z bit to enable Program Flow Prediction
+	bic	r0, r0, #CP15_SCTLR_I	// Clear I bit to disable I Cache
+	bic	r0, r0, #CP15_SCTLR_C	// Clear C bit to disable D Cache
+	bic	r0, r0, #CP15_SCTLR_A	// Clear A bit to disable strict alignment fault checking
 	orr	r0, r0, #CP15_SCTLR_M	// Set   M bit to enable MMU before scatter loading
 	mcr	p15, 0, r0, c1, c0, 0	// Write CP15 System Control register (SCTLR)
-	isb				// Instruction  Synchronization  barrier
-
-	// enable Dside prefetch
-	mrc	p15, 0, r0, c1, c0, 1	// Read CP15 Auxiliary Control Register(ACTLR)
-	orr	r0, r0, #CP15_ACTLR_DPF	// Enable Dside prefetch
-	mcr	p15, 0, r0, c1, c0, 1	// Weite CP15 Auxiliary Control Register(ACTLR)
 	isb				// Instruction  Synchronization  barrier
 
 #if USE_FPU
@@ -182,7 +185,26 @@ loop_secdesc:
 
 	b	desc_set_loop
 
+/* ---------------------------------------------------------------------------------
+ *	L1 D/I cache enable
+ */
+	.global	Csym(L1CacheInit)
+Csym(L1CacheInit): 
+	// enable MMU, D/I-cache, branch prediction
+	mrc	p15, 0, r0, c1, c0, 0	// Read CP15 System Control register (SCTLR)
+	orr	r0, r0, #CP15_SCTLR_I	// Set   I bit to dnable I Cache
+	orr	r0, r0, #CP15_SCTLR_C	// Set   C bit to enable D Cache
+	orr	r0, r0, #CP15_SCTLR_Z	// Set   Z bit to enable Program Flow Prediction
+	mcr	p15, 0, r0, c1, c0, 0	// Write CP15 System Control register (SCTLR)
+	isb				// Instruction  Synchronization  barrier
 
+	// enable Dside prefetch
+	mrc	p15, 0, r0, c1, c0, 1	// Read CP15 Auxiliary Control Register(ACTLR)
+	orr	r0, r0, #CP15_ACTLR_DPF	// Enable Dside prefetch
+	mcr	p15, 0, r0, c1, c0, 1	// Weite CP15 Auxiliary Control Register(ACTLR)
+	isb				// Instruction  Synchronization  barrier
+
+	bx	lr
 
 /* ---------------------------------------------------------------------------------
  *	 STACK AREA 

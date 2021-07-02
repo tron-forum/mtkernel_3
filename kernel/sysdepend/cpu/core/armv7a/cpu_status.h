@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -27,13 +27,13 @@
  * Start/End critical section
  */
 #define BEGIN_CRITICAL_SECTION	{ UINT _intsts_ = disint();
-#define END_CRITICAL_SECTION	if ( knl_ctxtsk != knl_schedtsk		\
+#define END_CRITICAL_SECTION	if ( !isDI(_intsts_)			\
+				  && knl_ctxtsk != knl_schedtsk		\
 				  && !knl_isTaskIndependent()		\
 				  && !knl_dispatch_disabled ) {		\
 					knl_dispatch();			\
 				}					\
 				enaint(_intsts_); }
-
 
 /*
  * Start/End interrupt disable section
@@ -119,5 +119,18 @@ Inline UINT knl_getCPSR(void)
  * the task independent part. 
  */
 #define in_qtsk()	( knl_ctxtsk->sysmode > knl_ctxtsk->isysmode )
+
+/* ----------------------------------------------------------------------- */
+/*
+ *	Task dispatcher startup
+ */
+Inline void knl_force_dispatch( void )
+{
+	Asm("svc %0"::"i"(SVC_FORCE_DISPATCH):"lr");
+}
+Inline void knl_dispatch( void )
+{
+	Asm("svc %0"::"i"(SVC_DISPATCH):"lr");
+}
 
 #endif /* _SYSDEPEND_CPU_CORE_STATUS_ */

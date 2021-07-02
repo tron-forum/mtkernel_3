@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -35,6 +35,8 @@ IMPORT	const void *_data_end;
 IMPORT	const void *_bss_start;
 IMPORT	const void *_bss_end;
 IMPORT	const void *_HeapStart;
+
+void L1CacheInit(void);
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -80,6 +82,8 @@ EXPORT void reset_main(void)
 		knl_lowmem_limit = (UW*)(INTERNAL_RAM_END);
 	}
 #endif	/* USE_IMALLOC */
+
+	L1CacheInit();		/* L1 cache initialize */
 
 	/* Startup Kernel */
 	main();		/**** No return ****/

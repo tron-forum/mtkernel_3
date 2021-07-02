@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -23,7 +23,7 @@
 #include <sys/knldef.h>
 
 /* GIC Register definition */
-#define GIC_ICC_BASE	0xE8202000
+#define GIC_ICC_BASE	0xE8222000
 #define GIC_ICC_IAR	0x000C		// Interrupt Acknowledge Register
 #define GIC_ICC_EOIR	0x0010		// End of Interrupt Register
 
@@ -66,7 +66,7 @@ Csym(irq_entry):
 	bge	l_irq1				//	NO => Jump
 
 	ldr	lr,  =Csym(knl_intvec_tbl)
-	add	lr, r0, lsl #2
+	add	lr, r3, lsl #2
 	ldr	lr, [lr]			// lr <- Interrupt handler address
 	cmp	lr, #0				// Is an interrupt handler registered?
 	bxne	lr				//	YES => jump    r0: Interrupt ID

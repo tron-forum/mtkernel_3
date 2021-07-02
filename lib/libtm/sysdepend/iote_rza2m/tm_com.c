@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -16,9 +16,7 @@
  *    T-Monitor Communication low-level device driver (RZ/A2M IoT-Engine)
  */
 
-#include <tk/typedef.h>
-#include <sys/sysdef.h>
-#include <tk/syslib.h>
+#include <tk/tkernel.h>
 
 #if USE_TMONITOR
 #include "../../libtm.h"
@@ -27,7 +25,6 @@
 #if TM_COM_SERIAL_DEV
 
 /* SCIFA register definition (Use SCIFA4) */
-
 #define	SCIFA_BASE	0xE8009000	/* SCIFA4 register base address */
 #define SCIFA_SMR	(SCIFA_BASE + 0x0000)
 #define SCIFA_BRR	(SCIFA_BASE + 0x0002)
@@ -57,13 +54,18 @@
 
 #define FCR_TFRST	0x0004
 #define FCR_RFRST	0x0002
+
 #define LSR_ORER	0x0001
 
 
 EXPORT	void	tm_snd_dat( const UB* buf, INT size )
 {
+	_UH	d;
 	while(size--) {
-		while(!(in_h(SCIFA_FSR) & FSR_TDFE)) ;	/* Waiting for FIFO space */
+//		while(!(in_h(SCIFA_FSR) & FSR_TDFE)) ;	/* Waiting for FIFO space */
+		do {
+			d = in_h(SCIFA_FSR);
+		} while(!(d&FSR_TDFE));
 		out_b(SCIFA_FTDR, *buf++);
 		and_h(SCIFA_FSR, ~(FSR_TEND|FSR_TDFE));
 	}
@@ -104,8 +106,8 @@ EXPORT	void	tm_com_init(void)
 	out_b(SCIFA_SEMR, 0);			/* Baud rate generator = normal mode, Operates with a frequency 16 times the transfer rate as the basic clock */
 	out_b(SCIFA_BRR, 17);			/* Dividend ratio */
 
-	out_h(SCIFA_FCR, 0x0030);		/* Release FIFO reset */
-	or_h(SCIFA_SPTR, 0x0003);		/* Break output settings */
+	out_h(SCIFA_FCR, 0x00000030);		/* Release FIFO reset */
+	or_h(SCIFA_SPTR, 0x00000003);		/* Break output settings */
 	out_h(SCIFA_SCR, (SCR_TE|SCR_RE));	/* Enable send/receive */
 
 	return;

@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -25,7 +25,7 @@
 #include "../../../sysdepend.h"
 
 #if USE_EXCEPTION_DBG_MSG
-	#define EXCEPTION_DBG_MSG(a)	tm_printf(a)
+	#define EXCEPTION_DBG_MSG(a)	tm_printf((UB*)a)
 #else
 	#define EXCEPTION_DBG_MSG(a)
 #endif
@@ -63,7 +63,7 @@ WEAK_FUNC EXPORT void PrefetchAbort_Handler(void)
  */
 WEAK_FUNC EXPORT void DataAbort_Handler(void)
 {
-	EXCEPTION_DBG_MSG("dabort\n");
+//	EXCEPTION_DBG_MSG("dabort\n");
 	while(1);
 }
 

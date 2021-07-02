@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -68,7 +68,7 @@ Csym(knl_hll_inthdr):
 
 not_1st_hllint:					// call knl_hll_inthdr_tbl[n](intno)
 	ldr	ip, =Csym(knl_hll_inthdr_tbl)
-	ldr	ip, [ip, r0, lsl #2]
+	ldr	ip, [ip, r3, lsl #2]
 	blx	ip
 
 	b	Csym(knl_return_inthdr)

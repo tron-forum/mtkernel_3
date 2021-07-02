@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -192,21 +192,6 @@
  */
 #define TIMER_INTLEVEL		0
 
-/* ------------------------------------------------------------------------ */
-/*
- * Number of SVC handlers
- */
-#define N_SVCHDR		(11)	/* Number of SVC handlers ( used by micro T-Kernel) */
-
-/*
- * SVC used by micro T-Kernel
- */
-#define	SVC_SYSCALL		6	/* micro T-Kernel system call */
-#define	SVC_FORCE_DISPATCH	7	/* force dispatch */
-#define	SVC_DISPATCH		8	/* task dispatcher */
-#define	SVC_DEBUG_SUPPORT	9	/* debug support function */
-#define	SVC_EXTENDED_SVC	10	/* Extended SVC */
-
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -335,28 +320,28 @@
 #define PORTM_DSCR	(PORT_BASE + 0x016A)
 
 /* Pin function selection register */
-#define PORT0_PFS(n)	(PORT_BASE + 0x0200 + n)
-#define PORT1_PFS(n)	(PORT_BASE + 0x0208 + n)
-#define PORT2_PFS(n)	(PORT_BASE + 0x0210 + n)
-#define PORT3_PFS(n)	(PORT_BASE + 0x0218 + n)
-#define PORT4_PFS(n)	(PORT_BASE + 0x0220 + n)
-#define PORT5_PFS(n)	(PORT_BASE + 0x0228 + n)
-#define PORT6_PFS(n)	(PORT_BASE + 0x0230 + n)
-#define PORT7_PFS(n)	(PORT_BASE + 0x0238 + n)
-#define PORT8_PFS(n)	(PORT_BASE + 0x0240 + n)
-#define PORT9_PFS(n)	(PORT_BASE + 0x0248 + n)
-#define PORTA_PFS(n)	(PORT_BASE + 0x0250 + n)
-#define PORTB_PFS(n)	(PORT_BASE + 0x0258 + n)
-#define PORTC_PFS(n)	(PORT_BASE + 0x0260 + n)
-#define PORTD_PFS(n)	(PORT_BASE + 0x0268 + n)
-#define PORTE_PFS(n)	(PORT_BASE + 0x0270 + n)
-#define PORTF_PFS(n)	(PORT_BASE + 0x0278 + n)
-#define PORTG_PFS(n)	(PORT_BASE + 0x0280 + n)
-#define PORTH_PFS(n)	(PORT_BASE + 0x0288 + n)
-#define PORTJ_PFS(n)	(PORT_BASE + 0x0290 + n)
-#define PORTK_PFS(n)	(PORT_BASE + 0x0298 + n)
-#define PORTL_PFS(n)	(PORT_BASE + 0x02A0 + n)
-#define PORTM_PFS(n)	(PORT_BASE + 0x02A8 + n)
+#define PORT0n_PFS(n)	(PORT_BASE + 0x0200 + (n))
+#define PORT1n_PFS(n)	(PORT_BASE + 0x0208 + (n))
+#define PORT2n_PFS(n)	(PORT_BASE + 0x0210 + (n))
+#define PORT3n_PFS(n)	(PORT_BASE + 0x0218 + (n))
+#define PORT4n_PFS(n)	(PORT_BASE + 0x0220 + (n))
+#define PORT5n_PFS(n)	(PORT_BASE + 0x0228 + (n))
+#define PORT6n_PFS(n)	(PORT_BASE + 0x0230 + (n))
+#define PORT7n_PFS(n)	(PORT_BASE + 0x0238 + (n))
+#define PORT8n_PFS(n)	(PORT_BASE + 0x0240 + (n))
+#define PORT9n_PFS(n)	(PORT_BASE + 0x0248 + (n))
+#define PORTAn_PFS(n)	(PORT_BASE + 0x0250 + (n))
+#define PORTBn_PFS(n)	(PORT_BASE + 0x0258 + (n))
+#define PORTCn_PFS(n)	(PORT_BASE + 0x0260 + (n))
+#define PORTDn_PFS(n)	(PORT_BASE + 0x0268 + (n))
+#define PORTEn_PFS(n)	(PORT_BASE + 0x0270 + (n))
+#define PORTFn_PFS(n)	(PORT_BASE + 0x0278 + (n))
+#define PORTGn_PFS(n)	(PORT_BASE + 0x0280 + (n))
+#define PORTHn_PFS(n)	(PORT_BASE + 0x0288 + (n))
+#define PORTJn_PFS(n)	(PORT_BASE + 0x0290 + (n))
+#define PORTKn_PFS(n)	(PORT_BASE + 0x0298 + (n))
+#define PORTLn_PFS(n)	(PORT_BASE + 0x02A0 + (n))
+#define PORTMn_PFS(n)	(PORT_BASE + 0x02A8 + (n))
 
 #define	PORT_PWPR	(PORT_BASE + 0x02FF)		/* Write protect register */
 #define PORT_PWPR_B0WI	0b10000000			/* PFSWE write permission bit */

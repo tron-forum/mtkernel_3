@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -30,7 +30,7 @@ Noinit(EXPORT FP knl_hll_inthdr_tbl[N_INTVEC]);
 
 /* SVC handler table */
 EXPORT const FP knl_svcvec_tbl[N_SVCHDR] = {
-	NULL, NULL, NULL, NULL, NULL, NULL,	/* 0 ~ 5 : reserved.
+	NULL, NULL, NULL, NULL, NULL, NULL,	/* 0 ~ 5 : reserved. */
 	NULL,					/* 6 : micro T-Kernel system call */
 	knl_dispatch_to_schedtsk,		/* 7 : force dispatch */
 	knl_dispatch_entry,			/* 8 : task dispatcher */
@@ -44,8 +44,6 @@ EXPORT const FP knl_svcvec_tbl[N_SVCHDR] = {
  */
 EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 {
-	volatile FP	*intvet;
-
 	if((inthdr != NULL) && ((intatr & TA_HLNG) != 0 )) {
 		knl_hll_inthdr_tbl[intno] = inthdr;
 		inthdr = knl_hll_inthdr;

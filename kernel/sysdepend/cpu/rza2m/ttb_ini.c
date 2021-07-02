@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -27,7 +27,7 @@ typedef struct {
 	UW	dmy;		/* Padding */
 } T_TTB_VAL;
 
-EXPORT T_TTB_VAL	knl_ttb_ini[] = {
+EXPORT const T_TTB_VAL	knl_ttb_ini[] = {
 	{0x1f000000,               0x00100000,         TTB_ATR_STRGLY,           0x00000000},	// Internal I/O area 0x1f000000 - 0x1f0fffff
 	{0x1f400000,               0x00100000,         TTB_ATR_STRGLY,           0x00000000},	// Internal I/O area 0x1f400000 - 0x1f4fffff
 	{0x1f800000,               0x00100000,         TTB_ATR_STRGLY,           0x00000000},	// Internal I/O area 0x1f800000 - 0x1f8ffff

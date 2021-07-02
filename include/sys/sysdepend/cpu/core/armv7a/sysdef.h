@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -79,6 +79,13 @@
 
 /* ------------------------------------------------------------------------ */
 /*
+ * Number of SVC handlers
+ */
+#define N_SVCHDR		(11)	/* Number of SVC handlers ( used by micro T-Kernel) */
+
+
+/* ------------------------------------------------------------------------ */
+/*
  * GIC(Generic Interrupt Controller) register
  * 	GIC-400 
  */
@@ -88,21 +95,21 @@
 #define GICD_TYPER		(GICD_BASE + 0x0004)		/* Interrupt Controller Type Register */
 #define GICD_IIDR		(GICD_BASE + 0x0008)		/* Distributor Implementer Identification Register */
 
-#define GICD_IGROUPR(n)		(GICD_BASE + 0x0080 + (0x04*n))	/* Interrupt Group Registerse */
-#define GICD_ISENABLER(n)	(GICD_BASE + 0x0100 + (0x04*n))	/* Interrupt Set-Enable Registers */
-#define GICD_ICENABLER(n)	(GICD_BASE + 0x0180 + (0x04*n))	/* Interrupt Clear-Enable Registers */
-#define GICD_ISPENDR(n)		(GICD_BASE + 0x0200 + (0x04*n))	/* Interrupt Set-Pending Registers */
-#define GICD_ICPENDR(n)		(GICD_BASE + 0x0280 + (0x04*n))	/* Interrupt Clear-Pending Registers */
-#define GICD_ISACTIVER(n)	(GICD_BASE + 0x0300 + (0x04*n))	/* Interrupt Set-Active Registers */
-#define GICD_ICACTIVER(n)	(GICD_BASE + 0x0380 + (0x04*n))	/* Interrupt Clear-Active Registers */
-#define GICD_IPRIORITYR(n)	(GICD_BASE + 0x0400 + (0x04*n))	/* Interrupt Priority Registers */
-#define GICD_ITARGETR(n)	(GICD_BASE + 0x0800 + (0x04*n))	/* Interrupt Processor Targets Registersi */
-#define GICD_ICFGR(n)		(GICD_BASE + 0x0C00 + (0x04*n))	/* Interrupt Configuration Registers */
+#define GICD_IGROUPR(n)		(GICD_BASE + 0x0080 + (0x04*(n)))	/* Interrupt Group Registerse */
+#define GICD_ISENABLER(n)	(GICD_BASE + 0x0100 + (0x04*(n)))	/* Interrupt Set-Enable Registers */
+#define GICD_ICENABLER(n)	(GICD_BASE + 0x0180 + (0x04*(n)))	/* Interrupt Clear-Enable Registers */
+#define GICD_ISPENDR(n)		(GICD_BASE + 0x0200 + (0x04*(n)))	/* Interrupt Set-Pending Registers */
+#define GICD_ICPENDR(n)		(GICD_BASE + 0x0280 + (0x04*(n)))	/* Interrupt Clear-Pending Registers */
+#define GICD_ISACTIVER(n)	(GICD_BASE + 0x0300 + (0x04*(n)))	/* Interrupt Set-Active Registers */
+#define GICD_ICACTIVER(n)	(GICD_BASE + 0x0380 + (0x04*(n)))	/* Interrupt Clear-Active Registers */
+#define GICD_IPRIORITYR(n)	(GICD_BASE + 0x0400 + (0x04*(n)))	/* Interrupt Priority Registers */
+#define GICD_ITARGETR(n)	(GICD_BASE + 0x0800 + (0x04*(n)))	/* Interrupt Processor Targets Registersi */
+#define GICD_ICFGR(n)		(GICD_BASE + 0x0C00 + (0x04*(n)))	/* Interrupt Configuration Registers */
 #define GICD_PPISR		(GICD_BASE + 0x0D00)		/* Private Peripheral Interrupt Status Register */
-#define GICD_SPISR(n)		(GICD_BASE + 0x0D04 + (0x04*n))	/* Shared Peripheral Interrupt Status Registers */
+#define GICD_SPISR(n)		(GICD_BASE + 0x0D04 + (0x04*(n)))	/* Shared Peripheral Interrupt Status Registers */
 #define GICD_SGIR		(GICD_BASE + 0x0F00)		/* Software Generated Interrupt Register */
-#define GICD_CPENDSGIR(n)	(GICD_BASE + 0x0F10 + (0x04*n)) /* SGI Clear-Pending Registers */
-#define GICD_SPENDSGIR(n)	(GICD_BASE + 0x0F20 + (0x04*n)) /* SGI Set-Pending Registers */
+#define GICD_CPENDSGIR(n)	(GICD_BASE + 0x0F10 + (0x04*(n))) /* SGI Clear-Pending Registers */
+#define GICD_SPENDSGIR(n)	(GICD_BASE + 0x0F20 + (0x04*(n))) /* SGI Set-Pending Registers */
 
 #define GICD_PIDR4		(GICD_BASE + 0x0FD0)		/* Peripheral ID 4 Register */
 #define GICD_PIDR5		(GICD_BASE + 0x0FD4)		/* Peripheral ID 5 Register */

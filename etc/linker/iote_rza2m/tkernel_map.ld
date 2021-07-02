@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -40,6 +40,7 @@ SECTIONS
 		__vector_end = .;
 		__start = .;
 		* (RESET_HANDLER)
+		* (EXC_ENTRY)
 		* (INIT_TTB)
 		* (IRQ_FIQ_HANDLER)
 		* (OTHER_HANDLER)

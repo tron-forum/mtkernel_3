@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -189,18 +189,5 @@ EXPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs)
 #endif /* USE_FUNC_TK_GET_CPR */
 #endif /* USE_FPU */
 
-
-/* ----------------------------------------------------------------------- */
-/*
- *	Task dispatcher startup
- */
-EXPORT void knl_force_dispatch( void )
-{
-	Asm("svc %0"::"i"(SVC_FORCE_DISPATCH):"lr");
-}
-EXPORT void knl_dispatch( void )
-{
-	Asm("svc %0"::"i"(SVC_DISPATCH):"lr");
-}
 
 #endif /* CPU_CORE_ARMV7M */

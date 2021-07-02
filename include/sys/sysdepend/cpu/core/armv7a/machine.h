@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -14,7 +14,7 @@
 /*
  *	machine.h
  *
- *	Machine type definition (ARM Cortex-A9 core depended)
+ *	Machine type definition (ARMv7-A core depended)
  */
 
 #ifndef __SYS_MACHINE_CORE_H__

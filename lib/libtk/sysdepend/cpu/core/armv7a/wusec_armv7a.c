@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/07.
  *
  *----------------------------------------------------------------------
  */
@@ -17,7 +17,7 @@
 /*
  *	wusec_aremv7a.c
  *
- *	Micro Wait: Busy loop wait time in micro-sec (ARMv7A Core)
+ *	Micro Wait: Busy loop wait time in micro-sec (ARMv7-A Core)
  */
 
 #include <tk/tkernel.h>
