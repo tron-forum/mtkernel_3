@@ -26,6 +26,14 @@ MEMORY {
 
 SECTIONS
 {
+	.sf_text : ALIGN(0x20) {
+		__sf_vector_start = .;
+		*(SF_VECTOR_TABLE)
+		__sf_vector_end = .;
+		__sf_start = .;
+		* (SF_RESET_HANDLER)
+	} > SERIAL_FLASH
+
 	.text : ALIGN(0x20) {
 		__vector_start = .;
 		*(VECTOR_TABLE)
@@ -38,12 +46,12 @@ SECTIONS
 		* (OTHER_HANDLER)
 		* (.text .text.*)
 		* (.rodata .rodata.*)
-	} > CACHED_RAM
+	} > CACHED_RAM AT > SERIAL_FLASH
 
 	.data : ALIGN(0x20) {
 		* (.data .data.*)
 		. = ALIGN(0x10);
-	} > CACHED_RAM
+	} > CACHED_RAM AT > SERIAL_FLASH
 
 	.noload (NOLOAD) : ALIGN(0x20) {
 		*(.noinit)

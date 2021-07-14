@@ -31,75 +31,63 @@
  */
 
 #if USE_TMONITOR
-#define TM_PUTSTRING(a)	tm_putstring(a)
+#define TM_PUTSTRING(a)	tm_putstring((UB*)a)
 
-void print_err( UB* str, ER err)
+void print_err( char* str, ER err)
 {
-	tm_printf(str, err);
+	tm_printf((UB*)str, err);
 }
 
 #else
 #define TM_PUTSTRING(a)
 
-void print_err( UB* str, INT par) {}
+void print_err( char* str, INT par) {}
 
 #endif /* USE_TMONITOR */
 
-/* ----------------------------------------------------------
- *
- * User Task-1 Definition
- *
- */
-void tsk1(INT stacd, void *exinf)
+LOCAL void ptmrhdr(void *exinf)
 {
-	TM_PUTSTRING((UB*)"Start Task-1\n");
-
-	tk_exd_tsk();	/* Exit task */
+	tk_wup_tsk(1);
 }
-
-/* ---------------------------------------------------------
- *
- * User Task-2 Definition
- *
- */
-void tsk2(INT stacd, void *exinf)
-{
-	TM_PUTSTRING((UB*)"Start Task-2\n");
-
-	tk_exd_tsk();	/* Exit Task */
-}
-
-const T_CTSK	ctsk1	= {0, (TA_HLNG | TA_RNG3), &tsk1, 10, 1024, 0};
-const T_CTSK	ctsk2	= {0, (TA_HLNG | TA_RNG3), &tsk2, 11, 1024, 0};
-
-/* ----------------------------------------------------------
- *
- * User-Main Definition (Run on initial task)
- *
- */
 
 EXPORT INT usermain( void )
 {
-	T_RVER	rver;
-	ID	id1, id2;
+	T_DPTMR		dptmr;
 
-	TM_PUTSTRING((UB*)"Start User-main program.\n");
+	TM_PUTSTRING("Start User-main program.\n");
 
-	tk_ref_ver(&rver);		/* Get the OS Version. */
 
-#if USE_TMONITOR
-	tm_printf((UB*)"Make Code: %04x  Product ID: %04x\n", rver.maker, rver.prid);
-	tm_printf((UB*)"Product Ver. %04x\nProduct Num. %04x %04x %04x %04x\n", 
-			rver.prver, rver.prno[0],rver.prno[1],rver.prno[2],rver.prno[3]);
-#endif
+	tm_putstring((UB*)"\n!!!START!!!\n");
+	tk_dly_tsk(25*1000);
+	tm_putstring((UB*)"\n!!!FINISHED!!!\n");
 
-	id1 = tk_cre_tsk(&ctsk1);
-	tk_sta_tsk(id1, 0);
+	dptmr.ptmratr = TA_HLNG;
+	dptmr.ptmrhdr = ptmrhdr;
+	DefinePhysicalTimerHandler(1, &dptmr);
 
-	id2 = tk_cre_tsk(&ctsk2);
-	tk_sta_tsk(id2, 0);
+	StartPhysicalTimer(1, (UW)(COUNT_PER_SEC*5), TA_CYC_PTMR);
+	for(INT i = 0; i <5; i++) {
+		tk_slp_tsk(TMO_FEVR);
+		TM_PUTSTRING("WAKE UP - 1\n");
+	}
+
+	StopPhysicalTimer(1);
+	TM_PUTSTRING("Stop PTMER - 1\n");
+
+	dptmr.ptmratr = TA_HLNG;
+	dptmr.ptmrhdr = ptmrhdr;
+	DefinePhysicalTimerHandler(2, &dptmr);
+
+	StartPhysicalTimer(2, (UW)(COUNT_PER_SEC*5), TA_CYC_PTMR);
+	for(INT i = 0; i <5; i++) {
+		tk_slp_tsk(TMO_FEVR);
+		TM_PUTSTRING("WAKE UP - 2\n");
+	}
+
+	StopPhysicalTimer(2);
+	TM_PUTSTRING("Stop PTMER - 2\n");
 
 	tk_slp_tsk(TMO_FEVR);
-
+	tk_slp_tsk(TMO_FEVR);
 	return 0;
 }

@@ -38,8 +38,8 @@
 /*
  * physical timer
  */
-#define TK_SUPPORT_PTIMER	FALSE		/* Support of physical timer */
-#define TK_MAX_PTIMER		0		/* Maximum number of physical timers. */
+#define TK_SUPPORT_PTIMER	TRUE		/* Support of physical timer */
+#define TK_MAX_PTIMER		2		/* Maximum number of physical timers. */
 
 
 

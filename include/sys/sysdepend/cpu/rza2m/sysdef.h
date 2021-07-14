@@ -81,18 +81,20 @@
  * CPG registers
 */
 #define CPG_FRQCR		0xFCFE0010
-#define	CPG_FRQCR_INIVAL	0x1012	/* CPG initial value */
-					/*	PLL(x88), I:G:B:P1:P0 = 22:11:5.5:2.75:1.375 
-					 *	CKIO:Output at time usually,
-					 *	Output when bus right is opened,
-					 *	output at standby"L"
-					 *	Clockin  = 24MHz,
-					 *	I  Clock = 528MHz,
-					 *	G  Clock = 264MHz
-					 *	B  Clock = 132MHz,
-					 *	P1 Clock = 66MHz,
-					 *	P0 Clock = 33MHz
-					*/
+
+/* CPG initial value */
+/*	PLL(x88), I:G:B:P1:P0 = 22:11:5.5:2.75:1.375 
+ *	CKIO:Output at time usually,
+ *	Output when bus right is opened,
+ *	output at standby"L"
+ */
+#define	CPG_FRQCR_INIVAL	0x1012
+#define CLOCK_in	24	/* Clockin  = 24MH */
+#define CLOCK_I		528	/* I  Clock = 528MHz */
+#define CLOCK_G		264	/* G  Clock = 264MHz */
+#define CLOCK_B		132	/* B  Clock = 132MHz */
+#define	CLOCK_P1	66	/* P1 Clock = 66MHz */
+#define	CLOCK_P0	33	/* P0 Clock = 33MHz */
 
 #define	CPG_CKIOSEL		0xFCFE0100
 #define CPG_SCLKSEL		0xFCFE0104
@@ -117,6 +119,7 @@
 #define CPG_STBCR8		0xFCFE0434
 #define CPG_STBCR9		0xFCFE0438
 #define CPG_STBCR10		0xFCFE043C
+#define CPG_STBCR11		0xFCFE0440
 
 
 /* ------------------------------------------------------------------------ */
@@ -141,11 +144,11 @@
 #define OSTM0_CTL	(OSTM0_BASE + 0x0020)
 
 
-/* P0 clock 33.333MHz */
-#define TMCLK			33		/* Timer clock input (MHz) */
-#define TMCLK_KHz		33333		/* Timer clock input (MHz) */
-#define	COUNT_PER_SEC		33333333LL	/* count/sec */
-#define	NSEC_PER_COUNT		30		/* nsec/count */
+/* P1 clock 66.666MHz */
+#define TMCLK			66		/* Timer clock input (MHz) */
+#define TMCLK_KHz		66666		/* Timer clock input (KHz) */
+#define	COUNT_PER_SEC		66666666LL	/* count/sec */
+#define	NSEC_PER_COUNT		15		/* nsec/count */
 
 
 /* Settable interval range (millisecond) */
@@ -351,7 +354,36 @@
 /*
  * Physical timer (for RZ/A2M)
  */
-#define	CPU_HAS_PTMR	(0)
+#define	CPU_HAS_PTMR	(1)
+
+/* Timer register definition */
+#define OSTM1_BASE	0xE803C000
+#define OSTM2_BASE	0xE803D000
+
+#define OSTMnCMP	0x00
+#define OSTMnCNT	0x04
+#define OSTMnTE		0x10
+#define OSTMnTS		0x14
+#define OSTMnTT		0x18
+#define OSTMnCTL	0x20
+
+#define	OSTMnCTL_MD1	0x02
+#define	OSTMnCTL_MD0	0x01
+
+/* Physical timer interrupt number */
+#define INTNO_OSTM1	89
+#define INTNO_OSTM2	90
+
+/* Physical timer interrupt priority */
+#define INTPRI_OSTM1	5
+#define INTPRI_OSTM2	5
+
+/* OS Timer clock 33.333MHz */
+#define	PTMCLK		33
+
+/* Phycail timer Maximum count */
+#define PTMR_MAX_CNT	(0xFFFFFFFF)
+
 
 /* ------------------------------------------------------------------------ */
 /*

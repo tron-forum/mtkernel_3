@@ -34,7 +34,8 @@ typedef struct {
 
 /* Setting the clock supply to each module */
 LOCAL const T_SETUP_REG stbcr_tbl[] = {
-	{CPG_STBCR3 , 0b10111101},	/* [1], OSTM0, OSTM1, OSTM3, MTU3, CAN-FD, [0], GPT */
+
+	{CPG_STBCR3 , 0b10001101},	/* [1], OSTM0, OSTM1, OSTM2, MTU3, CAN-FD, [0], GPT */
 	{CPG_STBCR4 , 0b11110111},	/* SCIF0, SCIF1, SCIF2, SCIF3, SCIF4, SCI0, SCI1,IrDA */
 //	{CPG_STBCR5 , 0b11110011},	/* A/D, CEU, [1], [1], RTC0, RTC1, JCU, [1] */
 //	{CPG_STBCR6 , 0b11111111},	/* [1], VIN, ETHER0, ETHER1, EtherPTR, EtherM, USB0, USB1 */
@@ -42,6 +43,18 @@ LOCAL const T_SETUP_REG stbcr_tbl[] = {
 //	{CPG_STBCR8 , 0b11110111},	/* IIC0, IIC1, IIC2, IIC3, SPIBSC, [1], VDC6, [1] */
 //	{CPG_STBCR9 , 0b11111111},	/* RSPI0, RSPI1, RSPI2, [1], HYPER, OCTA, SPDIF, DRP */
 //	{CPG_STBCR10, 0b10011111},	/* TSIP, [0], [0], NAND, SDHI00, SDHI01, SDHI10, SDHI11 */
+
+/* When all devices are enabled */
+//	{CPG_STBCR2 , 0x6A},	/* Port level is keep in standby mode, [1], [1], [0], [1], [0], [1], CoreSight */
+//	{CPG_STBCR3 , 0x80},	/* [1], OSTM0, OSTM1, OSTM3, MTU3, CAN-FD, [0], GPT */
+//	{CPG_STBCR4 , 0x00},	/* SCIF0, SCIF1, SCIF2, SCIF3, SCIF4, SCI0, SCI1,IrDA */
+//	{CPG_STBCR5 , 0x31},	/* A/D, CEU, [1], [1], RTC0, RTC1, JCU, [1] */
+//	{CPG_STBCR6 , 0x80},	/* [1], VIN, ETHER0, ETHER1, EtherPTR, EtherM, USB0, USB1 */
+//	{CPG_STBCR7 , 0x10},	/* IMR-LS2, DAVE-2D, MIPI, [1], SSIF0, SSIF1, SSIF2, SSIF3 */
+//	{CPG_STBCR8 , 0x05},	/* IIC0, IIC1, IIC2, IIC3, SPIBSC, [1], VDC6, [1] */
+//	{CPG_STBCR9 , 0x11},	/* RSPI0, RSPI1, RSPI2, [1], HYPER, OCTA, SPDIF, DRP */
+//	{CPG_STBCR10, 0x00},	/* TSIP, [0], [0], NAND, SDHI00, SDHI01, SDHI10, SDHI11 */
+//	{CPG_STBCR11, 0x3F},	/* POE3, POEG, [1], [1], [1], [1], [1] , [1] */
 
 	{0, 0}
 };
@@ -89,6 +102,8 @@ EXPORT void knl_startup_hw(void)
 		out_b(p->addr, p->data);
 	}
 	out_b(PORT_PWPR, PORT_PWPR_B0WI);		/* Prohibit writing to PFS */
+
+	dummy_b;
 }
 
 #if USE_SHUTDOWN

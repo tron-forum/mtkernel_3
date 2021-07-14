@@ -110,7 +110,7 @@ Inline UINT knl_getCPSR(void)
 	asm("mrs     %0, cpsr":"=r"(rtn));	/* save CPSR to ret */
 	return rtn;
 }
-#define in_loc()	( isDI(knl_getCPSR())		\
+#define in_loc()	( (knl_getCPSR() & PSR_I)	\
 			|| in_indp() )
 
 /*

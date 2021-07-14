@@ -51,6 +51,7 @@ EXPORT void reset_main(void)
 	knl_startup_hw();
 
 	/* Load .data to ram */
+
 	src = (UW*)&_data_org;;
 	top = (UW*)&_data_start;
 	end = (UW*)&_data_end;

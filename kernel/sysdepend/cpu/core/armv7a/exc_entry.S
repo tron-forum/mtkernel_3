@@ -65,6 +65,7 @@ Csym(irq_entry):
 	cmp	r3, r0				// Is the interrupt number correct?
 	bge	l_irq1				//	NO => Jump
 
+	mov	r0, r3
 	ldr	lr,  =Csym(knl_intvec_tbl)
 	add	lr, r3, lsl #2
 	ldr	lr, [lr]			// lr <- Interrupt handler address
