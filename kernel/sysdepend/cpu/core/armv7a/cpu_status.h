@@ -93,23 +93,26 @@ Inline void knl_LeaveTaskIndependent( void )
  */
 #define in_indp()	( knl_isTaskIndependent() || knl_ctxtsk == NULL )
 
-/*
- * When a system call is called during dispatch disable, TRUE
- * Also include the task independent part as during dispatch disable.
- */
-#define in_ddsp()	( knl_dispatch_disabled	\
-			|| in_indp() )
 
-/*
- * When a system call is called during CPU lock (interrupt disable), TRUE
- * Also include the task independent part as during CPU lock.
- */
 Inline UINT knl_getCPSR(void)
 {
 	UINT rtn;
 	asm("mrs     %0, cpsr":"=r"(rtn));	/* save CPSR to ret */
 	return rtn;
 }
+
+/*
+ * When a system call is called during dispatch disable, TRUE
+ * Also include the task independent part as during dispatch disable.
+ */
+#define in_ddsp()	( knl_dispatch_disabled		\
+			|| in_indp() 			\
+			|| (knl_getCPSR() & PSR_I) )
+
+/*
+ * When a system call is called during CPU lock (interrupt disable), TRUE
+ * Also include the task independent part as during CPU lock.
+ */
 #define in_loc()	( (knl_getCPSR() & PSR_I)	\
 			|| in_indp() )
 
