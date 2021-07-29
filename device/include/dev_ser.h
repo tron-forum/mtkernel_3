@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.05.B0
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
@@ -51,5 +51,8 @@ typedef enum {
 #ifdef CPU_STM32L4
 #include "../ser/sysdepend/stm32l4/ser_mode_stm32l4.h"
 #endif	/* CPU_STM32L4 */
+#ifdef CPU_RZA2M
+#include "../ser/sysdepend/rza2m/ser_mode_rza2m.h"
+#endif	/* CPU_RZA2M */
 
 #endif	/* __DEVINC_SER_H__ */

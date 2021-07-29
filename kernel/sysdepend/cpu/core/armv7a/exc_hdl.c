@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/07.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
@@ -63,7 +63,7 @@ WEAK_FUNC EXPORT void PrefetchAbort_Handler(void)
  */
 WEAK_FUNC EXPORT void DataAbort_Handler(void)
 {
-//	EXCEPTION_DBG_MSG("dabort\n");
+	EXCEPTION_DBG_MSG("dabort\n");
 	while(1);
 }
 

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.05.B0
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
@@ -152,7 +152,7 @@
 /* Use Sample device driver.
 　*  1: Valid  0: Invalid
  */
-#define USE_SDEV_DRV		(0)	/* Use Sample device driver */
+#define USE_SDEV_DRV		(1)	/* Use Sample device driver */
 
 /*---------------------------------------------------------------------- */
 /*
