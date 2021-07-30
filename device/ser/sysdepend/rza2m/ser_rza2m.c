@@ -15,8 +15,8 @@
 #ifdef CPU_RZA2M
 
 #include "../../../include/dev_def.h"
-//#if DEV_SER_ENABLE
-#if 1
+#if DEV_SER_ENABLE
+
 /*
  *	ser_rza2m.c
  *	Serial communication device driver

@@ -346,6 +346,9 @@
 #define PORTLn_PFS(n)	(PORT_BASE + 0x02A0 + (n))
 #define PORTMn_PFS(n)	(PORT_BASE + 0x02A8 + (n))
 
+#define PORT_PFS_ISEL		(0x40)
+#define PORT_PFS_PSEL(n)	(0x07 & n)
+
 #define	PORT_PWPR	(PORT_BASE + 0x02FF)		/* Write protect register */
 #define PORT_PWPR_B0WI	0b10000000			/* PFSWE write permission bit */
 #define PORT_PWPR_PFSWE	0b01000000			/* PFS write permission bit */

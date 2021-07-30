@@ -89,6 +89,7 @@ EXPORT void knl_startup_hw(void)
 		out_b(p->addr, p->data);
 		dummy_b = in_b(p->addr);
 	}
+	dummy_b;
 
 	/* Pin mode selection */
 	for(p = pmode_tbl; p->addr != 0; p++) {
@@ -102,8 +103,6 @@ EXPORT void knl_startup_hw(void)
 		out_b(p->addr, p->data);
 	}
 	out_b(PORT_PWPR, PORT_PWPR_B0WI);		/* Prohibit writing to PFS */
-
-	dummy_b;
 }
 
 #if USE_SHUTDOWN
