@@ -309,7 +309,12 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	unit = p_dcb->unit;
 
 #if DEVCONF_SER_INIT_MSTP		// Initialize module stop
+	UB	stbc;
 
+	stbc = in_b(CPG_STBCR1);
+	out_b(CPG_STBCR1, stbc & ~(1<<(7-unit)));
+	stbc = in_b(CPG_STBCR1);	// dummy read
+	
 #endif		/* DEVCONF_SER_INIT_MSTP */
 
 	stop_com(unit);					/* Stop communication */
