@@ -34,8 +34,8 @@
 /*
  * Interrupt mode ( Use SetIntMode )
  */
-#define	IM_LEVEL	0x00	/* level */
-#define	IM_EDGE		0x01	/* edge */
+#define	IM_LEVEL	0x00	/* high level detection */
+#define	IM_EDGE		0x01	/* Rising edge detection */
 
 /* ------------------------------------------------------------------------ */
 /*

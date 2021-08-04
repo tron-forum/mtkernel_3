@@ -63,7 +63,7 @@ Csym(Reset_Handler):
 	ldr	sp, =__tmp_stack_start
 
 	/* CPG settings */
-	bl	Csym(startup_clock)	// (CPU depended part)/cpu_clock.c
+//	bl	Csym(startup_clock)	// (CPU depended part)/cpu_clock.c
 
 	/* Invalidate TLB */
 	mov	r0,#0

@@ -49,7 +49,7 @@ typedef struct t_regs {
  */
 typedef struct t_eit {
 	void	*pc;		/* Program counter R15 */
-	UW	xpsr;		/* Program status register */
+	UW	cpsr;		/* Program status register */
 	UW	taskmode;	/* Task mode flag */
 } T_EIT;
 

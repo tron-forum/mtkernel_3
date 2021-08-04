@@ -44,6 +44,9 @@ EXPORT ER knl_init_device( void )
  */
 EXPORT ER knl_start_device( void )
 {
+#if USE_SDEV_DRV
+	
+#endif
 	return E_OK;
 }
 

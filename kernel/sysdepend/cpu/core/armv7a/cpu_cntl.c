@@ -58,7 +58,7 @@ EXPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T
 
 	if ( eit != NULL ) {
 		ssp->pc       = eit->pc;
-		ssp->xpsr = eit->xpsr;
+		ssp->cpsr = eit->cpsr;
 	}
 
 #if USE_FPU
@@ -106,7 +106,7 @@ EXPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 
 	if ( eit != NULL ) {
 		eit->pc       = ssp->pc;
-		eit->xpsr     = ssp->xpsr;
+		eit->cpsr     = ssp->cpsr;
 		eit->taskmode = 0;
 	}
 

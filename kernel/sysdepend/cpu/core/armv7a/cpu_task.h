@@ -29,7 +29,7 @@ typedef struct {
 	UW	ip;		/* R12 */
 	void	*lr;		/* lr */
 	void	*pc;		/* pc */
-	UW	xpsr;		/* xpsr */
+	UW	cpsr;		/* cpsr */
 } SStackFrame;
 
 /*
@@ -51,7 +51,7 @@ typedef struct {
 	UW	ip;		/* R12 */
 	void	*lr;		/* lr */
 	void	*pc;		/* pc */
-	UW	xpsr;		/* xpsr */
+	UW	cpsr;		/* cpsr */
 
 	UW	s[16];		/* S0-S15 */
 	UW	fpscr;		/* fpscr */
@@ -67,7 +67,7 @@ typedef struct {
  */
 Inline void knl_setup_context( TCB *tcb )
 {
-	UW		pc, xpsr;
+	UW		pc, cpsr;
 	SStackFrame	*ssp;
 
 	ssp = tcb->isstack;
@@ -84,12 +84,12 @@ Inline void knl_setup_context( TCB *tcb )
 	}
 #endif /* USE_FPU */
 
-	xpsr = PSR_SVC;			/* CPSR initial value */
+	cpsr = PSR_SVC;			/* CPSR initial value */
 	pc = (UW)tcb->task;		/* task entry address */
 
 	/* CPU context initialization */
 	ssp->lr = 0;
-	ssp->xpsr = xpsr;		/* Initial CPSR */
+	ssp->cpsr = cpsr;		/* Initial CPSR */
 	ssp->pc = (void *)pc;		/* Task startup address */
 	tcb->tskctxb.ssp = ssp;		/* System stack */
 }

@@ -155,9 +155,9 @@ EXPORT void SetIntMode(  UINT intno, UINT mode )
 	bit = 1 << (((intno&0x0F)<<1) + 1);
 
 	if (IM_LEVEL == mode) {
-		*addr &= ~bit;		/* Level detection */
+		*addr &= ~bit;		/* high level detection */
 	} else {
-		*addr |= bit;		/* Edge detection */
+		*addr |= bit;		/* Rising edge detection */
 	}
 
 	return;
