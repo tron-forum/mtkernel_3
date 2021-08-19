@@ -142,8 +142,7 @@ Csym(svc_entry):
 	.extern Csym(FIQ_Handler)
 Csym(fiq_entry):
 	sub	lr, lr, #4		// Return address adjustment
-	srsdb	sp!, #PSR_SVC		// Save SPSR_fiq & R14_fiq to SVC stack
-	CPS	#PSR_SVC		// Change to SVC mode
+	ldr	sp, =__fiq_stack_start	// Switch to exception stack
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
 
 	/* Stack image
@@ -153,9 +152,7 @@ Csym(fiq_entry):
 	*          |R2             |
 	*          |R3             |
 	*          |R12(ip)        |
-	*          |R14_svc(lr)    |
 	*          |R14_fiq(lr)    | <- return address from exception
-	*          |SPSR_fiq       |
 	*          +---------------+
 	*/
 
@@ -171,9 +168,9 @@ Csym(fiq_entry):
 
 Csym(undef_entry):
 	sub	lr, lr, #4		// Return address adjustment
-	srsdb	sp!, #PSR_SVC		// Save SPSR_und & R14_und to SVC stack
-	CPS	#PSR_SVC		// Change to SVC mode
+	ldr	sp, =__und_stack_start	// Switch to exception stack
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+
 	/* Stack image
 	*          +---------------+
 	* SP_svc ->|R0             |
@@ -181,9 +178,7 @@ Csym(undef_entry):
 	*          |R2             |
 	*          |R3             |
 	*          |R12(ip)        |
-	*          |R14_svc(lr)    |
 	*          |R14_und(lr)    | <- return address from exception
-	*          |SPSR_und       |
 	*          +---------------+
 	*/
 
@@ -210,9 +205,9 @@ not_navfp:
 
 Csym(iabort_entry):
 	sub	lr, lr, #4		// Return address adjustment
-	srsdb	sp!, #PSR_SVC		// Save SPSR_abt & R14_abt to SVC stack
-	CPS	#PSR_SVC		// Change to SVC mode
+	ldr	sp, =__abt_stack_start	// Switch to exception stack
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+
 	/* Stack image
 	*          +---------------+
 	* SP_svc ->|R0             |
@@ -220,9 +215,7 @@ Csym(iabort_entry):
 	*          |R2             |
 	*          |R3             |
 	*          |R12(ip)        |
-	*          |R14_svc(lr)    |
 	*          |R14_abt(lr)    | <- return address from exception
-	*          |SPSR_abt       |
 	*          +---------------+
 	*/
 
@@ -237,9 +230,9 @@ Csym(iabort_entry):
 
 Csym(dabort_entry):
 	sub	lr, lr, #4		// Return address adjustment
-	srsdb	sp!, #PSR_SVC		// Save SPSR_abt & R14_abt to SVC stack
-	CPS	#PSR_SVC		// Change to SVC mode
+	ldr	sp, =__abt_stack_start	// Switch to exception stack
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+
 	/* Stack image
 	*          +---------------+
 	* SP_svc ->|R0             |
@@ -247,13 +240,30 @@ Csym(dabort_entry):
 	*          |R2             |
 	*          |R3             |
 	*          |R12(ip)        |
-	*          |R14_svc(lr)    |
 	*          |R14_abt(lr)    | <- return address from exception
-	*          |SPSR_abt       |
 	*          +---------------+
 	*/
 
 	ldr	lr, =Csym(DataAbort_Handler)
 	bx	lr
+
+/* ---------------------------------------------------------------------------------
+ *	Exception Stack Area 
+ */
+	.section	.fiq_stack_section, "aw", %nobits
+	.global	__fiq_stack
+__fiq_stack:
+	.space	FIQ_STACK_SIZE
+
+	.section	.und_stack_section, "aw", %nobits
+	.global	__und_stack
+__und_stack:
+	.space	UND_STACK_SIZE
+
+	.section	.abt_stack_section, "aw", %nobits
+	.global	__abt_stack
+__abt_stack:
+	.space	ABT_STACK_SIZE
+
 
 #endif	/* CPU_CORE_ARMV7A */

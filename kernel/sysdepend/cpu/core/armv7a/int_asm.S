@@ -20,6 +20,8 @@
  */
 
 #define	_in_asm_source_
+#include <sys/sysdef.h>
+#include <sys/knldef.h>
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -116,5 +118,13 @@ Csym(knl_return_inthdr):
 return_inthdr_end:
 	ldmfd	sp!, {r0-r3, ip, lr}		// restore registers
 	rfefd	sp!				// restore SPSR_xxx, pc_xxxx(return from exception)
+
+/* ---------------------------------------------------------------------------------
+ *	IRQ exception Stack Area 
+ */
+	.section	.irq_stack_section, "aw", %nobits
+	.global	__irq_stack
+__irq_stack:
+	.space	EXC_STACK_SIZE
 
 #endif	/* CPU_CORE_ARMV7A */

@@ -59,7 +59,7 @@ Csym(Reset_Handler):
 	mcr	p15, 0, r0, c12, c0, 0	
 
 	/* Set stack pointer */
-	cps	#PSR_SVC		// SVC Mode  **** uT-kernel use only SVC mode ****
+	cps	#PSR_SVC		// SVC Mode  **** uT-Kernel typically use SVC mode ****
 	ldr	sp, =__tmp_stack_start
 
 	/* CPG settings */
@@ -207,16 +207,11 @@ Csym(L1CacheInit):
 	bx	lr
 
 /* ---------------------------------------------------------------------------------
- *	 STACK AREA 
+ *	Temporary Stack Area 
  */
-    .section    .tmp_stack_section, "aw", %nobits
-    .global   __tmp_stack
+	.section	.tmp_stack_section, "aw", %nobits
+	.global	__tmp_stack
 __tmp_stack:
-    .space    TMP_STACK_SIZE
-
-    .section    .irq_stack_section, "aw", %nobits
-    .global   __irq_stack
-__irq_stack:
-    .space    EXC_STACK_SIZE
+	.space	TMP_STACK_SIZE
 
 #endif	/* CPU_CORE_ARMV7A */

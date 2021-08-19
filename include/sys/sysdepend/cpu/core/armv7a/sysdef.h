@@ -207,5 +207,13 @@
 #define DEFAULT_SYS_STKSZ	MIN_SYS_STACK_SIZE
 
 /* ------------------------------------------------------------------------ */
+/* 
+ *	Exception Stack Size
+ */
+#define	FIQ_STACK_SIZE	(256)	/* FIQ exception stack size */
+#define	UND_STACK_SIZE	(256)	/* Undefined instruction exception stack size */
+#define	ABT_STACK_SIZE	(256)	/* Abort exception stack size */
+
+/* ------------------------------------------------------------------------ */
 
 #endif /* __SYS_SYSDEF_DEPEND_CORE_H__ */

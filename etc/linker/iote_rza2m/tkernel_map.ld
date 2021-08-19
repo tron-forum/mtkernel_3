@@ -78,9 +78,6 @@ SECTIONS
 		* (.abt_stack_section)
 		__abt_stack_start = .;
 
-		__svc_stack_end = .;
-		* (.svc_stack_section)
-		__svc_stack_start = .;
 		_HeapStart = .;					/* start of heap area */
 	} > CACHED_RAM
 	_HeapEnd = ORIGIN(CACHED_RAM) + LENGTH(CACHED_RAM);	/* end of heap area */
