@@ -220,8 +220,8 @@
 /* ------------------------------------------------------------------------ */
 /* 
  *	FPU control during interrupt handler execution
- *		0: do nothing    1: FPU prohibited
+ *		0: do nothing    1: Disable FPU
  */
-#define	INTHDR_DIS_FPU	0
+#define	INTHDR_DIS_FPU	1
 
 #endif /* __SYS_SYSDEF_DEPEND_CORE_H__ */

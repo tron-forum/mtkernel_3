@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.05.B0
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -14,6 +14,9 @@
 #include <sys/machine.h>
 #ifdef CPU_RZA2M
 
+#include <tk/tkernel.h>
+#include <tm/tmonitor.h>
+#include "../../ser.h"
 #include "../../../include/dev_def.h"
 #if DEV_SER_ENABLE
 
@@ -22,9 +25,6 @@
  *	Serial communication device driver
  *	System dependent processing for RZ/A2M
  */
-#include <tk/tkernel.h>
-#include <tm/tmonitor.h>
-#include "../../ser.h"
 
 /*----------------------------------------------------------------------
  * Device register base address

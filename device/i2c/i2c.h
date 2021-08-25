@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
@@ -38,6 +38,10 @@
 #ifdef CPU_RX231
 #include "sysdepend/rx231/i2c_rx231.h"
 #endif	/* CPU_RX231 */
+
+#ifdef CPU_RZA2M
+#include "sysdepend/rza2m/i2c_rza2m.h"
+#endif	/* CPU_RZA2M */
 
 /*---------------------------------------------------------------------*/
 /* Device driver Control block

@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/05/17.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
@@ -23,16 +23,22 @@
 
 #if USE_SDEV_DRV		/* Use Sample device driver */
 
-#if DEVCNF_USE_SER		/* Use Serial communication device */
+#if DEVCNF_USE_SER & DEV_SER_UNITNM	/* Use Serial communication device */
 #define DEV_SER_ENABLE		1
+#else
+#define DEV_SER_ENABLE		0
 #endif	/* DEVCNF_USE_SER */
 
-#if DEVCNF_USE_ADC		/* Use A/D conversion device */
+#if DEVCNF_USE_ADC & DEV_ADC_UNITNM	/* Use A/D conversion device */
 #define DEV_ADC_ENABLE		1
+#else
+#define DEV_ADC_ENABLE		0
 #endif	/* DEVCNF_USE_ADC */
 
-#if DEVCNF_USE_IIC		/* Use I2C communication device */
+#if DEVCNF_USE_IIC & DEV_I2C_UNITNM	/* Use I2C communication device */
 #define DEV_IIC_ENABLE		1
+#else
+#define DEV_IIC_ENABLE		0
 #endif	/* DEVCNF_USE_IIC */
 
 #else				/* Do not use sample device driver */

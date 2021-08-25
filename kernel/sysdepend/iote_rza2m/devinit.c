@@ -44,8 +44,16 @@ EXPORT ER knl_init_device( void )
  */
 EXPORT ER knl_start_device( void )
 {
-#if USE_SDEV_DRV
+	ER	err;
 	
+#if USE_SDEV_DRV
+
+	/* Serial ch.4 "sere" */
+	#if DEVCNF_USE_SER
+		err = dev_init_ser(4);
+		if(err < E_OK) return err;
+	#endif
+
 #endif
 	return E_OK;
 }

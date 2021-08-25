@@ -6,23 +6,22 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/05/17.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
-
 #include <sys/machine.h>
-#include "../include/dev_def.h"
-#if DEV_IIC_ENABLE
-/*
- *	i2c.c
- *	I2C device driver
-*/
-
 #include <tk/tkernel.h>
 #include <tstdlib.h>
 
 #include "i2c.h"
+#include "../include/dev_def.h"
+#if DEV_IIC_ENABLE
+
+/*
+ *	i2c.c
+ *	I2C device driver
+*/
 
 /*---------------------------------------------------------------------*/
 /*I2C Device driver Control block

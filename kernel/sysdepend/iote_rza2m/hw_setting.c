@@ -34,13 +34,8 @@ typedef struct {
 
 /* Setting the clock supply to each module */
 LOCAL const T_SETUP_REG stbcr_tbl[] = {
-#if !USE_SDEV_DRV
 	{CPG_STBCR3 , 0b10001101},	/* [1], OSTM0, OSTM1, OSTM2, MTU3, CAN-FD, [0], GPT */
 	{CPG_STBCR4 , 0b11110111},	/* SCIF0, SCIF1, SCIF2, SCIF3, SCIF4, SCI0, SCI1,IrDA */
-#else
-	{CPG_STBCR3 , 0b10001101},	/* [1], OSTM0, OSTM1, OSTM2, MTU3, CAN-FD, [0], GPT */
-	{CPG_STBCR4 , 0b11110111},	/* SCIF0, SCIF1, SCIF2, SCIF3, SCIF4, SCI0, SCI1,IrDA */
-#endif
 /* When all devices are enabled */
 //	{CPG_STBCR2 , 0x6A},	/* Port level is keep in standby mode, [1], [1], [0], [1], [0], [1], CoreSight */
 //	{CPG_STBCR3 , 0x80},	/* [1], OSTM0, OSTM1, OSTM3, MTU3, CAN-FD, [0], GPT */
@@ -52,32 +47,24 @@ LOCAL const T_SETUP_REG stbcr_tbl[] = {
 //	{CPG_STBCR9 , 0x11},	/* RSPI0, RSPI1, RSPI2, [1], HYPER, OCTA, SPDIF, DRP */
 //	{CPG_STBCR10, 0x00},	/* TSIP, [0], [0], NAND, SDHI00, SDHI01, SDHI10, SDHI11 */
 //	{CPG_STBCR11, 0x3F},	/* POE3, POEG, [1], [1], [1], [1], [1] , [1] */
+
 	{0, 0}
 };
 
 /* Pin mode Tadle */
 LOCAL const T_SETUP_REG pmode_tbl[] = {
-#if !USE_SDEV_DRV
 	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
 	{PORT9_PMR, 0b00000011},
-#else
-	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
-	{PORT9_PMR, 0b00000011},
-#endif
+
 	{0, 0}
 };
 
 /* Pin function Tadle */
 LOCAL const T_SETUP_REG pfunc_tbl[] = {
-#if !USE_SDEV_DRV
 	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
 	{PORT9n_PFS(0), 0x04},
 	{PORT9n_PFS(1), 0x04},
-#else
-	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
-	{PORT9n_PFS(0), 0x04},
-	{PORT9n_PFS(1), 0x04},
-#endif
+
 	{0, 0}
 };
 

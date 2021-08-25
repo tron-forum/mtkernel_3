@@ -1,28 +1,26 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.04
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/05/17.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
-
 #include <sys/machine.h>
+#include <tk/tkernel.h>
+#include <tstdlib.h>
+
+#include "ser.h"
 #include "../include/dev_def.h"
 #if DEV_SER_ENABLE
 /*
  *	ser.c
  *	Serial communication driver
 */
-
-#include <tk/tkernel.h>
-#include <tstdlib.h>
-
-#include "ser.h"
 
 /*----------------------------------------------------------------------*/
 /* Serial Device driver Control block

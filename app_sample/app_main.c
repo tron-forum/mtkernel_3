@@ -1,202 +1,157 @@
 #include <tk/tkernel.h>
 #include <tm/tmonitor.h>
 
-#include <tk/tkernel.h>
-#include <tm/tmonitor.h>
+#include "../device/include/dev_ser.h"
+#include "../device/ser/ser_cnf.h"
 
-#include <tk/device.h>
+#define SER_MAX_UNIT	2
 
-#define ADC_MAX_UNIT	1
-#define ADC_MAX_CH	8
+typedef struct {
+	UINT	no;
+	UW	data;
+} T_ATR_DATA;
 
-LOCAL void read_ad(ID dd, UINT chno)
+T_ATR_DATA iatr_tbl[] = {
+	{TDN_EVENT, 0},
+	{TDN_SER_MODE, DEVCNF_SER_MODE},
+	{TDN_SER_SPEED, DEVCNF_SER_SPEED},
+	{TDN_SER_SNDTMO, DEVCNF_SER_SND_TMO},
+	{TDN_SER_RCVTMO, DEVCNF_SER_RCV_TMO},
+	{0,0}
+};
+
+T_ATR_DATA rwatr_tbl[] = {
+	{TDN_EVENT, 1},
+	{TDN_SER_MODE, DEV_SER_MODE_7BIT | DEV_SER_MODE_2STOP | DEV_SER_MODE_PEVEN},
+	{TDN_SER_SPEED, 9600},
+	{TDN_SER_SNDTMO, 5000},
+	{TDN_SER_RCVTMO, 5000},
+	{0,0}	
+};
+
+LOCAL void read_atr(ID dd, T_ATR_DATA *p_tbl)
 {
 	UW	data;
 	SZ	asize;
 	ER	err;
 
-	for(INT i = 0; i < 10; i++) {
-		err = tk_srea_dev(dd, chno, &data, 1, &asize);
-		if(err >= E_OK && asize == 1) {
-			tm_printf((UB*)"ADC-%d %x\n", chno, data); 
-		} else {
-			tm_printf((UB*)"!!ERR Read-%d ercd %d  asize %d\n", chno, err, asize);
+	while(p_tbl->no != 0) {
+		err = tk_srea_dev(dd, p_tbl->no, &data, sizeof(data), &asize);
+		if(err < E_OK || asize != sizeof(UW) || data != p_tbl->data) {
+			tm_printf((UB*)"!!ERR Read Atr no %d  ercd %d  asize %d  data %d\n", p_tbl->no, err, asize, data);
 			return;
 		}
-		tk_dly_tsk(500);
+		p_tbl++;
 	}
+	tm_printf((UB*)"ATR Read Test OK\n");
 }
 
-LOCAL void read_atr(ID dd)
+LOCAL void write_atr(D dd, T_ATR_DATA *p_tbl)
 {
 	UW	data;
 	SZ	asize;
 	ER	err;
 
-	err = tk_srea_dev(dd, TDN_EVENT, &data, sizeof(data), &asize);
-	if(err >= E_OK && asize == sizeof(UW)) {
-		tm_printf((UB*)"Read Atr %x\n", data); 
-	} else {
-		tm_printf((UB*)"!!ERR Read Atr ercd %d  asize %d\n", err, asize);
-		return;
+	while(p_tbl->no != 0) {
+		data = p_tbl->data;
+		err = tk_swri_dev(dd, p_tbl->no, &data, sizeof(UW), &asize);
+		if(err < E_OK || asize != sizeof(UW)) {
+			tm_printf((UB*)"!!ERR Write Atr no %d  ercd %d  asize %d\n", p_tbl->no, err, asize);
+			return;
+		}
+		p_tbl++;
 	}
-
-	err = tk_srea_dev(dd, TDN_EVENT-1, &data, sizeof(data), &asize);
-	if(err != E_PAR ) {
-		tm_printf((UB*)"!!ERR Read Atr range err1 %d\n", err);
-		return;
-	}
-
-	err = tk_srea_dev(dd, TDN_EVENT, &data, sizeof(data)-1, &asize);
-	if(err != E_PAR ) {
-		tm_printf((UB*)"!!ERR Read Atr range err2 %d\n", err);
-		return;
-	}
+	tm_printf((UB*)"ATR Write test OK\n");
 }
 
-LOCAL void write_atr(ID dd)
+const char str1[] = "0123456789 0123456789 0123456789 0123456789 0123456789\n\r";
+const char str2[] = "abcdefg hijklmn opqrstu vwxyz\n\r";
+
+LOCAL void com_test(ID dd)
 {
-	UW	data;
 	SZ	asize;
+	UB	data;
 	ER	err;
 
-	data = 0xA5A50F0F;
-	err = tk_swri_dev(dd, TDN_EVENT, &data, sizeof(data), &asize);
-	if(err >= E_OK && asize == sizeof(UW)) {
-		tm_printf((UB*)"Write Atr %x\n", data); 
-	} else {
-		tm_printf((UB*)"!!ERR Write Atr ercd %d  asize %d\n", err, asize);
-		return;
+	tk_swri_dev(dd, 0, str1, sizeof(str1), &asize);
+	for(INT i = 0; i < sizeof(str2)-1; i++) {
+		tk_swri_dev(dd, 0, &str2[i], 1, &asize);
+	}
+	tk_dly_tsk(100);
+
+	while(1) {
+		err = tk_srea_dev(dd, 0, &data, sizeof(data), &asize);
+		if(err < E_OK || asize != sizeof(data)) {
+			tm_printf((UB*)"##ERR send char err %d asize %d\n", err, asize);
+			break;
+		}
+		err = tk_swri_dev(dd, 0, &data, sizeof(data), &asize);
+		if(err < E_OK || asize != sizeof(data)) {
+			tm_printf((UB*)"##ERR send char err %d asize %d\n", err, asize);
+			break;
+		}
+
+		if(data == '\r') break;
 	}
 
-	err = tk_swri_dev(dd, TDN_EVENT-1, &data, sizeof(data), &asize);
-	if(err != E_PAR ) {
-		tm_printf((UB*)"!!ERR Write Atr range err1 %d\n", err);
-		return;
-	}
-
-	err = tk_swri_dev(dd, TDN_EVENT, &data, sizeof(data)-1, &asize);
-	if(err != E_PAR ) {
-		tm_printf((UB*)"!!ERR Write Atr range err2 %d\n", err);
-		return;
-	}
 }
 
-
-EXPORT ER test_adc(void)
+EXPORT ER test_ser(UINT	unitno)
 {
-	UINT	unitno;
-	UINT	chno;
+	
 	ID	dd;
 	ER	err;
 
-	UB	devnm[] = "adc ";
+	UB	devnm[] = "ser ";
 
-	for(unitno = 0; unitno < ADC_MAX_UNIT; unitno++) {
-		tm_printf((UB*)"==== ADC Unit %d TEST\n", unitno);
-		
-		err = dev_init_adc(unitno);
+	tm_printf((UB*)"==== SER Unit %d TEST\n", unitno);
+	
+	if(unitno != 4) {
+		err = dev_init_ser(unitno);
 		if(err < E_OK) {
 			tm_printf((UB*)"!!ERR Init-%d err %d\n", unitno, err);
 			return err;
 		}
-
-		devnm[3] = 'a'+unitno;
-		err = tk_opn_dev(devnm, TD_UPDATE);
-		if(err < E_OK) {
-			tm_printf((UB*)"!!ERR Open-%d err %d\n", unitno, err);
-			return err;
-		}
-		dd = (ID)err;
-
-		for(chno = 0; chno <= ADC_MAX_CH; chno++) {
-			tm_printf((UB*)"======= ADC_Ch %d\n", chno);
-			if(chno < 3) {
-				read_ad(dd, chno);
-			}
-		}
-
-		read_atr(dd);
-		write_atr(dd);
-		read_atr(dd);
-
-		err = tk_cls_dev(dd, 0);
-		if(err < E_OK) {
-			tm_printf((UB*)"!!ERR Close-%d err %d\n", unitno, err);
-			return err;
-		}
-		tm_printf((UB*)"==== Unit %d End\n", unitno);
 	}
+
+	devnm[3] = 'a'+unitno;
+	err = tk_opn_dev(devnm, TD_UPDATE);
+	if(err < E_OK) {
+		tm_printf((UB*)"!!ERR Open-%d err %d\n", unitno, err);
+		return err;
+	}
+	dd = (ID)err;
+
+	read_atr(dd, iatr_tbl);
+	write_atr(dd, rwatr_tbl);
+	read_atr(dd, rwatr_tbl);
+
+	err = tk_cls_dev(dd, 0);
+	if(err < E_OK) {
+		tm_printf((UB*)"!!ERR Close-%d err %d\n", unitno, err);
+		return err;
+	}
+	tm_printf((UB*)"==== Unit %d End\n", unitno);
+
+	tm_printf((UB*)"==== SER Unit %d TEST\n", unitno);
+	
+	err = dev_init_ser(unitno);
+	devnm[3] = 'a'+unitno;
+	err = tk_opn_dev(devnm, TD_UPDATE);
+	dd = (ID)err;
+
+	com_test(dd);
+
+	tm_printf((UB*)"==== Unit %d End\n", unitno);
+	err = tk_cls_dev(dd, 0);
 	return err;
-}
-
-ID	tskid1, tskid2;
-
-void task1(INT stacd, void *exinf)
-{
-	D	d1, d2;
-
-	tm_printf((UB*)"Task-1 Start\n");
-	tk_sta_tsk(tskid2,0);
-
-	d1 = d2 = 0;
-
-	while(1) {
-		tk_wup_tsk(tskid2);
-		tk_dly_tsk(500);
-		tm_printf((UB*)"Task-1 Wakeup\n");
-	}
-	tk_ext_tsk();
-}
-
-void task2(INT stacd, void *exinf)
-{
-	D	d1, d2;
-
-	tm_printf((UB*)"Task-2 Start\n");
-
-	d1 = d2 = 0;
-	while(1) {
-		tk_slp_tsk(TMO_FEVR);
-		tm_printf((UB*)"Task-2 Wakeup\n");
-	}
-
-	tk_ext_tsk();
 }
 
 EXPORT INT usermain(void)
 {
-	T_CTSK	ctsk1 = {
-		.tskatr		= TA_HLNG | TA_RNG0 | TA_FPU,
-		.task		= task1,
-		.itskpri	= 6,
-		.stksz		= 1024,
-	};
-
-	T_CTSK	ctsk2 = {
-		.tskatr		= TA_HLNG | TA_RNG0 | TA_COP0,
-		.task		= task2,
-		.itskpri	= 6,
-		.stksz		= 1024,
-	};
-
-	typedef struct {
-		UW	rsv;
-		UW	fpscr;
-		UD	d[32];
-	} _FPUContext;
-
 	ER	err;
 
-	tm_printf((UB*)"%d\n", sizeof(_FPUContext));
-
-	tskid1 = tk_cre_tsk(&ctsk1);
-	tskid2 = tk_cre_tsk(&ctsk2);
-	tm_printf((UB*)"%d %d\n", tskid1, tskid2);
-	err = tk_sta_tsk(tskid1,0);
-	tk_slp_tsk(TMO_FEVR);
-
-//	err = test_adc();
-//	tm_printf((UB*)"test end %d\n", err);
+	err = test_ser(4);
+	tm_printf((UB*)"test end %d\n", err);
 	return 0;
 }
