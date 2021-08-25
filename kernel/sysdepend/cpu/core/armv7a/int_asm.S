@@ -60,7 +60,7 @@ Csym(knl_hll_inthdr):
 	mov	r2, sp				// r2 <- task SP
 	ldr	sp, =__irq_stack_start		// switch to handler stack 
 
-#if USE_FPU
+#if USE_FPU & INTHDR_DIS_FPU
 	fmrx	r1, fpexc			// r1: fpexc
 	bic	ip, r1, #0x40000000		// disable VFP
 	fmxr	fpexc, ip
@@ -94,11 +94,11 @@ Csym(knl_return_inthdr):
 	cmp	r2, #0				// 1st interrupt ?
 	bne	return_inthdr_end		//	no => jump
 
-	// restore fpexc & task SP
 	pop	{r1, r2}
-	mov	sp, r2
-#if USE_FPU
-	fmxr	fpexc, r1
+	mov	sp, r2				// restore task SP
+
+#if USE_FPU & INTHDR_DIS_FPU
+	fmxr	fpexc, r1			// restore fpexc
 #endif /* USE_FPU */
 
 	// Dispatch disabled?

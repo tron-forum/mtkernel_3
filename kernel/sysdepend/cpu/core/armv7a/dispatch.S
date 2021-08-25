@@ -20,12 +20,6 @@
 #define	_in_asm_source_
 #include "offset.h"
 
-#if USE_FPU
-#define TA_FPU	0x00001000		// TA_FPU = TA_COP0 = 0x00001000
-					// tk/syscall.hをincludeするべきだが、アセンブラからインクルードできないのでここで設定
-					// 値を変更したときは要注意
-#endif /* USE_FPU */
-
 /* ------------------------------------------------------------------------ */
 /*
  * Dispatcher

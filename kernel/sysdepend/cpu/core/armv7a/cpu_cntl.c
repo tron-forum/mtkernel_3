@@ -29,14 +29,18 @@ Noinit(EXPORT UB knl_tmp_stack[TMP_STACK_SIZE]);
 /* Task independent status */
 EXPORT	W	knl_taskindp = 0;
 
+#if USE_FPU
+EXPORT TCB	*knl_fpu_ctx;	/* Task in FPU context */
+#endif /* USE_FPU */
+
 /* ------------------------------------------------------------------------ */
 /*
  * Set task register contents (Used in tk_set_reg())
  */
 EXPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T_CREGS *cregs )
 {
-	INT	i;
 	SStackFrame	*ssp;
+	INT	i;
 
 	ssp = tcb->tskctxb.ssp;
 
@@ -60,26 +64,6 @@ EXPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T
 		ssp->pc       = eit->pc;
 		ssp->cpsr = eit->cpsr;
 	}
-
-#if USE_FPU
-	if (tcb->tskatr & TA_FPU) {
-		FPUContext	*fpu = tcb->isstack;
-		if (tcb == knl_fpu_ctx) {
-			/* save FPU context */
-			IMPORT void knl_save_fpuctx( TCB* );
-			knl_save_fpuctx(tcb);
-			knl_fpu_ctx = NULL;
-		}
-		if( regs != NULL ){
-			for ( i = 0; i < 32; i++ ) {
-				fpu->d[i] = regs->d[i];
-			}
-		}
-		if( cregs != NULL ){
-			fpu->fpscr = cregs->fpscr;
-		}
-	}
-#endif	// USE_FPU
 }
 
 /* ------------------------------------------------------------------------ */
@@ -88,8 +72,8 @@ EXPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T
  */
 EXPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 {
-	INT		i;
 	SStackFrame	*ssp;
+	INT		i;
 
 	ssp = tcb->tskctxb.ssp;
 
@@ -113,28 +97,29 @@ EXPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	if ( cregs != NULL ) {
 		cregs->ssp   = tcb->tskctxb.ssp;
 	}
-
-#if	USE_FPU
-	if (tcb->tskatr & TA_FPU) {
-		FPUContext	*fpu = tcb->isstack;
-		if (tcb == knl_fpu_ctx) {
-			/* save FPU context */
-			IMPORT void knl_save_fpuctx( TCB* );
-			knl_save_fpuctx(tcb);
-		}
-		if (regs != NULL) {
-			for (i = 0; i < 32; i++) {
-				regs->d[i] = fpu->d[i];
-			}
-		}
-		if (cregs != NULL){
-			cregs->fpscr = fpu->fpscr;
-		}
-	}
-#endif	// USE_FPU
 }
 
 #if USE_FPU
+
+LOCAL void save_fpuctx(FPUContext *fpu)
+{
+	UW	bk_fpexe, bk_fpscr;
+
+	Asm("fmrx %0, fpexc":"=r"(bk_fpexe));		// bk_fpexe = FPEXC
+	Asm("orr ip, %0, #0x40000000"::"r"(bk_fpexe));	// FPEXC.EN = 1
+	Asm("fmxr fpexc, ip");				// VFP enable
+
+	Asm("mov ip, %0"::"r"(fpu));
+
+	// save VFP context
+	Asm("fmrx %0, fpscr":"=r"(bk_fpscr));		// Floating-Point Status and Control Register
+	Asm("stmia ip!, {r0, %0}"::"r"(bk_fpscr));	// (r0 is padding)
+	Asm("fstmiad ip!, {d0-d15}");
+	Asm("fstmiad ip!, {d16-d31}");
+
+	Asm("fmxr fpexc, %0"::"r"(bk_fpexe));		// restore FPEXC
+}
+
 #ifdef USE_FUNC_TK_SET_CPR
 /* ------------------------------------------------------------------------ */
 /*
@@ -142,20 +127,23 @@ EXPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
  */
 EXPORT ER knl_set_cpr( TCB *tcb, INT copno, CONST T_COPREGS *copregs)
 {
-	SStackFrame_wFPU	*ssp;
-	INT	i;
+	FPUContext	*fpu;
+	INT		i;
+	
+	fpu = tcb->isstack;
+	fpu--;
 
-	ssp = (SStackFrame_wFPU*)(tcb->tskctxb.ssp);
-
-	if(ssp->ufpu & EXPRN_NO_FPU ) {	/* FPU register is not saved */
-		return E_CTX;
+	if (tcb == knl_fpu_ctx) {
+		save_fpuctx(fpu);	/* save FPU context */
+		knl_fpu_ctx = NULL;
 	}
 
-	for ( i = 0; i < 16; ++i ) {
-		ssp->s[i] = copregs->s[i];
-		ssp->s_[i] = copregs->s[i + 16];
+	if( copregs != NULL ){
+		for ( i = 0; i < 32; i++ ) {
+			fpu->d[i] = copregs->d[i];
+		}
+		fpu->fpscr = copregs->fpscr;
 	}
-	ssp->fpscr = copregs->fpscr;
 
 	return E_OK;
 }
@@ -169,20 +157,22 @@ EXPORT ER knl_set_cpr( TCB *tcb, INT copno, CONST T_COPREGS *copregs)
  */
 EXPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs)
 {
-	SStackFrame_wFPU	*ssp;
-	INT	i;
+	FPUContext	*fpu;
+	INT		i;
 
-	ssp = (SStackFrame_wFPU*)(tcb->tskctxb.ssp);
+	fpu = tcb->isstack;
+	fpu--;
 
-	if(ssp->ufpu & EXPRN_NO_FPU ) {	/* FPU register is not saved */
-		return E_CTX;
+	if (tcb == knl_fpu_ctx) {
+		save_fpuctx(fpu);	/* save FPU context */
 	}
 
-	for ( i = 0; i < 16; ++i ) {
-		copregs->s[i] = ssp->s[i];
-		copregs->s[i + 16] = ssp->s_[i];
+	if (copregs != NULL) {
+		for (i = 0; i < 32; i++) {
+			copregs->d[i] = fpu->d[i];
+		}
+		copregs->fpscr = fpu->fpscr;
 	}
-	copregs->fpscr = ssp->fpscr;
 
 	return E_OK;
 }

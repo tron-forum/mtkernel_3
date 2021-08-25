@@ -40,24 +40,12 @@ typedef struct {
 
 #if USE_FPU
 typedef struct {
-	UW	ufpu;		/* FPU usage flag */
-	UW	s_[16];		/* S16-S31 */
+	UW	rsv;
+	UW	fpscr;
+	UD	d[32];
+} FPUContext;
 
-	UW	exp_ret;	/* Exception return */
-	UW	r_[8];		/* R4-R11 */
-
-	// Exception entry stack
-	UW	r[4];		/* R0-R3 */
-	UW	ip;		/* R12 */
-	void	*lr;		/* lr */
-	void	*pc;		/* pc */
-	UW	cpsr;		/* cpsr */
-
-	UW	s[16];		/* S0-S15 */
-	UW	fpscr;		/* fpscr */
-} SStackFrame_wFPU;
-
-#define	EXPRN_NO_FPU		0x00000010	/* FPU usage flag  0:use 1:no use */
+IMPORT TCB	*knl_fpu_ctx;	/* Task in FPU context */
 
 #endif /* USE_FPU */
 
@@ -67,30 +55,26 @@ typedef struct {
  */
 Inline void knl_setup_context( TCB *tcb )
 {
-	UW		pc, cpsr;
 	SStackFrame	*ssp;
 
 	ssp = tcb->isstack;
-	ssp--;
 
 #if USE_FPU
 	if ( (tcb->tskatr & TA_FPU) != 0 ) {
 		/* Initialize FPU context */
-		FPUContext	*fpu = tcb->isstack;
-		fpu->fpscr = FPSCR_INIT;
-		// for (int zz=0; zz < 32; zz++) {
-		// 	fpu->d[zz] = (double)0.0;
-		// }
+		FPUContext *fpu	= tcb->isstack;
+		(--fpu)->fpscr	= FPSCR_INIT;
+		ssp = (SStackFrame*)fpu;
 	}
 #endif /* USE_FPU */
 
-	cpsr = PSR_SVC;			/* CPSR initial value */
-	pc = (UW)tcb->task;		/* task entry address */
+	ssp--;
 
 	/* CPU context initialization */
 	ssp->lr = 0;
-	ssp->cpsr = cpsr;		/* Initial CPSR */
-	ssp->pc = (void *)pc;		/* Task startup address */
+	ssp->cpsr = PSR_SVC;		/* Initial CPSR */
+	ssp->pc = (void *)tcb->task;	/* Task startup address */
+
 	tcb->tskctxb.ssp = ssp;		/* System stack */
 }
 

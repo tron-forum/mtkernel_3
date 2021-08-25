@@ -198,13 +198,16 @@
  *	per task by 'tk_cre_tsk().'
  *  this size must be larger than the size of SStackFrame
  */
-#define MIN_SYS_STACK_SIZE	128
-
+#if USE_FPU
+#define MIN_SYS_STACK_SIZE	(sizeof(SStackFrame)+sizeof(FPUContext)+128)
+#else
+#define MIN_SYS_STACK_SIZE	(sizeof(SStackFrame)+128)
+#endif /* USE_FPU */
 /*
  * Default task system stack 
  */
 
-#define DEFAULT_SYS_STKSZ	MIN_SYS_STACK_SIZE
+#define DEFAULT_SYS_STKSZ	(MIN_SYS_STACK_SIZE)
 
 /* ------------------------------------------------------------------------ */
 /* 
@@ -215,5 +218,10 @@
 #define	ABT_STACK_SIZE	(256)	/* Abort exception stack size */
 
 /* ------------------------------------------------------------------------ */
+/* 
+ *	FPU control during interrupt handler execution
+ *		0: do nothing    1: FPU prohibited
+ */
+#define	INTHDR_DIS_FPU	0
 
 #endif /* __SYS_SYSDEF_DEPEND_CORE_H__ */

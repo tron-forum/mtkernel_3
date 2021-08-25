@@ -112,9 +112,8 @@ fpu_init:
 	bic	r0, r0, #(3 << 30)	// clear ASEDIS/D32DIS bit    (SIMD extention enable/d16-d31 access enable)
 	mcr	p15, 0, r0, c1, c0, 2	// write CP15 Coprocessor Access Control Register(CPACR)
 	isb				// Instruction  Synchronization  barrier
-	// NEON/VFP Disable
-	mov	r0, #0x00000000		// clear EN bit
-	vmsr	FPEXC, r0		// Write Floating-Point Exception Control register(FPEXC)
+	mov	r0, #0x40000000		// enable  VFP
+	vmsr	fpexc, r0		// Write Floating-Point Exception Control register(FPEXC)
 #endif // USE_FPU
 
 	bl	Csym(reset_main)	// Jump to Reset handler Main routine (reset_main.c)

@@ -60,5 +60,14 @@ typedef struct t_cregs {
 	void	*ssp;		/* System stack pointer R13_svc */
 } T_CREGS;
 
+#if NUM_COPROCESSOR > 0
+/*
+ * Coprocessor registers
+ */
+typedef struct t_copregs {
+	UD	d[32];		/* FPU General purpose register d0-d31 */
+	UW	fpscr;		/* Floating-point Status and Control Register */
+} T_COPREGS;
+#endif  /* NUM_COPROCESSOR  */
 
 #endif /* __TK_CPUDEF_CORE_H__ */

@@ -392,13 +392,17 @@
 /*
  * Coprocessor
  */
-#define CPU_HAS_FPU			0
+#define CPU_HAS_FPU			1
 #define CPU_HAS_DPS			0
 
 /*
  *  Number of coprocessors to use. 
  *    There is no coprocessor for this microcomputer.
  */
+#if USE_FPU
+#define NUM_COPROCESSOR		1
+#else
 #define NUM_COPROCESSOR		0
+#endif
 
 #endif /* __TK_SYSDEF_DEPEND_CPU_H__ */

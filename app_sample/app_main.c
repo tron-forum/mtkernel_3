@@ -129,11 +129,74 @@ EXPORT ER test_adc(void)
 	}
 	return err;
 }
+
+ID	tskid1, tskid2;
+
+void task1(INT stacd, void *exinf)
+{
+	D	d1, d2;
+
+	tm_printf((UB*)"Task-1 Start\n");
+	tk_sta_tsk(tskid2,0);
+
+	d1 = d2 = 0;
+
+	while(1) {
+		tk_wup_tsk(tskid2);
+		tk_dly_tsk(500);
+		tm_printf((UB*)"Task-1 Wakeup\n");
+	}
+	tk_ext_tsk();
+}
+
+void task2(INT stacd, void *exinf)
+{
+	D	d1, d2;
+
+	tm_printf((UB*)"Task-2 Start\n");
+
+	d1 = d2 = 0;
+	while(1) {
+		tk_slp_tsk(TMO_FEVR);
+		tm_printf((UB*)"Task-2 Wakeup\n");
+	}
+
+	tk_ext_tsk();
+}
+
 EXPORT INT usermain(void)
 {
+	T_CTSK	ctsk1 = {
+		.tskatr		= TA_HLNG | TA_RNG0 | TA_FPU,
+		.task		= task1,
+		.itskpri	= 6,
+		.stksz		= 1024,
+	};
+
+	T_CTSK	ctsk2 = {
+		.tskatr		= TA_HLNG | TA_RNG0 | TA_COP0,
+		.task		= task2,
+		.itskpri	= 6,
+		.stksz		= 1024,
+	};
+
+	typedef struct {
+		UW	rsv;
+		UW	fpscr;
+		UD	d[32];
+	} _FPUContext;
+
 	ER	err;
 
-	err = test_adc();
-	tm_printf((UB*)"test end %d\n", err);
+	tm_printf((UB*)"%d\n", sizeof(_FPUContext));
+
+	tskid1 = tk_cre_tsk(&ctsk1);
+	tskid2 = tk_cre_tsk(&ctsk2);
+	tm_printf((UB*)"%d %d\n", tskid1, tskid2);
+	err = tk_sta_tsk(tskid1,0);
+	tk_slp_tsk(TMO_FEVR);
+
+//	err = test_adc();
+//	tm_printf((UB*)"test end %d\n", err);
 	return 0;
 }

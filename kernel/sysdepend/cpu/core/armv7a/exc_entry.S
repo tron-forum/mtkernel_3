@@ -21,6 +21,7 @@
 
 #define	_in_asm_source_
 #include <sys/knldef.h>
+#include "offset.h"
 
 /* GIC Register definition */
 #define GIC_ICC_BASE	0xE8222000
@@ -143,11 +144,11 @@ Csym(svc_entry):
 Csym(fiq_entry):
 	sub	lr, lr, #4		// Return address adjustment
 	ldr	sp, =__fiq_stack_start	// Switch to exception stack
-	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to FIQ stack
 
 	/* Stack image
 	*          +---------------+
-	* SP_svc ->|R0             |
+	* SP_fiq ->|R0             |
 	*          |R1             |
 	*          |R2             |
 	*          |R3             |
@@ -169,11 +170,11 @@ Csym(fiq_entry):
 Csym(undef_entry):
 	sub	lr, lr, #4		// Return address adjustment
 	ldr	sp, =__und_stack_start	// Switch to exception stack
-	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to UDF stack
 
 	/* Stack image
 	*          +---------------+
-	* SP_svc ->|R0             |
+	* SP_udf ->|R0             |
 	*          |R1             |
 	*          |R2             |
 	*          |R3             |
@@ -183,16 +184,70 @@ Csym(undef_entry):
 	*/
 
 #if USE_FPU
+
+#define TA_FPU	0x00001000		// TA_FPU = TA_COP0 = 0x00001000
+
 	mrc	p15, 0, ip, c1, c0, 2	// CPACR
 	tst	ip, #5 << 20		// CP10,11 available ?
-	beq	not_navfp		//  no -> jump	
+	beq	exe_undhdr		//  no -> jump	
 	fmrx	ip, fpexc
 	tst	ip, #0x40000000		// fpexc.en ?
-	bne	not_navfp		//  yes -> jump	
-	ldr	lr, =Csym(VFPInvalid_Handler)
-	bx	lr
+	bne	exe_undhdr		//  no -> jump	
 
-not_navfp:
+	/* After that, processing for FPU instructions */
+	ldr	ip, =Csym(knl_ctxtsk)
+	ldr	r0, [ip]		// r0 = ctxtsk
+	cmp	r0, #0			// if ctxtsk == NULL  -> invalid use of VFP
+	beq	exe_undhdr
+
+	ldr	ip, [r0, #TCB_tskatr]	
+	tst	ip, #TA_FPU		// if no TA_FPU attribute  ->  invalid use of VFP
+	beq	exe_undhdr
+
+	ldr	ip, =Csym(knl_taskindp)
+	ldr	r2, [ip]		// r2 = knl_taskindp
+	cmp	r2, #0			// if knl_taskindp > 0  ->  invalid use of VFP
+	bhi	exe_undhdr
+
+	/* enable VFP */
+	fmrx	ip, fpexc
+	orr	ip, ip, #0x40000000	// FPEXC.EN = 1
+	fmxr	fpexc, ip
+
+	ldr	r2, =Csym(knl_fpu_ctx)	// r2 = &knl_fpu_ctx
+	ldr	r1, [r2]		// r1 = knl_fpu_ctx
+	cmp	r1, r0			// if knl_fpu_ctx == ctxtsk  -> context switching is not required.
+	beq	rtn_undef
+
+	cmp	r1, #0			// if knl_fpu_ctx == NULL  -> context saving is not required.
+	beq	load_fpuctx
+
+	/* save VFP context */
+	fmrx	lr, fpscr		// Floating-Point Status and Control Register
+	ldr	ip, [r1, #TCB_isstack]	// r1 = TCB.isstack
+	sub	ip, ip, #FPU_context	// IP = FPU context
+
+	stmia	ip!, {r0, lr}		// (r0 is padding)
+	fstmiad	ip!, {d0-d15}
+	fstmiad	ip!, {d16-d31}
+
+	/* load VFP context */
+load_fpuctx:
+	ldr	ip, [r0, #TCB_isstack]	// r0 = ctxtsk
+	sub	ip, ip, #FPU_context	// IP = FPU context
+
+	ldmia	ip!, {r1, lr}		// (r1 is padding)
+	fldmiad	ip!, {d0-d15}
+	fldmiad	ip!, {d16-d31}
+	fmxr	fpscr, lr		// Floating-Point Status and Control Register
+
+	str	r0, [r2]		// knl_fpu_ctx = ctxtsk
+
+rtn_undef:
+	ldmfd	sp!, {r0-r3, ip, lr}	// restore registers
+	movs	pc,lr			// return from exception
+
+exe_undhdr:
 #endif /* USE_FPU */
 	ldr	lr, =Csym(UndefinedInst_Handler)
 	bx	lr
@@ -206,11 +261,11 @@ not_navfp:
 Csym(iabort_entry):
 	sub	lr, lr, #4		// Return address adjustment
 	ldr	sp, =__abt_stack_start	// Switch to exception stack
-	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to ABT stack
 
 	/* Stack image
 	*          +---------------+
-	* SP_svc ->|R0             |
+	* SP_abt ->|R0             |
 	*          |R1             |
 	*          |R2             |
 	*          |R3             |
@@ -231,11 +286,11 @@ Csym(iabort_entry):
 Csym(dabort_entry):
 	sub	lr, lr, #4		// Return address adjustment
 	ldr	sp, =__abt_stack_start	// Switch to exception stack
-	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to SVC stack
+	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to ABT stack
 
 	/* Stack image
 	*          +---------------+
-	* SP_svc ->|R0             |
+	* SP_abt ->|R0             |
 	*          |R1             |
 	*          |R2             |
 	*          |R3             |

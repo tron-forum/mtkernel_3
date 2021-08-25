@@ -27,7 +27,14 @@
 #define TCB_tskatr	16
 #define TCB_tskctxb	24
 #define TCB_state	39
+#define	TCB_isstack	100
 
 #define CTXB_ssp	0
+
+
+/*----------------------------------------------------------------------*/
+/*	Stack						*/
+/*----------------------------------------------------------------------*/
+#define	FPU_context	264
 
 #endif /* _OFFSET_ */
