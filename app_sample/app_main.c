@@ -1,157 +1,105 @@
+/*
+ *----------------------------------------------------------------------
+ *    micro T-Kernel 3.00.05.B0
+ *
+ *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
+ *----------------------------------------------------------------------
+ *
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *
+ *----------------------------------------------------------------------
+ */
+
 #include <tk/tkernel.h>
 #include <tm/tmonitor.h>
 
-#include "../device/include/dev_ser.h"
-#include "../device/ser/ser_cnf.h"
+/* ---------------------------------------------------------
+ * Sample User Program
+ * ---------------------------------------------------------
+ * 
+ * Entry routine for the user application.
+ * At this point, Initialize and start the user application.
+ *
+ * Entry routine is called from the initial task for Kernel,
+ * so system call for stopping the task should not be issued 
+ * from the contexts of entry routine.
+ * We recommend that:
+ * (1)'usermain()' only generates the user initial task.
+ * (2)initialize and start the user application by the user
+ * initial task.
+ */
 
-#define SER_MAX_UNIT	2
+#if USE_TMONITOR
+#define TM_PUTSTRING(a)	tm_putstring(a)
 
-typedef struct {
-	UINT	no;
-	UW	data;
-} T_ATR_DATA;
-
-T_ATR_DATA iatr_tbl[] = {
-	{TDN_EVENT, 0},
-	{TDN_SER_MODE, DEVCNF_SER_MODE},
-	{TDN_SER_SPEED, DEVCNF_SER_SPEED},
-	{TDN_SER_SNDTMO, DEVCNF_SER_SND_TMO},
-	{TDN_SER_RCVTMO, DEVCNF_SER_RCV_TMO},
-	{0,0}
-};
-
-T_ATR_DATA rwatr_tbl[] = {
-	{TDN_EVENT, 1},
-	{TDN_SER_MODE, DEV_SER_MODE_7BIT | DEV_SER_MODE_2STOP | DEV_SER_MODE_PEVEN},
-	{TDN_SER_SPEED, 9600},
-	{TDN_SER_SNDTMO, 5000},
-	{TDN_SER_RCVTMO, 5000},
-	{0,0}	
-};
-
-LOCAL void read_atr(ID dd, T_ATR_DATA *p_tbl)
+void print_err( UB* str, ER err)
 {
-	UW	data;
-	SZ	asize;
-	ER	err;
-
-	while(p_tbl->no != 0) {
-		err = tk_srea_dev(dd, p_tbl->no, &data, sizeof(data), &asize);
-		if(err < E_OK || asize != sizeof(UW) || data != p_tbl->data) {
-			tm_printf((UB*)"!!ERR Read Atr no %d  ercd %d  asize %d  data %d\n", p_tbl->no, err, asize, data);
-			return;
-		}
-		p_tbl++;
-	}
-	tm_printf((UB*)"ATR Read Test OK\n");
+	tm_printf(str, err);
 }
 
-LOCAL void write_atr(D dd, T_ATR_DATA *p_tbl)
-{
-	UW	data;
-	SZ	asize;
-	ER	err;
+#else
+#define TM_PUTSTRING(a)
 
-	while(p_tbl->no != 0) {
-		data = p_tbl->data;
-		err = tk_swri_dev(dd, p_tbl->no, &data, sizeof(UW), &asize);
-		if(err < E_OK || asize != sizeof(UW)) {
-			tm_printf((UB*)"!!ERR Write Atr no %d  ercd %d  asize %d\n", p_tbl->no, err, asize);
-			return;
-		}
-		p_tbl++;
-	}
-	tm_printf((UB*)"ATR Write test OK\n");
+void print_err( UB* str, INT par) {}
+
+#endif /* USE_TMONITOR */
+
+/* ----------------------------------------------------------
+ *
+ * User Task-1 Definition
+ *
+ */
+void tsk1(INT stacd, void *exinf)
+{
+	TM_PUTSTRING((UB*)"Start Task-1\n");
+
+	tk_exd_tsk();	/* Exit task */
 }
 
-const char str1[] = "0123456789 0123456789 0123456789 0123456789 0123456789\n\r";
-const char str2[] = "abcdefg hijklmn opqrstu vwxyz\n\r";
-
-LOCAL void com_test(ID dd)
+/* ---------------------------------------------------------
+ *
+ * User Task-2 Definition
+ *
+ */
+void tsk2(INT stacd, void *exinf)
 {
-	SZ	asize;
-	UB	data;
-	ER	err;
+	TM_PUTSTRING((UB*)"Start Task-2\n");
 
-	tk_swri_dev(dd, 0, str1, sizeof(str1), &asize);
-	for(INT i = 0; i < sizeof(str2)-1; i++) {
-		tk_swri_dev(dd, 0, &str2[i], 1, &asize);
-	}
-	tk_dly_tsk(100);
-
-	while(1) {
-		err = tk_srea_dev(dd, 0, &data, sizeof(data), &asize);
-		if(err < E_OK || asize != sizeof(data)) {
-			tm_printf((UB*)"##ERR send char err %d asize %d\n", err, asize);
-			break;
-		}
-		err = tk_swri_dev(dd, 0, &data, sizeof(data), &asize);
-		if(err < E_OK || asize != sizeof(data)) {
-			tm_printf((UB*)"##ERR send char err %d asize %d\n", err, asize);
-			break;
-		}
-
-		if(data == '\r') break;
-	}
-
+	tk_exd_tsk();	/* Exit Task */
 }
 
-EXPORT ER test_ser(UINT	unitno)
+const T_CTSK	ctsk1	= {0, (TA_HLNG | TA_RNG3), &tsk1, 10, 1024, 0};
+const T_CTSK	ctsk2	= {0, (TA_HLNG | TA_RNG3), &tsk2, 11, 1024, 0};
+
+/* ----------------------------------------------------------
+ *
+ * User-Main Definition (Run on initial task)
+ *
+ */
+
+EXPORT INT usermain( void )
 {
-	
-	ID	dd;
-	ER	err;
+	T_RVER	rver;
+	ID	id1, id2;
 
-	UB	devnm[] = "ser ";
+	TM_PUTSTRING((UB*)"Start User-main program.\n");
 
-	tm_printf((UB*)"==== SER Unit %d TEST\n", unitno);
-	
-	if(unitno != 4) {
-		err = dev_init_ser(unitno);
-		if(err < E_OK) {
-			tm_printf((UB*)"!!ERR Init-%d err %d\n", unitno, err);
-			return err;
-		}
-	}
+	tk_ref_ver(&rver);		/* Get the OS Version. */
 
-	devnm[3] = 'a'+unitno;
-	err = tk_opn_dev(devnm, TD_UPDATE);
-	if(err < E_OK) {
-		tm_printf((UB*)"!!ERR Open-%d err %d\n", unitno, err);
-		return err;
-	}
-	dd = (ID)err;
+#if USE_TMONITOR
+	tm_printf((UB*)"Make Code: %04x  Product ID: %04x\n", rver.maker, rver.prid);
+	tm_printf((UB*)"Product Ver. %04x\nProduct Num. %04x %04x %04x %04x\n", 
+			rver.prver, rver.prno[0],rver.prno[1],rver.prno[2],rver.prno[3]);
+#endif
 
-	read_atr(dd, iatr_tbl);
-	write_atr(dd, rwatr_tbl);
-	read_atr(dd, rwatr_tbl);
+	id1 = tk_cre_tsk(&ctsk1);
+	tk_sta_tsk(id1, 0);
 
-	err = tk_cls_dev(dd, 0);
-	if(err < E_OK) {
-		tm_printf((UB*)"!!ERR Close-%d err %d\n", unitno, err);
-		return err;
-	}
-	tm_printf((UB*)"==== Unit %d End\n", unitno);
+	id2 = tk_cre_tsk(&ctsk2);
+	tk_sta_tsk(id2, 0);
 
-	tm_printf((UB*)"==== SER Unit %d TEST\n", unitno);
-	
-	err = dev_init_ser(unitno);
-	devnm[3] = 'a'+unitno;
-	err = tk_opn_dev(devnm, TD_UPDATE);
-	dd = (ID)err;
+	tk_slp_tsk(TMO_FEVR);
 
-	com_test(dd);
-
-	tm_printf((UB*)"==== Unit %d End\n", unitno);
-	err = tk_cls_dev(dd, 0);
-	return err;
-}
-
-EXPORT INT usermain(void)
-{
-	ER	err;
-
-	err = test_ser(4);
-	tm_printf((UB*)"test end %d\n", err);
 	return 0;
 }
