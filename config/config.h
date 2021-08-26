@@ -72,8 +72,8 @@
 /* Backwards compatible api support 
  *      micro T-Kernel2.0 API support (Rendezvous)
  */
-#define USE_LEGACY_API		(1)	/* 1: Valid  0: Invalid */
-#define CNF_MAX_PORID		(5)	/* Maximum number of Rendezvous */
+#define USE_LEGACY_API		(0)	/* 1: Valid  0: Invalid */
+#define CNF_MAX_PORID		(0)	/* Maximum number of Rendezvous */
 
 
 /*---------------------------------------------------------------------- */
@@ -121,8 +121,8 @@
 /* Debugger support function
  *   1: Valid  0: Invalid
  */
-#define USE_DBGSPT		(1)	/* Use mT-Kernel/DS */
-#define USE_OBJECT_NAME		(1)	/* Use DS object name */
+#define USE_DBGSPT		(0)	/* Use mT-Kernel/DS */
+#define USE_OBJECT_NAME		(0)	/* Use DS object name */
 
 #define OBJECT_NAME_LENGTH	(8)	/* DS Object name length */
 

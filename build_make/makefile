@@ -1,5 +1,5 @@
 ################################################################################
-# micro T-Kernel 3.00.03  makefile
+# micro T-Kernel 3.00.05  makefile
 ################################################################################
 
 # Specify the name of the executable file to be built (Do not include the extension)
@@ -9,7 +9,7 @@ EXE_FILE := mtkernel_3
 #TARGET := _IOTE_M367_
 #TARGET := _IOTE_RX231_
 #TARGET := _IOTE_STM32L4_
-TARGET := _IOTE_RZA2M_
+#TARGET := _IOTE_RZA2M_
 
 RM := rm -rf
 
