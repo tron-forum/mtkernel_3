@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05.B0
+ *    micro T-Kernel 3.00.05
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/11.
  *
  *----------------------------------------------------------------------
  */
@@ -15,7 +15,7 @@
 #ifdef CPU_CORE_ARMV7A
 
 /*
- *	wusec_aremv7a.c
+ *	wusec_armv7a.c
  *
  *	Micro Wait: Busy loop wait time in micro-sec (ARMv7-A Core)
  */
@@ -69,4 +69,4 @@ EXPORT void WaitNsec( UW nsec )
 	wait_us(nsec / 1000 + 1);
 }
 
-#endif /* CPU_CORE_ARMV7M */
+#endif /* CPU_CORE_ARMV7A */
