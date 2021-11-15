@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.05
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/11.
  *
  *----------------------------------------------------------------------
  */
@@ -26,7 +26,7 @@
  * BIGENDIAN		1 if big endian 
  */
 
-/* ----- ARM Cortex-M4 definition ----- */
+/* ----- ARMv7-M definition ----- */
 
 #define ALLOW_MISALIGN		0
 #define INT_BITWIDTH		32

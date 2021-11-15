@@ -1,5 +1,5 @@
 ################################################################################
-# micro T-Kernel 3.00.03  makefile
+# micro T-Kernel 3.00.05  makefile
 ################################################################################
 
 GCC := arm-none-eabi-gcc
@@ -25,6 +25,7 @@ LFLAGS := -mcpu=cortex-m4 -mthumb -ffreestanding \
 LNKFILE := "../etc/linker/iote_stm32l4/tkernel_map.ld"
 
 include mtkernel_3/lib/libtm/sysdepend/iote_stm32l4/subdir.mk
+include mtkernel_3/lib/libtm/sysdepend/no_device/subdir.mk
 include mtkernel_3/lib/libtk/sysdepend/cpu/stm32l4/subdir.mk
 include mtkernel_3/lib/libtk/sysdepend/cpu/core/armv7m/subdir.mk
 include mtkernel_3/kernel/sysdepend/iote_stm32l4/subdir.mk

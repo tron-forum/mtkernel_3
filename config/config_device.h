@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.04
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.00.05
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/05/17.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/11.
  *
  *----------------------------------------------------------------------
  */

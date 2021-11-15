@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.04
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/05/17.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
@@ -14,6 +14,8 @@
 #include <sys/machine.h>
 #ifdef CPU_TMPM367FDFG
 
+#include <tk/tkernel.h>
+#include "../../i2c.h"
 #include "../../../include/dev_def.h"
 #if DEV_IIC_ENABLE
 /*
@@ -21,8 +23,6 @@
   *	I2C device driver
  *	System-dependent definition for TX03_M367
  */
-#include <tk/tkernel.h>
-#include "../../i2c.h"
 
 /*----------------------------------------------------------------------
  * Device register base address

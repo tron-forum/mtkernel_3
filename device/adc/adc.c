@@ -6,24 +6,22 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/05/17.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/08.
  *
  *----------------------------------------------------------------------
  */
-
 #include <sys/machine.h>
-#include "../include/dev_def.h"
+#include <tk/tkernel.h>
+#include <tstdlib.h>
 
+#include "adc.h"
+#include "../include/dev_def.h"
 #if DEV_ADC_ENABLE
 /*
  *	adc.c
  *	A/D converter device driver 
 */
 
-#include <tk/tkernel.h>
-#include <tstdlib.h>
-
-#include "adc.h"
 
 /*----------------------------------------------------------------------*/
 /* Device driver Control block

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.04
+ *    micro T-Kernel 3.00.05
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/05/17.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/11.
  *
  *----------------------------------------------------------------------
  */
@@ -135,7 +135,7 @@ EXPORT void SetIntMode(UINT intno, UINT mode)
 		e++;
 	}
 
-	cgimcg = (_UW*)(CLKCTRL_CGIMCG + (n >> 2));
+	cgimcg = (_UW*)(CLKCTRL_CGIMCG) + (n >> 2);
 	k = (intno & 3) <<3;
 
 	DI(s);

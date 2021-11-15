@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.05
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/11.
  *
  *----------------------------------------------------------------------
  */
@@ -40,6 +40,13 @@
 #include "sysdepend/iote_rx231/machine.h"
 
 #define Csym(sym) _##sym
+
+#endif
+
+#ifdef _IOTE_RZA2M_
+#include "sysdepend/iote_rza2m/machine.h"
+
+#define Csym(sym) sym
 
 #endif
 

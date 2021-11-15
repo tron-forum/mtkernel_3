@@ -28,13 +28,13 @@ SYSCALL ER tk_ref_sys( T_RSYS *pk_rsys )
 {
 	BOOL	b_qtsk;
 
-	BEGIN_DISABLE_INTERRUPT;
-	b_qtsk = in_qtsk();	
-	END_DISABLE_INTERRUPT;
-
 	if ( in_indp() ) {
 		pk_rsys->sysstat = TSS_INDP;
 	} else {
+		BEGIN_DISABLE_INTERRUPT;
+		b_qtsk = in_qtsk();	
+		END_DISABLE_INTERRUPT;
+		
 		if ( b_qtsk ) {
 			pk_rsys->sysstat = TSS_QTSK;
 		} else {
@@ -89,13 +89,13 @@ SYSCALL ER td_ref_sys( TD_RSYS *pk_rsys )
 {
 	BOOL	b_qtsk;
 
-	BEGIN_DISABLE_INTERRUPT;
-	b_qtsk = in_qtsk();	
-	END_DISABLE_INTERRUPT;
-
 	if ( in_indp() ) {
 		pk_rsys->sysstat = TSS_INDP;
 	} else {
+		BEGIN_DISABLE_INTERRUPT;
+		b_qtsk = in_qtsk();	
+		END_DISABLE_INTERRUPT;
+		
 		if ( b_qtsk ) {
 			pk_rsys->sysstat = TSS_QTSK;
 		} else {

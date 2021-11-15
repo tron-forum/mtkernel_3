@@ -62,7 +62,7 @@ LOCAL const T_SETUP_REG pinfnc_tbl[] = {
 	{GPIO_OTYPER(D),	0x00000000},
 	{GPIO_OSPEEDR(D),	0x00001400},
 	{GPIO_PUPDR(D),		0x00001400},
-	{GPIO_AFRL(D),		0x00000000},
+	{GPIO_AFRH(D),		0x00000000},
 	{GPIO_AFRL(D),		0x07700000},
 
 #else			// Use the device sample driver
