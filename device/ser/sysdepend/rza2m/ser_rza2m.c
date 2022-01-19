@@ -188,7 +188,7 @@ typedef	struct {
 	UW	val;	// set value
 } T_BPS_VAL;
 
-const LOCAL T_BPS_VAL	bps_tbl[] = {
+LOCAL const T_BPS_VAL	bps_tbl[] = {
 	/* Val : brr<<16 | cks << 8 | abcs */
 	/* P1 clock=66.67MHz */
 	{ 500000,	(  3<<16) + (0<<8) + 0 },
@@ -211,7 +211,7 @@ const LOCAL T_BPS_VAL	bps_tbl[] = {
 
 LOCAL UW calc_brr(UW baud)
 {
-	T_BPS_VAL	*p_tbl;
+	const T_BPS_VAL		*p_tbl;
 
 	for(p_tbl = bps_tbl; p_tbl->baud != 0; p_tbl++) {
 		if(p_tbl->baud == baud) break;

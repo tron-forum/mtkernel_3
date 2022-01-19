@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05.B0
+ *    micro T-Kernel 3.00.05
  *
  *    Copyright (C) 2006-2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2021/11.
  *
  *----------------------------------------------------------------------
  */
@@ -15,7 +15,7 @@
 #ifdef CPU_CORE_ARMV7A
 
 /*
- *	exc_entry.S  (ARMv7-MA)
+ *	exc_entry.S  (ARMv7-A)
  *	Exception entry routine
  */
 
