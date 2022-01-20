@@ -80,7 +80,7 @@ LOCAL ER msdi_execfn( T_DEVREQ *req, TMO tmout, T_MSDI *msdi )
 	if ( req->start >= 0 && msdi->dmsdi.blksz <= 0) return E_NOSPT;
 
 	/* I/O processing */
-	Unlock(&msdi->lock);
+	Lock(&msdi->lock);
 	err = (*fp)(req, msdi);
 	Unlock(&msdi->lock);
 
