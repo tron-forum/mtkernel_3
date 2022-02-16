@@ -1,35 +1,33 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2021 by Ken Sakamura.
+ *    Copyright (C) 2021-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	adc_cnf_stm32l4.h 
+ *	adc_cnf_sysdep.h 
  *	A/D converter device driver configuration file
- *		for TX03_M367 (STM32L4)
+ *		for STM32L4
  */
 #ifndef	__DEV_ADC_CNF_STM32L4_H__
 #define	__DEV_ADC_CNF_STM32L4_H__
 
-/* Device initialization */
-#define DEVCONF_ADC_INIT_MCLK	TRUE		// Initialize module clock
-
-/* ADC Clock (RCC) */
-#define	DEVCNF_ADCSEL		1		// ADC clock source
+/* Device clock initialization */
+#define DEVCONF_ADC_INIT_MCLK	TRUE	// Initialize module clock
+#define	DEVCNF_ADCSEL		1	// ADC clock source   1:PLLADC1CLK  2:PLLADC2CLK  3:SYSCLK
 
 /* Device control data */
 /* Common */
-#define	DEVCNF_ADC_CKMODE	0		// ADC clock mode
-#define	DEVCNF_ADC_PRESC	0		// ADC prescaler
+#define	DEVCNF_ADC_CKMODE	0	// ADC clock mode  0:Asynchronous clock mode
+#define	DEVCNF_ADC_PRESC	10	// ADC prescaler  0 ~ 11
 
 /* ADC1 */
 #define	DEVCONF_ADC1_SMPR1	0x00000000	// Sampling time (ADC_SMPR1 initial value)

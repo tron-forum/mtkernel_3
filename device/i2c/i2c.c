@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -246,7 +246,7 @@ ER dev_i2c_eventfn( INT evttyp, void *evtinf, T_MSDI *msdi)
 }
 
 /*----------------------------------------------------------------------
- * Serial communication Device initialization and registration
+ * Device driver initialization and registration
  */
 EXPORT ER dev_init_i2c( UW unit )
 {
@@ -302,6 +302,41 @@ err_1:
 	msdi_del_dev(p_msdi);
 err_2:
 	Kfree(p_dcb);
+	return err;
+}
+
+/*----------------------------------------------------------------------
+ * I2C register access support function
+ */
+
+EXPORT ER i2c_read_reg(ID dd, UW sadr, UW radr, UB *data)
+{
+	T_I2C_EXEC	exec;
+	SZ		asz;
+	ER		err;
+
+	exec.sadr	= sadr;
+	exec.snd_size	= 1;
+	exec.snd_data	= (UB*)&radr;
+	exec.rcv_size	= 1;
+	exec.rcv_data	= data;
+
+	err = tk_swri_dev(dd, TDN_I2C_EXEC, &exec, sizeof(T_I2C_EXEC), &asz);
+
+	return err;
+}
+
+EXPORT ER i2c_write_reg(ID dd, UW sadr, UW radr, UB data)
+{
+	UB	snd_data[2];
+	SZ	asz;
+	ER	err;
+
+	snd_data[0] = radr;
+	snd_data[1] = data;
+	
+	err = tk_swri_dev(dd, sadr, snd_data, sizeof(snd_data), &asz);
+
 	return err;
 }
 

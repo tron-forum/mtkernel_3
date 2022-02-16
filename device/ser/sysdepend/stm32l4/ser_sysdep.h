@@ -1,19 +1,19 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2022-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_stm32l4.h
+ *	ser_sysdep.h
  *	Serial communication device driver
  *	System-dependent definition for STM32L4
  */
@@ -21,10 +21,12 @@
 #ifndef	__DEV_SER_STM32L4_H__
 #define	__DEV_SER_STM32L4_H__
 
-#define	DEV_SER_UNITNM	(3)	/* Number of devive channels */
+#define	DEV_SER_UNITNM	(5)	/* Number of devive channels */
 #define DEV_SER_UNIT0	(0)	/* Ch.0 - USART1 */
 #define DEV_SER_UNIT1	(1)	/* Ch.1 - USART2 */
 #define DEV_SER_UNIT2	(2)	/* Ch.2 - USART3 */
+#define DEV_SER_UNIT3	(3)	/* Ch.2 - UART4 */
+#define DEV_SER_UNIT4	(4)	/* Ch.2 - UART5 */
 
 /*
  * USART registers
@@ -34,6 +36,8 @@
 #define	USART1_BASE	(0x40013800UL)
 #define	USART2_BASE	(0x40004400UL)
 #define	USART3_BASE	(0x40004800UL)
+#define	UART4_BASE	(0x40004C00UL)
+#define	UART5_BASE	(0x40005000UL)
 
 /* Register offset */
 #define	USARTx_CR1	(0x0000)	/* Control register 1 */
@@ -125,5 +129,7 @@
 #define	INTNO_USART1		37
 #define	INTNO_USART2		38
 #define	INTNO_USART3		39
+#define	INTNO_UART4		52
+#define	INTNO_UART5		53
 
 #endif		/* __DEV_SER_STM32L4_H__ */

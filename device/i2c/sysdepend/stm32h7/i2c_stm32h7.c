@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2022 by Ken Sakamura.
+ *    Copyright (C) 2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -12,22 +12,22 @@
  */
 
 #include <sys/machine.h>
-#ifdef CPU_STM32L4
+#ifdef CPU_STM32H7
 
 #include <tk/tkernel.h>
 #include "../../i2c.h"
 #include "../../../include/dev_def.h"
 #if DEV_IIC_ENABLE
 /*
- *	i2c_stm32l4.c
+ *	i2c_stm32h7.c
   *	I2C device driver
- *	System-dependent definition for STM32L4
+ *	System-dependent definition for STM32H7
  */
 
 /*----------------------------------------------------------------------
  * Device register base address
 */
-const LOCAL UW ba[DEV_I2C_UNITNM] = { I2C1_BASE, I2C2_BASE, I2C3_BASE };
+const LOCAL UW ba[DEV_I2C_UNITNM] = { I2C1_BASE, I2C2_BASE, I2C3_BASE, I2C4_BASE, I2C5_BASE };
 
 #define	I2C_CR1(u)	(ba[u] + I2Cx_CR1)
 #define	I2C_CR2(u)	(ba[u] + I2Cx_CR2)
@@ -60,6 +60,16 @@ const LOCAL struct {
 		.intno		= INTNO_I2C3_EV,
 		.intpri		= DEVCNF_I2C3_INTPRI,
 		.timout		= DEVCNF_I2C3_TMO,
+	},
+	{	/* I2C4 */
+		.intno		= INTNO_I2C4_EV,
+		.intpri		= DEVCNF_I2C4_INTPRI,
+		.timout		= DEVCNF_I2C4_TMO,
+	},
+	{	/* I2C5 */
+		.intno		= INTNO_I2C5_EV,
+		.intpri		= DEVCNF_I2C5_INTPRI,
+		.timout		= DEVCNF_I2C5_TMO,
 	},
 };
 
@@ -301,14 +311,22 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 
 	unit = p_dcb->unit;
 
-#if DEVCNF_I2C_INIT_MCLK
-	/* Select clock source */
-	out_w(RCC_CCIPR, (in_w(RCC_CCIPR) & ~RCC_CCIPR_I2CxSEL) | DEVCNF_I2CxSEL_INIT );
+#if DEVCONF_I2C_INIT_MCLK
+	if(unit != DEV_I2C_4) {	// I2C 1,2,3,5
+		/* Select clock source */
+		out_w(RCC_D2CCIP2R, (in_w(RCC_D2CCIP2R) & ~RCC_D2CCIP2R_I2C1235SEL) |(DEVCNF_I2CSEL << 12));
+		
+		/* Enable module clock */
+		*(_UW*)RCC_APB1LENR |= (RCC_APB1LENR_I2C1EN<<unit);
+		
+	} else {		// I2C4
+		/* Select clock source */
+		out_w(RCC_D3CCIPR, (in_w(RCC_D3CCIPR) & ~RCC_D3CCIPR_I2C4SEL) |(DEVCNF_I2CSEL << 8));
 
-	/* Enable module clock */
-	*(_UW*)RCC_APB1ENR1 |= (RCC_APB1ENR1_I2C1EN << unit);
+		/* Enable module clock */
+		*(_UW*)RCC_APB4ENR |= RCC_APB4ENR_I2C4EN;
+	}
 #endif
-
 	out_w(I2C_CR1(unit), 0);				// I2C disable
 	out_w(I2C_TIMINGR(unit), I2C_TIMINGR_INIT);		// I2C Initial setting
 
@@ -327,4 +345,4 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 }
 
 #endif		/* DEV_IIC_ENABLE */
-#endif		/* CPU_STM32L4 */
+#endif		/* CPU_STM32H7 */

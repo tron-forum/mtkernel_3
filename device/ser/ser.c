@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -214,11 +214,11 @@ LOCAL ER read_data( T_SER_DCB *p_dcb, T_DEVREQ *req)
 				*pd++ = p_buff->data[tail++];
 				if(tail >= DEVCONF_SER_BUFFSIZE ) tail = 0;
 				p_buff->tail = tail;
-				EnableInt(p_dcb->intno_rcv, DEVCNF_SER_INTPRI);	/* Enable Receive Int. */
+				EnableInt(p_dcb->intno_rcv, p_dcb->int_pri);	/* Enable Receive Int. */
 				rsize--;
 			} else {
 				p_buff->wait_tskid = tk_get_tid();
-				EnableInt(p_dcb->intno_rcv, DEVCNF_SER_INTPRI);	/* Enable Receive Int. */
+				EnableInt(p_dcb->intno_rcv, p_dcb->int_pri);	/* Enable Receive Int. */
 				err = tk_slp_tsk(p_dcb->rcv_tmo);
 				if( err != E_OK) break;
 			}
@@ -268,11 +268,11 @@ LOCAL ER write_data( T_SER_DCB *p_dcb, T_DEVREQ *req)
 					p_buff->data[p_buff->top] = *pd++;
 					p_buff->top = next;
 				}
-				EnableInt(p_dcb->intno_snd, DEVCNF_SER_INTPRI);	/* Enable Send Int. */
+				EnableInt(p_dcb->intno_snd, p_dcb->int_pri);	/* Enable Send Int. */
 				ssize--;
 			} else {
 				p_buff->wait_tskid = tk_get_tid();
-				EnableInt(p_dcb->intno_snd, DEVCNF_SER_INTPRI);	/* Enable Send Int. */
+				EnableInt(p_dcb->intno_snd, p_dcb->int_pri);	/* Enable Send Int. */
 				err = tk_slp_tsk(p_dcb->snd_tmo);
 				if(err != E_OK) break;
 			}
@@ -281,7 +281,7 @@ LOCAL ER write_data( T_SER_DCB *p_dcb, T_DEVREQ *req)
 	} else {		/* size = 0: Get the number of writable data */
 		DisableInt(p_dcb->intno_snd);			/* Disable Send Int. */
 		ssize = p_buff->top - p_buff->tail;
-		EnableInt(p_dcb->intno_snd, DEVCNF_SER_INTPRI);	/* Enable send Int. */
+		EnableInt(p_dcb->intno_snd, p_dcb->int_pri);	/* Enable send Int. */
 		if(ssize < 0) {
 			ssize += DEVCONF_SER_BUFFSIZE;
 		}

@@ -1,18 +1,18 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 /*
- *	i2c_stml4.h
+ *	i2c_sysdep.h
  *	I2C device driver
  *	System-dependent definition for STM32L4
  */
@@ -34,7 +34,7 @@
 #define	I2C_STS_TOP		0x8000
 
 /*
- * I2C Clock source
+ * RCC registers ( I2C Clock setting )
  */
 #define	RCC_CCIPR_I2CSEL	0x00003000	// I2C Clock source
 

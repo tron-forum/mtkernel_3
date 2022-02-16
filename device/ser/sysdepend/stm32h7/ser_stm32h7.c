@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2022 by Ken Sakamura.
+ *    Copyright (C) 2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -12,23 +12,24 @@
  */
 
 #include <sys/machine.h>
-#ifdef CPU_STM32L4
+#ifdef CPU_STM32H7
 
 #include <tk/tkernel.h>
 #include "../../ser.h"
 #include "../../../include/dev_def.h"
 #if DEV_SER_ENABLE
 /*
- *	ser_stm32l4.c
+ *	ser_stm32h7.c
  *	Serial communication device driver
- *	System dependent processing for STM32L4
+ *	System dependent processing for STM32H7
  */
 
 /*----------------------------------------------------------------------
  * Device register base address
  */
 const LOCAL UW ba[DEV_SER_UNITNM] = {
-	USART1_BASE, USART2_BASE, USART3_BASE, UART4_BASE, UART5_BASE
+	USART1_BASE, USART2_BASE, USART3_BASE, UART4_BASE, UART5_BASE, 
+	USART6_BASE,UART7_BASE, UART8_BASE, UART9_BASE, USART10_BASE
 };
 
 #define	USART_CR1(x)	(ba[x] + USARTx_CR1)	/* Control register 1 */
@@ -70,6 +71,26 @@ const LOCAL struct {
 		.intno		= INTNO_UART5,
 		.intpri		= DEVCNF_UART5_INTPRI,
 	},
+	{	/* USART6 */
+		.intno		= INTNO_USART6,
+		.intpri		= DEVCNF_USART6_INTPRI,
+	},
+	{	/* UART7 */
+		.intno		= INTNO_UART7,
+		.intpri		= DEVCNF_UART7_INTPRI,
+	},
+	{	/* UART8 */
+		.intno		= INTNO_UART8,
+		.intpri		= DEVCNF_UART8_INTPRI,
+	},
+	{	/* UART9 */
+		.intno		= INTNO_UART9,
+		.intpri		= DEVCNF_UART9_INTPRI,
+	},
+	{	/* USART10 */
+		.intno		= INTNO_USART10,
+		.intpri		= DEVCNF_USART10_INTPRI,
+	},
 };
 
 /*----------------------------------------------------------------------
@@ -91,10 +112,12 @@ void usart_inthdr( UINT intno)
 	UW	isr;
 	W	unit;
 
-	unit = intno -INTNO_USART1;
+	for( unit = 0; unit < DEV_SER_UNITNM; unit++ ) {
+		if( ll_devdat[unit].intno == intno) break;
+	}
+	if( unit >= DEV_SER_UNITNM) return;
 	
 	isr = in_w(USART_ISR(unit));			// Get interrupt factor
-
 	out_w(USART_ICR(unit), USART_ICR_ALL);		// Clear Interrupt
 	ClearInt(intno);
 
@@ -109,7 +132,7 @@ void usart_inthdr( UINT intno)
 		if( dev_ser_get_snddat(unit, &data)) {
 			out_w(USART_TDR(unit), data);
 		} else {
-			*(_UW*)( USART_CR1(unit)) &= ~USART_CR1_TXEIE;	// Disable TXE interrupt
+			*(_UW*)( USART_CR1(unit)) &= ~USART_CR1_TXFNFIE;	// Disable TXE interrupt
 		}
 	}
 
@@ -127,15 +150,13 @@ void usart_inthdr( UINT intno)
 
 LOCAL void start_com(UW unit, UW mode, UW speed)
 {
-
-
 	out_w(USART_CR2(unit), mode & USART_CR2_STOP);		// Set stop-bit
 	out_w(USART_CR3(unit), mode & (USART_CR3_RTSE | USART_CR3_CTSE)); // Set RTS/CTS
 	out_w(USART_BRR(unit), speed);				// Set communication Speed
 
 	/* Set mode & Start communication */
 	out_w(USART_CR1(unit),
-		USART_CR1_RXNEIE | USART_CR1_PEIE		// Unmask Receive & Parity error interrupt
+		USART_CR1_RXFNEIE | USART_CR1_PEIE		// Unmask Receive & Parity error interrupt
 		| (mode & MASK_MODE_CR1 )			// Set word length & parity
 		| USART_CR1_UE | USART_CR1_RE | USART_CR1_TE	// USART enable
 	);
@@ -166,26 +187,26 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 		break;
 	
 	case LLD_SER_SPEED:	/* Set Communication Speed */
-		ll_devcb[unit].speed = ((TMCLK*1000*1000)+parm/2)/parm;
+		ll_devcb[unit].speed = ((PCLK1*1000*1000) + parm/2)/parm;;
 		break;
 	
 	case LLD_SER_START:	/* Start communication */
 		out_w(USART_CR1(unit), 0);
 		out_w(USART_ICR(unit), USART_ICR_ALL);			// Clear interrupt
-		ClearInt(INTNO_USART1 + unit);
-		EnableInt(INTNO_USART1 + unit, ll_devdat[unit].intpri);	// Enable Interrupt
+		ClearInt(ll_devdat[unit].intno);
+		EnableInt(ll_devdat[unit].intno, ll_devdat[unit].intpri);	// Enable Interrupt
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
 		break;
 	
 	case LLD_SER_STOP:
-		DisableInt(INTNO_USART1 + unit);
+		DisableInt(ll_devdat[unit].intno);
 		stop_com(unit);
 		break;
 
 	case LLD_SER_SEND:
 		if(in_w(USART_ISR(unit)) & USART_ISR_TXE) {
 			out_w(USART_TDR(unit), parm);			// Set Transmission data
-			*(_UW*)( USART_CR1(unit)) |= USART_CR1_TXEIE;	// Enable TXE interrupt
+			*(_UW*)( USART_CR1(unit)) |= USART_CR1_TXFNFIE;	// Enable TXE interrupt
 			err = E_OK;
 		} else {
 			err = E_BUSY;
@@ -216,9 +237,9 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 
 	unit = p_dcb->unit;
 
-#if DEVCNF_SER_INIT_MCLK
+#if DEVCONF_SER_INIT_MCLK
 	/* Select clock source */
-	out_w(RCC_CCIPR, (in_w(RCC_CCIPR) & ~RCC_CCIPR_USARTxSEL) | DEVCNF_USARTxSEL_INIT );
+	out_w(RCC_D2CCIP2R, (in_w(RCC_D2CCIP2R) & ~RCC_D2CCIP2R_USARTxSEL) | DEVCNF_USARTxSEL_INIT );
 
 	/* Enable module clock */
 	switch(unit) {
@@ -226,32 +247,47 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 		*(_UW*)RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
 		break;
 	case 1:	// USART2
-		*(_UW*)RCC_APB1ENR1 |= RCC_APB1ENR1_USART2EN;
+		*(_UW*)RCC_APB1LENR |= RCC_APB1LENR_USART2EN;
 		break;
 	case 2:	// USART3
-		*(_UW*)RCC_APB1ENR1 |= RCC_APB1ENR1_USART3EN;
+		*(_UW*)RCC_APB1LENR |= RCC_APB1LENR_USART3EN;
 		break;
 	case 3:	// UART4
-		*(_UW*)RCC_APB1ENR1 |= RCC_APB1ENR1_UART4EN;
+		*(_UW*)RCC_APB1LENR |= RCC_APB1LENR_UART4EN;
 		break;
 	case 4:	// UART5
-		*(_UW*)RCC_APB1ENR1 |= RCC_APB1ENR1_UART5EN;
+		*(_UW*)RCC_APB1LENR |= RCC_APB1LENR_UART5EN;
 		break;
+	case 5:	// USART6
+		*(_UW*)RCC_APB2ENR |= RCC_APB2ENR_USART6EN;
+		break;
+	case 6:	// UART7
+		*(_UW*)RCC_APB1LENR |= RCC_APB1LENR_UART7EN;
+		break;
+	case 7:	// UART8
+		*(_UW*)RCC_APB1LENR |= RCC_APB1LENR_UART8EN;
+		break;
+	case 8:	// UART9
+		*(_UW*)RCC_APB2ENR |= RCC_APB2ENR_UART9EN;
+		break;
+	case 9:	// USART10
+		break;
+		*(_UW*)RCC_APB2ENR |= RCC_APB2ENR_USART10EN;
 	}
 #endif
 
 	/* USART device initialize (Disable USART & Disable all interrupt) */
 	stop_com(unit);
 
-	/* Device Control block Initizlize */
+	/* Initizlize Device Control block */
 	p_dcb->intno_rcv = p_dcb->intno_snd = INTNO_USART1 + unit;
 	p_dcb->int_pri = ll_devdat[unit].intpri;
 
 	/* Interrupt handler definition */
-	err = tk_def_int((INTNO_USART1 + unit), &dint);
+	err = tk_def_int(ll_devdat[unit].intno, &dint);
 
 	return err;
 }
 
 #endif		/* DEV_SER_ENABLE */
-#endif		/* CPU_STM32L4 */
+#endif		/* CPU_STM32H7 */

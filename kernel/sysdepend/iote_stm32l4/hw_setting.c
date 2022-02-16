@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -17,6 +17,29 @@
 /*
  *	hw_setting.c (STM32L4 IoT-Engine)
  *	startup / shoutdown processing for hardware
+ *	
+ *	Pin function Setting (for IoT-Engine Starter board)
+ *		PD5  : USART2 TX
+ *		PD6  : USART2 RX
+ *
+ *		(USE_SDEV_DRV)	
+		PA0  : A/DC12 IN5 (Arduino A1)
+ *		PA1  : A/DC12 IN6 (Analog-SW)
+ *		PA2  : A/DC12 IN7 (Temp sensor)
+ *		PA4  : A/DC12 IN9 (Light sensor)
+ *
+ *		PB1  : A/DC12 IN16 (Analog-SW)
+ *		PB8  : I2C1 SCL (on board)
+ *		PB9  : I2C1 SDA (on board)
+ *		PB10 : I2C2 SCL (Arduino I2C)
+ *		PB11 : I2C2 SDA (Arduino I2C)
+ *
+ *		PC3  : A/DC123_IN4 (Arduino A0)
+ *		PC4  : A/DC12_IN13 (Arduino A2)
+ *
+ *		PD9  : GPIO out (I2C Enable)
+ *		PD11 : GPIO out (LED3)
+ *		PD15 : GPIO out (LED4)
  */
 
 #include "kernel.h"
@@ -43,7 +66,7 @@ LOCAL const T_SETUP_REG modclk_tbl[] = {
 	{RCC_APB2ENR,		0x00000001},	// SYSCFG enable
 
 #else			// Use the sample device driver
-	{RCC_AHB2ENR,		0x0000000B},	// GPIO-A, B, D enable
+	{RCC_AHB2ENR,		0x0000000F},	// GPIO-A ~ D enable
 	{RCC_APB1ENR1,		0x0002000F},	// USART2, TIM2-TIM5 enable
 	{RCC_APB2ENR,		0x00000001},	// SYSCFG enable
 #endif /* !USE_SDEV_DRV */
@@ -66,24 +89,34 @@ LOCAL const T_SETUP_REG pinfnc_tbl[] = {
 	{GPIO_AFRL(D),		0x07700000},
 
 #else			// Use the device sample driver
-	// A/DC in: PA1,PA2,PA4
+	// A/DC in: PA0,PA1,PA2,PA4
 	{GPIO_MODER(A),		0xABFFFFFF},
 	{GPIO_OTYPER(A),	0x00000000},
-	{GPIO_OSPEEDR(A),	0x0C0F0000},
-	{GPIO_PUPDR(A),		0x64050000},
+	{GPIO_OSPEEDR(A),	0x0C000000},
+	{GPIO_PUPDR(A),		0x64000000},
 	{GPIO_AFRL(A),		0x00000000},
 	{GPIO_AFRH(A),		0x00000000},
-	{GPIO_ASCR(A),		0x00000016},	
+	{GPIO_ASCR(A),		0x00000017},	
 
 	// I2C I/F : PB8 -> I2C1_SCL, PB9 -> I2C1_SDA
+	// I2C I/F : PB10 -> I2C2_SCL, PB11 -> I2C2_SDA
 	// A/DC in : PB1
-	{GPIO_MODER(B),		0xFFFAFFBF},
-	{GPIO_OTYPER(B),	0x00000300},
-	{GPIO_OSPEEDR(B),	0x000F0000},
-	{GPIO_PUPDR(B),		0x00050100},
+	{GPIO_MODER(B),		0xFFAAFFBF},
+	{GPIO_OTYPER(B),	0x00000F00},
+	{GPIO_OSPEEDR(B),	0x00FF0000},
+	{GPIO_PUPDR(B),		0x00550100},
 	{GPIO_AFRL(B),		0x00000000},
-	{GPIO_AFRH(B),		0x00000044},
+	{GPIO_AFRH(B),		0x00004444},
 	{GPIO_ASCR(B),		0x00000002},
+
+	// A/DC in: PC3,PC4
+	{GPIO_MODER(C),		0xFFFFFFFF},
+	{GPIO_OTYPER(C),	0x00000000},
+	{GPIO_OSPEEDR(C),	0x00000000},
+	{GPIO_PUPDR(C),		0x00000000},
+	{GPIO_AFRL(C),		0x00000000},
+	{GPIO_AFRH(C),		0x00000000},
+	{GPIO_ASCR(C),		0x00000018},	
 
 	// Serial debug I/F : PD5 -> USART2_TX, PD6 -> USART2_RX
 	// Port Output : PD9, PD11, PD15
@@ -106,7 +139,7 @@ EXPORT void knl_startup_hw(void)
 {
 	const T_SETUP_REG	*p;
 
-	startup_clock(CLKATR_HSE | CLKATR_USE_PLL | CLKATR_LATENCY_4);
+	startup_clock(CLKATR_HSE | CLKATR_USE_PLL | CLKATR_USE_PLLSAI1 |CLKATR_USE_PLLSAI2 | CLKATR_LATENCY_4);
 
 	/* Startup module clock */
 	for(p = modclk_tbl; p->addr != 0; p++) {

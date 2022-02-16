@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -35,6 +35,9 @@
 #define	RCC_PLLCFGR_INIT	(0x00002810)	// M = 2, N = 40, P = 7, Q = 2, R =2
 #define	RCC_PLLSAI1CFGR_INIT	(0x00002000)	// N = 32, P = 7, Q = 2, R =2
 #define	RCC_PLLSAI2CFGR_INIT	(0x00001000)	// N = 16, P = 7, Q = 2, R =2
+
+#define RCC_CFGR_SW_INIT	(RCC_CFGR_SW_PLL)
+#define	RCC_PLLCFGR_PLLSRC_INIT	(RCC_PLLCFGR_PLLSRC_HSE)
 
 /* Clock frequency 　*/
 #define	SYSCLK			(80)		/* System clock */

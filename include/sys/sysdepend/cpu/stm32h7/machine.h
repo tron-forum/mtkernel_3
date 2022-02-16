@@ -14,23 +14,22 @@
 /*
  *	machine_depend.h
  *
- *	Machine type definition (STM32L4 depended)
+ *	Machine type definition (STM32H7 depended)
  */
 
 #ifndef __SYS_SYSDEPEND_MACHINE_CPU_H__
 #define __SYS_SYSDEPEND_MACHINE_CPU_H__
 
 /*
- **** CPU core-depeneded profile (ARMv7M(ARM Cortex-M4))
+ **** CPU core-depeneded profile (ARMv7M(ARM Cortex-M7))
  */
 
 #include "../core/armv7m/machine.h"
 
 /*
- **** CPU-depeneded profile (STM32L4)
+ **** CPU-depeneded profile (STM32H7)
  */
 
-#define	TARGET_CPU_DIR		stm32l4		/* Sysdepend-CPU-Directory name */
-
+#define	TARGET_CPU_DIR		stm32h7		/* Sysdepend-CPU-Directory name */
 
 #endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

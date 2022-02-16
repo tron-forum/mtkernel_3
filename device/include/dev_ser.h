@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.05
+ *    Device Driver for micro T-Kernel for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -42,17 +42,10 @@ typedef enum {
 /*----------------------------------------------------------------------*/
 /* Hardware dependent definition
  */
-#ifdef CPU_TMPM367FDFG
-#include "../ser/sysdepend/tx03_m367/ser_mode_m367.h"
-#endif		/* CPU_TMPM367FDFG */
-#ifdef CPU_RX231
-#include "../ser/sysdepend/rx231/ser_mode_rx231.h"
-#endif	/* CPU_RX231 */
-#ifdef CPU_STM32L4
-#include "../ser/sysdepend/stm32l4/ser_mode_stm32l4.h"
-#endif	/* CPU_STM32L4 */
-#ifdef CPU_RZA2M
-#include "../ser/sysdepend/rza2m/ser_mode_rza2m.h"
-#endif	/* CPU_RZA2M */
+
+#define DEVDEF_SER_MODE_PATH_(a)	#a
+#define DEVDEF_SER_MODE_PATH(a)		DEVDEF_SER_MODE_PATH_(a)
+#define DEVDEF_SER_MODE_SYSDEP()	DEVDEF_SER_MODE_PATH(../ser/sysdepend/TARGET_CPU_DIR/ser_mode_sysdep.h)
+#include DEVDEF_SER_MODE_SYSDEP()
 
 #endif	/* __DEVINC_SER_H__ */
