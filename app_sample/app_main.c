@@ -24,6 +24,7 @@ LOCAL T_CTSK	ctsk_1 = {
 	.tskatr		= TA_HLNG | TA_RNG3,
 };
 
+#if 1
 /*-------------------------------------------------------------*/
 /* EEPROM R/W                                                  */
 /*-------------------------------------------------------------*/
@@ -85,7 +86,7 @@ LOCAL void test_eeprom(void)
 	UB	wd[10], rd[10];
 	ER	err;
 
-	dd_i2c = tk_opn_dev((UB*)"iica", TD_UPDATE);
+	dd_i2c = tk_opn_dev((UB*)"iicb", TD_UPDATE);
 	err = read_eeprom(dd_i2c, 0, rd, 5);
 	for(INT i = 0; i < 5; i++) {
 		tm_printf((UB*)"%x ", rd[i]);
@@ -112,35 +113,37 @@ LOCAL void test_eeprom(void)
 	}
 	tm_putchar('\n');
 }
+#endif
 
 /*-------------------------------------------------------------*/
 /* A/D C (in Board)                                            */
 /*-------------------------------------------------------------*/
 LOCAL void test_adc(void)
 {
-	ID	dd_ad1;
+	ID	dd_ad1, dd_ad2;
 	UW	data[10];
 	UB	wd[10], rd[10];
 	SZ	asz;
 	ER	err;
 
 	dd_ad1 = tk_opn_dev((UB*)"adca", TD_READ);
-//	dev_init_adc(1);
-//	dd_ad1 = tk_opn_dev((UB*)"adcb", TD_READ);
+	dd_ad2 = tk_opn_dev((UB*)"adcb", TD_READ);
 
 	while(1) {
 		// LED (on Board)
-		out_w(GPIO_ODR(D), (in_w(GPIO_ODR(D)))^((1<<11)|(1<<15)));
+		out_w(PORT_DATA(F), (in_w(PORT_DATA(F)))^(1<<3));
+		out_w(PORT_DATA(B), (in_w(PORT_DATA(B)))^(1<<0));
 
 		// A/D (on Board)
-		err = tk_srea_dev(dd_ad1, 6, &data[0], 4, &asz);
-		tk_srea_dev(dd_ad1, 16, &data[4], 1, NULL);
-		tm_printf((UB*)"(%d) %d  %d  %d  %d\n", asz, data[0], data[4], data[1], data[3]);
+		err = tk_srea_dev(dd_ad2, 1, &data[0], 3, &asz);
+		tk_srea_dev(dd_ad1, 0, &data[3], 1, NULL);
+		tm_printf((UB*)"%d  %d  %d  %d\n", data[1], data[2], data[0], data[3]);
 
 		tk_dly_tsk(500);
 	}
 }
 
+#if 1
 /*--------------------------------------------------------------*/
 /* Arduino							*/
 /*--------------------------------------------------------------*/
@@ -148,25 +151,25 @@ LOCAL void test_adc(void)
 
 LOCAL void test_arduino(void)
 {
-	ID	dd_ad1;
+	ID	dd_ad1, dd_ad2;
 	UW	data[10];
 	UW	val;
 	SZ	asz;
 	ER	err;
 
-	dev_init_adc(1);
-	dd_ad1 = tk_opn_dev((UB*)"adcb", TD_READ);
+	dd_ad1 = tk_opn_dev((UB*)"adca", TD_READ);
+	dd_ad2 = tk_opn_dev((UB*)"adcb", TD_READ);
 
 	gesture_sensor_init(1);
 
 	while(1) {
 		// A/D (on Board)
-		err = tk_srea_dev(dd_ad1, 4, &data[0], 2, &asz);
-		tk_srea_dev(dd_ad1, 13, &data[2], 1, NULL);
-		tm_printf((UB*)"(%d) %d  %d  %d\n", asz, data[0], data[1], data[2]);
-
+		err = tk_srea_dev(dd_ad1, 2, &data[0], 2, &asz);
+		tk_srea_dev(dd_ad2, 0, &data[2], 1, NULL);
+		tm_printf((UB*)"%d  %d  %d\n",data[2], data[1], data[0]);
 		// Gesture sensor
 		gesture_sensor_get(&val);
+#if 0
 
 		if(val & GES_RIGHT_FLAG ) {
 			tm_printf((UB*)"Right\n");
@@ -188,12 +191,14 @@ LOCAL void test_arduino(void)
 		} else if(val & GES_COUNT_CLOCKWISE_FLAG) {
 			tm_printf((UB*)"Anti-Cockwise\n");
 		}
-
+#endif
 		tk_dly_tsk(500);
 	}
 
 }
+#endif
 
+#if 1
 LOCAL void test_uart(void)
 {
 	ID	dd;
@@ -212,6 +217,7 @@ LOCAL void test_uart(void)
 	}
 	tm_printf((UB*)"\n");
 }
+#endif
 
 LOCAL void task_1(INT stacd, void *exinf)
 {
@@ -219,8 +225,8 @@ LOCAL void task_1(INT stacd, void *exinf)
 
 //	test_eeprom();
 //	test_adc();
-//	test_arduino();
-	test_uart();
+	test_arduino();
+//	test_uart();
 
 	tk_ext_tsk();
 }

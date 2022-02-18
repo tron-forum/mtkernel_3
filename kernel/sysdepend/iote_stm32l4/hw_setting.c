@@ -23,7 +23,7 @@
  *		PD6  : USART2 RX
  *
  *		(USE_SDEV_DRV)	
-		PA0  : A/DC12 IN5 (Arduino A1)
+ *		PA0  : A/DC12 IN5 (Arduino A1)
  *		PA1  : A/DC12 IN6 (Analog-SW)
  *		PA2  : A/DC12 IN7 (Temp sensor)
  *		PA4  : A/DC12 IN9 (Light sensor)

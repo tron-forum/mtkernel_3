@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -91,7 +91,14 @@ void usart_inthdr( UINT intno)
 	UW	isr;
 	W	unit;
 
-	unit = intno -INTNO_USART1;
+	if(intno>=INTNO_USART1 && intno<=INTNO_USART3) {
+		unit = intno -INTNO_USART1;
+	} else if(intno>=INTNO_USART4 && intno<=INTNO_USART5) {
+		unit = intno -INTNO_USART4 + DEV_SER_UNIT3;
+	} else {
+		ClearInt(intno);
+		return;
+	}
 	
 	isr = in_w(USART_ISR(unit));			// Get interrupt factor
 
@@ -172,13 +179,13 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 	case LLD_SER_START:	/* Start communication */
 		out_w(USART_CR1(unit), 0);
 		out_w(USART_ICR(unit), USART_ICR_ALL);			// Clear interrupt
-		ClearInt(INTNO_USART1 + unit);
-		EnableInt(INTNO_USART1 + unit, ll_devdat[unit].intpri);	// Enable Interrupt
+		ClearInt(ll_devdat[unit].intno);
+		EnableInt(ll_devdat[unit].intno, ll_devdat[unit].intpri);	// Enable Interrupt
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
 		break;
 	
 	case LLD_SER_STOP:
-		DisableInt(INTNO_USART1 + unit);
+		DisableInt(ll_devdat[unit].intno);
 		stop_com(unit);
 		break;
 
@@ -244,11 +251,11 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	stop_com(unit);
 
 	/* Device Control block Initizlize */
-	p_dcb->intno_rcv = p_dcb->intno_snd = INTNO_USART1 + unit;
+	p_dcb->intno_rcv = p_dcb->intno_snd = ll_devdat[unit].intno;
 	p_dcb->int_pri = ll_devdat[unit].intpri;
 
 	/* Interrupt handler definition */
-	err = tk_def_int((INTNO_USART1 + unit), &dint);
+	err = tk_def_int(ll_devdat[unit].intno, &dint);
 
 	return err;
 }

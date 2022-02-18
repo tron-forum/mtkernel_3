@@ -32,4 +32,5 @@
 
 #define	TARGET_CPU_DIR		stm32h7		/* Sysdepend-CPU-Directory name */
 
+
 #endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

@@ -1,6 +1,6 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -21,7 +21,6 @@
  *	adc.c
  *	A/D converter device driver 
 */
-
 
 /*----------------------------------------------------------------------*/
 /* Device driver Control block
@@ -89,7 +88,7 @@ LOCAL ER write_atr(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 }
 
 /*----------------------------------------------------------------------*/
-/*　Device-specific data control
+/* Device-specific data control
  */
 LOCAL ER read_data(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 {

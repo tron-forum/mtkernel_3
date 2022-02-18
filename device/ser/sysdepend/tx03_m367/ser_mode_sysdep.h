@@ -1,19 +1,19 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.00.03
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_mode_m367.h
+ *	ser_mode_sysdep.h
  *	Serial communication device driver
  *	Communication mode definition for TX03_M367
  */

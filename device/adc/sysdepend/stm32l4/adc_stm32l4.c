@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -48,9 +48,9 @@ LOCAL struct {
 	SZ	asz;
 } ll_devcb[DEV_ADC_UNITNM] = {
 
-	{0, DEVCONF_ADC1_SMPR1, DEVCONF_ADC1_SMPR2},
-	{0, DEVCONF_ADC2_SMPR1, DEVCONF_ADC2_SMPR2},
-	{0, DEVCONF_ADC3_SMPR1, DEVCONF_ADC3_SMPR2}	
+	{0, DEVCONF_ADC1_SMPR1, DEVCONF_ADC1_SMPR2, NULL, 0},
+	{0, DEVCONF_ADC2_SMPR1, DEVCONF_ADC2_SMPR2, NULL, 0},
+	{0, DEVCONF_ADC3_SMPR1, DEVCONF_ADC3_SMPR2, NULL, 0}	
 };
 
 /*----------------------------------------------------------------------
@@ -81,7 +81,6 @@ void adc_inthdr( UINT intno)
 	if(isr & ADC_ISR_EOC) {
 		*(ll_devcb[unit].buf++) = in_w(ADC_DR(unit));
 		ll_devcb[unit].asz++;
-//		isr &= ~ADC_ISR_EOC;
 	}
 
 	out_w(ADC_ISR(unit), isr);	// Clear interrupt flag.

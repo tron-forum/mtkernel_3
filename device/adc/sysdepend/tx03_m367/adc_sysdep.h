@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2020 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -13,7 +13,7 @@
 
 
 /*
- *	dev_adc_m367.h
+ *	adc_sysdep.h
  *	A/D converter device driver
  *	System-dependent definition for TX03_M367
  */

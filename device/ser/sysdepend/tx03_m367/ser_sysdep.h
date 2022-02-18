@@ -1,19 +1,19 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_m367.h
+ *	ser_sysdep.h
  *	Serial communication device driver
  *	System-dependent definition for TX03_M367
  */
@@ -22,16 +22,16 @@
 #define	__DEV_SER_M367_H__
 
 #define	DEV_SER_UNITNM		(2)	/* Number of devive channels */
-#define DEV_SER_UNIT0		(0)
-#define DEV_SER_UNIT1		(1)
+#define DEV_SER_UNIT0		(0)	/* UART Ch.4 */
+#define DEV_SER_UNIT1		(1)	/* UART Ch.5 */
 
 /*
  * UART registers
  */
 
 /* Base address for each channel */
-#define	UART4_BASE		(0x40048000UL)	/* UART modem */
-#define	UART5_BASE		(0x40049000UL)
+#define	UART4_BASE		(0x40048000UL)	/* UART Ch.4 */
+#define	UART5_BASE		(0x40049000UL)	/* UART Ch.5 */
 
 /* UART modem */
 #define	UARTxDR 		(0x0000)	/* Data register */
@@ -121,7 +121,7 @@
 #define	UARTxDMACR_RXDMAE	(1 << 0)	/* RW Receive DMA Enable */
 
 /* UART interrupt number */
-#define	INTNO_UART0		24
-#define	INTNO_UART1		25
+#define	INTNO_UART0		24		/* UART Ch.4 */
+#define	INTNO_UART1		25		/* UART Ch.5 */
 
 #endif		/* __DEV_SER_M367_H__ */

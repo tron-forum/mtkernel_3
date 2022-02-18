@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -98,7 +98,10 @@ LOCAL void i2c_evhdr( UINT intno )
 			break;
 		}
 	}
-	if(unit >= DEV_I2C_UNITNM) return;
+	if(unit >= DEV_I2C_UNITNM) {
+		ClearInt(intno);	// Clear interrupt
+		return;
+	}
 
 	i2c_st = in_w(I2C_ISR(unit));
 	if( i2c_st & I2C_ISR_NACKF) {
@@ -321,7 +324,7 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 	if(err < E_OK) return err;
 
 	dint.inthdr	= i2c_erhdr;
-	err = tk_def_int(intno + 1, &dint);	// I2C error interrupt
+	err = tk_def_int(ll_devdat[unit].intno, &dint);
 
 	return err;
 }

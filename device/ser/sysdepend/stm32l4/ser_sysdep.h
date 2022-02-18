@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2022-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.

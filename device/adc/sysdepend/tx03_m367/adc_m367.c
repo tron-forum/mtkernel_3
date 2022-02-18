@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -34,8 +34,11 @@ const LOCAL UW ba[DEV_ADC_UNITNM] = { ADA_BASE, ADB_BASE };
 */
 LOCAL struct {
 	ID	wait_tskid;
-} ll_devcb[DEV_ADC_UNITNM];
+} ll_devcb[DEV_ADC_UNITNM] = {
 
+	{0},
+	{0}
+};
 
 /*----------------------------------------------------------------------
  * Interrupt handler
@@ -44,8 +47,20 @@ void adc_inthdr( UINT intno)
 {
 	INT		unit;
 
-	unit = (intno == INTNO_INTADA? DEV_ADC_UNIT0: DEV_ADC_UNIT1);
-	tk_wup_tsk(ll_devcb[unit].wait_tskid);
+	if(intno == INTNO_INTADA) {
+		unit = DEV_ADC_UNIT0;
+	} else if( intno == INTNO_INTADB) {
+		unit = DEV_ADC_UNIT1;
+	} else {
+		ClearInt(intno);
+		return;
+	}
+
+	if(ll_devcb[unit].wait_tskid) {
+		tk_wup_tsk(ll_devcb[unit].wait_tskid);
+	}
+
+	ClearInt(intno);
 }
 
 /*----------------------------------------------------------------------
