@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -15,7 +15,19 @@
 
 /*
  *	hw_setting.c (RX231 IoT-Engine)
- *		hardware settings
+ *	startup / shoutdown processing for hardware
+ *	
+ *	Pin function Setting (for IoT-Engine Starter board)
+ *		PB0  : SCI6.RXD6
+ *		PB1  : SCI6.TXD6
+ *
+ *		(USE_SDEV_DRV)
+ *		P16  : SCL0 (Arduino I2C)
+		P17  : SDA0 (Arduino I2C)
+		P40  : AN000 (Analog-SW/Arduino A0)
+		P41  : AN001 (Analog-SW/Arduino A1)
+		P42  : AN002 (Temp sensor/Arduino A2)
+ *
  */
 
 #include "kernel.h"
@@ -36,10 +48,19 @@ typedef struct {
  * Setup module stop Tadle
  */
 LOCAL const T_SETUP_REG mstop_tbl[] = {
-	{ MSTPCRA, MSTPCRA_INI },
-	{ MSTPCRB, MSTPCRB_INI },
-	{ MSTPCRC, MSTPCRC_INI },
-	{ MSTPCRD, MSTPCRD_INI },
+#if !USE_SDEV_DRV	// Do not use sample device driver
+	{ MSTPCRA, 0xEFFF7FCF },	/* Enable DMAC/DTC, CMT0-1, TMR0-3 */
+	{ MSTPCRB, 0xFDFFFFFF },	/* Enable SCI6 */
+	{ MSTPCRC, 0x7FFF0000 },	/* Disable Deep-Sleep mode, Enable RAM */
+	{ MSTPCRD, 0xFFFFFF00 },
+
+#else			// Use the sample device driver
+	{ MSTPCRA, 0xEFFD7FCF },	/* Enable DMAC/DTC, ADC, CMT0-1, TMR0-3 */
+	{ MSTPCRB, 0xFDDFFFFF },	/* Enable SCI6, RIIC0 */
+	{ MSTPCRC, 0x7FFF0000 },	/* Disable Deep-Sleep mode, Enable RAM */
+	{ MSTPCRD, 0xFFFFFF00 },
+
+#endif /* !USE_SDEV_DRV */
 	{0, 0}
 };
 
@@ -56,8 +77,8 @@ LOCAL const T_SETUP_REG pinfnc_tbl[] = {
 	{MPC_P4nPFS(0), 0x80},		/* P40 = AN000 */
 	{MPC_P4nPFS(1), 0x80},		/* P41 = AN001 */
 	{MPC_P4nPFS(2), 0x80},		/* P42 = AN002 */
-#endif /* USE_SDEV_DRV */
 
+#endif /* USE_SDEV_DRV */
 	{0, 0}
 };
 

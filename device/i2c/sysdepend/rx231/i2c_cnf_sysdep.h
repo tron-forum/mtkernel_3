@@ -1,18 +1,18 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 /*
- *	i2c_cnf_rx231.h 
+ *	i2c_cnf_sysdep.h 
  *	I2C device configuration file
  *		for RX231
  */
@@ -21,7 +21,6 @@
 
 /* Device initialization */
 #define DEVCONF_I2C_INIT_MSTP	FALSE		// Initialize module stop
-#define DEVCONF_I2C_INIT_PIN	FALSE		// Initialize I/O pin
 
 /* Frequency selection (0-7)  ICMR1.CKS */
 #define	DEVCNF_I2C_CKS		1

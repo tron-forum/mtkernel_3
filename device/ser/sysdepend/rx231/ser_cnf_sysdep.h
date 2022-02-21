@@ -2,18 +2,18 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_cnf_rx231.h 
+ *	ser_cnf_sysdep.h 
  *	Serial Device configuration file
  *		for RX231
  */
@@ -23,8 +23,14 @@
 /* Device initialization */
 #define DEVCONF_SER_INIT_MSTP	FALSE		// Initialize module stop
 
-/* Device control data */
-#define	DEVCNF_SER_INTPRI	5		// Interrupt priority
+/* Interrupt priority */
+#define	DEVCNF_SCI0_INTPRI	5
+#define	DEVCNF_SCI1_INTPRI	5
+#define	DEVCNF_SCI5_INTPRI	5
+#define	DEVCNF_SCI6_INTPRI	5
+#define	DEVCNF_SCI8_INTPRI	5
+#define	DEVCNF_SCI9_INTPRI	5
+#define	DEVCNF_SCI12_INTPRI	5
 
 /* Debug option
  *	Specify the device used by T-Monitor.

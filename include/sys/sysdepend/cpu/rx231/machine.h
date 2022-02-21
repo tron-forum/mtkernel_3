@@ -30,5 +30,7 @@
  **** CPU-depeneded profile (RX231)
  */
 
+#define	TARGET_CPU_DIR		rx231		/* Sysdepend-CPU-Directory name */
+
 
 #endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

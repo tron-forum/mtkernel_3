@@ -2,20 +2,20 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	dev_adc_rx231.h
+ *	dev_adc_sydep.h
  *	A/D converter device driver
- *	System-dependent definition for TX03_RX231
+ *	System-dependent definition for RX231
  */
 
 #ifndef	__DEV_ADC_RX231_H__

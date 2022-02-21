@@ -1,18 +1,18 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02
  *
  *----------------------------------------------------------------------
  */
 
 /*
- *	i2c_rx231.h
+ *	i2c_sysdep.h
  *	I2C device driver
  *	System-dependent definition for RX231
  */
@@ -99,7 +99,5 @@
 #define	INTNO_RIIC_RXI		247
 #define	INTNO_RIIC_TXI		248
 #define	INTNO_RIIC_TEI		249
-
-
 
 #endif		/* __DEV_I2C_RX231_H__ */

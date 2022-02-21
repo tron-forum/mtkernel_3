@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -53,24 +53,6 @@
 #define	MSTPCRB		(0x00080014)
 #define	MSTPCRC		(0x00080018)
 #define	MSTPCRD		(0x0008001C)
-
-/* Module stop initial value */
-#if !USE_SDEV_DRV	// Do not use sample device driver
-
-#define MSTPCRA_INI	0xEFFF7FCF	/* Enable DMAC/DTC, CMT0-1, TMR0-3 */
-#define MSTPCRB_INI	0xFDFFFFFF	/* Enable SCI6 */
-#define MSTPCRC_INI	0x7FFF0000	/* Disable Deep-Sleep mode, Enable RAM */
-#define MSTPCRD_INI	0xFFFFFF00
-
-#else			// Use the sample device driver
-
-#define MSTPCRA_INI	0xEFFD7FCF	/* Enable DMAC/DTC, ADC, CMT0-1, TMR0-3 */
-#define MSTPCRB_INI	0xFDDFFFFF	/* Enable SCI6, RIIC0 */
-#define MSTPCRC_INI	0x7FFF0000	/* Disable Deep-Sleep mode, Enable RAM */
-#define MSTPCRD_INI	0xFFFFFF00
-
-#endif /* !USE_SDEV_DRV */
-
 
 /* ------------------------------------------------------------------------ */
 /*

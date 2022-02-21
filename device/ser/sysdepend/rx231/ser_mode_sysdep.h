@@ -2,18 +2,18 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/12.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_mode_rx231.h
+ *	ser_mode_sysdep.h
  *	Serial communication device driver
  *	Communication mode definition for RX231
  */

@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -295,24 +295,10 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 		*(UW*)(MSTPCRB) &= ~(1<<21);		// Release module stop
 		out_h(SYSTEM_PRCR, 0xA500);		// Enable Register protect
 		EI(sts);
-
 	}
 #endif	/* DEVCONF_I2C_INIT_MSTP */
 
 	*(UB*)RIIC_ICCR1 &= ~RIIC_ICCR1_ICE;		// Disable RIIC
-
-#if DEVCONF_I2C_INIT_PIN		// Initialize I/O pin
-	/* Set pin-function   P16 = SCL0, P17 = SDA0 */
-	out_b(MPC_PWPR, 0);				// PWPR.B0WI = 0
-	out_b(MPC_PWPR, MPC_PWMR_PFSWE);		// PWPR.PFSWE = 1
-	out_b(MPC_P1nPFS(6), 0x0F);			// P16 = SCL0
-	out_b(MPC_P1nPFS(7), 0x0F);			// P17 = SDA0
-	out_b(MPC_PWPR, MPC_PWMR_B0WI);			// PWPR.PFSWE = 0, PWPR.B0WI = 1
-
-	out_b(PORT1_ODR1, 0x50);			// Set to open drain
-	out_b(PORT1_PMR, 0xC0);				// Set as peripheral function
-
-#endif	/* DEVCONF_I2C_INIT_PIN */
 
 	/* Interrupt handler definition */
 	dint.intatr	= TA_HLNG;
