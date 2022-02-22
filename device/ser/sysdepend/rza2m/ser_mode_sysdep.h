@@ -2,18 +2,18 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2021 by Ken Sakamura.
+ *    Copyright (C) 2021-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_mode_rza2m.h
+ *	ser_mode_sysdep.h
  *	Serial communication device driver
  *	Communication mode definition for RZ/A2M
  */

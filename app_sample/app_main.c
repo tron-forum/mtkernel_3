@@ -25,23 +25,126 @@ LOCAL T_CTSK	ctsk_1 = {
 };
 
 /*-------------------------------------------------------------*/
-/* A/D C (in Board)                                            */
+/* EEPROM R/W                                                  */
+/*-------------------------------------------------------------*/
+#define EEPROM_ADDR		0x50
+#define	EEPROM_SIZE		256
+
+ER read_eeprom( ID dd_eeprom, W addr, void *buf, SZ size)
+{
+	T_I2C_EXEC	exec;
+	UB		snd_data;
+	SZ	asz;
+	ER	err;
+
+	if(addr < 0 || addr > EEPROM_ADDR) return E_PAR;
+	if((addr + size -1) >= EEPROM_SIZE ) return E_PAR;
+
+	exec.sadr		= EEPROM_ADDR;
+	snd_data		= addr;
+	exec.snd_size	= 1;
+	exec.snd_data	= &snd_data;
+	exec.rcv_size	= size;
+	exec.rcv_data	= buf;
+	err = tk_swri_dev(dd_eeprom, TDN_I2C_EXEC, &exec, sizeof(T_I2C_EXEC), &asz);
+
+	return err;
+}
+
+ER write_eeprom( ID dd_eeprom, W addr, void *buf, SZ size)
+{
+	static UB	data[EEPROM_SIZE];
+	INT			i;
+	SZ			asz;
+	ER			err;
+
+	if(addr < 0 || addr > EEPROM_ADDR) return E_PAR;
+	if((addr + size -1) >= EEPROM_SIZE ) return E_PAR;
+
+	while(size > 0) {
+		data[0] = addr;
+		if(size > 8) {
+			knl_memcpy(&data[1], buf, 8);
+			err = tk_swri_dev(dd_eeprom, EEPROM_ADDR, data, 9, &asz);
+			if(err != E_OK) return err;
+			size -= 8; buf += 8; addr += 8;
+		} else {
+			knl_memcpy(&data[1], buf, size);
+			err = tk_swri_dev(dd_eeprom, EEPROM_ADDR, data, size+1, &asz);
+			if(err != E_OK) return err;
+			size = 0;
+		}
+		tk_dly_tsk(1);
+	}
+	return err;
+}
+
+LOCAL void test_eeprom(void)
+{
+	ID	dd_i2c;
+	UB	wd[10], rd[10];
+	ER	err;
+
+	dd_i2c = tk_opn_dev((UB*)"iicd", TD_UPDATE);
+	err = read_eeprom(dd_i2c, 0, rd, 5);
+	if(err < E_OK) {
+		tm_printf((UB*)"read err %d\n", err);
+	} else {
+		for(INT i = 0; i < 5; i++) {
+			tm_printf((UB*)"%x ", rd[i]);
+		}
+		tm_putchar('\n');
+	}
+
+	for(INT i = 0; i < 5; i++) {
+		wd[i] = 'a'+i;
+	}
+	err = write_eeprom(dd_i2c, 0, wd, 5);
+	if(err < E_OK) {
+		tm_printf((UB*)"writr err %d\n", err);
+	}
+	err = read_eeprom(dd_i2c, 0, rd, 5);
+	if(err < E_OK) {
+		tm_printf((UB*)"read err %d\n", err);
+	} else {
+		for(INT i = 0; i < 5; i++) {
+			tm_printf((UB*)"%x ", rd[i]);
+		}
+		tm_putchar('\n');
+	}
+
+	for(INT i = 0; i < 5; i++) {
+		wd[i] = 'A'+i;
+	}
+	err = write_eeprom(dd_i2c, 0, wd, 5);
+	if(err < E_OK) {
+		tm_printf((UB*)"writr err %d\n", err);
+	}
+	err = read_eeprom(dd_i2c, 0, rd, 5);
+	if(err < E_OK) {
+		tm_printf((UB*)"read err %d\n", err);
+	} else {
+		for(INT i = 0; i < 5; i++) {
+			tm_printf((UB*)"%x ", rd[i]);
+		}
+		tm_putchar('\n');
+	}
+}
+
+/*-------------------------------------------------------------*/
+/* A/DC (Arduino I/F)                                            */
 /*-------------------------------------------------------------*/
 LOCAL void test_adc(void)
 {
 	ID	dd_ad1;
 	UW	data[10];
-	UB	wd[10], rd[10];
 	SZ	asz;
 	ER	err;
 
 	dd_ad1 = tk_opn_dev((UB*)"adca", TD_READ);
 
 	while(1) {
-		// LED (on Board)
-//		out_w(GPIO_ODR(D), (in_w(GPIO_ODR(D)))^((1<<11)|(1<<15)));
-
-		// A/D (on Board)
+		// A/D (Arduino I/F)
 		err = tk_srea_dev(dd_ad1, 0, &data[0], 3, &asz);
 		tm_printf((UB*)"(%d) %d  %d  %d\n", asz, data[0], data[1], data[2]);
 
@@ -63,11 +166,10 @@ LOCAL void test_i2c(void)
 	ER	err;
 
 
-	gesture_sensor_init(0);
-
+	err = gesture_sensor_init(0);
 	while(1) {
 		// Gesture sensor
-		gesture_sensor_get(&val);
+		err = gesture_sensor_get(&val);
 
 		if(val & GES_RIGHT_FLAG ) {
 			tm_printf((UB*)"Right\n");
@@ -102,25 +204,32 @@ LOCAL void test_uart(void)
 	SZ	asz;
 	INT	i;
 
-	dd = tk_opn_dev((UB*)"serd", TD_UPDATE);
+	dd = tk_opn_dev((UB*)"sere", TD_UPDATE);
+
+	for(data = 'A', i = 0; i <26; i++, data++) {
+		tk_swri_dev(dd, 0, &data, 1, &asz);
+	}
+	data = '\n';
+	tk_swri_dev(dd, 0, &data, 1, &asz);
+
+
 	for(i = 0; i < 10; i++) {
 		tk_srea_dev(dd, 0, &data, 1, &asz);
 		tk_swri_dev(dd, 0, &data, 1, &asz);
 	}
-	tm_printf((UB*)"\n\r");
-	for(data = 'A', i = 0; i <26; i++, data++) {
-		tk_swri_dev(dd, 0, &data, 1, &asz);
-	}
-	tm_printf((UB*)"\n\r");
+	data = '\n';
+	tk_swri_dev(dd, 0, &data, 1, &asz);
+
 }
 
 LOCAL void task_1(INT stacd, void *exinf)
 {
 
 
+	test_eeprom();
+//	test_uart();
 //	test_adc();
-	test_uart();
-	test_i2c();
+//	test_i2c();
 
 	tk_ext_tsk();
 }

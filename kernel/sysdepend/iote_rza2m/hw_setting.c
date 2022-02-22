@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -17,6 +17,25 @@
 /*
  *	hw_setting.c (RZ/A2M IoT-Engine)
  *		hardware settings
+ *
+ *	startup / shoutdown processing for hardware
+ *	
+ *	Pin function Setting (for IoT-Engine Starter board)
+ *		P90  : TxD4
+ *		PB1  : RxD4
+ *
+ *		(USE_SDEV_DRV)
+ *		P50  : AN000 (Arduino A0)
+ *		P51  : AN001 (Arduino A1)
+ *		P52  : AN002 (Arduino A2)
+ *		P53  : AN003 (Arduino A3)
+ *		P54  : AN004 (Arduino A4)
+ *		P55  : AN005 (Arduino A5)
+ *		PD0  : RIIC0 SCL (Arduino I2C)
+ *		PD1  : RIIC0 SDA (Arduino I2C)
+ *		PD6  : RIIC3 SCL (On Board)
+ *		PD7  : RIIC3 SDA (On Board)
+ *
  */
 
 #include "kernel.h"
@@ -32,10 +51,22 @@ typedef struct {
 	UB	data;
 } T_SETUP_REG;
 
-/* Setting the clock supply to each module */
+/* 
+ * Setup module stop Tadle
+ */
 LOCAL const T_SETUP_REG stbcr_tbl[] = {
-	{CPG_STBCR3 , 0b10001101},	/* [1], OSTM0, OSTM1, OSTM2, MTU3, CAN-FD, [0], GPT */
-	{CPG_STBCR4 , 0b11110111},	/* SCIF0, SCIF1, SCIF2, SCIF3, SCIF4, SCI0, SCI1,IrDA */
+#if !USE_SDEV_DRV	// Do not use sample device driver
+	{CPG_STBCR3 , 0b10001101},	/* Enable OSTM0, OSTM1, OSTM2 */
+	{CPG_STBCR4 , 0b11110111},	/* Enable SCIF4 */
+
+#else			// Use the sample device driver
+	{CPG_STBCR3 , 0b10001101},	/* Enable OSTM0, OSTM1, OSTM2 */
+	{CPG_STBCR4 , 0b11110111},	/* Enable SCIF4 */
+	{CPG_STBCR5 , 0b01110011},	/* Enable A/D, RTC0, RTC1 */
+	{CPG_STBCR8 , 0b01100111},	/* Enable RIIC0, RIIC3, SPIBSC */
+
+#endif
+
 /* When all devices are enabled */
 //	{CPG_STBCR2 , 0x6A},	/* Port level is keep in standby mode, [1], [1], [0], [1], [0], [1], CoreSight */
 //	{CPG_STBCR3 , 0x80},	/* [1], OSTM0, OSTM1, OSTM3, MTU3, CAN-FD, [0], GPT */
@@ -51,20 +82,42 @@ LOCAL const T_SETUP_REG stbcr_tbl[] = {
 	{0, 0}
 };
 
-/* Pin mode Tadle */
-LOCAL const T_SETUP_REG pmode_tbl[] = {
-	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
-	{PORT9_PMR, 0b00000011},
+/* 
+ * Setup pin functions Tadle
+ */
+LOCAL const T_SETUP_REG pfunc_tbl[] = {
+#if !USE_SDEV_DRV	// Do not use sample device driver
+	{PORT9n_PFS(0), 0x04},		// P90 -> SCIFA.TxD4
+	{PORT9n_PFS(1), 0x04},		// P91 -> SCIFA.RxD4
 
+#else			// Use the sample device driver
+	{PORT5n_PFS(0), 0x01},		// P50 = AN000
+	{PORT5n_PFS(1), 0x01},		// P51 = AN001
+	{PORT5n_PFS(2), 0x01},		// P52 = AN002
+	{PORT9n_PFS(0), 0x04},		// P90 -> SCIFA.TxD4
+	{PORT9n_PFS(1), 0x04},		// P91 -> SCIFA.RxD4
+	{PORTDn_PFS(0), 0x01},		// PD0 -> RIIC0.SCL
+	{PORTDn_PFS(1), 0x01},		// PD1 -> RIIC0.SDA
+	{PORTDn_PFS(6), 0x01},		// PD6 -> RIIC3.SCL
+	{PORTDn_PFS(7), 0x01},		// PD7 -> RIIC3.SDA
+
+#endif
 	{0, 0}
 };
 
-/* Pin function Tadle */
-LOCAL const T_SETUP_REG pfunc_tbl[] = {
-	// Serial debug I/F : P90 -> TxD4, P91 -> RxD4
-	{PORT9n_PFS(0), 0x04},
-	{PORT9n_PFS(1), 0x04},
+/* 
+ * Setup port mode Tadle
+ */
+LOCAL const T_SETUP_REG pmode_tbl[] = {
+#if !USE_SDEV_DRV	// Do not use sample device driver
+	{PORT9_PMR, 0b00000011},	// P90-P91 peripheral function
 
+#else			// Use the sample device driver
+	{PORT5_PMR, 0b00000111},	// P50-P52 peripheral function
+	{PORT9_PMR, 0b00000011},	// P90-P91 peripheral function
+	{PORTD_PMR, 0b11000011},	// PD0-PD1, PD6-PD7 peripheral function
+
+#endif
 	{0, 0}
 };
 
@@ -86,18 +139,19 @@ EXPORT void knl_startup_hw(void)
 	}
 	dummy_b;
 
-	/* Pin mode selection */
+	/* Setup port mode */
 	for(p = pmode_tbl; p->addr != 0; p++) {
 		or_b(p->addr, p->data);
 	}
 
-	/* Pin function selection */
+	/* Setup Pin Function */
 	out_b(PORT_PWPR, 0);
 	out_b(PORT_PWPR, PORT_PWPR_PFSWE);		/* Allow writing to PFS */
 	for(p = pfunc_tbl; p->addr != 0; p++) {
 		out_b(p->addr, p->data);
 	}
 	out_b(PORT_PWPR, PORT_PWPR_B0WI);		/* Prohibit writing to PFS */
+
 }
 
 #if USE_SHUTDOWN

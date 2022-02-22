@@ -276,7 +276,8 @@ EXPORT ER gesture_sensor_init(INT i2c_ch)
 
 	p_tbl = init_reg_tbl;
 	for(INT	i = 0; i < (sizeof(init_reg_tbl)/sizeof(T_REG)); p_tbl++, i++) {
-		i2c_write_reg(dd_i2c, I2C_SADR, p_tbl->addr, p_tbl->data);
+		err = i2c_write_reg(dd_i2c, I2C_SADR, p_tbl->addr, p_tbl->data);
+		if(err < E_OK) break;
 	}
 
 	return err;

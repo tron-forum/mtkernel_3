@@ -2,18 +2,18 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2021 by Ken Sakamura.
+ *    Copyright (C) 2021-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	ser_rza2m.h
+ *	ser_sysdep.h
  *	Serial communication device driver
  *	System-dependent definition for RZ/A2M
  */
@@ -90,7 +90,7 @@
 #define	SCI_FCR_INI		(0x0600)	// FCR initial value
 
 /* FTCR: FIFO trigger control*/
-#define	SCI_FTCR_INI		(0x8390)	// SPTR initial value (RTRGS=1, RFTC=1, TTRGS=1, TFTC=16)
+#define	SCI_FTCR_INI		(0x8186)	// SPTR initial value (RTRGS=1, RFTC=0, TTRGS=1, TFTC=6)
 
 /*
  *UART interrupt number

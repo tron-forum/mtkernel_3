@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2021 by Ken Sakamura.
+ *    Copyright (C) 2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -13,7 +13,7 @@
 
 
 /*
- *	ser_cnf_rza2m.h 
+ *	ser_cnf_sysdep.h 
  *	Serial Device configuration file
  *		for RZ/A2M
  */
@@ -23,8 +23,12 @@
 /* Device initialization */
 #define DEVCONF_SER_INIT_MSTP	FALSE		// Initialize module stop
 
-/* Device control data */
-#define	DEVCNF_SER_INTPRI	5		// Interrupt priority
+/* Interrupt priority */
+#define	DEVCNF_SER0_INTPRI	5
+#define	DEVCNF_SER1_INTPRI	5
+#define	DEVCNF_SER2_INTPRI	5
+#define	DEVCNF_SER3_INTPRI	5
+#define	DEVCNF_SER4_INTPRI	5
 
 /* Debug option
  *	Specify the device used by T-Monitor.

@@ -54,13 +54,13 @@ EXPORT ER knl_start_device( void )
 	#endif
 
 	/* SCI6 "serd" */
-	#if DEVCNF_USE_IIC
+	#if DEVCNF_USE_SER
 		err = dev_init_ser(3);
 		if(err < E_OK) return err;
 	#endif
 
 	/* RIIC0 "iica" */
-	#if DEVCNF_USE_SER
+	#if DEVCNF_USE_IIC
 		err = dev_init_i2c(0);
 		if(err < E_OK) return err;
 	#endif

@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2021 by Ken Sakamura.
+ *    Copyright (C) 2021-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -33,16 +33,27 @@ const LOCAL UW ba[DEV_SER_UNITNM] =
 	{ SCI0_BASE, SCI1_BASE, SCI2_BASE, SCI3_BASE, SCI4_BASE};
 
 /*----------------------------------------------------------------------
- * Interrupt number Table
- */
-const LOCAL UINT inotbl[DEV_SER_UNITNM] = 
-	{ INTNO_SCI0_ERI, INTNO_SCI1_ERI, INTNO_SCI2_ERI, INTNO_SCI3_ERI, INTNO_SCI4_ERI};
-#define	INTNO_BRI(n)	(inotbl[n])
-#define	INTNO_ERI(n)	(inotbl[n])
-#define INTNO_RXI(n)	(inotbl[n]+1)
-#define INTNO_TXI(n)	(inotbl[n]+2)
-#define INTNO_TEI(n)	(inotbl[n]+3)
-#define INTNO_DRI(n)	(inotbl[n]+3)
+ * Device data
+*/
+const LOCAL struct {
+	UINT	intno;		// Interrupt number
+	PRI	intpri;		// Interrupt priority
+} ll_devdat[DEV_SER_UNITNM] = {
+	{.intno = INTNO_SCI0_ERI, DEVCNF_SER0_INTPRI},
+	{.intno = INTNO_SCI1_ERI, DEVCNF_SER1_INTPRI},
+	{.intno = INTNO_SCI2_ERI, DEVCNF_SER2_INTPRI},
+	{.intno = INTNO_SCI3_ERI, DEVCNF_SER3_INTPRI},
+	{.intno = INTNO_SCI4_ERI, DEVCNF_SER4_INTPRI},
+};
+
+#define	INTNO_BRI(n)	(ll_devdat[n].intno)
+#define	INTNO_ERI(n)	(ll_devdat[n].intno)
+#define INTNO_RXI(n)	(ll_devdat[n].intno+1)
+#define INTNO_TXI(n)	(ll_devdat[n].intno+2)
+#define INTNO_TEI(n)	(ll_devdat[n].intno+3)
+#define INTNO_DRI(n)	(ll_devdat[n].intno+3)
+
+#define	INT_PRI(n)	(ll_devdat[n].intpri)
 
 /*----------------------------------------------------------------------
  * Device control data
@@ -163,7 +174,7 @@ LOCAL void start_com(UW unit, UW mode, UW speed)
 	reg = in_h(ba[unit] + SCI_FSR);
 	out_h(ba[unit] + SCI_FSR, reg & ~(SCI_FSR_DR|SCI_FSR_RDF));
 
-	/* SCR.TE,RE,TIE,RIE,REIE<- 1 */
+	/* SCR.TE,RE,RIE,REIE<- 1 */
 	out_h( ba[unit] + SCI_SCR, 
 		(SCI_SCR_RE | SCI_SCR_TE | SCI_SCR_RIE | SCI_SCR_REIE));
 }
@@ -261,9 +272,9 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 		ClearInt( INTNO_TXI(unit));
 
 		/* Enable Interrupt */
-		EnableInt( INTNO_ERI(unit), DEVCNF_SER_INTPRI);
-		EnableInt( INTNO_RXI(unit), DEVCNF_SER_INTPRI);
-		EnableInt( INTNO_TXI(unit), DEVCNF_SER_INTPRI);
+		EnableInt( INTNO_ERI(unit), INT_PRI(unit));
+		EnableInt( INTNO_RXI(unit), INT_PRI(unit));
+		EnableInt( INTNO_TXI(unit), INT_PRI(unit));
 	
 		/* Set mode & Start communication */
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
@@ -325,6 +336,7 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	/* Device Control block Initizlize */
 	p_dcb->intno_rcv = INTNO_RXI(unit);
 	p_dcb->intno_snd = INTNO_TXI(unit);
+	p_dcb->int_pri = INT_PRI(unit);
 
 	/* Interrupt handler definition */
 	dint.intatr	= TA_HLNG;

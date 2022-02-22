@@ -2,18 +2,18 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2021 by Ken Sakamura.
+ *    Copyright (C) 2021-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
 
 
 /*
- *	dev_adc_rza2m.h
+ *	dev_adc_sysdep.h
  *	A/D converter device driver
  *	System-dependent definition for RZ/A2M
  */

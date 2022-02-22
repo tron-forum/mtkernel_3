@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -44,9 +44,21 @@ EXPORT ER knl_init_device( void )
  */
 EXPORT ER knl_start_device( void )
 {
-	ER	err;
-	
 #if USE_SDEV_DRV
+	ER	err;
+
+	/* A/D Converter "adca" */
+	#if DEVCNF_USE_ADC
+		err = dev_init_adc(0);
+		if(err < E_OK) return err;
+	#endif
+
+	/* I2C unit.3 "iicd" */
+	#if DEVCNF_USE_IIC
+		err = dev_init_i2c(3);
+		if(err < E_OK) return err;
+	#endif
+
 
 	/* Serial ch.4 "sere" */
 	#if DEVCNF_USE_SER
