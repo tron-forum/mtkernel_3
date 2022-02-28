@@ -93,8 +93,8 @@ void usart_inthdr( UINT intno)
 
 	if(intno>=INTNO_USART1 && intno<=INTNO_USART3) {
 		unit = intno -INTNO_USART1;
-	} else if(intno>=INTNO_USART4 && intno<=INTNO_USART5) {
-		unit = intno -INTNO_USART4 + DEV_SER_UNIT3;
+	} else if(intno>=INTNO_UART4 && intno<=INTNO_UART5) {
+		unit = intno -INTNO_UART4 + DEV_SER_UNIT3;
 	} else {
 		ClearInt(intno);
 		return;
