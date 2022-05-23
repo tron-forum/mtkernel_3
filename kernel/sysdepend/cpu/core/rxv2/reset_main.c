@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/04.
  *
  *----------------------------------------------------------------------
  */
@@ -55,7 +55,7 @@ EXPORT void reset_main(void)
 	/* Load Interrupt Vector Table from ROM to RAM */
 	src = (UW*)knl_int_vect_rom;;
 	top = (UW*)knl_int_vect_ram;
-	for(i=0; i < (N_INTVEC); i++) {
+	for(i=0; i < (N_INTVEC0); i++) {
 		*top++ = *src++;
 	}
 	/* Set Vector Table offset to SRAM */
@@ -64,7 +64,7 @@ EXPORT void reset_main(void)
 	/* Load HLL-Interrupt Handler Table from ROM to RAM */
 	src = (UW*)knl_hll_inthdr_rom;;
 	top = (UW*)knl_hll_inthdr_ram;
-	for(i=0; i < (N_INTVEC); i++) {
+	for(i=0; i < (N_INTVEC0); i++) {
 		*top++ = *src++;
 	}
 #endif

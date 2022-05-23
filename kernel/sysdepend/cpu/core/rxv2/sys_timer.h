@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/06.
  *
  *----------------------------------------------------------------------
  */
@@ -30,7 +30,7 @@ Inline void knl_start_hw_timer( void )
 	out_h(CMT0_COR, EXTAL_CLOCK/PCLK_DIV/1000*TIMER_PERIOD/CMCR_DIV - 1);
 
 	/* Interrupt is Enable, Set Frequency Dividing */
-	out_h(CMT0_CR, CMT0_CR_CMIE | CMCR_CKS_PLCK8);
+	out_h(CMT0_CR, CMT0_CR_CMIE | CMCR_CKS_PLCK);
 
 	/* CMI0 Interrupt Enable, Interrupt Level is 15. */
 	EnableInt( INTNO_SYS_TICK , INTLEVEL_SYS_TICK);

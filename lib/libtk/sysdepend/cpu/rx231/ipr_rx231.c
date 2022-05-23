@@ -1,23 +1,23 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/04.
  *
  *----------------------------------------------------------------------
  */
 
 #include <sys/machine.h>
-#ifdef CPU_CORE_RXV2
+#ifdef CPU_RX231
 
 /*
- *	ipr_index.c
+ *	ipr_rx231.c
  *
- *	IPR register index table (RXv2 Core)
+ *	IPR register index table (RX231)
  */
 
 #include <tk/tkernel.h>
@@ -205,4 +205,4 @@ EXPORT const H IPR_index[]={
 	-1,-1,-1,-1,-1,-1,					// 250 - 255
 };
 
-#endif /* CPU_CORE_RXV2 */
+#endif /* CPU_CORE_RX231 */
