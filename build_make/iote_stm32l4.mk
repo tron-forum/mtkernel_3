@@ -7,7 +7,7 @@ AS := arm-none-eabi-gcc
 LINK := arm-none-eabi-gcc
 
 CFLAGS := -mcpu=cortex-m4 -mthumb -ffreestanding\
-    -std=gnu11 \
+    -std=c99 \
     -O0 -g3 \
     -MMD -MP \
     -mfloat-abi=soft \

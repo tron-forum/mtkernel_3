@@ -3,11 +3,9 @@
 ################################################################################
 
 OBJS += \
-./mtkernel_3/kernel/sysdepend/cpu/stm32l4/cpu_clock.o \
 ./mtkernel_3/kernel/sysdepend/cpu/stm32l4/vector_tbl.o 
 
 C_DEPS += \
-./mtkernel_3/kernel/sysdepend/cpu/stm32l4/cpu_clock.d \
 ./mtkernel_3/kernel/sysdepend/cpu/stm32l4/vector_tbl.d 
 
 mtkernel_3/kernel/sysdepend/cpu/stm32l4/%.o: ../kernel/sysdepend/cpu/stm32l4/%.c
