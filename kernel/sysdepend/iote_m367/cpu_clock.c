@@ -1,20 +1,20 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/06.
  *
  *----------------------------------------------------------------------
  */
 #include <sys/machine.h>
-#ifdef CPU_TMPM367FDFG
+#ifdef IOTE_M367
 
 /*
- *	cpu_clock.c (TX03-M367)
+ *	cpu_clock.c (M367 IoT-Engine)
  *	Clock Setting
  */
 
@@ -98,4 +98,4 @@ EXPORT void shutdown_clock(void)
 
 }
 
-#endif /* CPU_TMPM367FDFG */
+#endif /* IOTE_M367 */

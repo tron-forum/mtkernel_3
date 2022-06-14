@@ -12,10 +12,10 @@
  */
 
 #include <sys/machine.h>
-#ifdef CPU_STM32L4
+#ifdef IOTE_STM32L4
 
 /*
- *	cpu_clock.c (STM32L4)
+ *	cpu_clock.c (STM32L4 IoT-Engine)
  *	Clock Setting
  */
 
@@ -96,4 +96,4 @@ EXPORT void shutdown_clock(void)
 
 }
 
-#endif /* CPU_STM32L467 */
+#endif /* IOTE_STM32L4 */

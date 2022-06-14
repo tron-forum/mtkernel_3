@@ -12,10 +12,10 @@
  */
 
 #include <sys/machine.h>
-#ifdef CPU_RX231
+#ifdef IOTE_RX231
 
 /*
- *	cpu_clock.c (RX231)
+ *	cpu_clock.c (RX231 IoT-Engine)
  *	Clock Setting
  */
 
@@ -65,4 +65,4 @@ EXPORT void shutdown_clock(void)
 {
 }
 
-#endif /* CPU_RX231 */
+#endif /* IOTE_RX231 */
