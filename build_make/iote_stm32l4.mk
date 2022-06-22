@@ -1,5 +1,5 @@
 ################################################################################
-# micro T-Kernel 3.00.05  makefile
+# micro T-Kernel 3.00.06  makefile
 ################################################################################
 
 GCC := arm-none-eabi-gcc
@@ -7,7 +7,7 @@ AS := arm-none-eabi-gcc
 LINK := arm-none-eabi-gcc
 
 CFLAGS := -mcpu=cortex-m4 -mthumb -ffreestanding\
-    -std=c99 \
+    -std=gnu11 \
     -O0 -g3 \
     -MMD -MP \
     -mfloat-abi=soft \

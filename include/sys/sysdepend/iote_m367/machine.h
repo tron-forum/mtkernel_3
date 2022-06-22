@@ -31,7 +31,7 @@
 #define IOTE_M367		1				/* Target system : M367 IoT-Engine */
 #define CPU_TMPM367FDFG		1				/* Target CPU : Toshiba TMPM367FDFG */
 #define CPU_CORE_ARMV7M		1				/* Target CPU-Core type : ARMv7-M */
-//#define CPU_CORE_ACM3		1				/* Target CPU-Core : ARM Cortex-M3 */
+#define CPU_CORE_ACM3		1				/* Target CPU-Core : ARM Cortex-M3 */
 
 #define TARGET_DIR		iote_m367			/* Sysdepend-Directory name */
 
