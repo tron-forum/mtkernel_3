@@ -73,8 +73,8 @@
 /* Backwards compatible api support 
  *      micro T-Kernel2.0 API support (Rendezvous)
  */
-#define USE_LEGACY_API		(0)	/* 1: Valid  0: Invalid */
-#define CNF_MAX_PORID		(0)	/* Maximum number of Rendezvous */
+#define USE_LEGACY_API		(1)	/* 1: Valid  0: Invalid */
+#define CNF_MAX_PORID		(4)	/* Maximum number of Rendezvous */
 
 
 /*---------------------------------------------------------------------- */
@@ -86,7 +86,7 @@
 
 /*---------------------------------------------------------------------- */
 /* System function selection
-	1: Use function.  0: No use function.
+ *  1: Use function.  0: No use function.
  */
 #define USE_NOINIT		(0)	/* Use zero-clear bss section */
 #define USE_IMALLOC		(1)	/* Use dynamic memory allocation */
@@ -122,14 +122,14 @@
 /* Debugger support function
  *   1: Valid  0: Invalid
  */
-#define USE_DBGSPT		(0)	/* Use mT-Kernel/DS */
-#define USE_OBJECT_NAME		(0)	/* Use DS object name */
+#define USE_DBGSPT		(1)	/* Use mT-Kernel/DS */
+#define USE_OBJECT_NAME		(1)	/* Use DS object name */
 
 #define OBJECT_NAME_LENGTH	(8)	/* DS Object name length */
 
 /*---------------------------------------------------------------------- */
 /* Use T-Monitor Compatible API Library  & Message to terminal.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
 #define	USE_TMONITOR		(1)	/* T-Monitor API */
 #define USE_SYSTEM_MESSAGE	(1)	/* System Message */
@@ -138,20 +138,20 @@
 
 /*---------------------------------------------------------------------- */
 /* Use Co-Processor.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
 #define	USE_FPU			(0)	/* Use FPU */
 #define	USE_DSP			(0)	/* Use DSP */
 
 /*---------------------------------------------------------------------- */
 /* Use Physical timer.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
 #define USE_PTMR		(1)	/* Use Physical timer */
 
 /*---------------------------------------------------------------------- */
 /* Use Sample device driver.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
 #define USE_SDEV_DRV		(1)	/* Use Sample device driver */
 
