@@ -1,6 +1,6 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
