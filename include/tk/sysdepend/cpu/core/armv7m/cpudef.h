@@ -62,7 +62,7 @@ typedef struct t_cregs {
 
 #if NUM_COPROCESSOR > 0
 /*
- * Co-proceser register
+ * Co-processor register
  */
 typedef struct t_copregs {
 	VW	s[32];		/* FPU General purpose register S0-S31 */

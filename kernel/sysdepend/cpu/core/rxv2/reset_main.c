@@ -53,7 +53,7 @@ EXPORT void reset_main(void)
 
 #if !USE_STATIC_IVT
 	/* Load Interrupt Vector Table from ROM to RAM */
-	src = (UW*)knl_int_vect_rom;;
+	src = (UW*)knl_int_vect_rom;
 	top = (UW*)knl_int_vect_ram;
 	for(i=0; i < (N_INTVEC0); i++) {
 		*top++ = *src++;
@@ -62,7 +62,7 @@ EXPORT void reset_main(void)
 	knl_set_intb((UW)knl_int_vect_ram);
 
 	/* Load HLL-Interrupt Handler Table from ROM to RAM */
-	src = (UW*)knl_hll_inthdr_rom;;
+	src = (UW*)knl_hll_inthdr_rom;
 	top = (UW*)knl_hll_inthdr_ram;
 	for(i=0; i < (N_INTVEC0); i++) {
 		*top++ = *src++;
@@ -70,7 +70,7 @@ EXPORT void reset_main(void)
 #endif
 
 	/* Load .data to ram */
-	src = (UW*)&_data_org;;
+	src = (UW*)&_data_org;
 	top = (UW*)&_data_start;
 	end = (UW*)&_data_end;
 	while(top != end) {

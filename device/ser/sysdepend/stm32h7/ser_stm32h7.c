@@ -187,7 +187,7 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 		break;
 	
 	case LLD_SER_SPEED:	/* Set Communication Speed */
-		ll_devcb[unit].speed = ((PCLK1*1000*1000) + parm/2)/parm;;
+		ll_devcb[unit].speed = ((PCLK1*1000*1000) + parm/2)/parm;
 		break;
 	
 	case LLD_SER_START:	/* Start communication */

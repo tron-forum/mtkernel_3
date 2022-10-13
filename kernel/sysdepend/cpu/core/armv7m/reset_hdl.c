@@ -51,7 +51,7 @@ EXPORT void Reset_Handler(void)
 
 #if !USE_STATIC_IVT
 	/* Load Vector Table from ROM to RAM */
-	src = (UW*)vector_tbl;;
+	src = (UW*)vector_tbl;
 	top = (UW*)exchdr_tbl;
 
 	for(i=0; i < ((N_SYSVEC + N_INTVEC)); i++) {
@@ -63,7 +63,7 @@ EXPORT void Reset_Handler(void)
 #endif
 
 	/* Load .data to ram */
-	src = (UW*)&__data_org;;
+	src = (UW*)&__data_org;
 	top = (UW*)&__data_start;
 	end = (UW*)&__data_end;
 	while(top != end) {
