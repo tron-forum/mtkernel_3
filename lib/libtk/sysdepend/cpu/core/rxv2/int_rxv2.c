@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -101,6 +101,13 @@ EXPORT void EnableInt( UINT intno, INT level )
 {
 	UINT	imask;
 
+#if USE_GROUP_INT	// Group Interrupt
+	if(intno >= INTNO_GROUP_TOP) {
+		knl_enable_gint( intno);
+		return;
+	}
+#endif /* USE_GROUP_INT */
+
 	if((intno < 16) && (intno > 255)) {
 		return;
 	}
@@ -126,6 +133,13 @@ EXPORT void EnableInt( UINT intno, INT level )
  */
 EXPORT void DisableInt( UINT intno )
 {
+#if USE_GROUP_INT	// Group INterrupt
+	if(intno >= INTNO_GROUP_TOP) {
+		knl_disable_gint( intno);
+		return;
+	}
+#endif /* USE_GROUP_INT */
+
 	if((intno < 16) && (intno > 255)) {
 		return;
 	}
@@ -143,6 +157,13 @@ EXPORT void DisableInt( UINT intno )
  */
 EXPORT void ClearInt( UINT intno )
 {
+#if USE_GROUP_INT	// Group INterrupt
+	if(intno >= INTNO_GROUP_TOP) {
+		knl_clear_gint( intno);
+		return;
+	}
+#endif /* USE_GROUP_INT */
+
 	*(_UB*)(ICU_IR(intno)) = 0;
 }
 
@@ -161,6 +182,12 @@ EXPORT void EndOfInt(UINT intno)
  */
 EXPORT BOOL CheckInt( UINT intno )
 {
+#if USE_GROUP_INT	// Group INterrupt
+	if(intno >= INTNO_GROUP_TOP) {
+		return knl_check_gint( intno);
+	}
+#endif /* USE_GROUP_INT */
+
 	return (*(_UB*)(ICU_IR(intno)));
 }
 
@@ -171,6 +198,12 @@ EXPORT void SetIntMode(UINT intno, UINT mode)
 {
 	UINT	imask;
 	UB	irqmd;
+
+#if USE_GROUP_INT	// Group INterrupt
+	if(intno >= INTNO_GROUP_TOP) {
+		return;
+	}
+#endif /* USE_GROUP_INT */
 
 	switch (mode) {
 	case (IM_LEVEL | IM_LOW):

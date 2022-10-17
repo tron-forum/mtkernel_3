@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -27,7 +27,9 @@
 /*----------------------------------------------------------------------
  * Device register base address
  */
-const LOCAL UW ba[DEV_SER_UNITNM] = { USART1_BASE, USART2_BASE, USART3_BASE};
+const LOCAL UW ba[DEV_SER_UNITNM] = {
+	USART1_BASE, USART2_BASE, USART3_BASE, UART4_BASE, UART5_BASE
+};
 
 #define	USART_CR1(x)	(ba[x] + USARTx_CR1)	/* Control register 1 */
 #define	USART_CR2(x)	(ba[x] + USARTx_CR2)	/* Control register 2 */
@@ -40,6 +42,35 @@ const LOCAL UW ba[DEV_SER_UNITNM] = { USART1_BASE, USART2_BASE, USART3_BASE};
 #define	USART_ICR(x)	(ba[x] + USARTx_ICR)	/* Interrupt flag clear register */
 #define	USART_RDR(x)	(ba[x] + USARTx_RDR)	/* Received data register */
 #define	USART_TDR(x)	(ba[x] + USARTx_TDR)	/* Transmission data register */
+
+/*----------------------------------------------------------------------
+ * Device data
+*/
+const LOCAL struct {
+	UINT	intno;		// Interrupt number
+	PRI	intpri;		// Interrupt priority
+} ll_devdat[DEV_SER_UNITNM] = {
+	{	/* USART1 */
+		.intno		= INTNO_USART1,
+		.intpri		= DEVCNF_USART1_INTPRI,
+	},
+	{	/* USART2 */
+		.intno		= INTNO_USART2,
+		.intpri		= DEVCNF_USART2_INTPRI,
+	},
+	{	/* USART3 */
+		.intno		= INTNO_USART3,
+		.intpri		= DEVCNF_USART3_INTPRI,
+	},
+	{	/* UART4 */
+		.intno		= INTNO_UART4,
+		.intpri		= DEVCNF_UART4_INTPRI,
+	},
+	{	/* UART5 */
+		.intno		= INTNO_UART5,
+		.intpri		= DEVCNF_UART5_INTPRI,
+	},
+};
 
 /*----------------------------------------------------------------------
  * Device low-level control data
@@ -60,7 +91,14 @@ void usart_inthdr( UINT intno)
 	UW	isr;
 	W	unit;
 
-	unit = intno -INTNO_USART1;
+	if(intno>=INTNO_USART1 && intno<=INTNO_USART3) {
+		unit = intno -INTNO_USART1;
+	} else if(intno>=INTNO_UART4 && intno<=INTNO_UART5) {
+		unit = intno -INTNO_UART4 + DEV_SER_UNIT3;
+	} else {
+		ClearInt(intno);
+		return;
+	}
 	
 	isr = in_w(USART_ISR(unit));			// Get interrupt factor
 
@@ -135,19 +173,19 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 		break;
 	
 	case LLD_SER_SPEED:	/* Set Communication Speed */
-		ll_devcb[unit].speed = (TMCLK*1000*1000)/parm;
+		ll_devcb[unit].speed = ((TMCLK*1000*1000)+parm/2)/parm;
 		break;
 	
 	case LLD_SER_START:	/* Start communication */
 		out_w(USART_CR1(unit), 0);
 		out_w(USART_ICR(unit), USART_ICR_ALL);			// Clear interrupt
-		ClearInt(INTNO_USART1 + unit);
-		EnableInt(INTNO_USART1 + unit, DEVCNF_SER_INTPRI);	// Enable Interrupt
+		ClearInt(ll_devdat[unit].intno);
+		EnableInt(ll_devdat[unit].intno, ll_devdat[unit].intpri);	// Enable Interrupt
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
 		break;
 	
 	case LLD_SER_STOP:
-		DisableInt(INTNO_USART1 + unit);
+		DisableInt(ll_devdat[unit].intno);
 		stop_com(unit);
 		break;
 
@@ -185,7 +223,11 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 
 	unit = p_dcb->unit;
 
-#if DEVCONF_SER_INIT_MCLK
+#if DEVCNF_SER_INIT_MCLK
+	/* Select clock source */
+	out_w(RCC_CCIPR, (in_w(RCC_CCIPR) & ~RCC_CCIPR_USARTxSEL) | DEVCNF_USARTxSEL_INIT );
+
+	/* Enable module clock */
 	switch(unit) {
 	case 0:	// USART1
 		*(_UW*)RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
@@ -196,6 +238,12 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	case 2:	// USART3
 		*(_UW*)RCC_APB1ENR1 |= RCC_APB1ENR1_USART3EN;
 		break;
+	case 3:	// UART4
+		*(_UW*)RCC_APB1ENR1 |= RCC_APB1ENR1_UART4EN;
+		break;
+	case 4:	// UART5
+		*(_UW*)RCC_APB1ENR1 |= RCC_APB1ENR1_UART5EN;
+		break;
 	}
 #endif
 
@@ -203,10 +251,11 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	stop_com(unit);
 
 	/* Device Control block Initizlize */
-	p_dcb->intno_rcv = p_dcb->intno_snd = INTNO_USART1 + unit;
+	p_dcb->intno_rcv = p_dcb->intno_snd = ll_devdat[unit].intno;
+	p_dcb->int_pri = ll_devdat[unit].intpri;
 
 	/* Interrupt handler definition */
-	err = tk_def_int((INTNO_USART1 + unit), &dint);
+	err = tk_def_int(ll_devdat[unit].intno, &dint);
 
 	return err;
 }

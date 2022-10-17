@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -69,9 +69,9 @@ EXPORT void SetCtrlIntLevel( INT level )
 {
 	_UW	dummy;
 
-	if (level < INTPRI_HIGHEST || level > INTPRI_LOWEST) return;	/* Error */
+	if (level < INTPRI_HIGHEST || level >= INTPRI_LOWEST) return;	/* Error */
 
-	level = (level<<INTPRI_SHIFT) & 0x00FF;	/* bit7-3 is valid */
+	level = ((++level)<<INTPRI_SHIFT) & 0x00FF;	/* bit7-3 is valid */
 
 	out_w(GICC_PMR, (UW)level);
 	dummy = in_w(GICC_PMR);
@@ -90,7 +90,7 @@ EXPORT INT GetCtrlIntLevel( void )
 	level = in_w(GICC_PMR);
 	level = (level & 0x00FF) >>INTPRI_SHIFT;	/* bit7-3 is valid */
 
-	return (INT)level;
+	return (INT)(--level);
 }
 
 /*

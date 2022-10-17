@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -21,7 +21,6 @@
  *	adc.c
  *	A/D converter device driver 
 */
-
 
 /*----------------------------------------------------------------------*/
 /* Device driver Control block
@@ -89,7 +88,7 @@ LOCAL ER write_atr(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 }
 
 /*----------------------------------------------------------------------*/
-/*　Device-specific data control
+/* Device-specific data control
  */
 LOCAL ER read_data(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 {
@@ -100,6 +99,7 @@ LOCAL ER read_data(T_ADC_DCB *p_dcb, T_DEVREQ *req)
 		rtn = dev_adc_llctl( p_dcb->unit, LLD_ADC_READ, req->start, req->size, req->buf);
 		if(rtn > 0) {
 			req->asize = rtn;
+			if(req->size != rtn) err = E_IO;
 		} else {
 			err = (ER)rtn;
 		}
@@ -198,7 +198,7 @@ ER dev_adc_eventfn( INT evttyp, void *evtinf, T_MSDI *msdi)
 }
 
 /*----------------------------------------------------------------------
- * Serial communication Device initialization and registration
+ * Device driver initialization and registration
  */
 EXPORT ER dev_init_adc( UW unit )
 {

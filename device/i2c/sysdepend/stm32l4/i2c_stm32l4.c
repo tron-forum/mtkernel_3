@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -98,7 +98,10 @@ LOCAL void i2c_evhdr( UINT intno )
 			break;
 		}
 	}
-	if(unit >= DEV_I2C_UNITNM) return;
+	if(unit >= DEV_I2C_UNITNM) {
+		ClearInt(intno);	// Clear interrupt
+		return;
+	}
 
 	i2c_st = in_w(I2C_ISR(unit));
 	if( i2c_st & I2C_ISR_NACKF) {
@@ -254,9 +257,6 @@ EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 
 	switch(cmd) {
 	case LLD_I2C_OPEN:
-		/* I2C Initial setting */
-		out_w(I2C_TIMINGR(unit), I2C_TIMINGR_INIT);
-
 		/* I2C interrupt enable */
 		EnableInt(ll_devdat[unit].intno, ll_devdat[unit].intpri);
 		EnableInt(ll_devdat[unit].intno + 1, ll_devdat[unit].intpri);
@@ -304,13 +304,16 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 
 	unit = p_dcb->unit;
 
-#if DEVCONF_I2C_INIT_MCLK
-	UW	ccipr;
-	ccipr = in_w(RCC_CCIPR) & ~(RCC_CCIPR_I2CSEL << (unit<<1));
-	out_w(RCC_CCIPR, ccipr |(DEVCNF_I2CSEL << (12 + (unit<<1))));
+#if DEVCNF_I2C_INIT_MCLK
+	/* Select clock source */
+	out_w(RCC_CCIPR, (in_w(RCC_CCIPR) & ~RCC_CCIPR_I2CxSEL) | DEVCNF_I2CxSEL_INIT );
 
+	/* Enable module clock */
 	*(_UW*)RCC_APB1ENR1 |= (RCC_APB1ENR1_I2C1EN << unit);
 #endif
+
+	out_w(I2C_CR1(unit), 0);				// I2C disable
+	out_w(I2C_TIMINGR(unit), I2C_TIMINGR_INIT);		// I2C Initial setting
 
 	/* Interrupt handler definition */
 	intno		= ll_devdat[unit].intno;
@@ -321,10 +324,10 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 	if(err < E_OK) return err;
 
 	dint.inthdr	= i2c_erhdr;
-	err = tk_def_int(intno + 1, &dint);	// I2C error interrupt
+	err = tk_def_int(ll_devdat[unit].intno, &dint);
 
 	return err;
 }
 
 #endif		/* DEV_IIC_ENABLE */
-#endif		/* CPU_TMPM367FDFG */
+#endif		/* CPU_STM32L4 */

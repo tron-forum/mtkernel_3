@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -54,24 +54,6 @@
 #define	MSTPCRC		(0x00080018)
 #define	MSTPCRD		(0x0008001C)
 
-/* Module stop initial value */
-#if !USE_SDEV_DRV	// Do not use sample device driver
-
-#define MSTPCRA_INI	0xEFFF7FCF	/* Enable DMAC/DTC, CMT0-1, TMR0-3 */
-#define MSTPCRB_INI	0xFDFFFFFF	/* Enable SCI6 */
-#define MSTPCRC_INI	0x7FFF0000	/* Disable Deep-Sleep mode, Enable RAM */
-#define MSTPCRD_INI	0xFFFFFF00
-
-#else			// Use the sample device driver
-
-#define MSTPCRA_INI	0xEFFD7FCF	/* Enable DMAC/DTC, ADC, CMT0-1, TMR0-3 */
-#define MSTPCRB_INI	0xFDDFFFFF	/* Enable SCI6, RIIC0 */
-#define MSTPCRC_INI	0x7FFF0000	/* Disable Deep-Sleep mode, Enable RAM */
-#define MSTPCRD_INI	0xFFFFFF00
-
-#endif /* !USE_SDEV_DRV */
-
-
 /* ------------------------------------------------------------------------ */
 /*
  * System Clock Control 
@@ -93,8 +75,8 @@
 #define EXTAL_CLOCK	(UW)(54*MHz)
 
 #define PCLK_DIV	(2)		/* PCLK Devistion = PCLKB of SCKCR */
-#define CMCR_DIV	(8)		/* PCLK/CMCR_DIV */
-#define CMCR_CKS_PLCK8	(0x0000)	/* CMCR.CKS PCLK/8 */
+#define CMCR_DIV	(8)		/* CMT Clock = PCLK/CMCR_DIV */
+#define CMCR_CKS_PLCK	(0x0000)	/* CMCR.CKS = PCLK/8 */
 
 #define	SYSCLK_ICLK	(UW)(54*MHz)
 #define	SYSCLK_PCLKA	(UW)(54*MHz)
@@ -112,6 +94,13 @@
 /*
  * Interrupt Control
  */
+
+/* 
+ * RX231 does not have software configurable interrupt and group interrupt functions.
+ * Both values ​​must be FALSE.
+ */
+#define USE_SFTCNF_INT		(FALSE)		/* Software Configurable Interrupt */
+#define USE_GROUP_INT		(FALSE)		/* Group Interrupt */
 
 /*
  * ICU (Interrupt Controller) register
@@ -133,7 +122,9 @@
 /*
  * Number of Interrupt vectors
  */
-#define N_INTVEC		256	/* Number of Interrupt vectors */
+
+#define	N_INTVEC0	256		/* INTVEC0 is the number of interrupts other than group interrupts */
+#define N_INTVEC	(N_INTVEC0)	/* RX231 has no group interrupt, INTVEC and INTVEC0 are always equal. */
 
 /*
  * Interrupt Priority Levels

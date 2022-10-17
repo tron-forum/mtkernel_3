@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -38,7 +38,11 @@ LOCAL struct {
 void adc_inthdr( UINT intno)
 {
 	ClearInt(intno);
-	tk_wup_tsk(ll_devcb.wait_tskid);
+	if(intno != INTNO_S10ADI0) return;
+
+	if(ll_devcb.wait_tskid) {
+		tk_wup_tsk(ll_devcb.wait_tskid);
+	}
 }
 
 /*----------------------------------------------------------------------
@@ -137,46 +141,6 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 		EI(sts);
 	}
 #endif	/* DEVCONF_ADC_INIT_MSTP */
-
-#if DEVCONF_ADC_INIT_PIN		// Initialize I/O pin
-	INT	i;
-	UB	cnf;
-
-	out_b(MPC_PWPR, 0);				// PWPR.B0WI = 0
-	out_b(MPC_PWPR, MPC_PWMR_PFSWE);		// PWPR.PFSWE = 1
-
-	/* P40-P47 = AN00-AN07 */
-	cnf = DEVCONF_ENA_AN00_07;
-	*(UB*)PORT4_PDR &= ~cnf;		// Set input port
-	*(UB*)PORT4_PMR &= ~cnf;		// Set General-purpose i/o port
-	for( i = 0; i < 8; i++, cnf<<=1) {
-		if(cnf & 1) {
-			out_b(MPC_P4nPFS(i), MPC_PFS_ASEL);
-		}
-	}
-
-	/* PE0-PE7 = AN16-AN23 */
-	cnf = DEVCONF_ENA_AN16_23;
-	*(UB*)PORTE_PDR &= ~cnf;		// Set input port
-	*(UB*)PORTE_PMR &= ~cnf;		// Set General-purpose i/o port
-	for( i = 0; i < 8; i++, cnf<<=1) {
-		if(cnf & 1) {
-			out_b(MPC_PEnPFS(i), MPC_PFS_ASEL);
-		}
-	}
-
-	/* PD0-PD7 = AN24-AN31 */
-	cnf = DEVCONF_ENA_AN24_31;
-	*(UB*)PORTD_PDR &= ~cnf;		// Set input port
-	*(UB*)PORTD_PMR &= ~cnf;		// Set General-purpose i/o port
-	for( i = 0; i < 8; i++, cnf<<=1) {
-		if(cnf & 1) {
-			out_b(MPC_PDnPFS(i), MPC_PFS_ASEL);
-		}
-	}
-
-	out_b(MPC_PWPR, MPC_PWMR_B0WI);		// PWPR.PFSWE = 0, PWPR.B0WI = 1
-#endif		/* DEVCONF_ADC_INIT_PIN */
 
 	/* ADC device initialize */
 	out_h(ADCER, ADCER_INI);

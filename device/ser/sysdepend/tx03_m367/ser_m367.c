@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
  *    Copyright (C) 2020-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -30,6 +30,23 @@
 const LOCAL UW ba[DEV_SER_UNITNM] = { UART4_BASE, UART5_BASE};
 
 /*----------------------------------------------------------------------
+ * Device data
+*/
+const LOCAL struct {
+	UINT	intno;		// Interrupt number
+	PRI	intpri;		// Interrupt priority
+} ll_devdat[DEV_SER_UNITNM] = {
+	{	/* UART4 */
+		.intno		= INTNO_UART0,
+		.intpri		= DEVCNF_UART4_INTPRI,
+	},
+	{	/* UART5 */
+		.intno		= INTNO_UART1,
+		.intpri		= DEVCNF_UART5_INTPRI,
+	},
+};
+
+/*----------------------------------------------------------------------
  * Device low-level control data
 */
 typedef struct {
@@ -47,10 +64,16 @@ void uart_inthdr( UINT intno)
 	UW	data, err;
 	W	unit;
 
-	unit = intno -INTNO_UART0;
+	if(intno>=INTNO_UART0 && intno<=INTNO_UART1) {
+		unit = intno - INTNO_UART0;
+	} else {
+		ClearInt(intno);
+		return;
+	}
 	
 	/* Clear Interrupt */
 	out_w( ba[unit] + UARTxICR, UARTxINT_ALL);
+	ClearInt(intno);
 
 	/* Reception processing */
 	while( (in_w( ba[unit] + UARTxFR) & UARTxFR_RXFE) == 0) {
@@ -120,12 +143,12 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 	case LLD_SER_START:	/* Start communication */
 		out_w(ba[unit] + UARTxICR, UARTxINT_ALL);	// Clear interrupt
 		out_w(ba[unit] + UARTxIMSC, UARTxINT_COM);	// Unmask all interrupts
-		EnableInt(unit?INTNO_UART1:INTNO_UART0, DEVCNF_SER_INTPRI);	// Enable Interrupt
+		EnableInt(ll_devdat[unit].intno, ll_devdat[unit].intpri);	// Enable Interrupt
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
 		break;
 	
 	case LLD_SER_STOP:
-		DisableInt(unit?INTNO_UART1:INTNO_UART0);
+		DisableInt(ll_devdat[unit].intno);
 		stop_com(unit);
 		break;
 
@@ -176,10 +199,10 @@ EXPORT ER dev_ser_llinit( T_SER_DCB *p_dcb)
 	out_w(ba[unit] + UARTxDMACR, 0);		// Stop DMA
 
 	/* Device Control block Initizlize */
-	p_dcb->intno_rcv = p_dcb->intno_snd = INTNO_UART0 + unit;
+	p_dcb->intno_rcv = p_dcb->intno_snd = ll_devdat[unit].intno;
 
 	/* Interrupt handler definition */
-	err = tk_def_int((INTNO_UART0 + unit), &dint);
+	err = tk_def_int(ll_devdat[unit].intno, &dint);
 
 	stop_com(unit);
 

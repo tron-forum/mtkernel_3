@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -34,13 +34,13 @@ EXPORT	W	knl_int_nest = 0;	/* Interrupt nest counter */
  * Interrupt Vector table (RAM)
  */
 
-EXPORT FP knl_int_vect_ram[N_INTVEC] __attribute__ ((section (".data_ivector")));
+EXPORT FP knl_int_vect_ram[N_INTVEC0] __attribute__ ((section (".data_ivector")));
 
 /* ------------------------------------------------------------------------ */
 /*
  * HLL(High level programming language) Interrupt Handler Table (RAM)
  */
-EXPORT FP knl_hll_inthdr_ram[N_INTVEC] __attribute__ ((section (".data_hvector")));
+EXPORT FP knl_hll_inthdr_ram[N_INTVEC0] __attribute__ ((section (".data_hvector")));
 
 #endif	/* !USE_STATIC_IVT */
 
@@ -51,6 +51,16 @@ EXPORT FP knl_hll_inthdr_ram[N_INTVEC] __attribute__ ((section (".data_hvector")
 #if !USE_STATIC_IVT
 EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 {
+#if USE_GROUP_INT	// Group Interrupt
+	if(intno >= INTNO_GROUP_TOP) {
+		if( (intatr & TA_HLNG) != 0 ) {
+			return knl_define_gint( intno, inthdr);
+		} else {
+			return E_PAR;
+		}
+	}
+#endif /* USE_GROUP_INT */
+
 	/* check system interrupt number */
 	if((intno < INTNO_USER_MIN) || (intno == INTNO_SYS_TICK)) {
 		return E_PAR;

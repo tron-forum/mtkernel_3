@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -83,8 +83,6 @@
 #define	AIRCR_PRIGROUP2	0x00002000
 #define	AIRCR_PRIGROUP1	0x00001000
 #define	AIRCR_PRIGROUP0	0x00000000
-
-#define CCR_USERSETMPEND	0x00000020
 
 /*
  * The number of the implemented bit width for priority value fields.

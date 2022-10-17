@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -39,8 +39,12 @@
  * SYSTEM module registers
  */
 
+/* Register write protection register */
+#define SYSTEM_PRCR	(0x000803FE)
+
 /* Clock generation registers */
 #define SYSTEM_SCKCR	(0x00080020)
+#define SYSTEM_SCKCR2	(0x00080024)
 #define SYSTEM_SCKCR3	(0x00080026)
 #define SYSTEM_PLLCR	(0x00080028)
 #define SYSTEM_PLLCR2	(0x0008002A)
@@ -55,13 +59,21 @@
 #define SYSTEM_HOCOCR	(0x00080036)
 #define SYSTEM_HOCOCR2	(0x00080037)
 #define SYSTEM_OSCOVFSR	(0x0008003C)
-
+#define SYSTEM_OSTDCR	(0x00080040)
+#define SYSTEM_OSTDSR	(0x00080041)
 #define SYSTEM_OPCCR	(0x000800A0)
 #define	SYSTEM_RSTCKCR	(0x000800A1)
 #define SYSTEM_MOSCWTCR	(0x000800A2)
+#define SYSTEM_SOSCWTCR	(0x000800A3)
+#define SYSTEM_ROMWT	(0x0008101C)
+#define SYSTEM_MOFCR	(0x0008C293)
+#define SYSTEM_HOCOPCR	(0x0008C294)
 
-/* Register write protection register */
-#define SYSTEM_PRCR	(0x000803FE)
+/* Reset control registers */
+#define SYSTEM_RSTSR0	(0x0008C290)
+#define SYSTEM_RSTSR1	(0x0008C291)
+#define SYSTEM_RSTSR2	(0x000800C0)
+#define SYSTEM_SWRR	(0x000800C2)
 
 /* ------------------------------------------------------------------------ */
 /*

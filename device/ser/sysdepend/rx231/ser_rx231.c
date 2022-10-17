@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -44,6 +44,15 @@ const LOCAL UINT inotbl[DEV_SER_UNITNM] = {
 #define INTNO_RXI(n)	(inotbl[n]+1)
 #define INTNO_TXI(n)	(inotbl[n]+2)
 #define INTNO_TXE(n)	(inotbl[n]+3)
+
+/*----------------------------------------------------------------------
+ * Interrupt priority Table
+ */
+const LOCAL INT pritbl[DEV_SER_UNITNM] = {
+	DEVCNF_SCI0_INTPRI, DEVCNF_SCI1_INTPRI, DEVCNF_SCI5_INTPRI, DEVCNF_SCI6_INTPRI,
+	DEVCNF_SCI8_INTPRI, DEVCNF_SCI9_INTPRI, DEVCNF_SCI12_INTPRI
+};
+#define INTPRI(n)	(pritbl[n])
 
 /*----------------------------------------------------------------------
  * Device control data
@@ -213,9 +222,9 @@ EXPORT ER dev_ser_llctl( UW unit, INT cmd, UW parm)
 		in_b(ba[unit] + SCI_SSR);
 		out_b(ba[unit] + SCI_SSR, 0xC0);
 		/* Enable Interrupt */
-		EnableInt( INTNO_ERI(unit), DEVCNF_SER_INTPRI);
-		EnableInt( INTNO_RXI(unit), DEVCNF_SER_INTPRI);
-		EnableInt( INTNO_TXI(unit), DEVCNF_SER_INTPRI);
+		EnableInt( INTNO_ERI(unit), INTPRI(unit));
+		EnableInt( INTNO_RXI(unit), INTPRI(unit));
+		EnableInt( INTNO_TXI(unit), INTPRI(unit));
 		/* Set mode & Start communication */
 		start_com( unit, ll_devcb[unit].mode, ll_devcb[unit].speed);
 		break;

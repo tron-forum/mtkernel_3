@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -17,6 +17,29 @@
 /*
  *	hw_setting.c (M367 IoT-Engine)
  *	startup / shoutdown processing for hardware
+ *	
+ *	Pin function Setting (for IoT-Engine Starter board)
+ *		PA0 ~ PA3 : Debug I/F
+ *		PA4  : UART RTS5
+ *		PA5  : UART RXD5
+ *		PA6  : UART TXD5
+ *		PA7  : UART CTS5
+ *
+ *		(USE_SDEV_DRV)
+ *		PB0  : GPIO out (LED4)
+ *		PF3  : GPIO out (LED3)
+ *		PF6  : I2C SCL1
+ *		PF7  : I2C SDA1
+ *		PL1  : GPIO out (I2C Enable)
+ *
+ * 		(A/DC)
+ * 		PI0  ; AIN A0 (Light sensor)
+ *		PI2  : AIN A2 (Ardino A2)
+ * 		PI3  : AIN A3 (Ardino A1)
+  * 		PI4  : AIN B0 (Ardino A0)
+ * 		PI5  : AIN B1 (Temp sensor)
+ * 		PI6  : AIN B2 (Analog SW)
+ * 		PI7  ; AIN B3 (Analog SW)
  */
 
 #include "kernel.h"
@@ -35,7 +58,7 @@ typedef struct {
 LOCAL const T_SETUP_REG setup_regs[] = {
 
 #if !USE_SDEV_DRV	// Do not use device sample driver
-	//  Debugger I/F : PA0 ~ PA4
+	//  Debugger I/F : PA0 ~ PA3
 	//  Serial debug I/F : PA4 -> RTS5, PA5 -> RXD5, PA6 -> TXD5, PA7 -> CTS5
 	{PORT_FR1(A),	0x0000000F},
 	{PORT_FR2(A),	0x000000F0},
@@ -44,7 +67,11 @@ LOCAL const T_SETUP_REG setup_regs[] = {
 	{PORT_IE(A),	0x000000AE},
 
 #else			// Use the device sample driver
-	//  Debugger I/F : PA0 ~ PA4
+	// Port Output : PB0
+	{PORT_DATA(B),	0x00000000},
+	{PORT_CR(B),	0x00000001},
+
+	//  Debugger I/F : PA0 ~ PA3
 	//  Serial debug I/F : PA4 -> RTS5, PA5 -> RXD5, PA6 -> TXD5, PA7 -> CTS5
 	{PORT_FR1(A),	0x0000000F},
 	{PORT_FR2(A),	0x000000F0},
@@ -53,9 +80,11 @@ LOCAL const T_SETUP_REG setup_regs[] = {
 	{PORT_IE(A),	0x000000AE},
 
 	// I2C I/F : PF6 -> SCL1, PF7 -> SDA1
-	{PORT_FR4(F),	0x000000c0},
-	{PORT_OD(F),	0x000000c0},
-	{PORT_CR(F),	0x000000c0},
+	// Port Output : PF3
+	{PORT_FR4(F),	0x000000C0},
+	{PORT_OD(F),	0x000000C0},
+	{PORT_DATA(F),	0x00000000},
+	{PORT_CR(F),	0x000000C8},
 	{PORT_IE(F),	0x000000C0},
 
 	// PL1	P-OUT	I2C_ENABLE

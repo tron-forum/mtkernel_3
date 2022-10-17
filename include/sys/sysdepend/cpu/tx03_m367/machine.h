@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -29,6 +29,8 @@
 /*
  **** CPU-depeneded profile (TX03-M367)
  */
+
+#define	TARGET_CPU_DIR		tx03_m367		/* Sysdepend-CPU-Directory name */
 
 
 #endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

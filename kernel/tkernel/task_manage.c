@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -49,17 +49,18 @@ SYSCALL ID tk_cre_tsk( CONST T_CTSK *pk_ctsk )
 	/* TA_USERBUF must be specified if configured in no Imalloc */
 	CHECK_PAR((pk_ctsk->tskatr & TA_USERBUF) != 0);
 #endif
+	CHECK_PAR(pk_ctsk->stksz >= 0);
 	CHECK_PRI(pk_ctsk->itskpri);
-
-	sstksz = pk_ctsk->stksz + DEFAULT_SYS_STKSZ;
-	CHECK_PAR(sstksz >= MIN_SYS_STACK_SIZE);
 
 	if ( (pk_ctsk->tskatr & TA_USERBUF) != 0 ) {
 		/* Use user buffer */
+		sstksz = pk_ctsk->stksz;
+		CHECK_PAR(sstksz >= MIN_SYS_STACK_SIZE);
 		stack = pk_ctsk->bufptr;
 	} else {
 #if USE_IMALLOC
 		/* Allocate system stack area */
+		sstksz = pk_ctsk->stksz + DEFAULT_SYS_STKSZ;
 		sstksz  = (sstksz  + 7) / 8 * 8;	/* Align to a multiple of 8 */
 		stack = knl_Imalloc((UW)sstksz);
 		if ( stack == NULL ) {
@@ -232,6 +233,7 @@ SYSCALL void tk_ext_tsk( void )
 #if CHK_CTX2
 	if ( in_indp() ) {
 		SYSTEM_MESSAGE("tk_ext_tsk was called in the task independent\n");
+		while(1);
 		return;
 	}
 #endif

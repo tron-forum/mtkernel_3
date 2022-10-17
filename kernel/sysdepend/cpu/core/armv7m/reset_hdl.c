@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -51,7 +51,7 @@ EXPORT void Reset_Handler(void)
 
 #if !USE_STATIC_IVT
 	/* Load Vector Table from ROM to RAM */
-	src = (UW*)vector_tbl;;
+	src = (UW*)vector_tbl;
 	top = (UW*)exchdr_tbl;
 
 	for(i=0; i < ((N_SYSVEC + N_INTVEC)); i++) {
@@ -63,7 +63,7 @@ EXPORT void Reset_Handler(void)
 #endif
 
 	/* Load .data to ram */
-	src = (UW*)&__data_org;;
+	src = (UW*)&__data_org;
 	top = (UW*)&__data_start;
 	end = (UW*)&__data_end;
 	while(top != end) {
@@ -76,7 +76,7 @@ EXPORT void Reset_Handler(void)
 #else 
 	top = (UW*)&__bss_start;
 #endif
-	for(i = ((INT)&__bss_end - (INT)&__bss_start)/sizeof(UW); i > 0 ; i--) {
+	for(i = ((INT)&__bss_end - (INT)top)/sizeof(UW); i > 0 ; i--) {
 		*top++ = 0;
 	}
 
@@ -105,9 +105,6 @@ EXPORT void Reset_Handler(void)
 	
 	*(_UW*)SCB_SHPR2 = SCB_SHPR2_VAL;		// SVC pri = 0
 	*(_UW*)SCB_SHPR3 = SCB_SHPR3_VAL;		// SysTick = 1 , PendSV = 7
-
-	/* Allow user to access SCB_STIR */
-	*(_UW*)SCB_CCR |= CCR_USERSETMPEND;
 
 #if USE_FPU
 	/* Enable FPU */

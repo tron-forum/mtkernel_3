@@ -52,7 +52,7 @@ EXPORT void reset_main(void)
 
 	/* Load .data to ram */
 
-	src = (UW*)&_data_org;;
+	src = (UW*)&_data_org;
 	top = (UW*)&_data_start;
 	end = (UW*)&_data_end;
 	while(top < end) {

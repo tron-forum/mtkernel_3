@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2021 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -119,37 +119,12 @@ EXPORT ER dev_adc_llinit( T_ADC_DCB *p_dcb)
 	ER	err;
 
 #if DEVCONF_ADC_INIT_MSTP		// Initialize module stop
-	UB	stbc;
+	_UB	dmy;
 
-	stbc = in_b(CPG_STBCR5);
-	out_b(CPG_STBCR5, stbc & 0x7F);
-	stbc = in_b(CPG_STBCR5);	// dummy read
+	out_b(CPG_STBCR5, in_b(CPG_STBCR5) & ~(1<<7));
+	dmy = in_b(CPG_STBCR5);	// dummy read
 	
 #endif	/* DEVCONF_ADC_INIT_MSTP */
-
-#if DEVCONF_ADC_INIT_PIN		// Initialize I/O pin
-	UH	pdr;
-	UB	cnf;
-
-	/* Pin function selection */
-	out_b(PORT_PWPR, 0);
-	out_b(PORT_PWPR, PORT_PWPR_PFSWE);		/* Allow writing to PFS */
-
-	cnf = DEVCONF_ENA_AN00_07;
-	pdr = in_h(PORT5_PDR);
-	for(INT i = 0; i < 8; i++, cnf<<=1) {
-		if(cnf & 1) {
-			pdr &= ~(0x03<<(i*2));
-			out_b(PORT5n_PFS(i), PORT_PFS_PSEL(1));
-		}
-	}
-
-	out_b(PORT_PWPR, PORT_PWPR_B0WI);		/* Prohibit writing to PFS */
-
-	out_h(PORT5_PDR, pdr);
-	*(UB*)PORT5_PMR |= cnf;
-
-#endif		/* DEVCONF_ADC_INIT_PIN */
 
 	/* ADC device initialize */
 	out_h(ADCSR, 0);		// ADC stop, Single scan mode

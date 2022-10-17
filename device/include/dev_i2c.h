@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    Device Driver for micro T-Kernel for μT-Kernel 3.0
+ *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020 by Ken Sakamura.
+ *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
  */
@@ -41,6 +41,10 @@ typedef struct {
 	SZ		rcv_size;
 	UB		*rcv_data;
 } T_I2C_EXEC;
+
+/* I2C register access support function */
+EXPORT ER i2c_read_reg(ID dd, UW sadr, UW radr, UB *data);
+EXPORT ER i2c_write_reg(ID dd, UW sadr, UW radr, UB data);
 
 
 #endif	/* __DEVINC_I2C_H__ */
