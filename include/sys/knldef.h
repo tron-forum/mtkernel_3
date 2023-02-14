@@ -41,7 +41,7 @@
 # error "USE_FPU cannot be specified."
 #endif
 
-#if USE_DPS && !CPU_HAS_DSP
+#if USE_DSP && !CPU_HAS_DSP
 # error "USE_DSP cannot be specified."
 #endif
 

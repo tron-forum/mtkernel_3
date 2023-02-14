@@ -159,7 +159,7 @@ EXPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs)
 #endif
 		break;
 
-	case COPNO_1:			/* copno 1: DPS */
+	case COPNO_1:			/* copno 1: DSP */
 #if	USE_DSP
 		copregs->cop1.acc0lo = ssp->acc0lo;
 		copregs->cop1.acc0hi = ssp->acc0hi;
