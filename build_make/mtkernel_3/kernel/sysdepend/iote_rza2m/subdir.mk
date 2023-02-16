@@ -21,6 +21,6 @@ mtkernel_3/kernel/sysdepend/iote_rza2m/%.o: ../kernel/sysdepend/iote_rza2m/%.c
 
 mtkernel_3/kernel/sysdepend/iote_rza2m/%.o: ../kernel/sysdepend/iote_rza2m/%.S
 	@echo 'Building file: $<'
-	$(GCC) $(CFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	$(AS) $(ASFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '

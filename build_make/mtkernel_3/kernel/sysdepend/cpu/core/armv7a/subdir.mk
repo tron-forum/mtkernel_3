@@ -34,7 +34,7 @@ mtkernel_3/kernel/sysdepend/cpu/core/armv7a/%.o: ../kernel/sysdepend/cpu/core/ar
 
 mtkernel_3/kernel/sysdepend/cpu/core/armv7a/%.o: ../kernel/sysdepend/cpu/core/armv7a/%.S
 	@echo 'Building file: $<'
-	$(GCC) $(CFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	$(AS) $(ASFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
