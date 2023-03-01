@@ -46,7 +46,7 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
  */
 IMPORT FP knl_intvec_tbl[N_INTVEC];		/* Interrupt vector table */
 IMPORT FP knl_hll_inthdr_tbl[N_INTVEC];		/* High level programming language interrupt handler table */
-IMPORT const FP knl_svcvec_tbl[N_SVCHDR];	/* SVC handler tavle */
+IMPORT const FP knl_svcvec_tbl[N_SVCHDR];	/* SVC handler table */
 
 /*
  * Interrupt Control (int_asm.S)

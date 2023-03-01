@@ -37,7 +37,7 @@ start:
 	.extern  Csym(startup_clock)
 	.extern  Csym(vector_table)
 	.extern  Csym(knl_init_ttb)
-	.extern  Cstm(reset_main)
+	.extern  Csym(reset_main)
 
 Csym(Reset_Handler):
 	/* Disable IRQ */
