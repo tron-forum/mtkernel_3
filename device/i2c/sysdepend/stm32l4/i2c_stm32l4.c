@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/02.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -324,7 +324,7 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 	if(err < E_OK) return err;
 
 	dint.inthdr	= i2c_erhdr;
-	err = tk_def_int(ll_devdat[unit].intno, &dint);
+	err = tk_def_int(intno + 1, &dint);
 
 	return err;
 }
