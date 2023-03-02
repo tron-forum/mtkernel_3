@@ -137,7 +137,7 @@ EXPORT void knl_timer_insert_abs( TMEB *evt, ABSTIM time, CBACK cback, void *arg
 /* ------------------------------------------------------------------------ */
 
 /*
- * System imer interrupt handler
+ * System timer interrupt handler
  *	This interrupt handler starts every TIMER_PERIOD millisecond 
  *	interval by hardware timer. Update the software clock and start the 
  *	timer event upon arriving at start time.

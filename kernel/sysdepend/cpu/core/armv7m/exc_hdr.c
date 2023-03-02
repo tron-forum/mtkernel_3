@@ -131,4 +131,4 @@ WEAK_FUNC EXPORT void Default_Handler(void)
 	while(1);
 }
 
-#endif /* CPU_CORE_ACM4F */
+#endif /* CPU_CORE_ACMV7M */
