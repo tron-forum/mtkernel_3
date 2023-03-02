@@ -353,7 +353,7 @@
  * Coprocessor
  */
 #define CPU_HAS_FPU			1
-#define CPU_HAS_DPS			1
+#define CPU_HAS_DSP			1
 
 /*
  *  Number of coprocessors to use. Depends on user configuration
