@@ -271,13 +271,13 @@ EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 	case LLD_I2C_READ:
 		set_com_start( unit, p1, 0, p2, NULL, (UB*)pp);
 		err = i2c_trans(unit, &ll_devcb[unit]);
-		if(err >= E_OK) err = p1 - ll_devcb[unit].sdat_num;
+		if(err >= E_OK) err = p2 - ll_devcb[unit].sdat_num;
 		break;
 
 	case LLD_I2C_WRITE:
 		set_com_start( unit, p1, p2, 0, (UB*)pp, NULL);
 		err = i2c_trans(unit, &ll_devcb[unit]);
-		if(err >= E_OK) err = p1 - ll_devcb[unit].sdat_num;
+		if(err >= E_OK) err = p2 - ll_devcb[unit].sdat_num;
 		break;
 
 	case LLD_I2C_EXEC:
