@@ -109,7 +109,7 @@ dc_loop2:				// loop of set
 fpu_init:
 	mrc	p15, 0, r0, c1, c0, 2	// Read CP15 Coprocessor Access Control Register(CPACR)
 	orr	r0, r0, #(0xf << 20)	// CP10/CP11 access enable
-	bic	r0, r0, #(3 << 30)	// clear ASEDIS/D32DIS bit    (SIMD extention enable/d16-d31 access enable)
+	bic	r0, r0, #(3 << 30)	// clear ASEDIS/D32DIS bit    (SIMD extension enable/d16-d31 access enable)
 	mcr	p15, 0, r0, c1, c0, 2	// write CP15 Coprocessor Access Control Register(CPACR)
 	isb				// Instruction  Synchronization  barrier
 	mov	r0, #0x40000000		// enable  VFP
