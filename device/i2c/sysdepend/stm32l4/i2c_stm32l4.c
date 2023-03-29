@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2022 by Ken Sakamura.
+ *    Copyright (C) 2020-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/02.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -271,13 +271,13 @@ EXPORT W dev_i2c_llctl( UW unit, INT cmd, UW p1, UW p2, UW *pp)
 	case LLD_I2C_READ:
 		set_com_start( unit, p1, 0, p2, NULL, (UB*)pp);
 		err = i2c_trans(unit, &ll_devcb[unit]);
-		if(err >= E_OK) err = p1 - ll_devcb[unit].sdat_num;
+		if(err >= E_OK) err = p2 - ll_devcb[unit].sdat_num;
 		break;
 
 	case LLD_I2C_WRITE:
 		set_com_start( unit, p1, p2, 0, (UB*)pp, NULL);
 		err = i2c_trans(unit, &ll_devcb[unit]);
-		if(err >= E_OK) err = p1 - ll_devcb[unit].sdat_num;
+		if(err >= E_OK) err = p2 - ll_devcb[unit].sdat_num;
 		break;
 
 	case LLD_I2C_EXEC:
@@ -324,7 +324,7 @@ EXPORT ER dev_i2c_llinit( T_I2C_DCB *p_dcb)
 	if(err < E_OK) return err;
 
 	dint.inthdr	= i2c_erhdr;
-	err = tk_def_int(ll_devdat[unit].intno, &dint);
+	err = tk_def_int(intno + 1, &dint);
 
 	return err;
 }

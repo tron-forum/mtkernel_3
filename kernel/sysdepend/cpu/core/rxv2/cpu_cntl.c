@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -159,7 +159,7 @@ EXPORT ER knl_get_cpr( TCB *tcb, INT copno, T_COPREGS *copregs)
 #endif
 		break;
 
-	case COPNO_1:			/* copno 1: DPS */
+	case COPNO_1:			/* copno 1: DSP */
 #if	USE_DSP
 		copregs->cop1.acc0lo = ssp->acc0lo;
 		copregs->cop1.acc0hi = ssp->acc0hi;

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -137,7 +137,7 @@ EXPORT void knl_timer_insert_abs( TMEB *evt, ABSTIM time, CBACK cback, void *arg
 /* ------------------------------------------------------------------------ */
 
 /*
- * System imer interrupt handler
+ * System timer interrupt handler
  *	This interrupt handler starts every TIMER_PERIOD millisecond 
  *	interval by hardware timer. Update the software clock and start the 
  *	timer event upon arriving at start time.

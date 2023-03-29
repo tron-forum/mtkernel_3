@@ -1,5 +1,5 @@
 ################################################################################
-# micro T-Kernel 3.00.03  makefile
+# micro T-Kernel 3.00.06A  makefile
 ################################################################################
 
 S_UPPER_SRCS += \
@@ -30,7 +30,7 @@ mtkernel_3/kernel/sysdepend/cpu/core/armv7m/%.o: ../kernel/sysdepend/cpu/core/ar
 
 mtkernel_3/kernel/sysdepend/cpu/core/armv7m/%.o: ../kernel/sysdepend/cpu/core/armv7m/%.S
 	@echo 'Building file: $<'
-	$(GCC) $(CFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	$(AS) $(ASFLAGS) -D$(TARGET) $(INCPATH) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

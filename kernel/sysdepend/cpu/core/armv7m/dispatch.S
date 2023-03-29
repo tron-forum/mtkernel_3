@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -95,7 +95,7 @@ l_dispatch_000:
 	ands	r3,lr, #EXPRN_NO_FPU
 	bne	l_dispatch_010			// ctxtsk does not execute FPU instructions.
 
-	vpush	{s16-s31}			// Push FPU register (S15-S31)
+	vpush	{s16-s31}			// Push FPU register (S16-S31)
 	push	{r3}				//FPU usage flag
 
 l_dispatch_010:			// End of FPU register save process
@@ -148,7 +148,7 @@ l_dispatch_120:			// Switch to 'schedtsk'
 	bne	l_dispatch_200			// schedtsk does not execute FPU instructions.
 
 	pop	{r3}
-	vpop	{s16-s31}			// Pop FPU register (S15-S31)
+	vpop	{s16-s31}			// Pop FPU register (S16-S31)
 
 l_dispatch_200:			//  End of FPU register restore process
 #endif	/* USE_FPU */

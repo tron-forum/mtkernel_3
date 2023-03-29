@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -73,8 +73,8 @@
 /* Backwards compatible api support 
  *      micro T-Kernel2.0 API support (Rendezvous)
  */
-#define USE_LEGACY_API		(1)	/* 1: Valid  0: Invalid */
-#define CNF_MAX_PORID		(4)	/* Maximum number of Rendezvous */
+#define USE_LEGACY_API		(0)	/* 1: Valid  0: Invalid */
+#define CNF_MAX_PORID		(0)	/* Maximum number of Rendezvous */
 
 
 /*---------------------------------------------------------------------- */
@@ -123,7 +123,7 @@
  *   1: Valid  0: Invalid
  */
 #define USE_DBGSPT		(1)	/* Use mT-Kernel/DS */
-#define USE_OBJECT_NAME		(1)	/* Use DS object name */
+#define USE_OBJECT_NAME		(0)	/* Use DS object name */
 
 #define OBJECT_NAME_LENGTH	(8)	/* DS Object name length */
 
@@ -153,7 +153,7 @@
 /* Use Sample device driver.
  *  1: Valid  0: Invalid
  */
-#define USE_SDEV_DRV		(1)	/* Use Sample device driver */
+#define USE_SDEV_DRV		(0)	/* Use Sample device driver */
 
 /*---------------------------------------------------------------------- */
 /*

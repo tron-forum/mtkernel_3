@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -37,7 +37,7 @@ start:
 	.extern  Csym(startup_clock)
 	.extern  Csym(vector_table)
 	.extern  Csym(knl_init_ttb)
-	.extern  Cstm(reset_main)
+	.extern  Csym(reset_main)
 
 Csym(Reset_Handler):
 	/* Disable IRQ */
@@ -109,7 +109,7 @@ dc_loop2:				// loop of set
 fpu_init:
 	mrc	p15, 0, r0, c1, c0, 2	// Read CP15 Coprocessor Access Control Register(CPACR)
 	orr	r0, r0, #(0xf << 20)	// CP10/CP11 access enable
-	bic	r0, r0, #(3 << 30)	// clear ASEDIS/D32DIS bit    (SIMD extention enable/d16-d31 access enable)
+	bic	r0, r0, #(3 << 30)	// clear ASEDIS/D32DIS bit    (SIMD extension enable/d16-d31 access enable)
 	mcr	p15, 0, r0, c1, c0, 2	// write CP15 Coprocessor Access Control Register(CPACR)
 	isb				// Instruction  Synchronization  barrier
 	mov	r0, #0x40000000		// enable  VFP
