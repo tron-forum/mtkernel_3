@@ -109,6 +109,7 @@ l_dispatch_010:			// End of FPU register save process
 
 /*----------------- Dispatch from "ctxtsk" to "schedtsk" -----------------*/
 l_dispatch_100:
+	ldr	r4, =Csym(knl_ctxtsk)
 	ldr	r5, =Csym(knl_schedtsk)		// R5 = &schedtsk
 	ldr	r6, =Csym(knl_lowpow_discnt)	// R6 = &lowpow_discnt
 
@@ -132,7 +133,7 @@ l_dispatch_110:
 	b	l_dispatch_110
 
 l_dispatch_120:			// Switch to 'schedtsk'
-	str	r8, [r0]			// ctxtsk = schedtsk
+	str	r8, [r4]			// ctxtsk = schedtsk
 	ldr	sp, [r8, #TCB_tskctxb + CTXB_ssp]	// Restore 'ssp' from TCB
 
 
