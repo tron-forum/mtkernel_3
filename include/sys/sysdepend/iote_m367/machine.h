@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -34,6 +34,7 @@
 #define CPU_CORE_ACM3		1				/* Target CPU-Core : ARM Cortex-M3 */
 
 #define TARGET_DIR		iote_m367			/* Sysdepend-Directory name */
+#define KNL_SYSDEP_PATH		iote_m367			/* Kernel sysdepend path */
 
 /*
  **** CPU-depeneded profile (TX03M367)

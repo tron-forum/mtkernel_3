@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -27,7 +27,7 @@
  * MERCD, SERCD).
  */
 #ifndef _in_asm_source_
-#include "typedef.h"
+#include <tk/typedef.h>
 
 #define MERCD(er)	( (ER)(er) >> 16 )	/* Main error code */
 #define SERCD(er)	( (H)(er) )		/* Sub-error code */

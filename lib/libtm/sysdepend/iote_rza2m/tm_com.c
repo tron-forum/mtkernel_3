@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -16,7 +16,9 @@
  *    T-Monitor Communication low-level device driver (RZ/A2M IoT-Engine)
  */
 
-#include <tk/tkernel.h>
+#include <tk/typedef.h>
+#include <sys/sysdef.h>
+#include <tk/syslib.h>
 
 #if USE_TMONITOR
 #include "../../libtm.h"

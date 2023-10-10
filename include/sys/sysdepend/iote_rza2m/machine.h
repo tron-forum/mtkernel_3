@@ -1,16 +1,15 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
-
 
 /*
  *	machine.h
@@ -35,6 +34,7 @@
 #define CPU_CORE_ACA9		1				/* Target CPU-Core : ARM Cortex-A9 */
 
 #define TARGET_DIR		iote_rza2m			/* Sysdepend-Directory name */
+#define KNL_SYSDEP_PATH		iote_rza2m			/* Kernel sysdepend path */
 
 /*
  **** CPU-depeneded profile (RZA2M)

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -162,14 +162,6 @@
 #define TPW_DOSUSPEND	1	/* Transit to suspend state */
 #define TPW_DISLOWPOW	2	/* Power-saving mode switch disable */
 #define TPW_ENALOWPOW	3	/* Power-saving mode switch enable */
-
-
-/* CPU dependent definition */
-#define CPUDEF_PATH_(a)		#a
-#define CPUDEF_PATH(a)		CPUDEF_PATH_(a)
-#define CPUDEF_SYSDEP()		CPUDEF_PATH(sysdepend/TARGET_DIR/cpudef.h)
-
-#include CPUDEF_SYSDEP()
 
 /*
  * Task creation information 		tk_cre_tsk
