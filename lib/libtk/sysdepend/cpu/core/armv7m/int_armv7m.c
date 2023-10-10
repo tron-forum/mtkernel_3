@@ -36,6 +36,7 @@
 EXPORT void set_basepri(UW intsts)
 {	
 	Asm("msr basepri, %0":: "r"(intsts));
+	Asm("isb");
 }
 
 /*
@@ -59,6 +60,7 @@ EXPORT UW disint(void)
 	maxint = INTPRI_VAL(INTPRI_MAX_EXTINT_PRI);
 	Asm("mrs %0, basepri": "=r"(intsts));
 	Asm("msr basepri, %0":: "r"(maxint));
+	Asm("isb");
 
 	return intsts;
 }
