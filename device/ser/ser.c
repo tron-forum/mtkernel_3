@@ -6,7 +6,7 @@
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/02.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/11.
  *
  *----------------------------------------------------------------------
  */
@@ -14,6 +14,7 @@
 #include <tk/tkernel.h>
 #include <tstdlib.h>
 
+#ifdef USE_SDEV_DRV
 #include "ser.h"
 #include "../include/dev_def.h"
 #if DEV_SER_ENABLE
@@ -451,3 +452,4 @@ err_2:
 }
 
 #endif		/* DEV_SER_ENABLE */
+#endif		/* USE_SDEV_DRV */
