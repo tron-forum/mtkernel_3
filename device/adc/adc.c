@@ -2,7 +2,7 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2022 by Ken Sakamura.
+ *    Copyright (C) 2020-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
@@ -14,7 +14,7 @@
 #include <tk/tkernel.h>
 #include <tstdlib.h>
 
-#ifdef USE_SDEV_DRV
+#if USE_SDEV_DRV
 #include "adc.h"
 #include "../include/dev_def.h"
 #if DEV_ADC_ENABLE
