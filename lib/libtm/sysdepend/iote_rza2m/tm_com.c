@@ -16,9 +16,7 @@
  *    T-Monitor Communication low-level device driver (RZ/A2M IoT-Engine)
  */
 
-#include <tk/typedef.h>
-#include <sys/sysdef.h>
-#include <tk/syslib.h>
+#include <tk/tkernel.h>
 
 #if USE_TMONITOR
 #include "../../libtm.h"

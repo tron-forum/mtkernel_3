@@ -26,6 +26,17 @@
 extern "C" {
 #endif
 
+#include <config.h>
+
+#if USE_STDINC_STDDEF
+#include <stddef.h>
+#define PROHIBIT_DEF_SIZE_T
+#endif
+
+#if USE_STDINC_STDINT
+#include <stdint.h>
+#endif
+
 #include <tk/typedef.h>
 #include <tk/errno.h>
 

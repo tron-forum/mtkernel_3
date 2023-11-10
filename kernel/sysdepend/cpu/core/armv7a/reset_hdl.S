@@ -20,6 +20,7 @@
  */
 
 #define	_in_asm_source_
+#include <config.h>
 #include <sys/sysdef.h>
 #include <sys/knldef.h>
 

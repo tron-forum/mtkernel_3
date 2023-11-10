@@ -20,6 +20,7 @@
 #define	_in_asm_source_
 
 #include <sys/machine.h>
+#include <config.h>
 #include <tk/errno.h>
 #include <sys/sysdef.h>
 #include <sys/knldef.h>

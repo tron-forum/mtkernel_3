@@ -15,10 +15,7 @@
  *    tm_com.c
  *    T-Monitor Communication low-level device driver (RX231 IoT-Engine)
  */
-
-#include <tk/typedef.h>
-#include <sys/sysdef.h>
-#include <tk/syslib.h>
+#include <tk/tkernel.h>
 
 #if USE_TMONITOR
 #include "../../libtm.h"

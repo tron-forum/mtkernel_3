@@ -16,8 +16,6 @@
  *
  *	High-speed exclusive control multi-lock 
  */
-
-#include <config.h>
 #include <tk/tkernel.h>
 
 #if USE_MULTI_LOCK
