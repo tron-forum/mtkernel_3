@@ -2,11 +2,11 @@
 μT-Kernel 3.0 is a Real-time OS for Small-scale Embedded Systems and IoT Edge nodes.
 
 - It is compliant with IEEE Standard 2050-2018 and has high compatibility with μT-Kernel 2.0.
-- Source code has been reviewed and rewritten so that porting to latest microprocessors has become easier.
+- Its source code has been reviewed and rewritten so that porting to latest microprocessors has become easier.
 - It is not tied to particular development environment, and is usable with many such environments.
 
 μT-Kernel3.0 is developed by TRON Forum.
-The source code of μT-Kernel 3.0 is released as open source under the condition of T-License2.2.
+Its source code is released as open source under the condition of T-License2.2.
 
 See below for T-License 2.2.
 
@@ -16,12 +16,12 @@ The projects for various development environments are published below.
 
 [μT-Kernel 3.0 Development environment collection](https://github.com/tron-forum/mtk3_devenv)
 
-For inquiries to the TRON Forum, visit the following website
+For inquiries to TRON Forum, visit the following website
 
 [TRON Forum  (https://www.tron.org)](https://www.tron.org)
 
 ---
-μT-Kernel 3.0は、小規模な組み込みシステムおよびIoTエッジノード向けのリアルタイムOSです。
+μT-Kernel 3.0は、小規模な組込みシステムおよびIoTエッジノード向けのリアルタイムOSです。
 
 - IEEE 2050-2018規格に準拠し、かつ、μT-Kernel 2.0と高い互換性を維持しています。
 - ソースコードの全面見直しにより、最新のマイコンへの移植性が高まりました。
@@ -38,6 +38,6 @@ T-License2.2の内容は以下をご覧ください。
 
 [μT-Kernel 3.0 Development environment collection](https://github.com/tron-forum/mtk3_devenv)
 
-トロンフォーラムへのお問い合わせは以下のHPへ
+トロンフォーラムへのお問い合わせは以下のWebサイトへ
 
 [トロンフォーラム  (https://www.tron.org)](https://www.tron.org)
