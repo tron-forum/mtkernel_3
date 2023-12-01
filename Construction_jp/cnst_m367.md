@@ -157,7 +157,7 @@ Eclipseにて以下の手順で本ソフトのプロジェクトを作成する�
 |Gnu ARM Cross Assembler|「Preprocessor」の「Defined symbols(-D)」にターゲット名  `_IOTE_M367_`を定義。<br>「Includes」の「Include paths(-I)」の追加:μT-Kernel3.0のインクルードパスを設定する。|
 |GNU ARM Cross C Compiler」|「Preprocessor」の「Defined symbols(-D)」にターゲット名`_IOTE_M367_`を定義。<br>「Includes」の「Include paths(-I)」の追加。μT-Kernel3.0のインクルードパスを設定する。<br>「Optimization」の「Language standard」で「GNU ISO C11 (-std=gnu11)」を選択|
 |GNU ARM Cross C Linker|「General」の「Script Files(-T)」に、ファイルのパスを設定する。スクリプト・ファイルは以下にある。  `mtkernel_3\etc\linker\iote_m367\tkernel_map.ld`<br>「Do not use standard start files (-nostartfile)」のみを選択する。|
-　　　　
+
 ### 3.2.3 プロジェクトのビルド
 メニュー「Project」→「Build Project」を選択すると、μT-Kernelのソースコードがコンパイル、リンクされ、実行コードのELFファイルが生成される。  
 
