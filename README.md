@@ -26,7 +26,7 @@ TRON Forum (https://www.tron.org)
 
 ## 構築手順書
 [TX03 M367 IoT-Engine向け構築手順書](Construction_jp/cnst_m367.md)  
-[RX231 IoT-Engine向け構築手順書](Construction/const_rx231.md)  
+[RX231 IoT-Engine向け構築手順書](Construction/cnst_rx231.md)  
 [RZ/A2M IoT-Engine向け構築手順書](Construction_jp/cnst_rza2m.md)  
 [STM32L4 IoT-Engine向け構築手順書](Construction_jp/cnst_stm32l4.md)  
 

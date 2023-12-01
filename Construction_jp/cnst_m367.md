@@ -36,6 +36,7 @@
 
 ## 1.2 対象OSおよびハードウェア
 本書は以下を対象とする。  
+
 |分類|名称|備考|
 |-|-|-|
 |OS|μT-Kernel3.00|TRONフォーラム|
@@ -169,6 +170,7 @@ Windowsのコマンドシェル（PowerShellまたはコマンドプロンプト
 (2) makefileの設定
 本ソフトのソースコード中のMake用ビルドディレクトリ(build_make)にmakefileが格納されている。  
 ディレクトリ(build_make)の内容を以下に示す。  
+
 |名称|説明|
 |-|-|
 |makefile|μT-Kernel 3.0のビルド規則（ルート）|
@@ -176,15 +178,18 @@ Windowsのコマンドシェル（PowerShellまたはコマンドプロンプト
 |iote_rx231.mk|RX231 IoT-Engine用のビルド規則(※)|
 |iote_stm32l4.mk|STM32L4 IoT-Engine用のビルド規則(※)|
 /mtkernel_3|Make作業用ディレクトリ|
+
 ※ 本書の説明では使用しない。
 
 makefileファイルの先頭の以下の定義を変更する。  
+
 |定義名|初期値|説明|
 |-|-|-|
 |EXE_FILE|mtkernel_3|ビルドする実行ファイル名|
 |TARGET|\_IOTE_M367\_|対象とするハードウェア<br>M367 IoT-Engineの場合は「\_IOTE_M367\_」のままで良い
 
 また、iote_m367.mkの先頭の以下の定義を必要に応じて変更する。  
+
 |定義名|初期値|説明|
 |-|-|-|
 |GCC|arm-none-eabi-gcc|Cコンパイラのコマンド名|
@@ -194,7 +199,8 @@ makefileファイルの先頭の以下の定義を変更する。
 |ASFLAGS|省略(※)|アセンブラのオプション|
 |LFLAGS|省略(※)|リンカのオプション|
 |LINKFILE|省略(※)|リンク定義ファイル|
-※ iote_m367.mkファイルの記述を参照|
+
+※ iote_m367.mkファイルの記述を参照
 
 他のファイルについてはOSのソースコードの変更が無い限り、変更する必要はない。  
 ただし、ユーザプログラムの追加等については、それぞれ対応するビルド規則を記述する必要がある。  
@@ -323,6 +329,7 @@ SEGGER　　https://www.segger.com/
 (2) 「New Launch Configuration」ボタンを押し、「GDB SEGGER J-Link Debugging」に構成を追加する。  
 
 (3) 追加した構成を選択し、「Createm managem and run configurations」画面にて以下の設定を行う。  
+
 |||
 |-|-|
 |「Main」タブ|Name：（任意）を入力<br>Project：前項で作成したプロジェクトを指定<br> C/C++ Application：ビルドしたELFファイル|
@@ -335,6 +342,7 @@ SEGGER　　https://www.segger.com/
 
 
 # 更新履歴
+
 |版数|日付|内　容|
 |-|-|-|
 |2.00.00|2023.12.01|開発環境のバージョンの更新<br>ドキュメントフォーマットの変更<br>全体の見直しおよび変更|

@@ -34,6 +34,7 @@
 
 ## 1.2 対象OSおよびハードウェア
 本書は以下を対象とする。  
+
 |分類|名称|備考|
 |-|-|-|
 |OS|μT-Kernel3.00|TRONフォーラム|
@@ -71,7 +72,8 @@
 |config|コンフィギュレーションファイル|
 |include|共通ヘッダファイル|
 |kernel\knlinc|カーネル内共通ヘッダファイル|
-kermel\knlincはOS内部でのみ使用するヘッダファイルである。ユーザプログラムでは、config とincludeのヘッダファイルのみを使用する。  
+
+kermel\knlincはOS内部でのみ使用するヘッダファイルである。ユーザプログラムでは、config とincludeのヘッダファイルのみを使用する。
 
 ## 2.4 標準ライブラリ
 本ソフトは基本的にはコンパイラの標準ライブラリを使用しない。ただし、演算に際してライブラリが使用される場合がある。本ソフトではデバッグサポート機能の中の演算で使用されている（td_get_otmおよびtd_get_timの処理内で__aeabi_idivmod関数が使用されている）。  
@@ -122,12 +124,13 @@ STM32CudeIDEにて以下の手順で本ソフトのプロジェクトを作成�
 以降、プロパティのダイアログにて各項目を設定していく。なお、本書の設定は一例であり、必要に応じて変更すること。  
 
 (5) ダイアログの項目「C/C++ Build」→「Settings」を選択し、「Tool Setteings」タブを開いて以下の設定を行う。  
+
 |||
 |-|-|
 |MCU Settings」|「MCU」：「STM32L486VGTx」を確認<br>「Floating-point unit」：任意（使用しない場合は「None」）|
 |MCU GCC Assembler|「Preprocessor」：<br>「Dedine symbols (-D)」：「\_IOTE_ST32L4\_」<br>「Include paths」」：μT-Kernel3.0のインクルードパスを設定|
 |MCU GCC Compiler」|「General」：<br>　　「Language standard」：「GNU11 (-std=gnu11)」<br>　　「Preprocessor」：<br>　　「Define symbols (-D)」：「\_IOTE_STM32L4\_」<br>「Include paths」：<br>　　「Include paths」：μT-Kernel3.0のインクルードパスを設定<br>　　「Optimization」：「Optimaizationlevel」：任意<br>　　他はチェックせず|
-| MCU GCC Linker|「General」：<br>　　「Linker Script (-T)」：以下のスクリプト・ファイルを指定<br>　　mtkernel_3\etc\linker\iote_stm32l4\tkernel_map.ld<br>　　「Do not use standard start files (-nostartfiles)」をチェック
+| MCU GCC Linker|「General」：<br>　　「Linker Script (-T)」：以下のスクリプト・ファイルを指定<br>　　mtkernel_3\etc\linker\iote_stm32l4\tkernel_map.ld<br>　　「Do not use standard start files (-nostartfiles)」をチェック|
 
 すべての設定を終えたら「Apply and Close」ボタンを押下し設定を終える。
 
@@ -165,6 +168,7 @@ Windowsのコマンドシェル（PowerShellまたはコマンドプロンプト
 (1) makefileの設定  
 本ソフトのソースコード中のMake用ビルドディレクトリ(build_make)にmakefileが格納されている。  
 ディレクトリ(build_make)の内容を以下に示す。   
+
 |名称|説明|
 |-|-|
 |makefile|μT-Kernel 3.0のビルド規則（ルート）|
@@ -172,15 +176,18 @@ Windowsのコマンドシェル（PowerShellまたはコマンドプロンプト
 |iote_rx231.mk|RX231 IoT-Engine用のビルド規則(※)|
 |iote_stm32l4.mk|STM32L4 IoT-Engine用のビルド規則|
 /mtkernel_3|Make作業用ディレクトリ|
+
 ※ 本書の説明では使用しない。
 
 makefileファイルの先頭の以下の定義を変更する。  
+
 |定義名|初期値|説明|
 |-|-|-|
 |EXE_FILE|mtkernel_3|ビルドする実行ファイル名|
 |TARGET|\_IOTE_STM32L4\_|対象とするハードウェア<br>STM32L4 IoT-Engineの場合は「\_IOTE_STM32L4\_」に変更する|
 
-また、iote_stm32l4.mkの先頭の以下の定義を必要に応じて変更する。
+また、iote_stm32l4.mkの先頭の以下の定義を必要に応じて変更する。  
+
 |定義名|初期値|説明|
 |-|-|-|
 |GCC|arm-none-eabi-gcc|Cコンパイラのコマンド名|
@@ -190,6 +197,7 @@ makefileファイルの先頭の以下の定義を変更する。
 |ASFLAGS|省略(※)|アセンブラのオプション|
 |LFLAGS|省略(※)|リンカのオプション|
 |LINKFILE|省略(※)|リンク定義ファイル|
+
 ※ iote_stm32l4.mkファイルの記述を参照
 
 他のファイルについてはOSのソースコードの変更が無い限り、変更する必要はない。  
@@ -307,7 +315,8 @@ STM32CuleIDEの開発環境からJ-Linkを使用し、実機に実行コード�
 
 (2) 「New」ボタンを押し構成を追加する。
 
-(3) 追加した構成を選択し、「構成の作成、管理、実行」画面にて以下の設定を行う。
+(3) 追加した構成を選択し、「構成の作成、管理、実行」画面にて以下の設定を行う。  
+
 |||
 |-|-|
 |「Main」タブ|Name：任意<br>Project：前項で作成したプロジェクトを指定<br>C/C++ Application：ビルドしたELFファイル|
@@ -320,6 +329,7 @@ STM32CuleIDEの開発環境からJ-Linkを使用し、実機に実行コード�
 
 
 # 更新履歴
+
 |版数|日付|内　容|
 |-|-|-|
 |2.00.00|2023.12.01|開発環境のバージョンの更新<br>ドキュメントフォーマットの変更<br>全体の見直しおよび変更|

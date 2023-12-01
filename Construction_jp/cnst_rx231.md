@@ -34,6 +34,7 @@
 
 ## 1.2 対象OSおよびハードウェア
 本書は以下を対象とする。
+
 |分類|名称|備考|
 |-|-|-|
 |OS|μT-Kernel3.00|TRONフォーラム|
@@ -130,10 +131,11 @@ E2 studioにて以下の手順で本ソフトのプロジェクトを作成す�
 |Optinmization|「Optimaization Level」は任意<br>オプションは「-ffunction-sections」と「-fdata-sections」のみ選択|
 |Compiler|「Source」<br>　　「Language standard」に「GNU ISO C11 (-std=gnu11)」を選択<br>「Includes」<br>　　「Include file directories」にインクルードパスの追加<br>　　μT-Kernel3.0のインクルードパスを設定する。「2.3インクルードパス」を参照<br>　　「Macro Defines」にターゲット名を定義。<br>　　　　\_IOTE_RX231\_|
  |Assembler|「Source」<br>　　「User defined option」にターゲット名を定義<br>　　　　-D_IOTE_RX231_<br>「Includes」<br>　　「Include file directories」にインクルードパスの追加。「2.3インクルードパス」を参照|
-|Linker|「Source」<br>　　「Entry point」に以下を設定<br>　　　　-WI,-e_Reset_Handler<br>　　     「Linker script」にスクリプト・ファイルのパスを設定する。<br>　　　　　tkermnel_3\etc\linker\iote_rx231\tkernel_map.ld
+|Linker|「Source」<br>　　「Entry point」に以下を設定<br>　　　　-WI,-e_Reset_Handler<br>　　     「Linker script」にスクリプト・ファイルのパスを設定する。<br>　　　　　tkermnel_3\etc\linker\iote_rx231\tkernel_map.ld|
 
 
 (5) ダイアログの項目「C/C++ビルド」→「設定」を選択し、「Toolchain」タブを開いて以下の設定を行う。  
+
 |||
 |-|-|
 |ツールチェーン|「GCC for Renesas RX」を選択する。<br>「バージョン」：任意|
@@ -172,7 +174,8 @@ Windowsのコマンドシェル（PowerShellまたはコマンドプロンプト
 
 (2) makefileの設定
 本ソフトのソースコード中のMake用ビルドディレクトリ(build_make)にmakefileが格納されている。  
-ディレクトリ(build_make)の内容を以下に示す。
+ディレクトリ(build_make)の内容を以下に示す。  
+
 |名称|説明|
 |-|-|
 |makefile|μT-Kernel 3.0のビルド規則（ルート）|
@@ -180,15 +183,18 @@ Windowsのコマンドシェル（PowerShellまたはコマンドプロンプト
 |iote_rx231.mk|RX231 IoT-Engine用のビルド規則|
 |iote_stm32l4.mk|STM32L4 IoT-Engine用のビルド規則(※)|
 /mtkernel_3|Make作業用ディレクトリ|
+
 ※ 本書の説明では使用しない。
 
 makefileファイルの先頭の以下の定義を変更する。  
+
 |定義名|初期値|説明|
 |-|-|-|
 |EXE_FILE|mtkernel_3|ビルドする実行ファイル名|
 |TARGET|\_IOTE_M367\_|対象とするハードウェア<br>M367 IoT-Engineの場合は「\_IOTE_RX231\_」に変更する|
 
-また、iote_rx231.mkの先頭の以下の定義を必要に応じて変更する。
+また、iote_rx231.mkの先頭の以下の定義を必要に応じて変更する。  
+
 |定義名|初期値|説明|
 |-|-|-|
 |GCC|rx-elf-gcc|Cコンパイラのコマンド名|
@@ -198,6 +204,7 @@ makefileファイルの先頭の以下の定義を変更する。
 |ASFLAGS|省略(※)|アセンブラのオプション|
 |LFLAGS|省略(※)|リンカのオプション|
 |LINKFILE|省略(※)|リンク定義ファイル|
+
 ※ iote_rx231.mkファイルの記述を参照
 
 他のファイルについてはOSのソースコードの変更が無い限り、変更する必要はない。    
@@ -317,7 +324,8 @@ EXPORT INT usermain(void)
 
 (2) 「新規構成」ボタンを押し、「Renesas GDB Hardware Debugging」に構成を追加する。
 
-(3) 追加した構成を選択し、「構成の作成、管理、実行」画面にて以下の設定を行う。
+(3) 追加した構成を選択し、「構成の作成、管理、実行」画面にて以下の設定を行う。  
+
 |||
 |-|-|
 |「メイン」タブ|名前：（任意）を入力<br>C/C++アプリケーション：ビルドしたELFファイル|
@@ -329,6 +337,7 @@ EXPORT INT usermain(void)
 プログラムは実行すると、OS起動後にユーザのアプリケーションプログラムを実行し、user_main関数にてブレークする。
 
 # 更新履歴
+
 |版数|日付|内　容|
 |-|-|-|
 |2.00.00|2023.12.01|開発環境のバージョンの更新<br>ドキュメントフォーマットの変更<br>全体の見直しおよび変更|
