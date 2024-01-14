@@ -100,7 +100,7 @@ Inline UW knl_get_hw_timer_nsec( void )
 	}
 	EI(imsk);
 	ofs = max - ofs;			/* Elapsed count */
-	if ( unf != 0 ) ofs += max + 1;	/* Reload occured, Adjust */
+	if ( unf != 0 ) ofs += max + 1;	/* Reload occurred, Adjust */
 
 	return  (UW) ( ( (D)ofs * 1000000 ) / TMCLK_KHz );
 }

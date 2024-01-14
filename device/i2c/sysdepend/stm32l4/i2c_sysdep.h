@@ -20,7 +20,7 @@
 #ifndef	__DEV_I2C_STM32L4_H__
 #define	__DEV_I2C_STM32L4_H__
 
-#define	DEV_I2C_UNITNM		(3)	/* Number of devive units */
+#define	DEV_I2C_UNITNM		(3)	/* Number of device units */
 #define	DEV_I2C_1		(0)	/* I2C1 */
 #define	DEV_I2C_2		(1)	/* I2C2 */
 #define	DEV_I2C_3		(2)	/* I2C3 */
@@ -50,8 +50,8 @@
 /* Register offset */
 #define	I2Cx_CR1		(0x00)		// Control register 1
 #define	I2Cx_CR2		(0x04)		// Control register 2
-#define	I2Cx_OAR1		(0x08)		// Own adress 1 register
-#define	I2Cx_OAR2		(0x0C)		// Own adress 2 register
+#define	I2Cx_OAR1		(0x08)		// Own address 1 register
+#define	I2Cx_OAR2		(0x0C)		// Own address 2 register
 #define	I2Cx_TIMINGR		(0x10)		// Timing register
 #define	I2Cx_TIMEOUTR		(0x14)		// Timeout register
 #define	I2Cx_ISR		(0x18)		// Interrupt & status register

@@ -21,11 +21,11 @@
 #ifndef	__DEV_ADC_RX65N_H__
 #define	__DEV_ADC_RX65N_H__
 
-#define	DEV_ADC_UNITNM	(2)	/* Number of devive units */
+#define	DEV_ADC_UNITNM	(2)	/* Number of device units */
 #define	DEV_ADC_UNIT0	(0)
 #define	DEV_ADC_UNIT1	(1)
 
-#define ADC_CH_NUM0	(8)		/* Number of A/DC chanels */
+#define ADC_CH_NUM0	(8)		/* Number of A/DC channels */
 #define ADC_CH_NUM1	(21)
 
 /*
@@ -41,11 +41,11 @@
 #define	ADCSR_ADST	(1<<15)
 #define	ADCSR_ADIE	(1<<12)
 
-#define	ADCx_ADANSA0	(0x04)		/* A/DC chanel select reg. A0*/
-#define	ADCx_ADANSA1	(0x06)		/* A/DC chanel select reg. A1*/
+#define	ADCx_ADANSA0	(0x04)		/* A/DC channel select reg. A0*/
+#define	ADCx_ADANSA1	(0x06)		/* A/DC channel select reg. A1*/
 #define	ADCx_ADCER	(0x0E)		/* A/DC Control extension reg. */
-#define	ADCx_ADANSB0	(0x14)		/* A/DC chanel select reg. B0*/
-#define	ADCx_ADANSB1	(0x16)		/* A/DC chanel select reg. B1*/
+#define	ADCx_ADANSB0	(0x14)		/* A/DC channel select reg. B0*/
+#define	ADCx_ADANSB1	(0x16)		/* A/DC channel select reg. B1*/
 
 #define	ADCx_ADDR(c)	(0x20+(2*c))	/* A/DC Data reg. */
 

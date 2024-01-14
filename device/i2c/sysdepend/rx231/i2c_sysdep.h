@@ -20,7 +20,7 @@
 #ifndef	__DEV_I2C_RX231_H__
 #define	__DEV_I2C_RX231_H__
 
-#define	DEV_I2C_UNITNM		(1)	/* Number of devive units */
+#define	DEV_I2C_UNITNM		(1)	/* Number of device units */
 
 /* I2C device driver operating state */
 #define	I2C_STS_START		0x0000

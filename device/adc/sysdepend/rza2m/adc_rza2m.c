@@ -65,7 +65,7 @@ LOCAL UW adc_convert( INT start, INT size, UW *buf )
 	}
 	out_h(ADANSA0, chset);
 
-	out_h(ADCSR, ADCSR_ADST | ADCSR_ADIE);		// Start Covert
+	out_h(ADCSR, ADCSR_ADST | ADCSR_ADIE);		// Start Convert
 
 	err = tk_slp_tsk(DEVCNF_ADC_TMOSCAN);
 	if(err != E_OK) return (UW)err;

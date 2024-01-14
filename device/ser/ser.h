@@ -62,7 +62,7 @@ typedef struct {
 	TMO	snd_tmo;	/* Send timeout */
 	TMO	rcv_tmo;	/* Receive timeout */
 
-	/* Intrrupt */
+	/* Interrupt */
 	UINT	intno_rcv;	/* Receive interrupt number */
 	UINT	intno_snd;	/* Send interrupt number */
 	UINT	int_pri;	/* Interrupt priority */

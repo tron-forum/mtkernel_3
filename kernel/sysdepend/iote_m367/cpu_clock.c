@@ -66,13 +66,13 @@ EXPORT void startup_clock(UB pll_mode)
 		return;
 	}
 	
-	/* Waiting for PLL stablization (100usec) */
+	/* Waiting for PLL stabilization (100usec) */
 	*osccr = (*osccr & 0x000FFFFF) | CLKCTRL_CGOSCCR_WUPT(100, HISPEED_CLOCK_MHz) | (1);
 	while( (*osccr & CLKCTRL_CGOSCCR_WUEF) != 0 ) {
 		;
 	}
 	
-	/* Enable PLL operation and Wait for PLL stablization (200usec) */
+	/* Enable PLL operation and Wait for PLL stabilization (200usec) */
 	*osccr = (*osccr & 0x000FFFFF) | (CLKCTRL_CGOSCCR_PLLON |
 			    CLKCTRL_CGOSCCR_WUPT(200, HISPEED_CLOCK_MHz) | (1));
 	while( (*osccr & CLKCTRL_CGOSCCR_WUEF) != 0 ) {

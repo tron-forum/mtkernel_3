@@ -55,7 +55,7 @@ EXPORT void ClearInt(UINT intno)
 
 	ClearInt_nvic(intno);		/* Un-pends the associated interrupt */
 
-	/* Clear Clock Generetor Interrupt request */
+	/* Clear Clock Generator Interrupt request */
 	switch (intno) 	{
 	case M367_INTUSBWKUP:
 		val = 12;
@@ -127,7 +127,7 @@ EXPORT void SetIntMode(UINT intno, UINT mode)
 	}
 
 	if(mode & IM_LEVEL) {		
-		e = 0;	/* Level sence */
+		e = 0;	/* Level sense */
 	} else {
 		e = 2;	/* Edge sense */
 	}

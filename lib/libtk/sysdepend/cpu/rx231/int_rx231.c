@@ -17,7 +17,7 @@
 /*
  *	int.c
  *
- *	Interrupt controll (RX231 )
+ *	Interrupt control (RX231 )
  */
 #include <tk/tkernel.h>
 #include <tk/syslib.h>

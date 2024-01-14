@@ -89,7 +89,7 @@ LOCAL UW adc_convert( UINT unit, INT ch, INT size, UW *buf )
 	}
 
 	tk_can_wup(TSK_SELF);
-	out_w( ba[unit] + ADxMOD0, ADxMOD0_ADS);	// MOD0.ADS = 1  Start Covert
+	out_w( ba[unit] + ADxMOD0, ADxMOD0_ADS);	// MOD0.ADS = 1  Start Convert
 
 	rtn = (UW)tk_slp_tsk(unit?DEVCNF_ADCB_INTPRI:DEVCNF_ADCA_TMOSCAN);
 	if(rtn == E_OK) {

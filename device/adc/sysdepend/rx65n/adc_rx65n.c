@@ -30,11 +30,11 @@
 const LOCAL UW ba[DEV_ADC_UNITNM] = { ADC0_BASE, ADC1_BASE };
 
 #define	ADC_ADCSR(x)	(ba[x] + ADCx_ADCSR)		// A/DC control reg
-#define	ADC_ADANSA0(x)	(ba[x] + ADCx_ADANSA0)		// A/DC chanel select reg. A0
-#define	ADC_ADANSA1(x)	(ba[x] + ADCx_ADANSA1)		// A/DC chanel select reg. A1
+#define	ADC_ADANSA0(x)	(ba[x] + ADCx_ADANSA0)		// A/DC channel select reg. A0
+#define	ADC_ADANSA1(x)	(ba[x] + ADCx_ADANSA1)		// A/DC channel select reg. A1
 #define	ADC_ADCER(x)	(ba[x] + ADCx_ADCER)		// A/DC Control extension reg
-#define	ADC_ADANSB0(x)	(ba[x] + ADCx_ADANSB0)		// A/DC chanel select reg. B0
-#define	ADC_ADANSB1(x)	(ba[x] + ADCx_ADANSB1)		// A/DC chanel select reg. B1
+#define	ADC_ADANSB0(x)	(ba[x] + ADCx_ADANSB0)		// A/DC channel select reg. B0
+#define	ADC_ADANSB1(x)	(ba[x] + ADCx_ADANSB1)		// A/DC channel select reg. B1
 
 #define	ADC_ADDR(x,c)	(ba[x] + ADCx_ADDR(c))		//A/DC Data reg
 #define	ADC_ADSSTR(x,c)	(ba[x] + ADCx_ADSSTR(c))	//A/DC Sampling state reg
@@ -98,7 +98,7 @@ LOCAL UW adc_convert( UW unit, INT start, INT size, UW *buf )
 		}
 	}
 
-	out_h(ADC_ADCSR(unit), ADCSR_ADST | ADCSR_ADIE);	// Start Covert
+	out_h(ADC_ADCSR(unit), ADCSR_ADST | ADCSR_ADIE);	// Start Convert
 
 	err = tk_slp_tsk(DEVCNF_ADC_TMOSCAN);
 	if(err != E_OK) return (UW)err;

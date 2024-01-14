@@ -21,11 +21,11 @@
 #ifndef	__DEV_ADC_M367_H__
 #define	__DEV_ADC_M367_H__
 
-#define	DEV_ADC_UNITNM	(2)	/* Number of devive units */
+#define	DEV_ADC_UNITNM	(2)	/* Number of device units */
 #define	DEV_ADC_UNIT0	(0)
 #define	DEV_ADC_UNIT1	(1)
 
-#define ADC_CH_NUM	(4)		/* NUmber of A/DC chanels */
+#define ADC_CH_NUM	(4)		/* NUmber of A/DC channels */
 
 /*
  * ADC registers

@@ -21,7 +21,7 @@
 #ifndef	__DEV_SER_M367_H__
 #define	__DEV_SER_M367_H__
 
-#define	DEV_SER_UNITNM		(2)	/* Number of devive channels */
+#define	DEV_SER_UNITNM		(2)	/* Number of device channels */
 #define DEV_SER_UNIT0		(0)	/* UART Ch.4 */
 #define DEV_SER_UNIT1		(1)	/* UART Ch.5 */
 

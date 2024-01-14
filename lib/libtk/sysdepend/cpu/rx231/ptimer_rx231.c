@@ -57,7 +57,7 @@ LOCAL void ptmr_int_main( UINT intno, T_PTMRCB *p_cb)
 	}
 
 	if( p_cb->mode == TA_ALM_PTMR)  {
-		/* Stop Pysical timer */
+		/* Stop Physical timer */
 		DisableInt( intno);
 		out_h(TMR_TCCR, 0);			// Timer Stop
 	}
@@ -206,7 +206,7 @@ EXPORT ER GetPhysicalTimerConfig(UINT ptmrno, T_RPTMR *pk_rptmr)
 			ptmrclk = SYSCLK_PCLKB/8192;
 			break;
 		default:
-			ptmrclk = 0;		// Unkown
+			ptmrclk = 0;		// Unknown
 	}
 	pk_rptmr->ptmrclk	= ptmrclk;
 	pk_rptmr->maxcount	= PTMR_MAX_CNT;

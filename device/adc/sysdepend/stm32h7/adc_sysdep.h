@@ -20,12 +20,12 @@
 #ifndef	__DEV_ADC_STM32H7_H__
 #define	__DEV_ADC_STM32H7_H__
 
-#define	DEV_ADC_UNITNM	(3)	/* Number of devive units */
+#define	DEV_ADC_UNITNM	(3)	/* Number of device units */
 #define	DEV_ADC_1	(0)	/* ADC1 */
 #define	DEV_ADC_2	(1)	/* ADC2 */
 #define	DEV_ADC_3	(2)	/* ADC3 */
 
-/* NUmber of A/DC chanels */
+/* NUmber of A/DC channels */
 #define	ADC_CH_NUM	(20)
 #define	ADC_MAX_SQ	(16)
 

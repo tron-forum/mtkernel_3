@@ -26,7 +26,7 @@
 
 /* ------------------------------------------------------------------------ */
 /*
- * System dependencies  (CPU Intrrupt contrl , I/O port access)
+ * System dependencies  (CPU Interrupt control , I/O port access)
  */
 #define SYSLIB_PATH_(a)		#a
 #define SYSLIB_PATH(a)		SYSLIB_PATH_(a)
