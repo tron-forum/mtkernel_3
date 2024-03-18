@@ -159,7 +159,7 @@ IMPORT ER knl_subsystem_initialize( void );
 IMPORT ER knl_init_object(void);
 
 /*
- * Initialization of Devive management (device.c)
+ * Initialization of Device management (device.c)
  */
 IMPORT ER knl_initialize_devmgr( void );
 
@@ -236,7 +236,7 @@ IMPORT void knl_force_dispatch( void );
 IMPORT void knl_dispatch( void );
 
 /*
- * Interuupt control (interrupt.c)
+ * Interrupt control (interrupt.c)
  */
 IMPORT ER knl_init_interrupt( void );
 IMPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr );

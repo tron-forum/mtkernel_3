@@ -172,7 +172,7 @@
 #define	FPSCR_IOE	0x00000100	/*		invalid operation */
 #define	FPSCR_IDC	0x00000080	/* Except.Flag	input denormal */
 #define	FPSCR_IXC	0x00000010	/*		inexact */
-#define	FPSCR_UFC	0x00000008	/*		undeflow */
+#define	FPSCR_UFC	0x00000008	/*		underflow */
 #define	FPSCR_OFC	0x00000004	/*		overflow */
 #define	FPSCR_DZC	0x00000002	/*		division by zero */
 #define	FPSCR_IOC	0x00000001	/*		invalid operation */

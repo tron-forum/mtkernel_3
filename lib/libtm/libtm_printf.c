@@ -17,7 +17,7 @@
  *	printf() / sprintf() T-Monitor compatible calls.
  *
  *	- Unsupported specifiers: floating point, long long and others.
- *		Coversion:	 a, A, e, E, f, F, g, G, n
+ *		Conversion:	 a, A, e, E, f, F, g, G, n
  *		Size qualifier:  hh, ll, j, z, t, L
  *	- No limitation of output string length.
  *	- Minimize stack usage.
@@ -59,7 +59,7 @@ LOCAL const UB  digits[32] = "0123456789abcdef0123456789ABCDEF";
 }
 
 /*
- *	Output with format (limitted version)
+ *	Output with format (limited version)
  */
 LOCAL	void	tm_vsprintf( OutFn ostr, OutPar *par, const UB *fmt, va_list ap )
 {

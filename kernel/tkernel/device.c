@@ -502,7 +502,7 @@ err_ret:
 }
 
 /*
- * Initialization of Devive management
+ * Initialization of Device management
  */
 EXPORT ER knl_initialize_devmgr( void )
 {

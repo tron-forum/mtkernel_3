@@ -48,7 +48,7 @@
 
 /* ------------------------------------------------------------------------ */
 /*
- * System configuration controler (SYSCFG)
+ * System configuration controller (SYSCFG)
  */
 
 #define SYSCFG_BASE	0x58000400

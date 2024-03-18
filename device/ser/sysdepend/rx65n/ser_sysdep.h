@@ -20,7 +20,7 @@
 #ifndef	__DEV_SER_RX65N_H__
 #define	__DEV_SER_RX65N_H__
 
-#define	DEV_SER_UNITNM		(13)	/* Number of devive channels */
+#define	DEV_SER_UNITNM		(13)	/* Number of device channels */
 
 /*
  * UART registers

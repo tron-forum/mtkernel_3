@@ -62,7 +62,7 @@ LOCAL void ptmr_int_main( UINT intno, T_PTMRCB *p_cb)
 	}
 
 	if( p_cb->mode == TA_ALM_PTMR)  {
-		DisableInt( intno);			// Stop Pysical timer
+		DisableInt( intno);			// Stop Physical timer
 	}
 }
 

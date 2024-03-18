@@ -27,7 +27,7 @@
 /*
  * CPU interrupt control for ARMv7-M.
  *	As armv7-m architecture does not support disable interrupt in
- *	xpsr register, we have to raise the excution priority to 
+ *	xpsr register, we have to raise the exception priority to 
  *	that the interrupt group have. Write the BASEPRI to implement 
  *	disint.
  */
@@ -47,7 +47,7 @@ IMPORT UW disint(void);			/* Disable interrupt */
 /*
  * Interrupt priority grouping
  *
- *	PRIGROUP in the AIRCR register determins the split of group
+ *	PRIGROUP in the AIRCR register determines the split of group
  *	priority from subpriority. PRIGROUP is initialized to 3
  *	(pri:subpri = 4:4)) in the boot sequence.
  */

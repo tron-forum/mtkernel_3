@@ -20,7 +20,7 @@
 #ifndef	__DEV_I2C_RX65N_H__
 #define	__DEV_I2C_RX65N_H__
 
-#define	DEV_I2C_UNITNM	(3)	// Number of devive units
+#define	DEV_I2C_UNITNM	(3)	// Number of device units
 #define	DEV_I2C_UNIT0	(0)
 #define	DEV_I2C_UNIT1	(1)
 #define	DEV_I2C_UNIT2	(2)

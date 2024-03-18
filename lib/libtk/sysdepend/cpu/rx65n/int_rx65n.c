@@ -17,7 +17,7 @@
 /*
  *	int.c
  *
- *	Interrupt controll (RX65N )
+ *	Interrupt control (RX65N )
  */
 #include <tk/tkernel.h>
 #include <tk/syslib.h>
