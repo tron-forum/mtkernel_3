@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2022 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/10.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -48,7 +48,7 @@
 
 /* ------------------------------------------------------------------------ */
 /*
- * System configuration controler (SYSCFG)
+ * System configuration controller (SYSCFG)
  */
 
 #define SYSCFG_BASE	0x40010000
@@ -491,7 +491,7 @@
  * Coprocessor
  */
 #define CPU_HAS_FPU		1
-#define CPU_HAS_DPS		0
+#define CPU_HAS_DSP		0
 
 /*
  *  Number of coprocessors to use. Depends on user configuration

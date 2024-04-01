@@ -21,7 +21,7 @@
 #ifndef	__DEV_SER_RZA2M_H__
 #define	__DEV_SER_RZA2M_H__
 
-#define	DEV_SER_UNITNM		(5)	/* Number of devive channels */
+#define	DEV_SER_UNITNM		(5)	/* Number of device channels */
 
 /*
  * UART registers

@@ -21,10 +21,10 @@
 #ifndef	__DEV_ADC_RX231_H__
 #define	__DEV_ADC_RX231_H__
 
-#define	DEV_ADC_UNITNM	(1)	/* Number of devive units */
+#define	DEV_ADC_UNITNM	(1)	/* Number of device units */
 #define	DEV_ADC_UNIT0	(0)
 
-#define ADC_CH_NUM	(24)		/* Number of A/DC chanels */
+#define ADC_CH_NUM	(24)		/* Number of A/DC channels */
 
 /*
  * ADC registers
@@ -37,10 +37,10 @@
 #define	ADCER_INI	(1<<5)			/* register initial value */
 
 
-#define	ADANSA0		(0x00089004)		/* A/D chanel select reg. A0*/
-#define	ADANSA1		(0x00089006)		/* A/D chanel select reg. A1*/
-#define	ADANSB0		(0x00089014)		/* A/D chanel select reg. B0*/
-#define	ADANSB1		(0x00089016)		/* A/D chanel select reg. B1*/
+#define	ADANSA0		(0x00089004)		/* A/D channel select reg. A0*/
+#define	ADANSA1		(0x00089006)		/* A/D channel select reg. A1*/
+#define	ADANSB0		(0x00089014)		/* A/D channel select reg. B0*/
+#define	ADANSB1		(0x00089016)		/* A/D channel select reg. B1*/
 
 #define	ADDR(c)		(0x00089020 + 2*c)	/* A/D Data reg. */
 

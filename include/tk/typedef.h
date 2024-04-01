@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -20,8 +20,6 @@
 #ifndef	__TK_TYPEDEF_H__
 #define __TK_TYPEDEF_H__
 
-#include <sys/machine.h>
-
 #ifdef CHK_TKERNEL_CONST
 #define CONST	const
 #else
@@ -31,6 +29,23 @@
 /*
  * General-purpose data type  
  */
+#if USE_STDINC_STDINT	/* USe <stdint.h */
+typedef int8_t			B;		/* Signed 8 bit integer */
+typedef int16_t			H;		/* Signed 16 bit integer */
+typedef int32_t			W;		/* Signed 32 bit integer */
+typedef int64_t			D;		/* Signed 64 bit integer */
+typedef uint8_t			UB;		/* Unsigned 8 bit integer */
+typedef uint16_t	  	UH;		/* Unsigned 16 bit integer */
+typedef uint32_t		UW;		/* Unsigned 32 bit integer */
+typedef uint64_t		UD;		/* Unsigned 64 bit integer */
+
+typedef int8_t			VB;		/* Nonuniform type 8 bit data */
+typedef int16_t			VH;		/* Nonuniform type 16 bit data */
+typedef int32_t			VW;		/* Nonuniform type 32 bit data */
+typedef int64_t			VD;		/* Nonuniform type 64 bit data */
+
+#else		/* Dont use <stdint.h> */
+
 typedef signed char		B;		/* Signed 8 bit integer */
 typedef signed short		H;		/* Signed 16 bit integer */
 typedef signed long		W;		/* Signed 32 bit integer */
@@ -45,6 +60,11 @@ typedef signed short		VH;		/* Nonuniform type 16 bit data */
 typedef signed long		VW;		/* Nonuniform type 32 bit data */
 typedef signed long long	VD;		/* Nonuniform type 64 bit data */
 
+#endif	/* USE_STDINC_STDINT */
+
+typedef signed int		INT;		/* Processor bit width signed integer */
+typedef unsigned int		UINT;		/* Processor bit width unsigned integer */
+
 typedef volatile B		_B;		/* Volatile statement attached */
 typedef volatile H		_H;
 typedef volatile W		_W;
@@ -53,9 +73,6 @@ typedef volatile UB		_UB;
 typedef volatile UH		_UH;
 typedef volatile UW		_UW;
 typedef volatile UD		_UD;
-
-typedef signed int		INT;		/* Processor bit width signed integer */
-typedef unsigned int		UINT;		/* Processor bit width unsigned integer */
 
 typedef W			SZ;		/* Size general */
 

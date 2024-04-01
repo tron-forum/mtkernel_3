@@ -23,7 +23,7 @@
 
 /* ------------------------------------------------------------------------ */
 /*
- * FastLock fot driver I/F access
+ * FastLock for driver I/F access
  */
 
 #define	LockMSDI(msdi)		Lock(&msdi->lock)

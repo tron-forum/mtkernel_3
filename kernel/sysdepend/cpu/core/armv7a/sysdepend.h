@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -46,7 +46,7 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
  */
 IMPORT FP knl_intvec_tbl[N_INTVEC];		/* Interrupt vector table */
 IMPORT FP knl_hll_inthdr_tbl[N_INTVEC];		/* High level programming language interrupt handler table */
-IMPORT const FP knl_svcvec_tbl[N_SVCHDR];	/* SVC handler tavle */
+IMPORT const FP knl_svcvec_tbl[N_SVCHDR];	/* SVC handler table */
 
 /*
  * Interrupt Control (int_asm.S)

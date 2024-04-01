@@ -20,7 +20,7 @@
 #ifndef	__DEV_I2C_RZA2M_H__
 #define	__DEV_I2C_RZA2M_H__
 
-#define	DEV_I2C_UNITNM		(4)	/* Number of devive units */
+#define	DEV_I2C_UNITNM		(4)	/* Number of device units */
 #define	DEV_I2C_0		(0)	/* RIIC0 */
 #define	DEV_I2C_1		(1)	/* RIIC1 */
 #define	DEV_I2C_2		(2)	/* RIIC2 */
@@ -106,7 +106,7 @@
 #define	INTNO_RIIC_SPI0		267		// STOP condition detection interrupt
 #define	INTNO_RIIC_STI0		268		// START condition detection interrupt
 #define	INTNO_RIIC_NAKI0	269		// NACK reception interrupt
-#define	INTNO_RIIC_ALI0		270		// Abitration lost interrupt
+#define	INTNO_RIIC_ALI0		270		// Arbitration lost interrupt
 #define	INTNO_RIIC_TMOI0	271		// Time out interrupt
 
 #define	INTNO_RIIC_TEI1		272		// Transmit end interrupt
@@ -115,7 +115,7 @@
 #define	INTNO_RIIC_SPI1		275		// STOP condition detection interrupt
 #define	INTNO_RIIC_STI1		276		// START condition detection interrupt
 #define	INTNO_RIIC_NAKI1	277		// NACK reception interrupt
-#define	INTNO_RIIC_ALI1		278		// Abitration lost interrupt
+#define	INTNO_RIIC_ALI1		278		// Arbitration lost interrupt
 #define	INTNO_RIIC_TMOI1	279		// Time out interrupt
 
 #define	INTNO_RIIC_TEI2		280		// Transmit end interrupt
@@ -124,7 +124,7 @@
 #define	INTNO_RIIC_SPI2		283		// STOP condition detection interrupt
 #define	INTNO_RIIC_STI2		284		// START condition detection interrupt
 #define	INTNO_RIIC_NAKI2	285		// NACK reception interrupt
-#define	INTNO_RIIC_ALI2		286		// Abitration lost interrupt
+#define	INTNO_RIIC_ALI2		286		// Arbitration lost interrupt
 #define	INTNO_RIIC_TMOI2	287		// Time out interrupt
 
 #define	INTNO_RIIC_TEI3		288		// Transmit end interrupt
@@ -133,7 +133,7 @@
 #define	INTNO_RIIC_SPI3		291		// STOP condition detection interrupt
 #define	INTNO_RIIC_STI3		292		// START condition detection interrupt
 #define	INTNO_RIIC_NAKI3	293		// NACK reception interrupt
-#define	INTNO_RIIC_ALI3		294		// Abitration lost interrupt
+#define	INTNO_RIIC_ALI3		294		// Arbitration lost interrupt
 #define	INTNO_RIIC_TMOI3	295		// Time out interrupt
 
 #endif	/* __DEV_I2C_RZA2M_H__ */

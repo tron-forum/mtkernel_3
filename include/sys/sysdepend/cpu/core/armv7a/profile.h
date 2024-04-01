@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06A
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/03.
  *
  *----------------------------------------------------------------------
  */
@@ -49,7 +49,8 @@
 /*
  * Cache control
  */
-#define TK_SUPPORT_CACHECTRL	FALSE			/* support of cache control */
+#define TK_SUPPORT_CACHECTRL	FALSE			/* Support of cache control */
+#define TK_SUPPORT_SETCACHEMODE	FALSE			/* Support of set cache mode */
 #define TK_SUPPORT_WBCACHE	FALSE			/* Support of write-back cache */
 #define TK_SUPPORT_WTCACHE	FALSE			/* Support of write-through cache */
 

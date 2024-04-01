@@ -116,7 +116,7 @@ LOCAL UW adc_convert( UINT unit, INT ch, INT size, UW *buf )
 	ll_devcb[unit].asz = 0;
 
 	tk_can_wup(TSK_SELF);
-	out_w(ADC_CR(unit), ADC_CR_ADSTART | ADC_CR_ADVREGEN);	// Start Covert
+	out_w(ADC_CR(unit), ADC_CR_ADSTART | ADC_CR_ADVREGEN);	// Start Convert
 	err = tk_slp_tsk(DEVCNF_ADC_TMOSCAN);
 	ll_devcb[unit].wait_tskid = 0;
 

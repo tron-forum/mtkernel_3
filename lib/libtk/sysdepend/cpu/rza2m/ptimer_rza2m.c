@@ -58,7 +58,7 @@ LOCAL void ptmr_int_main( UINT intno, T_PTMRCB *p_cb)
 	
 	if( p_cb->mode == TA_ALM_PTMR)  {
 		DisableInt( intno);
-		out_b( OSTMn_TT((intno==INTNO_OSTM1)?0:1), 1);	// Stop Pysical timer
+		out_b( OSTMn_TT((intno==INTNO_OSTM1)?0:1), 1);	// Stop Physical timer
 	}
 
 	EndOfInt(intno);

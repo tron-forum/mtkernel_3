@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.1.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -16,8 +16,6 @@
  *
  *	High-speed exclusive control lock 
  */
-
-#include <config.h>
 #include <tk/tkernel.h>
 
 #if USE_FAST_LOCK

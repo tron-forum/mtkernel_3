@@ -1,16 +1,15 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
-
 
 /*
  *	machine.h
@@ -34,6 +33,7 @@
 #define CPU_CORE_RXV2		1				/* Target CPU-Core : RX200 series*/
 
 #define TARGET_DIR		iote_rx231			/* Sysdepend-Directory name */
+#define KNL_SYSDEP_PATH		iote_rx231			/* Kernel sysdepend path */
 
 /*
  **** CPU-depeneded profile (RX231)

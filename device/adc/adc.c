@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
- *    Copyright (C) 2020-2022 by Ken Sakamura.
+ *    Copyright (C) 2020-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/02.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -14,6 +14,7 @@
 #include <tk/tkernel.h>
 #include <tstdlib.h>
 
+#if USE_SDEV_DRV
 #include "adc.h"
 #include "../include/dev_def.h"
 #if DEV_ADC_ENABLE
@@ -256,3 +257,4 @@ err_2:
 }
 
 #endif	/* DEV_ADC_ENABLE */
+#endif	/* USE_SDEV_DRV */

@@ -66,7 +66,7 @@ EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 		return E_PAR;
 	}
 
-	if(inthdr != NULL) {	/* define intrrupt handler */
+	if(inthdr != NULL) {	/* define interrupt handler */
 		if ( (intatr & TA_HLNG) != 0 ) {
 			knl_hll_inthdr_ram[intno] = inthdr;
 			inthdr = knl_int_vect_rom[intno];	/* set HLL-Int handler entry */

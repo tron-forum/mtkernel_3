@@ -12,9 +12,15 @@ See below for T-License 2.2.
 
 	/docs/TEF000-219-200401.pdf
 
-The projects for various development environments are published below.
+Please see below for documents such as implementation specifications.
 
-[μT-Kernel 3.0 Development environment collection](https://github.com/tron-forum/mtk3_devenv)
+[μT-Kernel 3.0 documents](https://tron-forum.github.io/mtkernel_3/)  
+
+The projects for BSP (Board Support Package) and various development environments are published below.
+
+[μT-Kernel 3.0 BSP2(Board Support Package) v2](https://github.com/tron-forum/mtk3_bsp2)  
+[μT-Kernel 3.0 BSP (Board Support Package)](https://github.com/tron-forum/mtk3_bsp)  
+[μT-Kernel 3.0 Development environment collection](https://github.com/tron-forum/mtk3_devenv)  
 
 For inquiries to TRON Forum, visit the following website
 
@@ -34,9 +40,16 @@ T-License2.2の内容は以下をご覧ください。
 
 	/docs/TEF000-219-200401.pdf
 
-各種開発環境向けのプロジェクトは以下に公開しています。
+実装仕様書などのドキュメントは以下をご覧ください。
 
-[μT-Kernel 3.0 Development environment collection](https://github.com/tron-forum/mtk3_devenv)
+[μT-Kernel 3.0 documents](https://tron-forum.github.io/mtkernel_3/)  
+
+
+BSP(ボードサポートパッケージ)、各種開発環境向けのプロジェクトは以下に公開しています。
+
+[μT-Kernel 3.0 BSP2(Board Support Package) v2](https://github.com/tron-forum/mtk3_bsp2)  
+[μT-Kernel 3.0 BSP (Board Support Package)](https://github.com/tron-forum/mtk3_bsp)  
+[μT-Kernel 3.0 Development environment collection](https://github.com/tron-forum/mtk3_devenv)  
 
 トロンフォーラムへのお問い合わせは以下のWebサイトへ
 

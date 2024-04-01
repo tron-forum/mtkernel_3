@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -19,10 +19,13 @@
 #ifndef _SYSDEPEND_SYSMSG_
 #define _SYSDEPEND_SYSMSG_
 
-/* System dependencies */
-#define SYSMSG_PATH_(a)	#a
-#define SYSMSG_PATH(a)	SYSMSG_PATH_(a)
-#define SYSMSG_SYSDEP()	SYSMSG_PATH(TARGET_DIR/sys_msg.h)
-#include SYSMSG_SYSDEP()
+#include <tm/tmonitor.h>
+
+#if (USE_SYSTEM_MESSAGE && USE_TMONITOR)
+#define SYSTEM_MESSAGE(s)	tm_putstring((UB*)s)
+#else
+#define SYSTEM_MESSAGE(s)
+#endif /* USE_SYSTEM_MESSAGE && USE_TMONITOR */
+
 
 #endif /* _SYSDEPEND_SYSMSG_ */

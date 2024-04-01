@@ -3,11 +3,13 @@
 ################################################################################
 
 OBJS += \
+./mtkernel_3/kernel/sysdepend/iote_m367/cpu_clock.o \
 ./mtkernel_3/kernel/sysdepend/iote_m367/devinit.o \
 ./mtkernel_3/kernel/sysdepend/iote_m367/hw_setting.o \
 ./mtkernel_3/kernel/sysdepend/iote_m367/power_save.o 
 
 C_DEPS += \
+./mtkernel_3/kernel/sysdepend/iote_m367/cpu_clock.d \
 ./mtkernel_3/kernel/sysdepend/iote_m367/devinit.d \
 ./mtkernel_3/kernel/sysdepend/iote_m367/hw_setting.d \
 ./mtkernel_3/kernel/sysdepend/iote_m367/power_save.d 

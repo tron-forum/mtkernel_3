@@ -1,19 +1,19 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
 
 /*
  *	knldef.h
- *	micro T-Kernel system definition form Configulation
+ *	micro T-Kernel system definition form Configuration
  */
 
 #ifndef _SYS_KNLDEF_H_
@@ -21,7 +21,6 @@
 
 #include <sys/sysdef.h>
 
-#include <config.h>
 /*---------------------------------------------------------------------- */
 /* Check configuration data
  */
@@ -41,7 +40,7 @@
 # error "USE_FPU cannot be specified."
 #endif
 
-#if USE_DPS && !CPU_HAS_DSP
+#if USE_DSP && !CPU_HAS_DSP
 # error "USE_DSP cannot be specified."
 #endif
 

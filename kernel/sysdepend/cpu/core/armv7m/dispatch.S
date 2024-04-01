@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -20,6 +20,7 @@
 #define	_in_asm_source_
 
 #include <sys/machine.h>
+#include <config.h>
 #include <tk/errno.h>
 #include <sys/sysdef.h>
 #include <sys/knldef.h>
@@ -95,7 +96,7 @@ l_dispatch_000:
 	ands	r3,lr, #EXPRN_NO_FPU
 	bne	l_dispatch_010			// ctxtsk does not execute FPU instructions.
 
-	vpush	{s16-s31}			// Push FPU register (S15-S31)
+	vpush	{s16-s31}			// Push FPU register (S16-S31)
 	push	{r3}				//FPU usage flag
 
 l_dispatch_010:			// End of FPU register save process
@@ -109,6 +110,7 @@ l_dispatch_010:			// End of FPU register save process
 
 /*----------------- Dispatch from "ctxtsk" to "schedtsk" -----------------*/
 l_dispatch_100:
+	ldr	r4, =Csym(knl_ctxtsk)
 	ldr	r5, =Csym(knl_schedtsk)		// R5 = &schedtsk
 	ldr	r6, =Csym(knl_lowpow_discnt)	// R6 = &lowpow_discnt
 
@@ -132,7 +134,7 @@ l_dispatch_110:
 	b	l_dispatch_110
 
 l_dispatch_120:			// Switch to 'schedtsk'
-	str	r8, [r0]			// ctxtsk = schedtsk
+	str	r8, [r4]			// ctxtsk = schedtsk
 	ldr	sp, [r8, #TCB_tskctxb + CTXB_ssp]	// Restore 'ssp' from TCB
 
 
@@ -148,7 +150,7 @@ l_dispatch_120:			// Switch to 'schedtsk'
 	bne	l_dispatch_200			// schedtsk does not execute FPU instructions.
 
 	pop	{r3}
-	vpop	{s16-s31}			// Pop FPU register (S15-S31)
+	vpop	{s16-s31}			// Pop FPU register (S16-S31)
 
 l_dispatch_200:			//  End of FPU register restore process
 #endif	/* USE_FPU */

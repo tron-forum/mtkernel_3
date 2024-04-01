@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2022 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/10.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -75,25 +75,25 @@
 #define ICSR_PENDSTCLR	0x02000000	/* SysCTick Clean pending */
 
 #define AIRCR_VECTKEY	0x05FA0000	/* AIRCR bit.31~16  VECTKEY */
-#define AIRCR_PRIGROUP7	0x00007000	/* AIRCR bit.10~8   PRIGROUP */
-#define	AIRCR_PRIGROUP6	0x00006000
-#define	AIRCR_PRIGROUP5	0x00005000
-#define	AIRCR_PRIGROUP4	0x00004000
-#define	AIRCR_PRIGROUP3	0x00003000
-#define	AIRCR_PRIGROUP2	0x00002000
-#define	AIRCR_PRIGROUP1	0x00001000
+#define AIRCR_PRIGROUP7	0x00000700	/* AIRCR bit.10~8   PRIGROUP */
+#define	AIRCR_PRIGROUP6	0x00000600
+#define	AIRCR_PRIGROUP5	0x00000500
+#define	AIRCR_PRIGROUP4	0x00000400
+#define	AIRCR_PRIGROUP3	0x00000300
+#define	AIRCR_PRIGROUP2	0x00000200
+#define	AIRCR_PRIGROUP1	0x00000100
 #define	AIRCR_PRIGROUP0	0x00000000
 
 /*
  * The number of the implemented bit width for priority value fields.
  * The LSB of (8-INTPRI_BITWIDTH) bits priority value is ignored, 
- * Bacause each priory bits is INTPRI_BITWIDTH bits.
+ * Because each priory bits is INTPRI_BITWIDTH bits.
  */
 #define INTPRI_VAL(x)	((x) << (8-INTPRI_BITWIDTH))
 
 
 /* SHPR: System Handler Priority Register
- *   SHRP1    (ReV)     Usage     Bus       Memmory
+ *   SHRP1    (ReV)     Usage     Bus       Memory
  *   SHRP2    SVCall    (Rev)     (Rev)     (Rev)
  *   SHPR3    SysTick   PendSV    (Rsv)     DebugMon-
  */

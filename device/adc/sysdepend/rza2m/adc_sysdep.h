@@ -21,10 +21,10 @@
 #ifndef	__DEV_ADC_RZA2M_H__
 #define	__DEV_ADC_RZA2M_H__
 
-#define	DEV_ADC_UNITNM	(1)		/* Number of devive units */
+#define	DEV_ADC_UNITNM	(1)		/* Number of device units */
 #define	DEV_ADC_UNIT0	(0)
 
-#define ADC_CH_NUM	(8)		/* Number of A/DC chanels */
+#define ADC_CH_NUM	(8)		/* Number of A/DC channels */
 
 /*
  * ADC registers

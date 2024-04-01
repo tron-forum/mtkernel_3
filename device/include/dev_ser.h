@@ -37,7 +37,7 @@ typedef enum {
 } T_DN_SER_ATR;
 
 /* Communication Error */
-#define	DEV_SER_ERR_ROVR	(1<<7)	/* Recive buffe over flow */
+#define	DEV_SER_ERR_ROVR	(1<<7)	/* Receive buffer over flow */
 
 /*----------------------------------------------------------------------*/
 /* Hardware dependent definition

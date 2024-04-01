@@ -25,7 +25,7 @@
 
 /*
  *  Startup System Clock
- *    Used Main Clock(8MHz), Uesd PLL/UPLL, System Clock 54MHz
+ *    Used Main Clock(8MHz), Used PLL/UPLL, System Clock 54MHz
  *    ICLK:54MHz, PCLKA:54MHz, PCLKB:27MHz, PCLKD:54MHz, FCLK:1.6875MHz, UCLK:48MHz
  */
 EXPORT void startup_clock(void)

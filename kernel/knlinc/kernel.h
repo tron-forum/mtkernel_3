@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
@@ -37,6 +37,7 @@ typedef struct task_control_block	TCB;
 
 #include "../sysdepend/sys_msg.h"
 #include "../sysdepend/cpu_status.h"
+#include "../sysdepend/sysdepend.h"
 
 #define SYSCALL		EXPORT		/* Definition of system call */
 
@@ -158,7 +159,7 @@ IMPORT ER knl_subsystem_initialize( void );
 IMPORT ER knl_init_object(void);
 
 /*
- * Initialization of Devive management (device.c)
+ * Initialization of Device management (device.c)
  */
 IMPORT ER knl_initialize_devmgr( void );
 
@@ -235,7 +236,7 @@ IMPORT void knl_force_dispatch( void );
 IMPORT void knl_dispatch( void );
 
 /*
- * Interuupt control (interrupt.c)
+ * Interrupt control (interrupt.c)
  */
 IMPORT ER knl_init_interrupt( void );
 IMPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr );
@@ -251,7 +252,12 @@ IMPORT ER knl_finish_device( void );
 /*
  * micro T-Kernel Startup / Finalization (sysinit.c)
  */
+#ifndef ADD_PREFIX_KNL_TO_GLOBAL_NAME
 IMPORT INT main(void);
+#else
+IMPORT INT knl_main(void);
+#endif	/* ADD_PREFIX_KNL_TO_GLOBAL_NAME */
+
 IMPORT void knl_tkernel_exit( void );
 
 /*

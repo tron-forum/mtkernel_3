@@ -77,7 +77,7 @@ const LOCAL struct {
 */
 typedef struct {
 	UW	mode;		// Serial mode
-	UW	speed;		// Spped (bit rate)
+	UW	speed;		// Speed (bit rate)
 } T_DEV_SER_LLDEVCB;
 
 LOCAL T_DEV_SER_LLDEVCB		ll_devcb[DEV_SER_UNITNM];

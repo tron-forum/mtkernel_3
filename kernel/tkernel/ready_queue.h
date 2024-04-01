@@ -31,7 +31,7 @@
  *	Also, to search a task at the highest priority in the ready queue  
  *    	effectively, put the highest task priority in the 'top_priority' field.
  *	If the ready queue is empty, set the value in this field to NUM_TSKPRI. 
- *	In this case, to return '0' with refering 'tskque[top_priority]',
+ *	In this case, to return '0' with referring 'tskque[top_priority]',
  *      there is 'null' field which is always '0'.
  *
  *	Multiple READY tasks with kernel lock do not exist at the same time.

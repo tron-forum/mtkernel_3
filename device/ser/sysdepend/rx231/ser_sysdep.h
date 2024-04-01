@@ -21,7 +21,7 @@
 #ifndef	__DEV_SER_RX231_H__
 #define	__DEV_SER_RX231_H__
 
-#define	DEV_SER_UNITNM		(7)	/* Number of devive channels */
+#define	DEV_SER_UNITNM		(7)	/* Number of device channels */
 
 /*
  * UART registers

@@ -1,16 +1,15 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.07.B0
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2023 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2023/11.
  *
  *----------------------------------------------------------------------
  */
-
 
 /*
  *	syslib.h
@@ -22,12 +21,12 @@
 #ifndef __TK_SYSLIB_H__
 #define __TK_SYSLIB_H__
 
-#include "typedef.h"
+#include <tk/typedef.h>
 
 
 /* ------------------------------------------------------------------------ */
 /*
- * System dependencies  (CPU Intrrupt contrl , I/O port access)
+ * System dependencies  (CPU Interrupt control , I/O port access)
  */
 #define SYSLIB_PATH_(a)		#a
 #define SYSLIB_PATH(a)		SYSLIB_PATH_(a)

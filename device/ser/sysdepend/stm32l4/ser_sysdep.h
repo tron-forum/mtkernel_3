@@ -21,7 +21,7 @@
 #ifndef	__DEV_SER_STM32L4_H__
 #define	__DEV_SER_STM32L4_H__
 
-#define	DEV_SER_UNITNM	(5)	/* Number of devive channels */
+#define	DEV_SER_UNITNM	(5)	/* Number of device channels */
 #define DEV_SER_UNIT0	(0)	/* Ch.0 - USART1 */
 #define DEV_SER_UNIT1	(1)	/* Ch.1 - USART2 */
 #define DEV_SER_UNIT2	(2)	/* Ch.2 - USART3 */
