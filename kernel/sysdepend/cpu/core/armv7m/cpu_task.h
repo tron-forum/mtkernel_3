@@ -107,7 +107,7 @@ Inline void knl_cleanup_context( TCB *tcb )
 	if(tcb == knl_ctxtsk) {
 		/* Clear CONTROL.FPCA */
 		Asm("mrs %0, control":"=r"(control));
-		control &= (1<<2);
+		control &= ~(1<<2);
 		Asm("msr control, %0"::"r"(control));
 	}
 #endif
