@@ -46,7 +46,7 @@ EXPORT void knl_set_reg( TCB *tcb, CONST T_REGS *regs, CONST T_EIT *eit, CONST T
 		if(*tmpp & EXPRN_NO_FPU) {	/* FPU register is not saved */
 			ssp = (SStackFrame*)tmpp;
 		} else {		/* FPU register is saved */
-			ssp = (SStackFrame*)(((SStackFrame_wFPU*)tmpp)->r_);
+			ssp = (SStackFrame*)&(((SStackFrame_wFPU*)tmpp)->exp_ret);
 		}
 	} else {
 		ssp = (SStackFrame*)tmpp;
