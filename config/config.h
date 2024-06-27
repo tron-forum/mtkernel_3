@@ -81,7 +81,7 @@
 /* Stack size definition
  */
 #define CNF_EXC_STACK_SIZE	(2048)	/* Exception stack size */
-#define	CNF_TMP_STACK_SIZE	(256)	/* Temporary stack size */
+#define	CNF_TMP_STACK_SIZE	(2048)	/* Temporary stack size */
 
 
 /*---------------------------------------------------------------------- */
