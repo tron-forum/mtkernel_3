@@ -22,10 +22,6 @@
 
 #include "cpu_task.h"
 
-
-/* Temporal stack used when 'dispatch_to_schedtsk' is called */
-Noinit(EXPORT UB knl_tmp_stack[TMP_STACK_SIZE]);
-
 /* Task independent status */
 EXPORT	W	knl_taskindp = 0;
 
