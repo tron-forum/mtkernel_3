@@ -99,21 +99,18 @@ EXPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 
 LOCAL void save_fpuctx(FPUContext *fpu)
 {
-	UW	bk_fpexe, bk_fpscr;
-
-	Asm("fmrx %0, fpexc":"=r"(bk_fpexe));		// bk_fpexe = FPEXC
-	Asm("orr ip, %0, #0x40000000"::"r"(bk_fpexe));	// FPEXC.EN = 1
-	Asm("fmxr fpexc, ip");				// VFP enable
-
-	Asm("mov ip, %0"::"r"(fpu));
-
-	// save VFP context
-	Asm("fmrx %0, fpscr":"=r"(bk_fpscr));		// Floating-Point Status and Control Register
-	Asm("stmia ip!, {r0, %0}"::"r"(bk_fpscr));	// (r0 is padding)
-	Asm("fstmiad ip!, {d0-d15}");
-	Asm("fstmiad ip!, {d16-d31}");
-
-	Asm("fmxr fpexc, %0"::"r"(bk_fpexe));		// restore FPEXC
+	Asm("	fmrx	r0, fpexc		\n"	// r0 = FPEXC
+	    "	orr	r1, r0, #0x40000000	\n"	// FPEXC.EN = 1
+	    "	fmxr	fpexc, r1		\n"	// VFP enable
+							// save VFP context
+	    "	fmrx	r1, fpscr		\n"	// r1 = FPSCR
+	    "	stmia	%0!, {r0, r1}		\n"	// (r0 is padding)
+	    "	fstmiad	%0!, {d0-d15}		\n"
+	    "	fstmiad	%0!, {d16-d31}		\n"
+	    "	fmxr	fpexc, r0		"	// restore FPEXC
+	    : "+r"(fpu)
+	    :
+	    : "r0", "r1");
 }
 
 #ifdef USE_FUNC_TK_SET_CPR
