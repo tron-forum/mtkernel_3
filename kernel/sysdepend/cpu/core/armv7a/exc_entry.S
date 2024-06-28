@@ -284,7 +284,7 @@ Csym(iabort_entry):
 	.extern Csym(DataAbort_Handler)
 
 Csym(dabort_entry):
-	sub	lr, lr, #4		// Return address adjustment
+	sub	lr, lr, #8		// Return address adjustment
 	ldr	sp, =__abt_stack_start	// Switch to exception stack
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to ABT stack
 
