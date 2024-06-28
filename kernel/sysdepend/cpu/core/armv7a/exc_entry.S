@@ -24,7 +24,7 @@
 #include "offset.h"
 
 /* GIC Register definition */
-#define GIC_ICC_BASE	0xE8222000
+#define GIC_ICC_BASE	GICC_BASE
 #define GIC_ICC_IAR	0x000C		// Interrupt Acknowledge Register
 #define GIC_ICC_EOIR	0x0010		// End of Interrupt Register
 
@@ -58,30 +58,29 @@ Csym(irq_entry):
 	*/
 
 	ldr	lr, =GIC_ICC_BASE
-	ldr	r3, [lr, #GIC_ICC_IAR]		// Read interrupt response register
-	mov	r3, r3, lsl #22
-	mov	r3, r3, lsr #22			// r3 <- Interrupt ID (& 0x3ff)
+	ldr	r1, [lr, #GIC_ICC_IAR]		// Read interrupt response register
+	mov	r0, r1, lsl #22
+	mov	r0, r0, lsr #22			// r0 <- Interrupt ID (& 0x3ff)
 
-	ldr	r0, =N_INTVEC
-	cmp	r3, r0				// Is the interrupt number correct?
+	ldr	lr, =N_INTVEC
+	cmp	r0, lr				// Is the interrupt number correct?
 	bge	l_irq1				//	NO => Jump
 
-	mov	r0, r3
-	ldr	lr,  =Csym(knl_intvec_tbl)
-	add	lr, r3, lsl #2
+	ldr	lr, =Csym(knl_intvec_tbl)
+	add	lr, r0, lsl #2
 	ldr	lr, [lr]			// lr <- Interrupt handler address
 	cmp	lr, #0				// Is an interrupt handler registered?
-	bxne	lr				//	YES => jump    r0: Interrupt ID
-	b	l_irq2				//	NO  => default_entry
+	bxne	lr				//  YES => jump r0:Interrupt ID r1:GIC IAR
+	b	l_irq2				//  NO  => default_entry
 
 l_irq1: // Interrupt ID is an abnormal value
-	ldr     r0, =0x3ff
-	cmp     r3, r0				// If Interrupt ID is 0x3ff,
+	ldr     lr, =0x3ff
+	cmp     r0, lr				// If Interrupt ID is 0x3ff,
 	beq     l_irq3				//	it is a false positive and returns.
 
 l_irq2:	// Call the default handler
 	ldr	lr, =GIC_ICC_BASE
-	str	r3, [lr, #GIC_ICC_EOIR]		// Writing the interrupt end register
+	str	r1, [lr, #GIC_ICC_EOIR]		// Writing the interrupt end register
 
 	ldr	lr, =Csym(Default_Handler)
 	bx	lr
