@@ -168,7 +168,6 @@ Csym(fiq_entry):
 	.extern Csym(VFPInvalid_Handler)
 
 Csym(undef_entry):
-	sub	lr, lr, #4		// Return address adjustment
 	ldr	sp, =__und_stack_start	// Switch to exception stack
 	stmfd	sp!, {r0-r3, ip, lr}	// Save R0-R3,R12,LR to UDF stack
 
@@ -244,8 +243,11 @@ load_fpuctx:
 	str	r0, [r2]		// knl_fpu_ctx = ctxtsk
 
 rtn_undef:
+	mrs	ip, spsr
+	tst	ip, #PSR_T
 	ldmfd	sp!, {r0-r3, ip, lr}	// restore registers
-	movs	pc,lr			// return from exception
+	subnes	pc, lr, #2		// return to Thumb
+	subs	pc, lr, #4		// return to ARM
 
 exe_undhdr:
 #endif /* USE_FPU */
