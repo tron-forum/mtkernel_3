@@ -69,6 +69,8 @@ struct task_control_block {
 	BOOL	klockwait:1;	/* TRUE at wait kernel lock */
 	BOOL	klocked:1;	/* TRUE at hold kernel lock */
 
+	void	*isstack;	/* stack pointer initial value */
+
 	CONST WSPEC *wspec;	/* Wait specification */
 	ID	wid;		/* Wait object ID */
 	INT	wupcnt;		/* Number of wakeup requests queuing */
@@ -76,8 +78,6 @@ struct task_control_block {
 	ER	*wercd;		/* Wait error code set area */
 	WINFO	winfo;		/* Wait information */
 	TMEB	wtmeb;		/* Wait timer event block */
-
-	void	*isstack;	/* stack pointer initial value */
 
 #if USE_LEGACY_API && USE_RENDEZVOUS
 	RNO	wrdvno;		/* For creating rendezvous number */

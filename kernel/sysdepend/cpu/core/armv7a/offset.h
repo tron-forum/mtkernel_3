@@ -27,7 +27,7 @@
 #define TCB_tskatr	16
 #define TCB_tskctxb	24
 #define TCB_state	39
-#define	TCB_isstack	100
+#define	TCB_isstack	44
 
 #define CTXB_ssp	0
 
