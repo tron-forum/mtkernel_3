@@ -14,6 +14,7 @@ TRON Forum (https://www.tron.org)
 [共通実装仕様書](Implementation_jp/impl_common_jp.md)  
 
 [ARMv7-Mマイコン向け実装仕様書](Implementation_jp/impl_armv7m.md)  
+[ARMv8-Mマイコン向け実装仕様書](Implementation_jp/impl_armv8m.md)  
 [RXv2マイコン向け実装仕様書](Implementation_jp/impl_rxv2.md)  
 
 [STM32H7マイコン向け実装仕様書](Implementation_jp/impl_stm32h7.md)  
