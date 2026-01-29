@@ -34,8 +34,8 @@
 /* SYSCONF : micro T-Kernel system configuration
  */
 
-#define	CNF_SYSTEMAREA_TOP	0x24100400	/* 0: Use system default address */
-#define CNF_SYSTEMAREA_END	0x2417FFFF	/* 0: Use system default address */
+#define	CNF_SYSTEMAREA_TOP	0	/* 0: Use system default address */
+#define CNF_SYSTEMAREA_END	0	/* 0: Use system default address */
 
 #define	CNF_MAX_TSKPRI		32	/* Task Max priority */
 
