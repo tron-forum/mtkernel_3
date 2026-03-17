@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.08.B1
+ *    micro T-Kernel 3.00.08.B2
  *
- *    Copyright (C) 2006-2025 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2025/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/03.
  *
  *----------------------------------------------------------------------
  */
@@ -46,6 +46,7 @@ IMPORT void knl_hardfault_handler(void);	/* 3: Hard Fault Handler */
 IMPORT void knl_memmanage_handler(void);	/* 4: MPU Fault Handler */
 IMPORT void knl_busfault_handler(void);		/* 5: Bus Fault Handler */
 IMPORT void knl_usagefault_handler(void);	/* 6: Usage Fault Handler */
+IMPORT void knl_securefault_handler(void);	/* 7: Secure Fault Handler */
 IMPORT void knl_svcall_handler(void);		/* 11: Svcall */
 IMPORT void knl_debugmon_handler(void);		/* 12: Debug Monitor Handler */
 
@@ -111,13 +112,10 @@ Inline void knl_dmb(void)
 	Asm("dmb 0xF":::"memory");
 }
 
-#if USE_CACHE
+#if USE_CACHE && CPU_HAS_CACHE
 /*
  * Cache control (cache.c)
  */
-#define	SCB_DCACHE_LINE_SIZE	32
-#define	SCB_ICACHE_LINE_SIZE	32
-
 IMPORT void knl_enable_icache(void);
 IMPORT void knl_disable_icache(void);
 IMPORT void knl_invalidate_icache(void);
@@ -141,7 +139,7 @@ Inline BOOL knl_check_dcache(void)
 {
 	return (in_w(SCB_CCR)&CCR_DC)?TRUE:FALSE;
 }
-#endif	/* USE_CACHE */
+#endif	/* USE_CACHE && CPU_HAS_CACHE */
 
 /*
  * Task System Dependent definition

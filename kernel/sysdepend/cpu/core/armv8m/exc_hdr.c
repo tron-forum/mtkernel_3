@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.08.B0
+ *    micro T-Kernel 3.00.08.B2
  *
- *    Copyright (C) 2006-2024 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2024/12
+ *    Released by TRON Forum(http://www.tron.org) at 2026/03
  *
  *----------------------------------------------------------------------
  */
@@ -42,8 +42,7 @@ WEAK_FUNC EXPORT void knl_nmi_handler(void)
 /*
  * Hard fault handler
  */
-//WEAK_FUNC EXPORT void knl_hardfault_handler(void)
-void knl_hardfault_handler(void)
+WEAK_FUNC EXPORT void knl_hardfault_handler(void)
 {
 #if (USE_EXCEPTION_DBG_MSG  && USE_TMONITOR)
 
@@ -88,10 +87,18 @@ WEAK_FUNC EXPORT void knl_busfault_handler(void)
 /*
  * Usage Fault Handler
  */
-//WEAK_FUNC EXPORT void knl_usagefault_handler(void)
-EXPORT void knl_usagefault_handler(void)
+WEAK_FUNC EXPORT void knl_usagefault_handler(void)
 {
 	EXCEPTION_DBG_MSG("Usage Fault\n");
+	while(1);
+}
+
+/*
+ * Secure Fault Handler
+ */
+WEAK_FUNC EXPORT void knl_securefault_handler(void)
+{
+	EXCEPTION_DBG_MSG("Secure Fault\n");
 	while(1);
 }
 

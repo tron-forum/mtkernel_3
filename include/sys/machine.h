@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.08.B1
+ *    micro T-Kernel 3.00.08.B2
  *
- *    Copyright (C) 2006-2025 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2025/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/03.
  *
  *----------------------------------------------------------------------
  */
@@ -43,6 +43,12 @@
 
 #ifdef _STM32_NUCLEO_N657_EXTSEC_
 #include "sysdepend/nucleo_stm32n6/machine.h"
+#define Csym(sym) sym
+#define ADD_PREFIX_MAIN_FUNC		(1)
+#endif
+
+#ifdef _RA_EK_RA8M1_EXTSEC_
+#include "sysdepend/ek_ra8m1/machine.h"
 #define Csym(sym) sym
 #define ADD_PREFIX_MAIN_FUNC		(1)
 #endif

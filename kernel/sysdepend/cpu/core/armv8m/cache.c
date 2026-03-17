@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.08.B1
  *
- *    Copyright (C) 2006-2025 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2025/08.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/03.
  *
  *----------------------------------------------------------------------
  */
@@ -24,7 +24,7 @@
 #include "sysdepend.h"
 #include "cpu_status.h"
 
-#if USE_CACHE
+#if USE_CACHE && CPU_HAS_CACHE
 
 #define MEMORY_BARRIER	knl_dsb();knl_isb();
 
@@ -266,5 +266,5 @@ EXPORT void knl_clean_inval_dcache_adr(volatile void *daddr, W dsize)
 	MEMORY_BARRIER
 }
 
-#endif	/* USE_CACHE */
+#endif	/* USE_CACHE && CPU_HAS_CACHE */
 #endif /* CPU_CORE_ARMV8M */

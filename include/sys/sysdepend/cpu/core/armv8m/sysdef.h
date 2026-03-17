@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.08.B1
+ *    micro T-Kernel 3.00.08.B2
  *
- *    Copyright (C) 2006-2025 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2025/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/03.
  *
  *----------------------------------------------------------------------
  */
@@ -124,6 +124,20 @@
 #define	SCB_SHPR2_VAL	((INTPRI_VAL(INTPRI_SVC)<<24))
 #define SCB_SHPR3_VAL	((INTPRI_VAL(INTPRI_SYSTICK)<<24)|(INTPRI_VAL(INTPRI_PENDSV)<<16))
 
+
+/*
+ * CPU Cache (Cortex-M55&M85 has CPU cache)
+ */
+#if defined(CPU_CORE_ACM85) || defined(CPU_CORE_ACM55)
+#define CPU_HAS_CACHE	1
+#define	SCB_DCACHE_LINE_SIZE	32
+#define	SCB_ICACHE_LINE_SIZE	32
+
+#else
+#define CPU_HAS_CACHE	0
+
+#endif	/* defined(CPU_CORE_ACM85) || defined(CPU_CORE_ACM55) */
+
 /*
  * System Timer
  */
@@ -166,6 +180,7 @@
 #define	FPU_CPACR_FPUENABLE	0x00F00000	/* Enable FPU (CP10,CP11) */
 #define FPU_FPCCR_ASPEN		0x80000000	/* FPCCR.ASPEN */
 #define FPU_FPCCR_LSPEN		0x40000000	/* FPCCR.LSPEN */
+
 
 /* ------------------------------------------------------------------------ */
 /*
