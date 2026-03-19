@@ -41,10 +41,10 @@ IMPORT UW knl_sysclk;		// System clock
 
 #define	SYSCLK			knl_sysclk	// System clock
 
-#define SYST_CLK_SRC		0x00000004	// SysTick CLKSOURCE bit
+#define SYST_CLK_SRC		0x00000000	// SysTick CLKSOURCE bit
 
-#define TMCLK_KHz		(SYSCLK / 1000)		/* System timer clock input (kHz) */
-#define TMCLK			(TMCLK_KHz / 1000)	/* System timer clock input (MHz) */
+#define TMCLK			(1)		/* System timer clock input (MHz) */
+#define TMCLK_KHz		(TMCLK * 1000)	/* System timer clock input (kHz) */
 
 /* ------------------------------------------------------------------------ */
 /* System Memory Area information
