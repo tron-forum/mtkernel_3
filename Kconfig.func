@@ -1,0 +1,540 @@
+# Kconfig.func — µT-Kernel feature groups and syscall stubs
+#
+# Corresponds to: mtkernel_3/config/config_func.h
+#
+# Section 1: Feature group flags (USE_SEMAPHORE etc.)
+#   Control which IPC/OS object types are compiled into the kernel.
+#
+# Section 2: Syscall stubs (USE_FUNC_TK_* / USE_FUNC_TD_*)
+#   Control whether each individual syscall body is compiled.
+#   These are "presence defines": the kernel source uses #ifdef, not #if.
+#   kconfig_gen.py emits:
+#     enabled  → #define USE_FUNC_TK_DEL_TSK (1)
+#     disabled → /* USE_FUNC_TK_DEL_TSK is not set */
+#   All symbols default to y (= same behaviour as original config_func.h).
+#   The depends-on clauses ensure that disabling a feature group also
+#   disables the stubs that belong to it.
+
+# ---------------------------------------------------------------------------
+# Feature groups
+# ---------------------------------------------------------------------------
+
+config USE_SEMAPHORE
+	bool "Include semaphore support"
+	default y
+
+config USE_MUTEX
+	bool "Include mutex support"
+	default y
+
+config USE_EVENTFLAG
+	bool "Include event flag support"
+	default y
+
+config USE_MAILBOX
+	bool "Include mailbox support"
+	default y
+
+config USE_MESSAGEBUFFER
+	bool "Include message buffer support"
+	default y
+
+config USE_RENDEZVOUS
+	bool "Include rendezvous (legacy API) support"
+	default y
+	depends on USE_LEGACY_API
+
+config USE_MEMORYPOOL
+	bool "Include variable-size memory pool support"
+	default y
+
+config USE_FIX_MEMORYPOOL
+	bool "Include fixed-size memory pool support"
+	default y
+
+config USE_TIMEMANAGEMENT
+	bool "Include time management API"
+	default y
+
+config USE_CYCLICHANDLER
+	bool "Include cyclic handler support"
+	default y
+
+config USE_ALARMHANDLER
+	bool "Include alarm handler support"
+	default y
+
+config USE_DEVICE
+	bool "Include device management support"
+	default y
+
+config USE_FAST_LOCK
+	bool "Include fast lock (spin-lock) support"
+	default y
+
+config USE_MULTI_LOCK
+	bool "Include multi-lock support"
+	default y
+
+# ---------------------------------------------------------------------------
+# Syscall stubs (linker dead-stripping)
+# ---------------------------------------------------------------------------
+
+menu "Syscall stubs (linker dead-stripping)"
+
+# Task management
+
+config USE_FUNC_TK_DEL_TSK
+	bool "tk_del_tsk — delete task"
+	default y
+
+config USE_FUNC_TK_EXT_TSK
+	bool "tk_ext_tsk — exit task"
+	default y
+
+config USE_FUNC_TK_EXD_TSK
+	bool "tk_exd_tsk — exit and delete task"
+	default y
+
+config USE_FUNC_TK_TER_TSK
+	bool "tk_ter_tsk — terminate task"
+	default y
+
+config USE_FUNC_TK_CHG_PRI
+	bool "tk_chg_pri — change task priority"
+	default y
+
+config USE_FUNC_TK_REL_WAI
+	bool "tk_rel_wai — release task from waiting"
+	default y
+
+config USE_FUNC_TK_GET_REG
+	bool "tk_get_reg — get task registers"
+	default y
+
+config USE_FUNC_TK_SET_REG
+	bool "tk_set_reg — set task registers"
+	default y
+
+config USE_FUNC_TK_GET_CPR
+	bool "tk_get_cpr — get co-processor registers"
+	default y
+
+config USE_FUNC_TK_SET_CPR
+	bool "tk_set_cpr — set co-processor registers"
+	default y
+
+config USE_FUNC_TK_REF_TSK
+	bool "tk_ref_tsk — refer task status"
+	default y
+
+config USE_FUNC_TK_SUS_TSK
+	bool "tk_sus_tsk — suspend task"
+	default y
+
+config USE_FUNC_TK_RSM_TSK
+	bool "tk_rsm_tsk — resume suspended task"
+	default y
+
+config USE_FUNC_TK_FRSM_TSK
+	bool "tk_frsm_tsk — forcibly resume suspended task"
+	default y
+
+config USE_FUNC_TK_SLP_TSK
+	bool "tk_slp_tsk — sleep task"
+	default y
+
+config USE_FUNC_TK_WUP_TSK
+	bool "tk_wup_tsk — wakeup task"
+	default y
+
+config USE_FUNC_TK_CAN_WUP
+	bool "tk_can_wup — cancel wakeup request"
+	default y
+
+config USE_FUNC_TK_DLY_TSK
+	bool "tk_dly_tsk — delay task"
+	default y
+
+config USE_FUNC_TD_LST_TSK
+	bool "td_lst_tsk — list tasks (debug)"
+	default y
+
+config USE_FUNC_TD_REF_TSK
+	bool "td_ref_tsk — refer task status (debug)"
+	default y
+
+config USE_FUNC_TD_INF_TSK
+	bool "td_inf_tsk — get task information (debug)"
+	default y
+
+config USE_FUNC_TD_GET_REG
+	bool "td_get_reg — get task registers (debug)"
+	default y
+
+config USE_FUNC_TD_SET_REG
+	bool "td_set_reg — set task registers (debug)"
+	default y
+
+# Semaphore management
+
+config USE_FUNC_TK_DEL_SEM
+	bool "tk_del_sem — delete semaphore"
+	default y
+	depends on USE_SEMAPHORE
+
+config USE_FUNC_TK_REF_SEM
+	bool "tk_ref_sem — refer semaphore status"
+	default y
+	depends on USE_SEMAPHORE
+
+config USE_FUNC_TD_LST_SEM
+	bool "td_lst_sem — list semaphores (debug)"
+	default y
+	depends on USE_SEMAPHORE
+
+config USE_FUNC_TD_REF_SEM
+	bool "td_ref_sem — refer semaphore status (debug)"
+	default y
+	depends on USE_SEMAPHORE
+
+config USE_FUNC_TD_SEM_QUE
+	bool "td_sem_que — semaphore wait queue (debug)"
+	default y
+	depends on USE_SEMAPHORE
+
+# Mutex management
+
+config USE_FUNC_TK_DEL_MTX
+	bool "tk_del_mtx — delete mutex"
+	default y
+	depends on USE_MUTEX
+
+config USE_FUNC_TK_REF_MTX
+	bool "tk_ref_mtx — refer mutex status"
+	default y
+	depends on USE_MUTEX
+
+config USE_FUNC_TD_LST_MTX
+	bool "td_lst_mtx — list mutexes (debug)"
+	default y
+	depends on USE_MUTEX
+
+config USE_FUNC_TD_REF_MTX
+	bool "td_ref_mtx — refer mutex status (debug)"
+	default y
+	depends on USE_MUTEX
+
+config USE_FUNC_TD_MTX_QUE
+	bool "td_mtx_que — mutex wait queue (debug)"
+	default y
+	depends on USE_MUTEX
+
+# Event flag management
+
+config USE_FUNC_TK_DEL_FLG
+	bool "tk_del_flg — delete event flag"
+	default y
+	depends on USE_EVENTFLAG
+
+config USE_FUNC_TK_REF_FLG
+	bool "tk_ref_flg — refer event flag status"
+	default y
+	depends on USE_EVENTFLAG
+
+config USE_FUNC_TD_LST_FLG
+	bool "td_lst_flg — list event flags (debug)"
+	default y
+	depends on USE_EVENTFLAG
+
+config USE_FUNC_TD_REF_FLG
+	bool "td_ref_flg — refer event flag status (debug)"
+	default y
+	depends on USE_EVENTFLAG
+
+config USE_FUNC_TD_FLG_QUE
+	bool "td_flg_que — event flag wait queue (debug)"
+	default y
+	depends on USE_EVENTFLAG
+
+# Mailbox management
+
+config USE_FUNC_TK_DEL_MBX
+	bool "tk_del_mbx — delete mailbox"
+	default y
+	depends on USE_MAILBOX
+
+config USE_FUNC_TK_REF_MBX
+	bool "tk_ref_mbx — refer mailbox status"
+	default y
+	depends on USE_MAILBOX
+
+config USE_FUNC_TD_LST_MBX
+	bool "td_lst_mbx — list mailboxes (debug)"
+	default y
+	depends on USE_MAILBOX
+
+config USE_FUNC_TD_REF_MBX
+	bool "td_ref_mbx — refer mailbox status (debug)"
+	default y
+	depends on USE_MAILBOX
+
+config USE_FUNC_TD_MBX_QUE
+	bool "td_mbx_que — mailbox wait queue (debug)"
+	default y
+	depends on USE_MAILBOX
+
+# Message buffer management
+
+config USE_FUNC_TK_DEL_MBF
+	bool "tk_del_mbf — delete message buffer"
+	default y
+	depends on USE_MESSAGEBUFFER
+
+config USE_FUNC_TK_REF_MBF
+	bool "tk_ref_mbf — refer message buffer status"
+	default y
+	depends on USE_MESSAGEBUFFER
+
+config USE_FUNC_TD_LST_MBF
+	bool "td_lst_mbf — list message buffers (debug)"
+	default y
+	depends on USE_MESSAGEBUFFER
+
+config USE_FUNC_TD_REF_MBF
+	bool "td_ref_mbf — refer message buffer status (debug)"
+	default y
+	depends on USE_MESSAGEBUFFER
+
+config USE_FUNC_TD_SMBF_QUE
+	bool "td_smbf_que — message buffer send queue (debug)"
+	default y
+	depends on USE_MESSAGEBUFFER
+
+config USE_FUNC_TD_RMBF_QUE
+	bool "td_rmbf_que — message buffer receive queue (debug)"
+	default y
+	depends on USE_MESSAGEBUFFER
+
+# Rendezvous management (Legacy API)
+
+config USE_FUNC_TK_DEL_POR
+	bool "tk_del_por — delete rendezvous port"
+	default y
+	depends on USE_RENDEZVOUS
+
+config USE_FUNC_TK_FWD_POR
+	bool "tk_fwd_por — forward rendezvous"
+	default y
+	depends on USE_RENDEZVOUS
+
+config USE_FUNC_TK_REF_POR
+	bool "tk_ref_por — refer rendezvous port status"
+	default y
+	depends on USE_RENDEZVOUS
+
+config USE_FUNC_TD_LST_POR
+	bool "td_lst_por — list rendezvous ports (debug)"
+	default y
+	depends on USE_RENDEZVOUS
+
+config USE_FUNC_TD_REF_POR
+	bool "td_ref_por — refer rendezvous port status (debug)"
+	default y
+	depends on USE_RENDEZVOUS
+
+config USE_FUNC_TD_CAL_QUE
+	bool "td_cal_que — rendezvous call queue (debug)"
+	default y
+	depends on USE_RENDEZVOUS
+
+config USE_FUNC_TD_ACP_QUE
+	bool "td_acp_que — rendezvous accept queue (debug)"
+	default y
+	depends on USE_RENDEZVOUS
+
+# Memory pool management
+
+config USE_FUNC_TK_DEL_MPL
+	bool "tk_del_mpl — delete variable-size memory pool"
+	default y
+	depends on USE_MEMORYPOOL
+
+config USE_FUNC_TK_REF_MPL
+	bool "tk_ref_mpl — refer memory pool status"
+	default y
+	depends on USE_MEMORYPOOL
+
+config USE_FUNC_TD_LST_MPL
+	bool "td_lst_mpl — list memory pools (debug)"
+	default y
+	depends on USE_MEMORYPOOL
+
+config USE_FUNC_TD_REF_MPL
+	bool "td_ref_mpl — refer memory pool status (debug)"
+	default y
+	depends on USE_MEMORYPOOL
+
+config USE_FUNC_TD_MPL_QUE
+	bool "td_mpl_que — memory pool wait queue (debug)"
+	default y
+	depends on USE_MEMORYPOOL
+
+# Fixed-size memory pool management
+
+config USE_FUNC_TK_DEL_MPF
+	bool "tk_del_mpf — delete fixed-size memory pool"
+	default y
+	depends on USE_FIX_MEMORYPOOL
+
+config USE_FUNC_TK_REF_MPF
+	bool "tk_ref_mpf — refer fixed-size memory pool status"
+	default y
+	depends on USE_FIX_MEMORYPOOL
+
+config USE_FUNC_TD_LST_MPF
+	bool "td_lst_mpf — list fixed-size memory pools (debug)"
+	default y
+	depends on USE_FIX_MEMORYPOOL
+
+config USE_FUNC_TD_REF_MPF
+	bool "td_ref_mpf — refer fixed-size memory pool status (debug)"
+	default y
+	depends on USE_FIX_MEMORYPOOL
+
+config USE_FUNC_TD_MPF_QUE
+	bool "td_mpf_que — fixed-size memory pool wait queue (debug)"
+	default y
+	depends on USE_FIX_MEMORYPOOL
+
+# Time management
+
+config USE_FUNC_TK_SET_UTC
+	bool "tk_set_utc — set UTC time"
+	default y
+	depends on USE_TIMEMANAGEMENT
+
+config USE_FUNC_TK_GET_UTC
+	bool "tk_get_utc — get UTC time"
+	default y
+	depends on USE_TIMEMANAGEMENT
+
+config USE_FUNC_TK_SET_TIM
+	bool "tk_set_tim — set system time"
+	default y
+	depends on USE_TIMEMANAGEMENT
+
+config USE_FUNC_TK_GET_TIM
+	bool "tk_get_tim — get system time"
+	default y
+	depends on USE_TIMEMANAGEMENT
+
+config USE_FUNC_TK_GET_OTM
+	bool "tk_get_otm — get operating time"
+	default y
+	depends on USE_TIMEMANAGEMENT
+
+config USE_FUNC_TD_GET_TIM
+	bool "td_get_tim — get system time (debug)"
+	default y
+	depends on USE_TIMEMANAGEMENT
+
+config USE_FUNC_TD_GET_OTM
+	bool "td_get_otm — get operating time (debug)"
+	default y
+	depends on USE_TIMEMANAGEMENT
+
+# Cyclic handler management
+
+config USE_FUNC_TK_DEL_CYC
+	bool "tk_del_cyc — delete cyclic handler"
+	default y
+	depends on USE_CYCLICHANDLER
+
+config USE_FUNC_TK_STA_CYC
+	bool "tk_sta_cyc — start cyclic handler"
+	default y
+	depends on USE_CYCLICHANDLER
+
+config USE_FUNC_TK_STP_CYC
+	bool "tk_stp_cyc — stop cyclic handler"
+	default y
+	depends on USE_CYCLICHANDLER
+
+config USE_FUNC_TK_REF_CYC
+	bool "tk_ref_cyc — refer cyclic handler status"
+	default y
+	depends on USE_CYCLICHANDLER
+
+config USE_FUNC_TD_LST_CYC
+	bool "td_lst_cyc — list cyclic handlers (debug)"
+	default y
+	depends on USE_CYCLICHANDLER
+
+config USE_FUNC_TD_REF_CYC
+	bool "td_ref_cyc — refer cyclic handler status (debug)"
+	default y
+	depends on USE_CYCLICHANDLER
+
+# Alarm handler management
+
+config USE_FUNC_TK_DEL_ALM
+	bool "tk_del_alm — delete alarm handler"
+	default y
+	depends on USE_ALARMHANDLER
+
+config USE_FUNC_TK_STP_ALM
+	bool "tk_stp_alm — stop alarm handler"
+	default y
+	depends on USE_ALARMHANDLER
+
+config USE_FUNC_TK_REF_ALM
+	bool "tk_ref_alm — refer alarm handler status"
+	default y
+	depends on USE_ALARMHANDLER
+
+config USE_FUNC_TD_LST_ALM
+	bool "td_lst_alm — list alarm handlers (debug)"
+	default y
+	depends on USE_ALARMHANDLER
+
+config USE_FUNC_TD_REF_ALM
+	bool "td_ref_alm — refer alarm handler status (debug)"
+	default y
+	depends on USE_ALARMHANDLER
+
+# System status management
+
+config USE_FUNC_TK_ROT_RDQ
+	bool "tk_rot_rdq — rotate ready queue"
+	default y
+
+config USE_FUNC_TK_GET_TID
+	bool "tk_get_tid — get task ID"
+	default y
+
+config USE_FUNC_TK_DIS_DSP
+	bool "tk_dis_dsp — disable dispatch"
+	default y
+
+config USE_FUNC_TK_ENA_DSP
+	bool "tk_ena_dsp — enable dispatch"
+	default y
+
+config USE_FUNC_TK_REF_SYS
+	bool "tk_ref_sys — refer system status"
+	default y
+
+config USE_FUNC_TK_REF_VER
+	bool "tk_ref_ver — refer version information"
+	default y
+
+config USE_FUNC_TD_REF_SYS
+	bool "td_ref_sys — refer system status (debug)"
+	default y
+
+config USE_FUNC_TD_RDY_QUE
+	bool "td_rdy_que — refer ready queue (debug)"
+	default y
+
+endmenu

@@ -26,7 +26,7 @@
 extern "C" {
 #endif
 
-#include <config.h>
+#include <autoconf.h>
 
 #if USE_STDINC_STDDEF
 #include <stddef.h>

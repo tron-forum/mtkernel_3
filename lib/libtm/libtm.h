@@ -16,7 +16,7 @@
  *    T-Monitor compatible calls library
  */
 
-#include <config_tm.h>
+#include <autoconf.h>
 
 #define	CHR_CR		(0x0D)		/* Carriage Return */
 #define	CHR_ETX		(0x03)		/* End of TeXt */

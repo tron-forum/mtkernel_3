@@ -19,7 +19,7 @@
 #ifndef	__DEVINC_DEVDEF_H__
 #define	__DEVINC_DEVDEF_H__
 
-#include <config_device.h>
+#include <autoconf.h>
 
 #if USE_SDEV_DRV		/* Use Sample device driver */
 

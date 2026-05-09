@@ -1,0 +1,294 @@
+# µT-Kernel 3.0 — core configuration
+#
+# Corresponds to: mtkernel_3/config/config.h
+# Defaults match the original upstream config.h (non-BSP2 values).
+
+# ---------------------------------------------------------------------------
+# SYSCONF — system memory area
+# ---------------------------------------------------------------------------
+
+config CNF_SYSTEMAREA_TOP
+	int "System memory area top address (0 = use system default)"
+	default 0
+
+config CNF_SYSTEMAREA_END
+	int "System memory area end address (0 = use system default)"
+	default 0
+
+# ---------------------------------------------------------------------------
+# SYSCONF — scheduling
+# ---------------------------------------------------------------------------
+
+config CNF_MAX_TSKPRI
+	int "Maximum task priority level"
+	default 32
+	range 16 256
+
+config CNF_TIMER_PERIOD
+	int "System timer period (ms)"
+	default 10
+	range 1 100
+
+# ---------------------------------------------------------------------------
+# Kernel object limits
+# ---------------------------------------------------------------------------
+
+config CNF_MAX_TSKID
+	int "Maximum task objects"
+	default 32
+
+config CNF_MAX_SEMID
+	int "Maximum semaphore objects"
+	default 16
+
+config CNF_MAX_FLGID
+	int "Maximum event flag objects"
+	default 16
+
+config CNF_MAX_MBXID
+	int "Maximum mailbox objects"
+	default 8
+
+config CNF_MAX_MTXID
+	int "Maximum mutex objects"
+	default 4
+
+config CNF_MAX_MBFID
+	int "Maximum message buffer objects"
+	default 8
+
+config CNF_MAX_MPLID
+	int "Maximum memory pool objects"
+	default 4
+
+config CNF_MAX_MPFID
+	int "Maximum fixed-size memory pool objects"
+	default 8
+
+config CNF_MAX_CYCID
+	int "Maximum cyclic handler objects"
+	default 4
+
+config CNF_MAX_ALMID
+	int "Maximum alarm handler objects"
+	default 8
+
+# ---------------------------------------------------------------------------
+# Device management limits
+# ---------------------------------------------------------------------------
+
+config CNF_MAX_REGDEV
+	int "Maximum registered devices"
+	default 8
+
+config CNF_MAX_OPNDEV
+	int "Maximum simultaneously open devices"
+	default 16
+
+config CNF_MAX_REQDEV
+	int "Maximum device requests"
+	default 16
+
+config CNF_DEVT_MBFSZ0
+	int "Device event notification message buffer size (-1 = default)"
+	default -1
+
+config CNF_DEVT_MBFSZ1
+	int "Device event notification message max size (-1 = default)"
+	default -1
+
+# ---------------------------------------------------------------------------
+# Kernel version info (user-defined)
+# ---------------------------------------------------------------------------
+
+config CNF_VER_MAKER
+	int
+	default 0
+
+config CNF_VER_PRID
+	int
+	default 0
+
+config CNF_VER_PRVER
+	int
+	default 3
+
+config CNF_VER_PRNO1
+	int
+	default 0
+
+config CNF_VER_PRNO2
+	int
+	default 0
+
+config CNF_VER_PRNO3
+	int
+	default 0
+
+config CNF_VER_PRNO4
+	int
+	default 0
+
+# ---------------------------------------------------------------------------
+# Stack sizes
+# ---------------------------------------------------------------------------
+
+config CNF_EXC_STACK_SIZE
+	int "Exception stack size in bytes (0 = BSP default)"
+	default 2048
+
+config CNF_TMP_STACK_SIZE
+	int "Temporary stack size in bytes"
+	default 256
+
+# ---------------------------------------------------------------------------
+# System function selection
+# ---------------------------------------------------------------------------
+
+config USE_NOINIT
+	bool "Use zero-clear BSS section"
+	default n
+
+config USE_IMALLOC
+	bool "Use dynamic memory allocation (imalloc)"
+	default y
+
+config USE_SHUTDOWN
+	bool "Use system shutdown function"
+	default y
+
+config USE_STATIC_IVT
+	bool "Use static interrupt vector table"
+	default n
+
+# ---------------------------------------------------------------------------
+# API parameter checks
+# ---------------------------------------------------------------------------
+
+config CHK_NOSPT
+	bool "Check unsupported function (E_NOSPT)"
+	default y
+
+config CHK_RSATR
+	bool "Check reservation attribute error (E_RSATR)"
+	default y
+
+config CHK_PAR
+	bool "Check parameter error (E_PAR)"
+	default y
+
+config CHK_ID
+	bool "Check object ID range (E_ID)"
+	default y
+
+config CHK_OACV
+	bool "Check object access violation (E_OACV)"
+	default y
+
+config CHK_CTX
+	bool "Check task-independent context (E_CTX)"
+	default y
+
+config CHK_CTX1
+	bool "Check dispatch-disable context"
+	default y
+
+config CHK_CTX2
+	bool "Check task-independent part context"
+	default y
+
+config CHK_SELF
+	bool "Check self-task specification (E_OBJ)"
+	default y
+
+config CHK_TKERNEL_CONST
+	bool "Check const-type parameter"
+	default y
+
+# ---------------------------------------------------------------------------
+# User initialization (UserInit)
+# ---------------------------------------------------------------------------
+
+config USE_USERINIT
+	bool "Use UserInit function"
+	default n
+
+config RI_USERINIT
+	int "UserInit start address (0 = not used)"
+	default 0
+
+# ---------------------------------------------------------------------------
+# Debug support
+# ---------------------------------------------------------------------------
+
+config USE_DBGSPT
+	bool "Use mT-Kernel/DS debug support"
+	default y
+
+config USE_OBJECT_NAME
+	bool "Use DS object name"
+	default n
+
+config OBJECT_NAME_LENGTH
+	int "DS object name length (characters)"
+	default 8
+
+# ---------------------------------------------------------------------------
+# Legacy API (Rendezvous — µT-Kernel 2.0 compatible)
+# ---------------------------------------------------------------------------
+
+config USE_LEGACY_API
+	bool "Use legacy API (Rendezvous, µT-Kernel 2.0 compatible)"
+	default n
+
+config CNF_MAX_PORID
+	int "Maximum rendezvous port objects"
+	default 0
+
+# ---------------------------------------------------------------------------
+# Co-processor
+# ---------------------------------------------------------------------------
+
+config USE_FPU
+	bool "Use FPU"
+	default n
+
+config USE_DSP
+	bool "Use DSP"
+	default n
+
+# ---------------------------------------------------------------------------
+# Physical timer
+# ---------------------------------------------------------------------------
+
+config USE_PTMR
+	bool "Use physical timer"
+	default y
+
+# ---------------------------------------------------------------------------
+# Sample device driver
+# ---------------------------------------------------------------------------
+
+config USE_SDEV_DRV
+	bool "Use sample device driver"
+	default n
+
+# ---------------------------------------------------------------------------
+# Standard C header usage
+# ---------------------------------------------------------------------------
+
+config USE_STDINC_STDDEF
+	bool "Include <stddef.h>"
+	default y
+
+config USE_STDINC_STDINT
+	bool "Include <stdint.h>"
+	default y
+
+# ---------------------------------------------------------------------------
+# Sub-configurations (matching config_func.h / config_device.h / config_tm.h)
+# ---------------------------------------------------------------------------
+
+rsource "Kconfig.func"
+rsource "Kconfig.device"
+rsource "Kconfig.tm"

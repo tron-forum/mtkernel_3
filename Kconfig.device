@@ -1,0 +1,34 @@
+# Kconfig.device — µT-Kernel device driver inclusion
+#
+# Corresponds to: mtkernel_3/config/config_device.h
+#
+# Non-BSP2 targets (iote_*) use the bundled µT-Kernel device drivers.
+# BSP2 targets (stm32_cube_*) use HAL-based drivers instead.
+
+if !MTK_BSP2
+
+config DEVCNF_USE_SER
+	bool "Include serial communication device driver"
+	default y
+
+config DEVCNF_USE_ADC
+	bool "Include A/D conversion device driver"
+	default y
+
+config DEVCNF_USE_IIC
+	bool "Include I2C communication device driver"
+	default y
+
+endif # !MTK_BSP2
+
+if MTK_BSP2
+
+config DEVCNF_USE_HAL_IIC
+	bool "Use HAL I2C communication device"
+	default n
+
+config DEVCNF_USE_HAL_ADC
+	bool "Use HAL A/D conversion device"
+	default n
+
+endif # MTK_BSP2
