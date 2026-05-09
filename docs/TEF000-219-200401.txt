@@ -1,0 +1,195 @@
+T-License2.2
+［プログラムおよび著作物のライセンス契約］
+
+2020 年4 月1 日改定版公開
+2015 年4 月1 日改定版公開
+2011 年5 月17 日トロンフォーラム
+
+第1 条規定範囲
+1.本ライセンス契約は、トロンフォーラムより配布を行うOS のソースコードおよびこれに関連するプログラムに関する著作権ならびに利用条件を定める。
+
+第2 条用語定義
+1.「本プログラム」とは、著作権者よりトロンフォーラムが委託を受け管理および本ライセンス契約で配布を行うプログラムをいう。
+2.「本ソースコード」とは、本プログラムのソースプログラム（付随するコメント、ドキュメンテーションを含む）をいう。
+3.「改変されたソースコード」とは本ソースコードを性能強化、機能追加・削減などを目的として改変して生成されたソースコードをいう。
+4.「バイナリコード」とは本ソースコードまたは改変されたソースコードの全部もしくは一部を含むプログラムをコンパイルして生成された実行形式のコードをいう。
+5.「本ソースコードの派生物」とは、以下の各号のいずれかをいう。
+
+1.改変されたソースコードとそのバイナリコードを総称したもの。
+2.本ソースコードの派生物を利用して、第８項に定める開発者があらたに改変したソースコードとそのバイナリコードを総称したもの。さらに、本号で改変されたプログラムから同様の方法であらたに改変したソースコードとそのバイナリコードもすべて含むものとする。
+6.「組込み製品」とは、本ソースコード、バイナリコード、または本ソースコードの派生物を利用し、ハードウェアに実行形式のコードを搭載して稼動する機器をいう。
+7.「最終利用者」とは組込み製品を使う一般の消費者をいう。
+8.「開発者」とは、次の各号のいずれかをいう。
+1.組込み製品を自らまたは第三者に委託して開発し、最終利用者に組込み製品を、有償無償を問わず提供する者。
+2.改変されたソースコードを開発し、有償無償を問わず第三者に配布する者。
+3.本ソースコードまたは本ソースコードの派生物を利用する者。
+9.「配布」とは、次のいずれかをいう。
+
+1.インターネット等の通信、放送等により、著作物を特定多数の人に送信すること。
+2.インターネット等の通信、放送等により、著作物の送信を不特定の人からの求めに応じ自動的に行うこと。
+3.著作物の複製物を、特定多数の人に頒布すること。
+4.著作物の複製物を、不特定の人に頒布すること。
+10.「トレーサビリティサービス」とは、本ソースコードまたは/および本ソースコードの派生物の派生履歴を登録・参照するサービスのことをいう。
+11.「ディストリビューションucode」とは、トレーサビリティサービスが発行する、本ソースコードまたは/および本ソースコードの派生物を識別するucode と呼ぶ固有番号のことをいう。
+
+第3 条利用許諾
+1.トロンフォーラムは、トロンフォーラムの定める所定の登録手続を済ませ、かつ本ライセンス契約に同意した開発者に対して、以下に定める通り、本ソースコードを無償で利用許諾し、配布する。
+2.開発者は、本ソースコードについて、次のことをすることができる。
+1.第１項または第2 項第5 号により配布された本ソースコードを、自らの研究、開発などの目的のために複製し、改変すること。
+2.第１項または第2 項第5 号により配布された本ソースコードを、自らの研究、開発などの目的のために動作させること。
+3.第１号により改変した本ソースコードを、自らの研究、開発などの目的のために動作させること。
+4.バイナリコードを含む組込み製品を開発し、製造し、有償無償を問わず最終利用者にこれを提供し、最終利用者に組込み製品上でバイナリコードを利用させること。
+5.本号に定める以下の条件をすべて満たしたうえで、有償無償を問わず、本ソースコードを第三者へ再配布すること。
+1.本ソースコードを再配布する際に、ディストリビューションucode 部も含め一切、修正を行わないこと。
+2.本ソースコードを再配布する際に、本ライセンス契約を添付し、当該第三者に各条項の遵守を求めること。
+6.本号に定める以下の条件をすべて満たしたうえで、有償無償を問わず、第1 号により自ら改変した本ソースコードの派生物を第三者へ再配布すること。
+1.改変した本ソースコードの派生物を、トレーサビリティサービスに登録してディストリビューションucode を取得すること。
+2.改変した本ソースコードの派生物を再配布する際に、本ライセンス契約
+
+を添付し、当該第三者に各条項の遵守を求めること。
+3.開発者は、本ソースコードの派生物について、次のことをすることができる。
+1.本ソースコードの派生物を、自らの研究、開発などの目的のために複製し、改変すること。
+2.本ソースコードの派生物を、自らの研究、開発などの目的のために動作させること。
+3.第１号により改変した本ソースコードの派生物を、自らの研究、開発などの目的のために動作させること。
+4.本号に定める以下の条件をすべて満たしたうえで、有償無償を問わず、配布(但し、第２条第９項第１号および第３号に定めるものを除く)された本ソースコードの派生物を第三者へ再配布すること。
+1.本ソースコードの派生物を再配布する際に、ディストリビューション ucode 部も含め一切、修正を行わないこと。
+2.本ソースコードの派生物を再配布する際に、本ライセンス契約を添付し、当該第三者に各条項の遵守を求めること。
+5.本号に定める以下の条件をすべて満たしたうえで、有償無償を問わず、配布(但し、第２条第９項第１号および第３号に定めるものを除く)された本ソースコードの派生物に対して第1 号により自ら改変した本ソースコードの派生物を第三者へ再配布すること。
+1.改変した本ソースコードの派生物を、トレーサビリティサービスに登録してディストリビューションucode を取得すること。
+2.改変した本ソースコードの派生物を再配布する際に、本ライセンス契約を添付し、当該第三者に各条項の遵守を求めること。
+6.別の開発者より配布された本ソースコードの派生物を利用して、第6 項と同様の条件にて組込み製品を最終利用者に利用させること。
+4.本ソースコードの派生物の開発者は、別の開発者が当該本ソースコードの派生物を利用するにあたって、開発者自身の判断でその利用条件として前項第1 号から第5 号までに定める利用を認めないとすることができる。
+5.開発者が本ソースコードの派生物の改変部分に、本ライセンス契約発効以前にトロンフォーラムが定めた利用条件であるT-License またはμT-License(以下、「既ライセンス契約」という)に基づき配布されたソースプログラムの一部を含めた場合、本ソースコードの派生物は本ライセンス契約の利用条件で配布するものとする。但し、当該開発者は本ソースコードの派生物を既ライセンス契約の利用条件で配布することを選択できる。
+6.開発者は、本ソースコードや本ソースコードの派生物の利用、または最終利用者に組込み製品上でバイナリコードを利用せしめるに際し、別途トロンフォーラムの定める方法により、本ソースコードを利用した旨を表示する義務を負うものとする。但し、次の各号に定
+
+める場合、本項の表示義務は免除されるものとする。
+1.開発者がトロンフォーラムの会員で、別途トロンフォーラムの定める方法で申請した場合。
+2.前号により表示義務を免除された本ソースコードや本ソースコードの派生物、またはそれらを利用した組込み製品の提供を受けた場合。
+
+第4 条権利の一部不行使
+1.本ソースコードまたは本ソースコードの派生物の著作権者は、本ライセンス契約に従って本ソースコードまたは本ソースコードの派生物が利用されることに対して、著作権を行使しないものとする。
+2.本ソースコードまたは本ソースコードの派生物の著作者は、本ライセンス契約に従って本ソースコードまたは本ソースコードの派生物が利用されることに対して、著作権法第20 条の同一性保持権を行使しないものとする。
+
+第5 条周辺ビジネス
+1.本ソースコードまたは本ソースコードの派生物について、第3 条に定めた以外の利用を行う場合には、あらかじめトロンフォーラムの許諾を得るものとする。
+
+第6 条保証
+1.トロンフォーラムおよび坂村健は、本ソースコードのうちトロンフォーラムまたは坂村健が著作権を有するものについて第三者の著作権を侵害していないことを保証する。
+2.トロンフォーラムおよび坂村健は、本ソースコードのうち前項に定めるもの以外については第三者の著作権を侵害していないことを保証するものではない。
+3.トロンフォーラムおよび本ソースコードの著作権者は、本ソースコードがソースコード利用者の目的に適合することを保証するものではない。
+4.トロンフォーラムおよび本ソースコードの著作権者は、本ソースコードが第三者の産業財産権を侵害していないことを保証するものではない。また、ソースコード利用者と第三者との産業財産権に関する紛争に関して一切の責任を負わない。
+
+第7 条免責
+1.トロンフォーラムおよび本ソースコードの著作権者は、本ソースコードの使用または使用不能から生じるいかなる損害（逸失利益、事業の中断、事業情報の喪失その他の金銭的損害を含むが、これに限らないものとする）に関して、一切責任を負わない。たとえ、トロンフォーラムおよび本ソースコードの著作権者がそのような損害の可能性について知らされていた場合も同様とする。
+
+第8 条分離可能性
+1. 本ライセンス契約に定める規定の一部が、第9 条に定める合意管轄裁判所により、無効、違法、または不能であると判断された場合においても、本ライセンス契約の残りの規定の有効性、適法性及び強制可能性は一切影響を受けず有効に存続するものとする。
+
+第9 条本ライセンス契約違反に対する措置
+1.トロンフォーラムは、トロンフォーラムの会員であるかどうかを問わず、本ライセンス契約に違反した者に対し、違反の是正と著作権侵害に基づく措置を取るものとする。
+2.本ライセンス契約に違反したトロンフォーラムの会員は、違反の態様に応じて、トロンフォーラムからの退会その他の処分を受ける。
+3.本ライセンス契約に関して訴訟の必要が生じた場合には、東京地方裁判所を専属的合意管轄裁判所とする。
+
+第10 条準拠法と言語
+1.本ライセンス契約の成立、有効性及び履行は全面的に日本法により支配され、解釈される。
+2.本ライセンス契約は日本文及び英文で作成される。但し、その他の言語での参考訳の作成は妨げないが、本ライセンス契約の解釈では日本文が優先する。
+
+T-License 2.2
+[License Agreement for Programs and Copyrighted Works]
+
+May 17, 2011
+appropriate correction June 9, 2011
+revised on April 1, 2015
+revised on April 1, 2020
+
+Article 1. Scope of License Agreement
+1. This License Agreement sets forth copyrights and the terms and conditions of use applicable to the Source Codes of OSs （Operating Systems）  and programs Distributed by TRON Forum.
+
+Article 2. Definition
+1. "Programs" means programs controlled and Distributed under this License Agreement by TRON Forum on behalf of the copyright holder thereof.
+2. "Source Code" means a source program, including related comments and documentations, for the Programs.
+3. "Modified Source Code" means a source program modified from the Source Code for the purpose of improving its performance, increasing or decreasing its function, and the like.
+4. "Binary Code" means an executable code form which is created by compiling programs, which include all or part of the Source Code or the Modified Source Code.
+5. "Derivative Work of the Source Code" means either of the followings:
+1. The generic name for the Modified Source Code and the Binary Code thereof.
+2. The Source Code newly modified by the Developer set forth in Article
+2.8 using the Derivative Work of the Source Code and the Binary Code thereof, including any Source Code and Binary Code thereof which are newly modified from the programs modified hereunder, in the same manner as herein provided.
+
+6. "Embedded Product" means product which uses the Source Code, the Binary Code, or the Derivative Work of the Source Code, and operates with executable code form loaded on its hardware.
+7. "End User" means a consumer who uses the Embedded Product.
+8. "Developer" means any of the following persons:
+1. who develops the Embedded Product by itself or has a third party develop the same, and provides, whether with or without payment, the End User with the Embedded Product.
+2. who develops the Modified Source Code and Distributes, whether with or without payment, a third party with the Modified Source Code.
+3. who uses the Source Code or the Derivative Work of the Source Code.
+9. "Distribution" means any of the following acts:
+1. to transmit a work to a large number of specific persons through the Internet communication, broadcasting, and the like;
+2. to transmit a work to the general public through the Internet communication, broadcasting, and the like automatically in response to a request from the public;
+3. to distribute a reproduction of a work to a large number of specific persons; and
+4. to distribute a reproduction of a work to the general public.
+10. "Traceability Service" means service to register and/or refer to the record of the modification history of the Source Code and/or the Derivative Work of the Source Code.
+11. "Distribution ucode" means a specific number called a "ucode (Ubiquitous Code)" which is issued by the Traceability Service to identify the Source Code and/or the Derivative Work of the Source Code.
+
+Article 3. License of Source Code
+1. As provided for in this Article, TRON Forum shall Distribute, and grant a license to use, the Source Code free of charge to the Developer who has taken the necessary procedure for registration as prescribed by TRON Forum and agreed to this License Agreement.
+2. The Developer may perform the following acts with respect to the Source Code:
+
+1. to copy and/or modify the Source Code Distributed by TRON Forum pursuant to Article 3.1 or paragraph (5) of Article 3.2 for its own research, development and the like.
+2. to run the Source Code Distributed by TRON Forum pursuant to Article
+3.1 or paragraph (5) of Article 3.2 for its own research, development and the like.
+3. to run the Source Code modified pursuant to the paragraph (1) above for its own research, development and the like.
+4. to develop and manufacture the Embedded Product containing the Binary Code, and, whether with or without payment, provide the End User with the same and make the Binary Code available to the End User on the Embedded Product.
+5. to re-Distribute, whether with or without payment, the Source Code to any third party, provided that the Developer shall comply with both of the following conditions:
+1. The Developer shall not make any modification to the Source Code, including the Distribution ucode assigned thereto, when re-Distributing the Source Code; and
+2. The Developer shall provide this License Agreement to said third party and require said third party to comply with the terms and conditions set forth herein when re-Distributing the Source Code.
+6. to re-Distribute, whether with or without payment, the Derivative Work of the Source Code modified by the Developer itself pursuant to the paragraph (1) above to any third party, provided that the Developer shall comply with both of the following conditions:
+1. The Developer shall register the modified Derivative Work of the Source Code into the Traceability Service and obtain the Distribution ucode to be assigned thereto; and
+2. The Developer shall provide this License Agreement to said third party and require said third party to comply with the terms and conditions set forth herein when re-Distributing the modified Derivative Work of the Source Code.
+3. The Developer may perform the following acts with respect to the Derivative Work of the Source Code:
+
+1. to copy and/or modify the Derivative Work of the Source Code for its own research, development and the like.
+2. to run the Derivative Work of the Source Code for its own research, development and the like.
+3. to run the Derivative Work of the Source Code modified pursuant to paragraph (1) above for its own research, development and the like.
+4. to re-Distribute, whether with or without payment, the Derivative Work of the Source Code Distributed hereunder (excluding the Derivative Work of the Source Code Distributed in a manner as set forth in paragraphs (1) and (3) of Article 2.9) to any third party, provided that the Developer shall comply with both of the following conditions:
+1. The Developer shall not make any modification to the Derivative Work of the Source Code, including the Distribution ucode assigned thereto, when re-Distributing the Derivative Work of the Source Code; and
+2. The Developer shall provide this License Agreement to said third party and require said third party to comply with the terms and conditions set forth herein when re-Distributing the Derivative Work of the Source Code.
+5. to re-Distribute, whether with or without payment, the Derivative Work of the Source Code modified by the Developer itself pursuant to the paragraph (1) above based upon the Derivative Work of the Source Code Distributed hereunder (excluding the Derivative Work of the Source Code Distributed in a manner as set forth in paragraphs (1) and (3) of Article 2.9) to any third party, provided that the Developer shall comply with all the following conditions:
+1. The Developer shall register the modified Derivative Work of the Source Code into the Traceability Service and obtain the Distribution ucode to be assigned thereto; and
+2. The Developer shall provide this License Agreement to said third party and require said third party to comply with the terms and conditions set forth herein when re-Distributing the modified Derivative Work of the Source Code.
+6. to make the Embedded Product available to the End User with the use of the Derivative Work of the Source Code Distributed by the other Developer under the same conditions as set forth in Article 3.6.
+
+4. The Developer who has created the Derivative Work of the Source Code may decide at its own discretion not to permit the other Developer to perform the acts set forth in paragraphs (1) through (5) of Article 3.3 when the said other Developer uses the said Derivative Work of the Source Code.
+5. In the case where part of the source program Distributed under the T-License or μT-License (hereinafter called the "Existing License Agreement"), which specifies the terms and conditions of use applicable to the Source Code and was made by TRON Forum before commencement of this License Agreement, is included into the modified part of the Derivative Work of the Source Code by the Developer, the said Derivative Work of the Source Code shall be Distributed in accordance with the terms and conditions set forth in this License Agreement. Provided, however, that the said Developer may select to Distribute the said Derivative Work of the Source Code under the terms and conditions set forth in the Existing License Agreement.
+6. The Developer shall be obligated to give a notice that the Source Code is used, in such a way as separately established by TRON Forum, when they use the Source Code or the Derivative Work of the Source Code, or make the Binary Code available to the End User on the Embedded Product. Provided, however, that the Developer shall be released from the obligation to give a notice under this Article in the event of the following:
+1. The Developer, who is a member of TRON Forum, applies for said release to TRON Forum in a manner separately determined by TRON Forum.
+2. The Developer receives the Source Code or the Derivative Work of the Source Code which is exempted from the obligation to give a notice under the preceding paragraph, or the Embedded Product using the said Source Code or the said Derivative Work of the Source Code.
+
+Article 4. Partial Non-exercise of Rights
+1. Any copyright holder of the Source Code or the Derivative Work of the Source Code shall not exercise its copyrights with respect to any person's act of using the Source Code or the Derivative Work of the Source Code in accordance with this License Agreement.
+2. Any author of the Source Code or the Derivative Work of the Source Code shall not exercise its right to maintain the integrity provided for in Article 20 of the Copyright Act with respect to any person's act of using the Source Code
+
+or the Derivative Work of the Source Code in accordance with this License Agreement.
+
+Article 5. Use for Other Purpose
+1. Any use of the Source Code or the Derivative Work of the Source Code other than those stipulated in Articles 3 shall be subject to the prior approval of TRON Forum.
+
+Article 6. Limited Warranty
+1. TRON Forum warrants that the Source Code for which TRON Forum owns the copyrights does not infringe upon third party's copyrights and Ken Sakamura warrants that the Source Code for which Ken Sakamura owns the copyrights does not infringe upon third party's copyrights.
+2. Neither TRON Forum nor Ken Sakamura warrants that the Source Code other than those set forth in the preceding Article does not infringe upon third party's copyrights.
+3. Neither TRON Forum nor the copyright holder of the Source Code warrants that the Source Code will fit for any particular purpose of the Source Code User.
+4. Neither TRON Forum nor the copyright holder of the Source Code warrants that the Source Code does not infringe upon any third party's industrial property rights. In no event shall TRON Forum and the copyright holder of the Source Code be liable for any dispute which may arise between the Source Code User and a third party in connection with the third party's industrial property rights.
+
+Article 7. Indemnity
+1. Neither TRON Forum nor the copyright holder of the Source Code shall be liable for any damages (including, but not limited to, damages resulting from loss of profit, business interruption, loss of business information or any other pecuniary damage) arising out of use or impossibility of use of the Source Code, even if TRON Forum and the copyright holder have been informed of the possibility of such damages.
+
+Article 8. Severability
+
+1. In the event that any provision of this License Agreement is held invalid, illegal or unenforceable by Japanese court, that will not render invalid, illegal or unenforceable the remaining provisions of this License Agreement, the validity, legality or enforceability of this License Agreement shall not be affected.
+
+Article 9. Breach of Agreement
+1. In case of breach of this License Agreement, TRON Forum shall have the breaching person remedy such a breach and take measures on the ground of copyright infringement against the person regardless of whether or not the said person is a member of TRON Forum.
+2. In case of breach of this License Agreement by a member of TRON Forum, TRON Forum may take appropriate measures against the member; for example, the member is disqualified from membership, depending on what kind of breach has been committed by it.
+3. Any legal dispute which may arise in relation to any breach of this License Agreement shall be subject to the exclusive jurisdiction of the Tokyo District Court.
+
+Article 10. Governing Law and Language
+1. The formation, validity and performance of this License Agreement shall be, in all aspects, governed by and interpreted under the laws of Japan.
+2. This License Agreement is executed in both a Japanese text and English text. This License Agreement may be prepared in any language other than Japanese for the purpose of reference, provided, however, that the Japanese text shall govern the interpretation of this License Agreement.
