@@ -1,0 +1,25 @@
+name: Kernel Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        board: [iote_stm32l4, iote_m367, iote_rza2m]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi
+
+      - name: Build ${{ matrix.board }}
+        run: make BOARD=${{ matrix.board }}
