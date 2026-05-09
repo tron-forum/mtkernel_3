@@ -20,6 +20,10 @@
 #ifndef __TK_DBGSPT_DEPEND_CORE_H__
 #define __TK_DBGSPT_DEPEND_CORE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * System call/extension SVC caller information 
  */
@@ -27,4 +31,8 @@ typedef struct td_calinf {
 	void	*ssp;		/* System stack pointer */
 } TD_CALINF;
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_DBGSPT_DEPEND_CORE_H__ */

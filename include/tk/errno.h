@@ -70,6 +70,10 @@
 #ifndef _in_asm_source_
 #include "tk/typedef.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define MERCD(er)	( (ER)(er) )	/* Main error code */
 #endif /* _in_asm_source_ */
 
@@ -105,4 +109,8 @@
 #endif	/* TK_SUPPORT_SERCD */
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_ERRNO_H__ */

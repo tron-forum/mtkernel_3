@@ -26,6 +26,10 @@
 /* CPU Core-dependent definition */
 #include "../core/armv7m/sysdef.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Internal Memorie (Main RAM)
@@ -502,4 +506,8 @@
 #define NUM_COPROCESSOR		0
 #endif
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSDEF_DEPEND_CPU_H__ */

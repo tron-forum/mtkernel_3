@@ -19,6 +19,10 @@
 #ifndef _INITTASK_DEF_
 #define _INITTASK_DEF_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Initial task parameter
  */
@@ -39,4 +43,8 @@
 
 #endif
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* _INITTASK_DEF_ */

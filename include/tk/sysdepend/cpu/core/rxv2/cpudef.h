@@ -20,6 +20,10 @@
 #ifndef __TK_CPUDEF_CORE_H__
 #define __TK_CPUDEF_CORE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Using Coprocessor
  *   TA_COP0		FPU ( = TA_FPU)
@@ -92,4 +96,8 @@ typedef struct t_copregs {
 } T_COPREGS;
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_CPUDEF_CORE_H__ */

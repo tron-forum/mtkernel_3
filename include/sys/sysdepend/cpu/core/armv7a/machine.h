@@ -20,6 +20,10 @@
 #ifndef __SYS_MACHINE_CORE_H__
 #define __SYS_MACHINE_CORE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * CPU_xxxx		CPU type
  * ALLOW_MISALIGN	1 if access to misalignment data is allowed 
@@ -37,4 +41,8 @@
  */
 #define BIGENDIAN		0	/* Default (Little Endian) */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_MACHINE_CORE_H__ */

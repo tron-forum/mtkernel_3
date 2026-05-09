@@ -27,6 +27,10 @@
 
 #include "../core/armv7m/sysdef.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Internal Memorie (Main RAM)  0x20000800 - 0x2001FFFF
@@ -255,4 +259,8 @@
  */
 #define NUM_COPROCESSOR		0
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSDEF_DEPEND_CPU_H__ */

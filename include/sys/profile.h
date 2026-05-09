@@ -33,6 +33,10 @@
 #define PROF_SYSDEP()		PROF_PATH(sysdepend/TARGET_DIR/profile.h)
 #include PROF_SYSDEP()
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /* 
  **** Common profile
@@ -109,4 +113,8 @@
 #define TK_SUPPORT_DBGSPT		(USE_DBGSPT)		/* Support of T-Kernel/DS */
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_PROFILE_H__ */

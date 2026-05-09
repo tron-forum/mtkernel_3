@@ -23,6 +23,10 @@
 #include <tk/errno.h>
 #include <sys/sysdef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*----------------------------------------------------------------------*/
 /*
  * CPU interrupt control for ARMv7-A.
@@ -38,4 +42,8 @@ IMPORT void enaint( UW intsts );
 #define EI(intsts)	( enaint((UW)intsts) )
 #define isDI(intsts)	( (intsts) != 0 )
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSLIB_DEPEND_CORE_H__ */

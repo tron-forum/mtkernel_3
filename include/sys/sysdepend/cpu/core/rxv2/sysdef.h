@@ -21,6 +21,10 @@
 #ifndef __SYS_SYSDEF_DEPEND_CORE_H__
 #define __SYS_SYSDEF_DEPEND_CORE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * PSW : Processor Status Word
@@ -90,4 +94,8 @@
 #define DEFAULT_SYS_STKSZ	MIN_SYS_STACK_SIZE
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEF_DEPEND_CORE_H__ */

@@ -26,6 +26,10 @@
  */
 #include "../core/armv7a/profile.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** CPU-depeneded profile (RZ/A9M)
  */
@@ -43,4 +47,8 @@
 
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_DEPEND_PROFILE_CPU_H__ */

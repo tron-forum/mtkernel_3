@@ -25,6 +25,10 @@
 /* CPU-dependent definition */
 #include "../cpu/stm32l4/sysdef.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Clock control definition
@@ -55,4 +59,8 @@
 #define LOWPOW_LIMIT	0x7fff		/* Maximum number for disabling */
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSDEF_DEPEND_H__ */

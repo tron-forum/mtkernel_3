@@ -20,9 +20,17 @@
 #ifndef	__DEVINC_ADC_H__
 #define	__DEVINC_ADC_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*----------------------------------------------------------------------*/
 /* Device driver initialization
  */
 IMPORT ER dev_init_adc( UW unit );	/* Device driver initialization */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif	/* __DEVINC_ADC_H__# */

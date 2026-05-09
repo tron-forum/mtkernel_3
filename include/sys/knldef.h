@@ -21,6 +21,10 @@
 
 #include <sys/sysdef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*---------------------------------------------------------------------- */
 /* Check configuration data
  */
@@ -234,4 +238,8 @@
 #define VER_PRNO4	CNF_VER_PRNO4
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* _SYS_KNLDEF_H_ */

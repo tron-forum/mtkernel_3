@@ -23,6 +23,14 @@
 
 #if USE_SDEV_DRV	/* Use the sample driver */
 #include "../../device/include/device.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 #endif /* USE_SDEV_DRV */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_DEVICE_H__ */

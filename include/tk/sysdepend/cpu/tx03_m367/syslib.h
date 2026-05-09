@@ -22,6 +22,10 @@
 
 #include "../core/armv7m/syslib.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Interrupt number
@@ -85,4 +89,8 @@ Inline UB in_b( UW port )
 	return *(_UB*)port;
 }
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSLIB_DEPEND_H__ */

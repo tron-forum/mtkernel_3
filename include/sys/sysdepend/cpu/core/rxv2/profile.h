@@ -20,6 +20,10 @@
 #ifndef __SYS_PROFILE_CORE_H__
 #define __SYS_PROFILE_CORE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define TK_ALLOW_MISALIGN	(ALLOW_MISALIGN)	/* Memory misalign access is permitted */
 #define TK_BIGENDIAN		(BIGENDIAN)		/* Is Big Endian (Must be defined) */
 
@@ -79,4 +83,8 @@
  */
 #define TK_SUPPORT_MICROWAIT	TRUE			/* Support of micro wait */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_PROFILE_CORE_H__ */

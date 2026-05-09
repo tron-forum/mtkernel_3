@@ -41,5 +41,13 @@
  */
 #include "../cpu/rza2m/machine.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEPEND_MACHINE_H__ */

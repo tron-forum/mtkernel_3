@@ -49,6 +49,10 @@
 
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ===== C compiler dependencies definitions ============================= */
 
 #ifdef __GNUC__
@@ -64,4 +68,8 @@
 
 #endif /* __GNUC__ */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_MACHINE_H__ */

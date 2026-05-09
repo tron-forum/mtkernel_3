@@ -25,6 +25,10 @@
  */
 #include "../cpu/rza2m/profile.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** Target-depeneded profile (RZ/A2M IoT-Engine)
  */
@@ -36,4 +40,8 @@
 
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_DEPEND_PROFILE_H__ */

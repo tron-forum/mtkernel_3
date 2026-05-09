@@ -21,6 +21,10 @@
 #ifndef __SYS_SYSDEF_DEPEND_CORE_H__
 #define __SYS_SYSDEF_DEPEND_CORE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Program status register (PSR)
  */
@@ -164,4 +168,8 @@
 
 /* ------------------------------------------------------------------------ */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEF_DEPEND_CORE_H__ */

@@ -25,6 +25,10 @@
  */
 #include "../core/rxv2/profile.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** CPU-depeneded profile (RX231)
  */
@@ -47,4 +51,8 @@
 
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_DEPEND_PROFILE_CPU_H__ */

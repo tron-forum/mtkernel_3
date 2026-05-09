@@ -20,6 +20,10 @@
 #ifndef __TK_SYSCALL_H__
 #define __TK_SYSCALL_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Task creation */
 #define TSK_SELF	0		/* Its own task specify */
 #define TPRI_INI	0		/* Specify priority at task startup */
@@ -821,4 +825,8 @@ IMPORT INT tk_evt_dev( ID devid, INT evttyp, void *evtinf );
 IMPORT ID tk_def_dev( CONST UB *devnm, CONST T_DDEV *pk_ddev, T_IDEV *pk_idev );
 IMPORT ER tk_ref_idv( T_IDEV *pk_idev );
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSCALL_H__ */

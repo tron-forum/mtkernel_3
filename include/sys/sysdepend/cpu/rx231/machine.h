@@ -26,6 +26,10 @@
 
 #include "../core/rxv2/machine.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** CPU-depeneded profile (RX231)
  */
@@ -33,4 +37,8 @@
 #define	TARGET_CPU_DIR		rx231		/* Sysdepend-CPU-Directory name */
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

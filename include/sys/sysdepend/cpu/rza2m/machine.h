@@ -26,6 +26,10 @@
 
 #include "../core/armv7a/machine.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** CPU-depeneded profile (RZ/A2M)
  */
@@ -33,4 +37,8 @@
 #define	TARGET_CPU_DIR		rza2m		/* Sysdepend-CPU-Directory name */
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

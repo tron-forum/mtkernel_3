@@ -23,6 +23,10 @@
 #include <sys/machine.h>
 #include <tk/typedef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 IMPORT void libtm_init(void);
 
@@ -36,4 +40,8 @@ IMPORT INT  tm_putstring( const UB *buff );
 IMPORT INT  tm_printf( const UB *format, ... );
 IMPORT INT  tm_sprintf( UB *str, const UB *format, ... );
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TM_TMONITOR_H__ */

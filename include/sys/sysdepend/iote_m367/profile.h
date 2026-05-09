@@ -25,6 +25,10 @@
  */
 #include "../cpu/tx03_m367/profile.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** Target-depeneded profile (M367 IoT-Engine)
  */
@@ -36,4 +40,8 @@
 
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_DEPEND_PROFILE_H__ */

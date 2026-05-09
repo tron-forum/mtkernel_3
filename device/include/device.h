@@ -33,7 +33,15 @@
 
 #if DEVCNF_USE_IIC		/* Use I2C communication device */
 #include "dev_i2c.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 #endif	/* DEVCNF_USE_IIC */
 
 #endif	/* USE_SDEV_DRV */
+
+#ifdef __cplusplus
+}
+#endif
 #endif	/* __DEVINC_DEVICE_H__ */

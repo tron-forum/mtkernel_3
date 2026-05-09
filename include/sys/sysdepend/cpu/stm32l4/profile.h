@@ -25,6 +25,10 @@
  */
 #include "../core/armv7m/profile.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** CPU-depeneded profile (STM32L4)
  */
@@ -46,4 +50,8 @@
 #endif
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_DEPEND_PROFILE_CPU_H__ */

@@ -20,6 +20,10 @@
 #ifndef	__TK_TYPEDEF_H__
 #define __TK_TYPEDEF_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef CHK_TKERNEL_CONST
 #define CONST	const
 #else
@@ -127,4 +131,8 @@ typedef D			SYSTIM_U;	/* System time (64bit) */
 
 /* ------------------------------------------------------------------------ */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_TYPEDEF_H__ */

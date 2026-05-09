@@ -20,6 +20,10 @@
 #ifndef	__DEVINC_I2C_H__
 #define	__DEVINC_I2C_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*----------------------------------------------------------------------*/
 /* Device driver initialization
  */
@@ -47,4 +51,8 @@ EXPORT ER i2c_read_reg(ID dd, UW sadr, UW radr, UB *data);
 EXPORT ER i2c_write_reg(ID dd, UW sadr, UW radr, UB data);
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif	/* __DEVINC_I2C_H__ */

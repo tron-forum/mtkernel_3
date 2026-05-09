@@ -25,4 +25,12 @@
 #define CPUDEF_SYSDEP()		CPUDEF_PATH(sysdepend/TARGET_DIR/cpudef.h)
 #include CPUDEF_SYSDEP()
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_CPUDEF_H__ */

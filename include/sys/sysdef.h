@@ -27,4 +27,12 @@
 #define SYSDEF_SYSDEP()		SYSDEF_PATH(sysdepend/TARGET_DIR/sysdef.h)
 #include SYSDEF_SYSDEP()
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEF_H__ */

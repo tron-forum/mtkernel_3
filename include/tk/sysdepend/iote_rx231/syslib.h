@@ -22,4 +22,12 @@
 
 #include "../cpu/rx231/syslib.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSLIB_DEPEND_H__ */

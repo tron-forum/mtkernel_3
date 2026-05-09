@@ -21,6 +21,10 @@
 
 #include <autoconf.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if USE_SDEV_DRV		/* Use Sample device driver */
 
 #if DEVCNF_USE_SER && DEV_SER_UNITNM	/* Use Serial communication device */
@@ -48,4 +52,8 @@
 #define DEV_IIC_ENABLE		0		// I2C communication device
 
 #endif	/* USE_SDEV_DRV */
+
+#ifdef __cplusplus
+}
+#endif
 #endif	/* __DEVINC_DEVICE_H__ */

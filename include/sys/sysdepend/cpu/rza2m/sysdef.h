@@ -25,6 +25,10 @@
 /* CPU Core-dependent definition */
 #include "../core/armv7a/sysdef.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * RAM Map (Internal Memorie 0x80020000 - 0x803FFFFF)
@@ -405,4 +409,8 @@
 #define NUM_COPROCESSOR		0
 #endif
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSDEF_DEPEND_CPU_H__ */

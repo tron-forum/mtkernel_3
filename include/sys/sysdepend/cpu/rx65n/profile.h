@@ -25,6 +25,10 @@
  */
 #include "../core/rxv2/profile.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** CPU-depeneded profile (RX65N)
  */
@@ -45,4 +49,8 @@
 #define TK_MAX_PTIMER		0		/* Maximum number of physical timers. */
 #endif
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_DEPEND_PROFILE_CPU_H__ */

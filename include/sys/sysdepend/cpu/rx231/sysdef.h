@@ -25,6 +25,10 @@
 /* CPU Core-dependent definition */
 #include "../core/rxv2/sysdef.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Internal Memorie (Main RAM)  0x00000000 - 0x0000FFFF (or 0x00007FFF)
@@ -369,4 +373,8 @@
 #endif
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSDEF_DEPEND_CPU_H__ */

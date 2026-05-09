@@ -33,6 +33,10 @@
 #define SYSLIB_SYSDEP()		SYSLIB_PATH(sysdepend/TARGET_DIR/syslib.h)
 #include SYSLIB_SYSDEP()
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /*----------------------------------------------------------------------*/
 /*
@@ -182,4 +186,8 @@ union objname {
 		for(i=0; i<4; i++) *d++ = *s++;			\
 	}
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSLIB_H__ */

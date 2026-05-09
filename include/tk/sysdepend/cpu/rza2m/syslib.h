@@ -22,6 +22,10 @@
 
 #include "../core/armv7a/syslib.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Interrupt Control
@@ -94,4 +98,8 @@ Inline void or_b( UW port, UB data)
 	*(_UB*)port |= data;
 }
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSLIB_DEPEND_H__ */

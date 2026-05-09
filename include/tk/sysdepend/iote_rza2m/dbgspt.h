@@ -22,4 +22,12 @@
 
 #include "../cpu/core/armv7a/dbgspt.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_DBGSPT_DEPEND_H__ */

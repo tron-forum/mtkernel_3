@@ -48,4 +48,12 @@ typedef enum {
 #define DEVDEF_SER_MODE_SYSDEP()	DEVDEF_SER_MODE_PATH(../ser/sysdepend/TARGET_CPU_DIR/ser_mode_sysdep.h)
 #include DEVDEF_SER_MODE_SYSDEP()
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
 #endif	/* __DEVINC_SER_H__ */

@@ -26,6 +26,10 @@
 
 #include "../core/armv7m/machine.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  **** CPU-depeneded profile (TX03-M367)
  */
@@ -33,4 +37,8 @@
 #define	TARGET_CPU_DIR		tx03_m367		/* Sysdepend-CPU-Directory name */
 
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEPEND_MACHINE_CPU_H__ */

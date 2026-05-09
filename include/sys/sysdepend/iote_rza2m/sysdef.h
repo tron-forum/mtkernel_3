@@ -25,6 +25,10 @@
 /* CPU-dependent definition */
 #include "../cpu/rza2m/sysdef.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Maximum value of Power-saving mode switching prohibition request.
@@ -32,4 +36,8 @@
  */
 #define LOWPOW_LIMIT	0x7fff		/* Maximum number for disabling */
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __TK_SYSDEF_DEPEND_H__ */

@@ -21,6 +21,10 @@
 #ifndef __SYS_SYSDEF_DEPEND_CORE_H__
 #define __SYS_SYSDEF_DEPEND_CORE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  * Program Status Register (PSR)
@@ -224,4 +228,8 @@
  */
 #define	INTHDR_DIS_FPU	1
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* __SYS_SYSDEF_DEPEND_CORE_H__ */
