@@ -1,0 +1,26 @@
+# Build artifacts
+build/
+venv/
+.venv/
+
+# Object files
+*.o
+*.d
+*.a
+
+# Binary outputs
+*.elf
+*.bin
+*.hex
+*.map
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+.DS_Store
