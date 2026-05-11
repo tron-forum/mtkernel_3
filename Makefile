@@ -17,11 +17,11 @@ export MTKERNEL_ROOT BUILD_DIR
 .DEFAULT_GOAL := all
 
 # ── Board config (toolchain, BOARD_DIR/CPU_DIR/CORE_DIR) ──────────────────────
-include $(MTKERNEL_ROOT)/config/$(BOARD).mk
+include $(MTKERNEL_ROOT)/make/$(BOARD).mk
 
 EXE_FILE ?= mtkernel_3
 TARGET   ?= $(shell echo $(BOARD) | tr '[:lower:]' '[:upper:]' | sed 's/^/_/;s/$$/_/')
-INCPATH  ?= -I"$(MTKERNEL_ROOT)/include" -I"$(MTKERNEL_ROOT)/config" -I"$(MTKERNEL_ROOT)/kernel/knlinc"
+INCPATH  ?= -I"$(MTKERNEL_ROOT)/include" -I"$(MTKERNEL_ROOT)/kernel/knlinc"
 
 export GCC AS LINK CFLAGS ASFLAGS LFLAGS TARGET INCPATH
 export BOARD_DIR CPU_DIR CORE_DIR

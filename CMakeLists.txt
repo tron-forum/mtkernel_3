@@ -55,7 +55,6 @@ add_compile_definitions(${BOARD_DEF})
 set(MTKERNEL_INCLUDE_DIRS
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/config
     ${CMAKE_CURRENT_SOURCE_DIR}/kernel/knlinc
 )
 

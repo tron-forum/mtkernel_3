@@ -1,2 +1,2 @@
 SRC_DIR := kernel/tkernel
-include $(MTKERNEL_ROOT)/config/rules.mk
+include $(MTKERNEL_ROOT)/make/rules.mk
