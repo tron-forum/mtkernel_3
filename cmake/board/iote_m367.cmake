@@ -3,7 +3,7 @@
 ################################################################################
 set(BOARD_DIR   iote_m367)
 set(CPU_DIR     tx03_m367)
-set(CORE_DIR    acm3)
+set(CORE_DIR    armv7m)
 set(BOARD_DEF   _IOTE_M367_)
 
 include(${CMAKE_CURRENT_LIST_DIR}/../arm-none-eabi.cmake)
