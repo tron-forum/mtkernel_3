@@ -166,8 +166,8 @@ EXPORT void* knl_Imalloc( SZ size )
 	   allocate the minimum size to it. */
 	if( size <= 0 ) {
 		return (void *)NULL;
-	} else 	if ( size < MIN_FRAGMENT ) {
-		size = MIN_FRAGMENT;
+	} else 	if ( size < (SZ)MIN_FRAGMENT ) {
+		size = (SZ)MIN_FRAGMENT;
 	} else {
 		size = ROUND(size);
 	}
@@ -188,7 +188,7 @@ EXPORT void* knl_Imalloc( SZ size )
 
 	/* If there are fragments smaller than the minimum fragment size,
 	   allocate them also */
-	if ( FreeSize(q) - size >= MIN_FRAGMENT + sizeof(QUEUE) ) {
+	if ( FreeSize(q) - size >= (SZ)(MIN_FRAGMENT + sizeof(QUEUE)) ) {
 
 		/* Divide area into 2 */
 		aq2 = (QUEUE*)((VB*)(aq + 1) + size);

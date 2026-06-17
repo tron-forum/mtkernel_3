@@ -256,7 +256,7 @@ SYSCALL ID tk_cre_mpl( CONST T_CMPL *pk_cmpl )
 	ER	ercd;
 
 	CHECK_RSATR(pk_cmpl->mplatr, VALID_MPLATR);
-	CHECK_PAR(pk_cmpl->mplsz > 0 && pk_cmpl->mplsz <= MAX_ALLOCATE);
+	CHECK_PAR(pk_cmpl->mplsz > 0 && pk_cmpl->mplsz <= (SZ)MAX_ALLOCATE);
 #if !USE_IMALLOC
 	/* TA_USERBUF must be specified if configured in no Imalloc */
 	CHECK_PAR((pk_cmpl->mplatr & TA_USERBUF) != 0);
@@ -414,7 +414,7 @@ SYSCALL ER tk_get_mpl( ID mplid, SZ blksz, void **p_blk, TMO tmout )
 	ER	ercd = E_OK;
 
 	CHECK_MPLID(mplid);
-	CHECK_PAR(blksz > 0 && blksz <= MAX_ALLOCATE);
+	CHECK_PAR(blksz > 0 && blksz <= (SZ)MAX_ALLOCATE);
 	CHECK_TMOUT(tmout);
 	CHECK_DISPATCH();
 
