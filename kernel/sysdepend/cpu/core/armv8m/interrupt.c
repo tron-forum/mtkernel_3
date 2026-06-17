@@ -24,7 +24,7 @@
 #include "cpu_status.h"
 
 /* HLL Interrupt Handler Table */
-LOCAL UW hllint_tbl[sizeof(UW)*N_INTVEC];
+LOCAL UW hllint_tbl[N_INTVEC];
 
 /* ------------------------------------------------------------------------ */
 /*
