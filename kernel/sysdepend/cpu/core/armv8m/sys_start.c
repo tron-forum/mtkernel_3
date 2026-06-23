@@ -27,7 +27,7 @@
 /*
  * Exception handler table (RAM)
  */
-EXPORT UW knl_exctbl[sizeof(UW)*(N_SYSVEC + N_INTVEC)]
+EXPORT UW knl_exctbl[N_SYSVEC + N_INTVEC]
 	__attribute__((section(".mtk_exctbl"))) __attribute__ ((aligned(EXCTBL_ALIGN)));
 
 EXPORT UW *knl_exctbl_o;	// Exception handler table (Origin)
