@@ -2,11 +2,11 @@
  *----------------------------------------------------------------------
  *    micro T-Kernel 3.00.08.B1
  *
- *    Copyright (C) 2006-2025 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2025/09.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/06.
  *
  *----------------------------------------------------------------------
  */
@@ -66,6 +66,17 @@ EXPORT void knl_start_mtkernel(void)
 	}
 	out_w(SCB_VTOR, (UW)knl_exctbl);
 #endif
+
+#if USE_CACHE && CPU_HAS_CACHE
+	if(knl_check_dcache()) {	// Clear D-cache if it is valid
+		knl_clean_dcache_adr(knl_exctbl, sizeof(knl_exctbl));
+	}
+	if(knl_check_icache()) {	// Clear I-cache if it is valid
+		knl_dsb();
+		knl_invalidate_icache();
+		knl_isb();
+	}
+#endif	/* USE_CACHE && CPU_HAS_CACHE */
 
 	/* Configure exception priorities */
 	reg = *(_UW*)SCB_AIRCR;
