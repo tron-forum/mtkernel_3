@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2022 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/10.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -37,6 +37,7 @@ SYSCALL ID tk_cre_tsk( CONST T_CTSK *pk_ctsk )
 #if USE_OBJECT_NAME
 		|TA_DSNAME
 #endif
+		|TA_EXTEND
 	};
 #endif
 	TCB	*tcb;
@@ -96,6 +97,15 @@ SYSCALL ID tk_cre_tsk( CONST T_CTSK *pk_ctsk )
 	tcb->isysmode = 1;
 	tcb->sysmode  = 1;
 
+#ifdef DEFINE_TSK_SYSDEPEND
+	ercd = knl_tcb_sysdep_cre(tcb, pk_ctsk);	// TCB system dependent initialization
+	if(ercd < E_OK) {
+		QueInsert(&tcb->tskque, &knl_free_tcb);
+		tcb->state = TS_NONEXIST;		
+		goto error_exit;
+	}
+#endif
+
 	/* make it to DORMANT state */
 	knl_make_dormant(tcb);
 
@@ -117,8 +127,17 @@ SYSCALL ID tk_cre_tsk( CONST T_CTSK *pk_ctsk )
  * Task deletion
  *	Call from critical section
  */
-LOCAL void knl_del_tsk( TCB *tcb )
+LOCAL ER knl_del_tsk( TCB *tcb )
 {
+	ER ercd = E_OK;
+
+#ifdef DEFINE_TSK_SYSDEPEND
+	ercd = knl_tcb_sysdep_del(tcb);	// TCB system dependent finalization
+	if ( ercd < E_OK ) {
+		return ercd;
+	}
+#endif
+
 #if USE_IMALLOC
 	if ( (tcb->tskatr & TA_USERBUF) == 0 ) {
 		/* User buffer is not used */
@@ -131,6 +150,8 @@ LOCAL void knl_del_tsk( TCB *tcb )
 	/* Return control block to FreeQue */
 	QueInsert(&tcb->tskque, &knl_free_tcb);
 	tcb->state = TS_NONEXIST;
+
+	return ercd;
 }
 
 #ifdef USE_FUNC_TK_DEL_TSK
@@ -153,7 +174,7 @@ SYSCALL ER tk_del_tsk( ID tskid )
 	if ( state != TS_DORMANT ) {
 		ercd = ( state == TS_NONEXIST )? E_NOEXS: E_OBJ;
 	} else {
-		knl_del_tsk(tcb);
+		ercd = knl_del_tsk(tcb);
 	}
 	END_CRITICAL_SECTION;
 
@@ -252,7 +273,7 @@ SYSCALL void tk_ext_tsk( void )
 
 #ifdef DORMANT_STACK_SIZE
 	/* Avoid WARNING (This code does not execute) */
-	_dummy[0] = _dummy[0];
+	_dummy[0] = _dummy[_dummy[0]];
 #endif
 }
 #endif /* USE_FUNC_TK_EXT_TSK */

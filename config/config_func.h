@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.01
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/05/29.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -124,6 +124,7 @@
 #define USE_FUNC_TK_SET_TIM
 #define USE_FUNC_TK_GET_TIM
 #define USE_FUNC_TK_GET_OTM
+#define USE_FUNC_TD_GET_UTC
 #define USE_FUNC_TD_GET_TIM
 #define USE_FUNC_TD_GET_OTM
 

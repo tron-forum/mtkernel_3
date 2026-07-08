@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07
  *
  *----------------------------------------------------------------------
  */
@@ -47,7 +47,7 @@ EXPORT void knl_hll_inthdr(void)
 	intno	= knl_get_ipsr() - 16;
 	inthdr	= knl_inthdr_tbl[intno];
 
-	(*inthdr)(intno);
+	(*(void(*)(UW))inthdr)(intno);
 
 	LEAVE_TASK_INDEPENDENT;
 }

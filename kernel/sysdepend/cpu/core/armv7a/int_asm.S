@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -29,7 +29,8 @@
  * High level programming language routine for interrupt handler
  *	Called by interrupt entry routine.
  *
- *	input :   r0 : Vector number
+ *	input :	r0 : Vector number
+ *		r1 : GIC IAR
  *      stack image
  *       Low Address +---------------+
  *             sp -> | R0            |
@@ -58,20 +59,20 @@ Csym(knl_hll_inthdr):
 	cmp	r2, #1				// 1st interrupt ?
 	bne	not_1st_hllint			//	no => jump
 
-	mov	r2, sp				// r2 <- task SP
+	mov	r3, sp				// r3 <- task SP
 	ldr	sp, =__irq_stack_start		// switch to handler stack 
 
 #if USE_FPU & INTHDR_DIS_FPU
-	fmrx	r1, fpexc			// r1: fpexc
-	bic	ip, r1, #0x40000000		// disable VFP
+	fmrx	r2, fpexc			// r2: fpexc
+	bic	ip, r2, #0x40000000		// disable VFP
 	fmxr	fpexc, ip
 #endif /* USE_FPU */
 
-	push	{r1, r2}			// save fpexc & task SP
+	push	{r2, r3}			// save fpexc & task SP
 
-not_1st_hllint:					// call knl_hll_inthdr_tbl[n](intno)
+not_1st_hllint:					// call knl_hll_inthdr_tbl[n](intno, gic_iar)
 	ldr	ip, =Csym(knl_hll_inthdr_tbl)
-	ldr	ip, [ip, r3, lsl #2]
+	ldr	ip, [ip, r0, lsl #2]
 	blx	ip
 
 	b	Csym(knl_return_inthdr)
@@ -95,11 +96,11 @@ Csym(knl_return_inthdr):
 	cmp	r2, #0				// 1st interrupt ?
 	bne	return_inthdr_end		//	no => jump
 
-	pop	{r1, r2}
-	mov	sp, r2				// restore task SP
+	pop	{r2, r3}
+	mov	sp, r3				// restore task SP
 
 #if USE_FPU & INTHDR_DIS_FPU
-	fmxr	fpexc, r1			// restore fpexc
+	fmxr	fpexc, r2			// restore fpexc
 #endif /* USE_FPU */
 
 	// Dispatch disabled?

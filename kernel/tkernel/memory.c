@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21 .
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07 .
  *
  *----------------------------------------------------------------------
  */
@@ -166,8 +166,8 @@ EXPORT void* knl_Imalloc( SZ size )
 	   allocate the minimum size to it. */
 	if( size <= 0 ) {
 		return (void *)NULL;
-	} else 	if ( size < MIN_FRAGMENT ) {
-		size = MIN_FRAGMENT;
+	} else 	if ( size < (SZ)MIN_FRAGMENT ) {
+		size = (SZ)MIN_FRAGMENT;
 	} else {
 		size = ROUND(size);
 	}
@@ -188,7 +188,7 @@ EXPORT void* knl_Imalloc( SZ size )
 
 	/* If there are fragments smaller than the minimum fragment size,
 	   allocate them also */
-	if ( FreeSize(q) - size >= MIN_FRAGMENT + sizeof(QUEUE) ) {
+	if ( FreeSize(q) - size >= (SZ)(MIN_FRAGMENT + sizeof(QUEUE)) ) {
 
 		/* Divide area into 2 */
 		aq2 = (QUEUE*)((VB*)(aq + 1) + size);

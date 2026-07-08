@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.00
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2019 by Ken Sakamura.
- *    This software is distributed under the T-License 2.1.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
+ *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2019/12/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -256,7 +256,7 @@ SYSCALL ID tk_cre_mpl( CONST T_CMPL *pk_cmpl )
 	ER	ercd;
 
 	CHECK_RSATR(pk_cmpl->mplatr, VALID_MPLATR);
-	CHECK_PAR(pk_cmpl->mplsz > 0 && pk_cmpl->mplsz <= MAX_ALLOCATE);
+	CHECK_PAR(pk_cmpl->mplsz > 0 && pk_cmpl->mplsz <= (SZ)MAX_ALLOCATE);
 #if !USE_IMALLOC
 	/* TA_USERBUF must be specified if configured in no Imalloc */
 	CHECK_PAR((pk_cmpl->mplatr & TA_USERBUF) != 0);
@@ -414,7 +414,7 @@ SYSCALL ER tk_get_mpl( ID mplid, SZ blksz, void **p_blk, TMO tmout )
 	ER	ercd = E_OK;
 
 	CHECK_MPLID(mplid);
-	CHECK_PAR(blksz > 0 && blksz <= MAX_ALLOCATE);
+	CHECK_PAR(blksz > 0 && blksz <= (SZ)MAX_ALLOCATE);
 	CHECK_TMOUT(tmout);
 	CHECK_DISPATCH();
 

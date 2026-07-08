@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.07.B0
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2023 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2023/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -16,9 +16,12 @@
  *
  *	micro T-Kernel System Calls
  */
-
 #ifndef __TK_SYSCALL_H__
 #define __TK_SYSCALL_H__
+
+#ifdef CPU_CORE_ARMV8M
+#include "sysdepend/cpu/core/armv8m/syscall.h"
+#endif
 
 /* Task creation */
 #define TSK_SELF	0		/* Its own task specify */
@@ -29,6 +32,7 @@
 #define TA_HLNG		0x00000001UL	/* Program by high level programming language */
 #define TA_USERBUF	0x00000020UL	/* Specify user buffer */
 #define TA_DSNAME	0x00000040UL	/* Use object name */
+#define TA_EXTEND	0xFFFF0000UL	/* Extended attributes */
 
 #define TA_RNG0		0x00000000UL	/* Execute by protection level 0 */
 #define TA_RNG1		0x00000100UL	/* Execute by protection level 1 */
@@ -172,6 +176,11 @@ typedef struct t_ctsk {
 	FP	task;		/* Task startup address */
 	PRI	itskpri;	/* Priority at task startup */
 	SZ	stksz;		/* User stack size (byte) */
+
+#ifdef CTSK_SYSDEPEND_INFO
+	CTSK_SYSDEPEND_INFO
+#endif
+
 #if USE_OBJECT_NAME
 	UB	dsname[OBJECT_NAME_LENGTH];	/* Object name */
 #endif

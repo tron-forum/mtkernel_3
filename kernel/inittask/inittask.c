@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.02
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2020/10/21.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07
  *
  *----------------------------------------------------------------------
  */
@@ -34,15 +34,20 @@ typedef INT	(*MAIN_FP)(INT, UB **);
 LOCAL void init_task_main(void);
 
 EXPORT const T_CTSK knl_init_ctsk = {
-	(void *)INITTASK_EXINF,		/* exinf */
-	INITTASK_TSKATR,		/* tskatr */
-	(FP)&init_task_main,		/* task */
-	INITTASK_ITSKPRI,		/* itskpri */
-	INITTASK_STKSZ,			/* stksz */
-#if USE_OBJECT_NAME
-	INITTASK_DSNAME,		/* dsname */
+	.exinf		= (void *)INITTASK_EXINF,
+	.tskatr		= (ATR)INITTASK_TSKATR,
+	.task		= (FP)&init_task_main,
+	.itskpri	= (PRI)INITTASK_ITSKPRI,
+	.stksz		= (SZ)INITTASK_STKSZ,
+
+#if TRUSTZONE_SCALL
+	.tzstksz	= (SZ)INITTASK_STKSZ_SEC,
 #endif
-	INITTASK_STACK,			/* bufptr */
+
+#if USE_OBJECT_NAME
+	.dsname		= INITTASK_DSNAME,
+#endif
+	.bufptr		= (void*)INITTASK_STACK,
 };
 
 /* --------------------------------------------------------------- */

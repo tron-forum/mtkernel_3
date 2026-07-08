@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.07.B0
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2023 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2023/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -29,7 +29,16 @@
 
 #include "tstdlib.h"
 
+/*
+ * Task control block (TCB)
+ */
 typedef struct task_control_block	TCB;
+
+/* Task System Dependent definition
+	There is no definition for this in the standard.
+	It is redefined in the system-dependent section as necessary.
+*/
+#define TCB_SYSDEPEND_INFO		/* None */
 
 #include "../tkernel/timer.h"
 #include "../tkernel/winfo.h"
@@ -42,9 +51,9 @@ typedef struct task_control_block	TCB;
 #define SYSCALL		EXPORT		/* Definition of system call */
 
 /* User defined handler ( Sub-system calls, time-event handler ) */
-# define CallUserHandlerP1(   p1,         hdr, cb)	(*(hdr))(p1)
-# define CallUserHandlerP2(   p1, p2,     hdr, cb)	(*(hdr))(p1, p2)
-# define CallUserHandlerP3(   p1, p2, p3, hdr, cb)	(*(hdr))(p1, p2, p3)
+# define CallUserHandlerP1(   p1,         hdr, cb)	(*(void(*)(UW))(hdr))((UW)(p1))
+# define CallUserHandlerP2(   p1, p2,     hdr, cb)	(*(void(*)(UW,UW))(hdr))((UW)(p1), (UW)(p2))
+# define CallUserHandlerP3(   p1, p2, p3, hdr, cb)	(*(void(*)(UW,UW,UW))(hdr))((UW)(p1), (UW)(p2), (UW)(p3))
 
 /*
  * Task control block (TCB)
@@ -95,8 +104,10 @@ struct task_control_block {
 #if USE_OBJECT_NAME
 	UB	name[OBJECT_NAME_LENGTH];	/* name */
 #endif
-};
 
+/* TCB System Dependent definition */
+	TCB_SYSDEPEND_INFO
+};
 
 /*
  * Task dispatch disable state
@@ -252,11 +263,11 @@ IMPORT ER knl_finish_device( void );
 /*
  * micro T-Kernel Startup / Finalization (sysinit.c)
  */
-#ifndef ADD_PREFIX_KNL_TO_GLOBAL_NAME
+#if !ADD_PREFIX_MAIN_FUNC
 IMPORT INT main(void);
 #else
 IMPORT INT knl_main(void);
-#endif	/* ADD_PREFIX_KNL_TO_GLOBAL_NAME */
+#endif	/* ADD_PREFIX_MAIN_FUNC */
 
 IMPORT void knl_tkernel_exit( void );
 

@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -20,6 +20,13 @@
 #define _SYSDEPEND_CPU_CORE_SYSTIMER_
 
 /*
+ * Clock Source (default)
+ */
+#ifndef SYST_CLK_SRC
+#define SYST_CLK_SRC	0x00000004
+#endif
+
+/*
  * Timer start processing
  *	Initialize the timer and start the periodical timer interrupt.
  */
@@ -30,14 +37,14 @@ Inline void knl_start_hw_timer( void )
 	DI(imask);
 
 	/* Set System timer CLK source to Core, Systick exception enable */
-	out_w(SYST_CSR, 0x00000006);
+	out_w(SYST_CSR, (0x00000002 | SYST_CLK_SRC));
 
 	/* Set counter: TMCLK(MHz) */
 	n = (UINT)(TIMER_PERIOD * TMCLK_KHz - 1);
 	out_w(SYST_RVR, n);
 
 	/* Start timer count */
-	out_w(SYST_CSR, 0x00000007);
+	out_w(SYST_CSR, (0x00000003 | SYST_CLK_SRC));
 
 	EI(imask);
 }

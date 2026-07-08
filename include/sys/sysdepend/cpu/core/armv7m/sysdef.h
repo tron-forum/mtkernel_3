@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.07.B0
+ *    micro T-Kernel 3.00.08
  *
- *    Copyright (C) 2006-2023 by Ken Sakamura.
+ *    Copyright (C) 2006-2026 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2023/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2026/07.
  *
  *----------------------------------------------------------------------
  */
@@ -97,7 +97,7 @@
  *   SHRP2    SVCall    (Rev)     (Rev)     (Rev)
  *   SHPR3    SysTick   PendSV    (Rsv)     DebugMon-
  */
-#define	SCB_SHPR2_VAL	((INTPRI_VAL(INTPRI_SVC)<<23))
+#define	SCB_SHPR2_VAL	((INTPRI_VAL(INTPRI_SVC)<<24))
 #define SCB_SHPR3_VAL	((INTPRI_VAL(INTPRI_SYSTICK)<<24)|(INTPRI_VAL(INTPRI_PENDSV)<<16))
 
 /*
