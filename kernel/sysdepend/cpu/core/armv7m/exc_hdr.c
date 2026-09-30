@@ -60,7 +60,7 @@ WEAK_FUNC EXPORT void HardFault_Handler(void)
 		cfsr = *(_UW*)SCB_CFSR;
 		tm_printf((UB*)"*** Hard fault ***  ctxtsk:%d  HFSR:%x  CFSR:%x\n", ctskid, hfsr, cfsr);
 	} else {
-		tm_printf((UB*)"*** Hard fault ***  ctxtsk:%d  HFSR:%x%x\n", ctskid, hfsr);
+		tm_printf((UB*)"*** Hard fault ***  ctxtsk:%d  HFSR:%x\n", ctskid, hfsr);
 	}
 #endif
 	while(1);
